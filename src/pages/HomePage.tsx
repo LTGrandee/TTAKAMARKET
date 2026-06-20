@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Shield, ArrowRight, Search, SlidersHorizontal, Home, Key, Tag, Building2, BedDouble, Bath, Square, MapPin, Heart, Handshake, Headphones, Users, TreePine } from 'lucide-react';
+import { Shield, CheckCircle, MessageSquare, ArrowRight, Star, Search, SlidersHorizontal, Home, Key, Tag, Building2, BedDouble, Bath, Square, MapPin, Heart, Handshake, Headphones, Users, TreePine, AlertTriangle, TrendingUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { supabase } from '../lib/supabase';
 import type { Property } from '../lib/supabase';
@@ -268,7 +268,7 @@ export function HomePage() {
       </section>
 
       {/* ── TRUST STRIP ── */}
-      <section className="bg-primary-600 px-4 py-8 mb-0">
+      <section className="bg-primary-600 px-4 py-8">
         <div className="grid grid-cols-2 gap-5 max-w-4xl mx-auto">
           {trustPoints.map(({ Icon, title, desc }) => (
             <div key={title} className="flex items-start gap-3">
@@ -281,6 +281,148 @@ export function HomePage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* ── THE PROBLEM ── */}
+      <section className="px-4 py-10 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <span className="inline-block bg-error-100 text-error-700 text-xs font-bold px-3 py-1 rounded-full mb-3">The Problem</span>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Property Fraud is a Major Issue in Africa</h2>
+            <p className="text-sm text-gray-500 max-w-md mx-auto">Every day, thousands of people lose money through fake listings, fraudulent brokers, and ownership disputes.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { Icon: AlertTriangle, title: 'Fake Listings', desc: "Fraudulent properties that don't exist" },
+              { Icon: Users, title: 'Fake Brokers', desc: 'Impersonators claiming to represent owners' },
+              { Icon: TrendingUp, title: 'Hidden Costs', desc: 'Inflated commissions and surprise fees' },
+              { Icon: Shield, title: 'Ownership Disputes', desc: 'Properties with unclear ownership' },
+            ].map(({ Icon, title, desc }) => (
+              <div key={title} className="bg-white rounded-xl p-4 border border-error-100 shadow-sm">
+                <div className="w-10 h-10 bg-error-50 rounded-xl flex items-center justify-center mb-3">
+                  <Icon className="h-5 w-5 text-error-500" />
+                </div>
+                <h3 className="font-semibold text-gray-900 text-sm mb-1">{title}</h3>
+                <p className="text-xs text-gray-500">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── HOW IT WORKS ── */}
+      <section className="px-4 py-10 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-primary-600 mb-2">How TtakaMarket Works</h2>
+            <p className="text-sm text-gray-500">A simple, transparent process for safe property transactions</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { num: '01', title: 'Owner Registration', desc: 'Property owners create an account and submit verification documents.', Icon: Users },
+              { num: '02', title: 'Verification', desc: 'We verify ownership documents, national ID, and property details.', Icon: Shield },
+              { num: '03', title: 'Publication', desc: 'Verified properties are listed with the trusted verification badge.', Icon: CheckCircle },
+              { num: '04', title: 'Direct Connection', desc: 'Buyers connect directly with verified property owners. No middlemen.', Icon: MessageSquare },
+            ].map(({ num, title, desc, Icon }) => (
+              <div key={num} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <div className="w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center mb-3">
+                  <Icon className="h-5 w-5 text-white" />
+                </div>
+                <span className="text-3xl font-black text-gray-100 leading-none">{num}</span>
+                <h3 className="font-bold text-primary-600 text-sm mt-1 mb-1">{title}</h3>
+                <p className="text-xs text-gray-500 leading-snug">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── OUR SOLUTION ── */}
+      <section className="px-4 py-10 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <span className="inline-block bg-success-100 text-success-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Our Solution</span>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Verification First. Trust Always.</h2>
+            <p className="text-sm text-gray-500 max-w-md mx-auto">Before any property is listed, we verify both the owner and the ownership documents.</p>
+          </div>
+          <div className="grid grid-cols-1 gap-4 mb-6">
+            {[
+              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Verified Owners', desc: 'Every property owner is verified using government ID and ownership documents before they can list on our platform.' },
+              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: Shield, title: 'Verified Properties', desc: 'Land titles, survey plans, and ownership certificates are verified by our team before publication.' },
+              { color: 'bg-accent-50 border-accent-100', iconBg: 'bg-accent-500', Icon: MessageSquare, title: 'Direct Communication', desc: 'Connect directly with verified property owners. No middlemen. No hidden fees. Transparent transactions.' },
+            ].map(({ color, iconBg, Icon, title, desc }) => (
+              <div key={title} className={`flex gap-4 p-4 rounded-xl border ${color}`}>
+                <div className={`w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>
+                  <Icon className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-1">{title}</h3>
+                  <p className="text-sm text-gray-600 leading-snug">{desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="bg-primary-600 rounded-2xl p-6 text-center">
+            <h3 className="text-lg font-bold text-white mb-2">Our Promise</h3>
+            <p className="text-sm text-primary-200 mb-4">Verify the Owner. Verify the Property. Build Trust.</p>
+            <div className="flex flex-wrap items-center justify-center gap-4 text-primary-200">
+              {['No fake listings', 'No fraudulent brokers', 'No hidden costs'].map(t => (
+                <div key={t} className="flex items-center gap-1.5 text-xs"><CheckCircle className="h-4 w-4 text-primary-300" />{t}</div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TESTIMONIALS ── */}
+      <section className="px-4 py-10 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-primary-600 mb-2">Trusted by Thousands</h2>
+            <p className="text-sm text-gray-500">See what our users say about TtakaMarket</p>
+          </div>
+          <div className="flex gap-4 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible">
+            {[
+              { name: 'John K.', city: 'Kampala', initials: 'JK', review: '"I had been looking for land for years but was afraid of fraud. TtakaMarket gave me the confidence to finally make a purchase."' },
+              { name: 'Sarah M.', city: 'Entebbe', initials: 'SM', review: '"As a property owner, I was tired of dealing with fake brokers. Now I connect directly with genuine buyers."' },
+              { name: 'Peter O.', city: 'Jinja', initials: 'PO', review: '"I found my office space in just 2 weeks. The owner was verified, the paperwork was legit. Highly recommended!"' },
+            ].map((t) => (
+              <div key={t.name} className="flex-shrink-0 w-72 sm:w-auto bg-gray-50 rounded-2xl p-5 border border-gray-100">
+                <div className="flex items-center gap-0.5 text-accent-500 mb-3">
+                  {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+                </div>
+                <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t.review}</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 bg-primary-100 rounded-full flex items-center justify-center text-primary-700 font-bold text-xs">{t.initials}</div>
+                  <div>
+                    <p className="font-semibold text-gray-900 text-sm">{t.name}</p>
+                    <p className="text-xs text-gray-400">{t.city}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA ── */}
+      <section className="bg-primary-600 px-4 py-12">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl font-bold text-white mb-3">Ready to Find Your Perfect Property?</h2>
+          <p className="text-sm text-primary-200 mb-6">Join thousands of verified property owners, buyers, and tenants who trust TtakaMarket.</p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link to="/register">
+              <button className="w-full sm:w-auto bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-3 rounded-lg transition-colors shadow-lg text-sm">
+                Get Started Free
+              </button>
+            </Link>
+            <Link to="/properties">
+              <button className="w-full sm:w-auto border border-white/60 hover:border-white text-white font-semibold px-8 py-3 rounded-lg transition-colors text-sm">
+                Browse Properties
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
 
