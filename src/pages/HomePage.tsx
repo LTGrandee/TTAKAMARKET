@@ -125,27 +125,26 @@ export function HomePage() {
     <div className="bg-gray-50">
 
       {/* ── HERO ── */}
-      <section className="relative h-72 md:h-96">
+      <section className="relative h-64 sm:h-72 md:h-96">
         <img src={HERO_IMG} alt="Luxury property" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-primary-900/72" />
-        <div className="relative h-full flex flex-col justify-center px-5 md:px-10 max-w-4xl">
-          <div className="inline-flex items-center gap-2 bg-accent-500/25 border border-accent-400/50 rounded-full px-3 py-1 mb-4 w-fit">
+        <div className="relative h-full flex flex-col justify-center px-4 sm:px-5 md:px-10 max-w-4xl">
+          <div className="inline-flex items-center gap-2 bg-accent-500/25 border border-accent-400/50 rounded-full px-3 py-1 mb-3 w-fit">
             <Shield className="h-3.5 w-3.5 text-accent-400" />
-            <span className="text-xs font-semibold text-accent-300">Verified Owners. Direct Deals. No Middlemen.</span>
+            <span className="text-xs font-semibold text-accent-300">Verified Owners. Direct Deals.</span>
           </div>
-          <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-2">
-            Africa's Trusted Property<br />
-            <span className="text-accent-500">Marketplace</span>
+          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white leading-tight mb-2">
+            Africa's Trusted<br className="sm:hidden" /> Property <span className="text-accent-500">Marketplace</span>
           </h1>
-          <p className="text-sm md:text-base text-white/75 mb-6">Buy, sell, or rent properties with confidence.</p>
-          <div className="flex flex-wrap gap-3">
+          <p className="text-sm md:text-base text-white/75 mb-4">Buy, sell, or rent properties with confidence.</p>
+          <div className="flex flex-wrap gap-2 sm:gap-3">
             <Link to="/properties">
-              <button className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors shadow-lg">
+              <button className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-semibold text-sm px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg transition-colors shadow-lg">
                 Browse Properties <ArrowRight className="h-4 w-4" />
               </button>
             </Link>
             <Link to="/register?type=owner">
-              <button className="inline-flex items-center gap-2 border border-white/60 hover:border-white text-white font-semibold text-sm px-5 py-2.5 rounded-lg transition-colors">
+              <button className="inline-flex items-center gap-2 border border-white/60 hover:border-white text-white font-semibold text-sm px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg transition-colors">
                 <Home className="h-4 w-4" /> List Property
               </button>
             </Link>
@@ -154,7 +153,7 @@ export function HomePage() {
       </section>
 
       {/* ── SEARCH CARD ── */}
-      <div className="px-4 -mt-6 relative z-10 mb-6">
+      <div className="px-4 -mt-4 sm:-mt-6 relative z-10 mb-6">
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-4">
           {/* Tabs */}
           <div className="flex gap-4 border-b border-gray-100 mb-4">

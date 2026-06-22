@@ -203,9 +203,9 @@ export function Header() {
             <div className="flex items-center gap-2">
               {user ? (
                 <>
-                  {/* Desktop: List + bell + avatar */}
-                  <Link to="/properties/new" className="hidden md:inline-flex items-center gap-1.5 bg-accent-500 hover:bg-accent-600 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
-                    <Plus className="h-4 w-4" /> List Property
+                  {/* List Property button - visible on mobile too */}
+                  <Link to="/properties/new" className="flex items-center gap-1.5 bg-accent-500 hover:bg-accent-600 text-white text-sm font-semibold px-3 py-1.5 md:px-4 md:py-2 rounded-lg transition-colors">
+                    <Plus className="h-4 w-4" /> <span className="hidden sm:inline">List Property</span>
                   </Link>
                   <button className="hidden md:flex relative p-2 text-gray-400 hover:text-primary-600 hover:bg-gray-50 rounded-lg">
                     <Bell className="h-5 w-5" />
@@ -218,10 +218,16 @@ export function Header() {
                   </Link>
                 </>
               ) : (
-                <div className="hidden md:flex items-center gap-2">
-                  <Link to="/login"><button className="text-sm font-medium text-gray-600 hover:text-primary-600 px-3 py-2 rounded-lg hover:bg-gray-50 transition-colors">Sign In</button></Link>
-                  <Link to="/register"><button className="text-sm font-semibold bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg transition-colors">Get Started</button></Link>
-                </div>
+                <>
+                  {/* Sign In - visible on mobile */}
+                  <Link to="/login" className="text-sm font-medium text-charcoal hover:text-primary-600 px-2 py-1.5 md:px-3 md:py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                    Sign In
+                  </Link>
+                  {/* Get Started - visible on mobile */}
+                  <Link to="/register" className="text-sm font-semibold bg-primary-600 hover:bg-primary-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg transition-colors">
+                    Get Started
+                  </Link>
+                </>
               )}
 
               {/* Hamburger — always visible */}
