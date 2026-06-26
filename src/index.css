@@ -3,29 +3,29 @@
 @theme {
   --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* Navy Blue – Primary */
-  --color-primary-50: #e8eef5;
-  --color-primary-100: #c5d3e8;
-  --color-primary-200: #9fb5d7;
-  --color-primary-300: #7297c6;
-  --color-primary-400: #4a79b5;
-  --color-primary-500: #1c5ba4;
-  --color-primary-600: #0a2e5d;
-  --color-primary-700: #08234a;
-  --color-primary-800: #061836;
-  --color-primary-900: #030d21;
+  /* Logo Navy – Primary */
+  --color-primary-50: #eef4fb;
+  --color-primary-100: #d8e6f5;
+  --color-primary-200: #b6cfe9;
+  --color-primary-300: #87abd7;
+  --color-primary-400: #557fb8;
+  --color-primary-500: #2e3c5d;
+  --color-primary-600: #062351;
+  --color-primary-700: #051d43;
+  --color-primary-800: #041735;
+  --color-primary-900: #031127;
 
-  /* Vivid Orange – Accent */
-  --color-accent-50: #fff3e8;
-  --color-accent-100: #ffe0c2;
-  --color-accent-200: #ffcc9e;
-  --color-accent-300: #ffb36b;
-  --color-accent-400: #ff9133;
-  --color-accent-500: #ff6a00;
-  --color-accent-600: #e05e00;
-  --color-accent-700: #b84c00;
-  --color-accent-800: #903c00;
-  --color-accent-900: #682b00;
+  /* Logo Orange – Accent */
+  --color-accent-50: #fff4ed;
+  --color-accent-100: #ffe4d2;
+  --color-accent-200: #ffc49f;
+  --color-accent-300: #f29353;
+  --color-accent-400: #f77d2f;
+  --color-accent-500: #f6630b;
+  --color-accent-600: #d94f06;
+  --color-accent-700: #b43c08;
+  --color-accent-800: #91310f;
+  --color-accent-900: #752b10;
 
   /* Success */
   --color-success-50: #f0fdf4;
@@ -65,7 +65,7 @@
 
   /* Neutral */
   --color-white: #ffffff;
-  --color-charcoal: #222222;
+  --color-charcoal: #062351;
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
