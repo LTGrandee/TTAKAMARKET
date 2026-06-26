@@ -7,7 +7,7 @@ import {
   Calculator, Tag, BookOpen, Globe, HelpCircle, Phone,
   Target, Info, Lock, FileText, Bell as BellIcon,
   BarChart2, Handshake, CheckCircle, AlertCircle,
-  Key, DollarSign, Award
+  Key, DollarSign
 } from 'lucide-react';
 import { Avatar } from '../ui';
 import { cn } from '../../lib/utils';
@@ -100,8 +100,11 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
         {/* Drawer Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-primary-600">
           <div className="flex items-center gap-2">
-            <Building2 className="h-5 w-5 text-white" />
-            <span className="text-base font-bold text-white">Ttaka<span className="text-accent-400">Market</span></span>
+            <img
+              src="/ttakamarket-logo.jpeg"
+              alt="TtakaMarket"
+              className="h-9 w-auto rounded-md bg-white object-contain px-1"
+            />
           </div>
           <button onClick={onClose} className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors">
             <X className="h-5 w-5" />
@@ -170,10 +173,11 @@ export function Header() {
           <div className="flex items-center justify-between h-14">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <Building2 className="h-4 w-4 text-white" />
-              </div>
-              <span className="text-lg font-bold text-primary-600">Ttaka<span className="text-accent-500">Market</span></span>
+              <img
+                src="/ttakamarket-logo.jpeg"
+                alt="TtakaMarket"
+                className="h-10 w-auto object-contain"
+              />
             </Link>
 
             {/* Desktop Nav */}

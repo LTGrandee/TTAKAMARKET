@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Building2, Mail, Lock, Eye, EyeOff, ArrowLeft, User, Phone, Building, Shield, CheckCircle } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, User, Phone, Building, Shield, CheckCircle } from 'lucide-react';
 import { Button, Input, Card } from '../../components/ui';
 import { useAuth } from '../../context';
 
@@ -35,7 +35,9 @@ export function LoginPage() {
         <div className="w-full max-w-md">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-8"><ArrowLeft className="h-4 w-4" />Back to Home</Link>
           <div className="mb-8">
-            <Link to="/" className="flex items-center gap-2 mb-6"><div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center"><Building2 className="h-6 w-6 text-white" /></div><span className="text-2xl font-bold text-gray-900">Ttaka<span className="text-primary-600">Market</span></span></Link>
+            <Link to="/" className="flex items-center mb-6">
+              <img src="/ttakamarket-logo.jpeg" alt="TtakaMarket" className="h-14 w-auto object-contain" />
+            </Link>
             <h1 className="text-3xl font-bold text-gray-900">Welcome back</h1>
             <p className="mt-2 text-gray-600">Sign in to continue your property search</p>
           </div>
@@ -57,7 +59,9 @@ export function LoginPage() {
       </div>
       <div className="hidden lg:block relative flex-1 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900">
         <div className="relative h-full flex flex-col items-center justify-center px-20 text-white">
-          <div className="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center mb-8 backdrop-blur-sm"><Building2 className="h-10 w-10" /></div>
+          <div className="bg-white rounded-2xl px-4 py-3 mb-8 shadow-xl">
+            <img src="/ttakamarket-logo.jpeg" alt="TtakaMarket" className="h-20 w-auto object-contain" />
+          </div>
           <h2 className="text-3xl font-bold mb-4 text-center">Africa's Trusted Property Marketplace</h2>
           <p className="text-lg text-primary-100 text-center max-w-md">Connect with verified property owners for safe, transparent transactions.</p>
           <div className="mt-8 grid grid-cols-2 gap-6 text-center"><div><div className="text-3xl font-bold">5,000+</div><div className="text-sm text-primary-200">Verified Properties</div></div><div><div className="text-3xl font-bold">2,500+</div><div className="text-sm text-primary-200">Verified Owners</div></div></div>
@@ -101,7 +105,9 @@ export function RegisterPage() {
         <div className="w-full max-w-md">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-8"><ArrowLeft className="h-4 w-4" />Back to Home</Link>
           <div className="mb-8">
-            <Link to="/" className="flex items-center gap-2 mb-6"><div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center"><Building2 className="h-6 w-6 text-white" /></div><span className="text-2xl font-bold text-gray-900">Ttaka<span className="text-primary-600">Market</span></span></Link>
+            <Link to="/" className="flex items-center mb-6">
+              <img src="/ttakamarket-logo.jpeg" alt="TtakaMarket" className="h-14 w-auto object-contain" />
+            </Link>
             <h1 className="text-3xl font-bold text-gray-900">Create Your Account</h1>
             <p className="mt-2 text-gray-600">Join Africa's trusted property marketplace</p>
           </div>
