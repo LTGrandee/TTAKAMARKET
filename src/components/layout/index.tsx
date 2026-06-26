@@ -12,6 +12,13 @@ import {
 import { Avatar } from '../ui';
 import { cn } from '../../lib/utils';
 
+const primaryNavItems = [
+  { name: 'Home', href: '/', Icon: Home },
+  { name: 'Properties', href: '/properties', Icon: Building2 },
+  { name: 'Saved', href: '/saved', Icon: Heart },
+  { name: 'Messages', href: '/messages', Icon: MessageSquare },
+];
+
 /* ─── Sidebar sections ─── */
 const sidebarSections = [
   {
@@ -182,12 +189,7 @@ export function Header() {
 
             {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-1">
-              {[
-                { name: 'Home', href: '/', Icon: Home },
-                { name: 'Properties', href: '/properties', Icon: Building2 },
-                { name: 'Saved', href: '/saved', Icon: Heart },
-                { name: 'Messages', href: '/messages', Icon: MessageSquare },
-              ].map(({ name, href, Icon }) => (
+              {primaryNavItems.map(({ name, href, Icon }) => (
                 <Link
                   key={name}
                   to={href}
@@ -234,11 +236,11 @@ export function Header() {
                 </>
               )}
 
-              {/* Hamburger — always visible */}
+              {/* Secondary menu */}
               <button
                 onClick={() => setDrawerOpen(true)}
                 className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors"
-                aria-label="Open menu"
+                aria-label="Open tools and resources menu"
               >
                 <Menu className="h-5 w-5" />
               </button>
@@ -267,21 +269,25 @@ export function BottomNav() {
     href === '/' ? location.pathname === '/' : location.pathname.startsWith(href);
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200">
-      <div className="flex items-stretch h-16 max-w-lg mx-auto">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200/80 bg-white/95 shadow-[0_-12px_30px_rgba(6,35,81,0.08)] backdrop-blur md:hidden">
+      <div className="mx-auto grid h-16 max-w-lg grid-cols-5 px-1">
         {bottomNavItems.map(({ label, href, Icon }) => {
           const active = isActive(href);
           return (
             <Link
               key={href}
               to={href}
-              className="flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors"
+              className={cn(
+                'flex min-w-0 flex-col items-center justify-center gap-0.5 rounded-xl transition-colors',
+                active ? 'text-accent-500' : 'text-gray-400 hover:text-primary-600'
+              )}
+              aria-current={active ? 'page' : undefined}
             >
               <Icon
-                className={cn('h-5 w-5 transition-colors', active ? 'text-accent-500' : 'text-gray-400')}
+                className="h-5 w-5 transition-colors"
                 strokeWidth={active ? 2.5 : 1.8}
               />
-              <span className={cn('text-[10px] font-semibold', active ? 'text-accent-500' : 'text-gray-400')}>
+              <span className="max-w-full truncate text-[10px] font-semibold">
                 {label}
               </span>
             </Link>
@@ -297,7 +303,7 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
-      <main className="flex-1 pb-16">
+      <main className="flex-1 pb-16 md:pb-0">
         <Outlet />
       </main>
       <BottomNav />
