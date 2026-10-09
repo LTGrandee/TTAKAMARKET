@@ -9,6 +9,8 @@ import { MessagesPage } from './pages/messages';
 import { SavedPropertiesPage } from './pages/saved';
 import { ProfilePage } from './pages/profile';
 import { SellerProfilePage } from './pages/seller';
+import { HelpPage } from './pages/HelpPage';
+import { AboutPage, PolicyPage } from './pages/InfoPage';
 
 function App() {
   return (
@@ -28,6 +30,10 @@ function App() {
             <Route path="/saved" element={<SavedPropertiesPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/seller/:slug" element={<SellerProfilePage />} />
+            <Route path="/help" element={<HelpPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/privacy" element={<PolicyPage kind="privacy" />} />
+            <Route path="/terms" element={<PolicyPage kind="terms" />} />
           </Route>
         </Routes>
       </Router>

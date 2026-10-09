@@ -1,153 +1,113 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context';
 import {
-  Home, Building2, MessageSquare, Heart, User, Menu, X,
-  Plus, Shield, Bell, ChevronRight,
-  Calculator, Tag, BookOpen, Globe, HelpCircle, Phone,
-  Target, Info, Lock, FileText, Bell as BellIcon,
-  Handshake, CheckCircle, AlertCircle,
-  Key, DollarSign
+  Home, Building2, MessageSquare, Heart, User, Menu, X, Plus, Shield, ChevronRight, CircleHelp, ClipboardCheck, Globe2, Coins, Info, Mail, Scale, LockKeyhole,
 } from 'lucide-react';
 import { Avatar } from '../ui';
+import { BrandLogo } from '../BrandLogo';
 import { cn } from '../../lib/utils';
-
-/* ─── Sidebar sections ─── */
-const sidebarSections = [
-  {
-    title: 'Property Submissions',
-    items: [
-      { label: 'Submit Property', href: '/properties/new', Icon: Plus },
-      { label: 'Submission Status', href: '/dashboard', Icon: Building2 },
-    ],
-  },
-  {
-    title: 'Managed Enquiries',
-    items: [
-      { label: 'How enquiries work', href: '#why-direct', Icon: Handshake },
-      { label: 'Property review process', href: '#verification', Icon: CheckCircle },
-      { label: 'Before you commit', href: '#safe-tips', Icon: AlertCircle },
-    ],
-  },
-  {
-    title: 'Property Tools',
-    items: [
-      { label: 'Mortgage Calculator', href: '#mortgage', Icon: Calculator },
-      { label: 'Property Valuation', href: '#valuation', Icon: Tag },
-      { label: 'Property Alerts', href: '/profile', Icon: BellIcon },
-    ],
-  },
-  {
-    title: 'Resources',
-    items: [
-      { label: "Buyer's Guide", href: '#buyers-guide', Icon: BookOpen },
-      { label: "Seller's Guide", href: '#sellers-guide', Icon: BookOpen },
-      { label: 'Rental Guide', href: '#rental-guide', Icon: Key },
-    ],
-  },
-  {
-    title: 'Preferences',
-    items: [
-      { label: 'Language', href: '#language', Icon: Globe },
-      { label: 'Currency', href: '#currency', Icon: DollarSign },
-    ],
-  },
-  {
-    title: 'Support',
-    items: [
-      { label: 'Help Center', href: '#help', Icon: HelpCircle },
-      { label: 'Contact Us', href: '#contact', Icon: Phone },
-    ],
-  },
-  {
-    title: 'About',
-    items: [
-      { label: 'Our Mission', href: '#mission', Icon: Target },
-      { label: 'About TtakaMarket', href: '#about', Icon: Info },
-    ],
-  },
-  {
-    title: 'Legal',
-    items: [
-      { label: 'Privacy Policy', href: '#privacy', Icon: Lock },
-      { label: 'Terms & Conditions', href: '#terms', Icon: FileText },
-    ],
-  },
-];
 
 /* ─── Sidebar Drawer ─── */
 function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { user, profile } = useAuth();
+  const navigationLinks = [
+    { label: 'Home', href: '/', Icon: Home },
+    { label: 'Properties', href: '/properties', Icon: Building2 },
+    { label: 'Saved properties', href: '/saved', Icon: Heart },
+    { label: 'Messages', href: '/messages', Icon: MessageSquare },
+    { label: 'Profile and settings', href: '/profile', Icon: User },
+  ];
+  const accountLinks = user
+    ? [{ label: 'Dashboard', href: '/dashboard', Icon: Building2 }]
+    : [
+      { label: 'Sign in', href: '/login', Icon: User },
+      { label: 'Create an account', href: '/register', Icon: Plus },
+    ];
+  const usefulLinks = [
+    { label: 'FAQs', href: '/help#faqs', Icon: CircleHelp },
+    { label: 'Help & support', href: '/help#support', Icon: MessageSquare },
+    { label: 'Contact us', href: '/help#contact', Icon: Mail },
+    { label: 'How it works', href: '/#how-it-works', Icon: CircleHelp },
+    { label: 'Property guidance', href: '/#property-guidance', Icon: ClipboardCheck },
+    { label: 'About TtakaMarket', href: '/about', Icon: Info },
+    { label: 'Privacy policy', href: '/privacy', Icon: LockKeyhole },
+    { label: 'Terms & conditions', href: '/terms', Icon: Scale },
+  ];
+  const renderLink = ({ label, href, Icon }: { label: string; href: string; Icon: typeof Home }) => (
+    <Link key={href} to={href} onClick={onClose} className="group flex min-h-12 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-primary-50 hover:text-primary-700">
+      <Icon className="h-5 w-5 text-gray-400 transition-colors group-hover:text-primary-600" />
+      <span className="flex-1">{label}</span>
+      <ChevronRight className="h-4 w-4 text-gray-300" />
+    </Link>
+  );
 
   return (
     <>
-      {/* Backdrop */}
       {open && (
-        <div
-          className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
-          onClick={onClose}
-        />
+        <button aria-label="Close menu" className="fixed inset-0 z-40 cursor-default bg-black/40 backdrop-blur-[2px]" onClick={onClose} />
       )}
-
-      {/* Drawer */}
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-label="Account and navigation menu"
+        aria-hidden={!open}
         className={cn(
-          'fixed top-0 right-0 h-full w-[85%] max-w-xs bg-white z-50 shadow-2xl flex flex-col transition-transform duration-300 ease-in-out',
-          open ? 'translate-x-0' : 'translate-x-full'
+          'fixed inset-y-0 right-0 z-50 flex w-[min(88vw,22rem)] flex-col bg-white shadow-2xl transition-transform duration-300 ease-in-out',
+          open ? 'translate-x-0' : 'pointer-events-none translate-x-full'
         )}
       >
-        {/* Drawer Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100 bg-primary-600">
-          <div className="flex items-center gap-2">
-            <Building2 className="h-5 w-5 text-white" />
-            <span className="text-base font-bold text-white">Ttaka<span className="text-accent-400">Market</span></span>
+        <div className="flex items-center justify-between border-b border-gray-100 bg-primary-700 px-5 py-5">
+          <div className="rounded-lg bg-white">
+            <BrandLogo className="h-12 w-32 rounded-lg sm:w-36" />
           </div>
-          <button onClick={onClose} className="p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/10 transition-colors">
+          <button onClick={onClose} aria-label="Close menu" className="rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white">
             <X className="h-5 w-5" />
           </button>
         </div>
 
-        {/* User info strip (if logged in) */}
         {user && profile && (
-          <div className="flex items-center gap-3 px-5 py-4 bg-primary-50 border-b border-primary-100">
+          <div className="flex items-center gap-3 border-b border-gray-100 bg-gray-50 px-5 py-4">
             <Avatar src={profile.avatar_url} name={profile.full_name} size="md" />
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-gray-900 truncate">{profile.full_name}</p>
               <p className="text-xs text-gray-500 truncate">{profile.email}</p>
             </div>
-            {profile.is_verified && <Shield className="h-4 w-4 text-accent-500 flex-shrink-0" />}
+            {profile.is_verified && <Shield className="h-4 w-4 flex-shrink-0 text-accent-500" />}
           </div>
         )}
 
-        {/* Sections */}
-        <div className="flex-1 overflow-y-auto py-2">
-          {sidebarSections.map(({ title, items }) => (
-            <div key={title} className="mb-1">
-              <p className="px-5 pt-4 pb-1.5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                {title}
-              </p>
-              {items.map(({ label, href, Icon }) => (
-                <Link
-                  key={label}
-                  to={href}
-                  onClick={onClose}
-                  className="flex items-center gap-3 px-5 py-2.5 hover:bg-gray-50 transition-colors group"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-primary-50 flex items-center justify-center group-hover:bg-accent-50 transition-colors">
-                    <Icon className="h-4 w-4 text-primary-600 group-hover:text-accent-500 transition-colors" />
-                  </div>
-                  <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900 flex-1">{label}</span>
-                  <ChevronRight className="h-4 w-4 text-gray-300 group-hover:text-gray-400" />
-                </Link>
-              ))}
+        <nav className="flex-1 overflow-y-auto px-3 py-4">
+          <div className="hidden md:block lg:hidden">
+            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Navigation</p>
+            <div className="space-y-1">{navigationLinks.map(renderLink)}</div>
+          </div>
+          <div className="mb-4">
+            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Discover</p>
+            <div className="space-y-1">{usefulLinks.map(renderLink)}</div>
+          </div>
+          <div className="mb-4 border-t border-gray-100 pt-4">
+            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Preferences</p>
+            <div className="space-y-1 px-3">
+              <div className="flex min-h-11 items-center gap-3 text-sm text-gray-700" title="English is the only language currently available">
+                <Globe2 className="h-5 w-5 text-gray-400" />
+                <span className="flex-1">Language</span>
+                <span className="text-xs font-medium text-gray-500">English</span>
+              </div>
+              <div className="flex min-h-11 items-center gap-3 text-sm text-gray-700" title="Prices are shown in each listing's stated currency; no currency conversion is applied">
+                <Coins className="h-5 w-5 text-gray-400" />
+                <span className="flex-1">Currency</span>
+                <span className="text-right text-xs font-medium text-gray-500">As listed</span>
+              </div>
             </div>
-          ))}
-        </div>
-
-        {/* Drawer footer */}
-        <div className="border-t border-gray-100 px-5 py-4">
-          <p className="text-xs text-gray-400 text-center">&copy; {new Date().getFullYear()} TtakaMarket. All rights reserved.</p>
-        </div>
+            <p className="px-3 pt-1 text-xs leading-5 text-gray-500">English is currently the only language. Prices are not converted.</p>
+          </div>
+          <div className="mt-1 border-t border-gray-100 pt-4 md:mt-4">
+            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Account</p>
+            <div className="space-y-1">{accountLinks.map(renderLink)}</div>
+          </div>
+        </nav>
+        <div className="border-t border-gray-100 px-5 py-4 md:hidden"><p className="text-center text-xs text-gray-400">&copy; {new Date().getFullYear()} TtakaMarket · Uganda</p></div>
       </div>
     </>
   );
@@ -159,24 +119,29 @@ export function Header() {
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
 
+  useEffect(() => {
+    const targetId = location.hash.slice(1);
+    if (!targetId) return;
+    requestAnimationFrame(() => {
+      document.getElementById(targetId)?.scrollIntoView({ behavior: 'smooth' });
+    });
+  }, [location.hash, location.pathname]);
+
   const isActive = (href: string) =>
     href === '/' ? location.pathname === '/' : location.pathname.startsWith(href);
 
   return (
     <>
-      <header className="sticky top-0 z-30 bg-white border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14">
+      <header className="sticky top-0 z-30 border-b border-gray-200/80 bg-white/95 shadow-sm backdrop-blur">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between gap-2">
             {/* Logo */}
-            <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
-                <Building2 className="h-4 w-4 text-white" />
-              </div>
-              <span className="text-lg font-bold text-primary-600">Ttaka<span className="text-accent-500">Market</span></span>
+            <Link to="/" aria-label="TtakaMarket home" className="flex min-w-0 shrink-0 items-center">
+              <BrandLogo className="h-12 w-32 sm:w-36" />
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-1">
+            <nav className="hidden items-center gap-1 lg:flex">
               {[
                 { name: 'Home', href: '/', Icon: Home },
                 { name: 'Properties', href: '/properties', Icon: Building2 },
@@ -187,7 +152,7 @@ export function Header() {
                   key={name}
                   to={href}
                   className={cn(
-                    'flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
+                    'flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors',
                     isActive(href)
                       ? 'bg-primary-50 text-accent-500'
                       : 'text-gray-500 hover:bg-gray-50 hover:text-primary-600'
@@ -199,41 +164,31 @@ export function Header() {
             </nav>
 
             {/* Right side */}
-            <div className="flex items-center gap-2">
+            <div className="flex shrink-0 items-center gap-1 sm:gap-2">
+              <Link to="/properties/new" className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-accent-600 px-2.5 text-xs font-semibold text-white transition-colors hover:bg-accent-700 sm:px-3 sm:text-sm">
+                <Plus className="h-4 w-4" /> <span className="hidden min-[380px]:inline sm:inline">Submit</span><span className="hidden sm:inline"> Property</span>
+              </Link>
               {user ? (
-                <>
-                  {/* Property submission button - visible on mobile too */}
-                  <Link to="/properties/new" className="flex items-center gap-1.5 bg-accent-500 hover:bg-accent-600 text-white text-sm font-semibold px-3 py-1.5 md:px-4 md:py-2 rounded-lg transition-colors">
-                    <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Submit Property</span>
-                  </Link>
-                  <button className="hidden md:flex relative p-2 text-gray-400 hover:text-primary-600 hover:bg-gray-50 rounded-lg">
-                    <Bell className="h-5 w-5" />
-                    <span className="absolute top-1.5 right-1.5 h-1.5 w-1.5 bg-accent-500 rounded-full" />
-                  </button>
-                  <Link to="/profile" className="hidden md:flex items-center gap-2 pl-2 pr-1 py-1 rounded-lg hover:bg-gray-50 transition-colors">
-                    <Avatar src={profile?.avatar_url} name={profile?.full_name} size="sm" />
-                    <span className="text-sm font-medium text-gray-700">{profile?.full_name?.split(' ')[0]}</span>
-                    {profile?.is_verified && <Shield className="h-3.5 w-3.5 text-accent-500" />}
-                  </Link>
-                </>
+                <Link to="/dashboard" className="hidden items-center gap-2 rounded-xl px-2 py-1.5 transition-colors hover:bg-gray-50 lg:flex">
+                  <Avatar src={profile?.avatar_url} name={profile?.full_name} size="sm" />
+                  <span className="text-sm font-medium text-gray-700">{profile?.full_name?.split(' ')[0]}</span>
+                  {profile?.is_verified && <Shield className="h-3.5 w-3.5 text-accent-500" />}
+                </Link>
               ) : (
                 <>
-                  {/* Sign In - visible on mobile */}
-                  <Link to="/login" className="text-sm font-medium text-charcoal hover:text-primary-600 px-2 py-1.5 md:px-3 md:py-2 rounded-lg hover:bg-gray-50 transition-colors">
+                  <Link to="/login" className="hidden rounded-xl px-2 py-2 text-sm font-medium text-charcoal transition-colors hover:bg-gray-50 hover:text-primary-600 lg:inline-flex">
                     Sign In
                   </Link>
-                  {/* Get Started - visible on mobile */}
-                  <Link to="/register" className="text-sm font-semibold bg-primary-600 hover:bg-primary-700 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-lg transition-colors">
+                  <Link to="/register" className="hidden rounded-xl bg-primary-700 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-800 lg:inline-flex">
                     Get Started
                   </Link>
                 </>
               )}
 
-              {/* Hamburger — always visible */}
               <button
                 onClick={() => setDrawerOpen(true)}
-                className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors"
-                aria-label="Open menu"
+                className="flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100 lg:hidden"
+                aria-label="Open account and navigation menu"
               >
                 <Menu className="h-5 w-5" />
               </button>
@@ -262,21 +217,21 @@ export function BottomNav() {
     href === '/' ? location.pathname === '/' : location.pathname.startsWith(href);
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200">
-      <div className="flex items-stretch h-16 max-w-lg mx-auto">
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_rgba(15,23,42,0.06)] backdrop-blur md:hidden">
+      <div className="mx-auto flex h-16 max-w-lg items-stretch">
         {bottomNavItems.map(({ label, href, Icon }) => {
           const active = isActive(href);
           return (
             <Link
               key={href}
               to={href}
-              className="flex-1 flex flex-col items-center justify-center gap-0.5 transition-colors"
+              className="flex min-w-0 flex-1 flex-col items-center justify-center gap-1 transition-colors"
             >
               <Icon
-                className={cn('h-5 w-5 transition-colors', active ? 'text-accent-500' : 'text-gray-400')}
+                className={cn('h-5 w-5 transition-colors', active ? 'text-accent-600' : 'text-gray-400')}
                 strokeWidth={active ? 2.5 : 1.8}
               />
-              <span className={cn('text-[10px] font-semibold', active ? 'text-accent-500' : 'text-gray-400')}>
+              <span className={cn('truncate text-[10px] font-semibold', active ? 'text-accent-700' : 'text-gray-500')}>
                 {label}
               </span>
             </Link>
@@ -292,10 +247,27 @@ export function Layout() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
       <Header />
-      <main className="flex-1 pb-16">
+      <main className="app-main flex-1 pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
         <Outlet />
       </main>
       <BottomNav />
+      <footer className="hidden border-t border-gray-200 bg-white md:block">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+          <div>
+            <BrandLogo className="h-12 w-36" />
+            <p className="mt-1 text-sm text-gray-500">Property discovery and managed submissions across Uganda.</p>
+          </div>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600">
+            <Link className="hover:text-primary-700" to="/properties">Browse properties</Link>
+            <Link className="hover:text-primary-700" to="/properties/new">Submit property</Link>
+            <Link className="hover:text-primary-700" to="/register">Create account</Link>
+            <Link className="hover:text-primary-700" to="/about">About</Link>
+            <Link className="hover:text-primary-700" to="/help">Help & FAQs</Link>
+            <Link className="hover:text-primary-700" to="/privacy">Privacy</Link>
+            <Link className="hover:text-primary-700" to="/terms">Terms</Link>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

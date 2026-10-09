@@ -167,9 +167,9 @@ export function PropertyDetailPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
+      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 sm:py-8 lg:px-8">
+        <div className="grid min-w-0 grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
+          <div className="min-w-0 space-y-6 lg:col-span-2">
             <div className="bg-white rounded-xl overflow-hidden border border-gray-200 shadow-sm">
               <div className="relative aspect-[16/10]">
                 {property.images && property.images.length > 0 ? (
@@ -195,14 +195,14 @@ export function PropertyDetailPage() {
               )}
             </div>
 
-            <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
-              <div className="flex items-start justify-between gap-4">
-                <div>
+            <div className="min-w-0 rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
+              <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-2"><Badge variant="neutral">{getPropertyTypeLabel(property.property_type)}</Badge><Badge variant={property.listing_type === 'sale' ? 'accent' : 'primary'}>{getListingTypeLabel(property.listing_type)}</Badge></div>
-                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{property.title}</h1>
-                  <div className="flex items-center gap-1 mt-2 text-gray-500"><MapPin className="h-4 w-4" /><span>{property.address}, {property.city}, {property.country}</span></div>
+                  <h1 className="break-words text-2xl font-bold text-gray-900 md:text-3xl">{property.title}</h1>
+                  <div className="mt-2 flex items-start gap-1 text-gray-500"><MapPin className="mt-0.5 h-4 w-4 shrink-0" /><span className="break-words">{property.address}, {property.city}, {property.country}</span></div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex shrink-0 gap-2">
                   <button onClick={handleSaveToggle} className={cn('p-2 rounded-lg border transition-colors', isSaved ? 'bg-error-50 border-error-200 text-error-600' : 'border-gray-200 text-gray-500 hover:border-gray-300')}><Heart className={cn('h-5 w-5', isSaved && 'fill-current')} /></button>
                   <button className="p-2 rounded-lg border border-gray-200 text-gray-500 hover:border-gray-300"><Share2 className="h-5 w-5" /></button>
                   <button onClick={() => setShowReportModal(true)} className="p-2 rounded-lg border border-gray-200 text-gray-500 hover:border-gray-300"><Flag className="h-5 w-5" /></button>
@@ -253,7 +253,7 @@ export function PropertyDetailPage() {
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="min-w-0 space-y-6">
             <Card className="p-6 sticky top-24">
               <div className="flex items-center gap-4 mb-4"><Avatar name={owner?.full_name} size="lg" /><div><div className="flex items-center gap-2"><h3 className="font-semibold text-gray-900">{owner?.full_name}</h3></div><p className="text-sm text-gray-500">Sample property contact</p></div></div>
               <div className="flex items-center gap-2 text-sm text-gray-500 mb-4"><Clock className="h-4 w-4" /><span>Listed {formatDate(property.created_at)}</span></div>
@@ -300,14 +300,13 @@ export function PropertyDetailPage() {
 }
 
 export function NewPropertyPage() {
-  const navigate = useNavigate();
-  const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     title: '', description: '', asset_category: 'housing', property_type: '', listing_type: '', price: '', price_unit: 'UGX',
     size_sqm: '', size_unit: 'sqm', bedrooms: '', bathrooms: '', parking_spaces: '', year_built: '',
     address: '', city: '', region: '', country: 'Uganda', features: [] as string[], custom_feature: '',
+    submitter_name: '', submitter_phone: '', submitter_email: '', submitter_role: '',
     contact_preference: 'owner',
     rental_accommodation: 'residential', rental_duration: 'long_term', rental_purpose: 'living',
     rental_living: 'individual', rental_tenancy: 'sole_tenant', rental_payment: 'monthly',
@@ -320,24 +319,14 @@ export function NewPropertyPage() {
     setFormData((prev) => ({ ...prev, features: prev.features.includes(feature) ? prev.features.filter((f) => f !== feature) : [...prev.features, feature] }));
   };
 
-  const handleSubmit = async () => {
-    if (!user) { navigate('/login'); return; }
-    setLoading(true);
-    try {
-      const propertyData = { owner_id: user.id, title: formData.title, description: formData.description, asset_category: formData.asset_category, property_type: formData.property_type, listing_type: formData.listing_type, price: parseFloat(formData.price), price_unit: formData.price_unit, size_sqm: formData.size_sqm ? parseFloat(formData.size_sqm) : null, size_unit: formData.size_unit, bedrooms: formData.bedrooms ? parseInt(formData.bedrooms) : null, bathrooms: formData.bathrooms ? parseInt(formData.bathrooms) : null, parking_spaces: formData.parking_spaces ? parseInt(formData.parking_spaces) : null, year_built: formData.year_built ? parseInt(formData.year_built) : null, address: formData.address, city: formData.city, region: formData.region, country: formData.country, features: formData.features, amenities: [], contact_preference: formData.contact_preference, rental_details: formData.listing_type === 'rent' ? { accommodation_type: formData.rental_accommodation, duration: formData.rental_duration, purpose: formData.rental_purpose, living_arrangement: formData.rental_living, tenancy_arrangement: formData.rental_tenancy, payment_method: formData.rental_payment } : undefined, status: 'pending', verification_status: 'pending' };
-      // Simulate property creation (frontend only)
-      console.log('Property data:', propertyData);
-      navigate('/dashboard?success=true');
-    } catch (error) { console.error('Error:', error); }
-    finally { setLoading(false); }
-  };
+  const handleSubmit = () => setSubmitted(true);
 
   const isStepValid = () => {
     switch (currentStep) {
       case 1: return formData.title && formData.description && formData.property_type && formData.listing_type && formData.price;
-      case 2: return formData.address && formData.city;
+      case 2: return formData.address && formData.city && formData.submitter_name && formData.submitter_phone && formData.submitter_role;
       case 3: return true;
-      case 4: return documents.length > 0;
+      case 4: return documents.length > 0 && images.length > 0;
       default: return true;
     }
   };
@@ -346,22 +335,39 @@ export function NewPropertyPage() {
   const listingTypes = [{ value: 'sale', label: 'For Sale' }, { value: 'rent', label: 'For Rent' }, { value: 'lease', label: 'For Lease' }];
   const cities = [{ value: 'Kampala', label: 'Kampala' }, { value: 'Entebbe', label: 'Entebbe' }, { value: 'Jinja', label: 'Jinja' }, { value: 'Mbarara', label: 'Mbarara' }, { value: 'Gulu', label: 'Gulu' }, { value: 'Arua', label: 'Arua' }, { value: 'Mbale', label: 'Mbale' }];
   const commonFeatures = ['Garden', 'Swimming Pool', 'Parking', 'Security', 'Air Conditioning', 'Balcony', 'Gym', 'Electricity', 'Water', 'Main Road Access', 'Corner Plot', 'Boundary Wall', 'Internet', 'Furnished'];
-  const steps = [{ id: 1, title: 'Property Details' }, { id: 2, title: 'Location' }, { id: 3, title: 'Features' }, { id: 4, title: 'Documents' }, { id: 5, title: 'Review' }];
+  const steps = [{ id: 1, title: 'Property Details' }, { id: 2, title: 'Location & Contact' }, { id: 3, title: 'Features' }, { id: 4, title: 'Photos & Documents' }, { id: 5, title: 'Review' }];
+
+  if (submitted) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
+        <Card className="w-full max-w-xl p-8 text-center">
+          <CheckCircle className="h-12 w-12 text-primary-600 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-gray-900">Submission preview complete</h1>
+          <p className="mt-3 text-gray-600">A one-time property submission is designed not to require an account. You would be contacted using the details you provided.</p>
+          <p className="mt-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-800">This prototype does not upload your files or send or save this submission.</p>
+          <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
+            <Link to="/properties"><Button variant="outline">Browse Properties</Button></Link>
+            <Link to="/register"><Button variant="primary">Create an optional dashboard account</Button></Link>
+          </div>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Submit a Property</h1>
-          <p className="mt-1 text-gray-500">Share property details for administrator review and possible TtakaMarket-managed publication.</p>
-          <div className="mt-8 flex items-center gap-2">
+          <p className="mt-1 text-gray-500">Submit property details, photos and supporting documents for review. No account is needed for a one-time submission.</p>
+          <div className="mt-8 flex w-full items-center">
             {steps.map((step, index) => (
-              <div key={step.id} className="flex items-center">
-                <div className={cn('flex items-center gap-2 px-3 py-2 rounded-full text-sm font-medium', currentStep >= step.id ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-500')}>
+              <div key={step.id} className={cn('flex min-w-0 items-center', index < steps.length - 1 && 'flex-1')}>
+                <div className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-medium sm:h-auto sm:w-auto sm:gap-2 sm:px-3 sm:py-2', currentStep >= step.id ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-500')}>
                   {currentStep > step.id ? <CheckCircle className="h-4 w-4" /> : <span>{step.id}</span>}
                   <span className="hidden sm:inline">{step.title}</span>
                 </div>
-                {index < steps.length - 1 && <div className={cn('w-8 h-0.5 mx-1', currentStep > step.id ? 'bg-primary-600' : 'bg-gray-200')} />}
+                {index < steps.length - 1 && <div className={cn('mx-1 h-0.5 min-w-1 flex-1 sm:w-8 sm:flex-none', currentStep > step.id ? 'bg-primary-600' : 'bg-gray-200')} />}
               </div>
             ))}
           </div>
@@ -369,7 +375,7 @@ export function NewPropertyPage() {
       </div>
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card className="p-6">
+        <Card className="p-4 sm:p-6">
           {currentStep === 1 && (
             <div className="space-y-6">
               <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Property Details</h2><Input label="Property Title" placeholder="e.g., Modern 4 Bedroom House in Muyenga" value={formData.title} onChange={(e) => updateForm('title', e.target.value)} /></div>
@@ -405,10 +411,20 @@ export function NewPropertyPage() {
 
           {currentStep === 2 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Location</h2><Input label="Address" placeholder="e.g., Plot 45, Kololo Hill Drive" value={formData.address} onChange={(e) => updateForm('address', e.target.value)} leftIcon={<MapPin className="h-5 w-5" />} /></div>
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Property location</h2><Input label="Address or nearby landmark" placeholder="e.g., Plot 45, Kololo Hill Drive" value={formData.address} onChange={(e) => updateForm('address', e.target.value)} leftIcon={<MapPin className="h-5 w-5" />} required /></div>
               <div className="grid sm:grid-cols-2 gap-4">
-                <Select label="City" options={cities} value={formData.city} onChange={(e) => updateForm('city', e.target.value)} placeholder="Select city" />
+                <Select label="City" options={cities} value={formData.city} onChange={(e) => updateForm('city', e.target.value)} placeholder="Select city" required />
                 <Input label="Region/District" placeholder="e.g., Central Region" value={formData.region} onChange={(e) => updateForm('region', e.target.value)} />
+              </div>
+              <div className="border-t border-gray-100 pt-5">
+                <h2 className="text-lg font-semibold text-gray-900 mb-1">Your contact details</h2>
+                <p className="text-sm text-gray-500 mb-4">No login details are needed. TtakaMarket would use these details to follow up about the submission.</p>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <Input label="Your name" placeholder="Full name" value={formData.submitter_name} onChange={(e) => updateForm('submitter_name', e.target.value)} required />
+                  <Input label="Phone number" type="tel" placeholder="+256 700 123 456" value={formData.submitter_phone} onChange={(e) => updateForm('submitter_phone', e.target.value)} required />
+                  <Input label="Email (optional)" type="email" placeholder="you@example.com" value={formData.submitter_email} onChange={(e) => updateForm('submitter_email', e.target.value)} />
+                  <Select label="Your relationship to the property" options={[{ value: 'owner', label: 'I am the owner' }, { value: 'representative', label: 'I am authorised to represent the owner' }, { value: 'other', label: 'I am helping the owner submit' }]} value={formData.submitter_role} onChange={(e) => updateForm('submitter_role', e.target.value)} placeholder="Select your relationship" required />
+                </div>
               </div>
             </div>
           )}
@@ -421,10 +437,18 @@ export function NewPropertyPage() {
 
           {currentStep === 4 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Supporting Documents</h2><p className="text-sm text-gray-500 mb-4">Add relevant title or tenure records, survey plans, agreements, identification, or evidence of authority to represent the owner. The intended review includes document checks and site-survey coordination. Files are not uploaded to a live service in this prototype.</p>
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8">
-                  <input type="file" accept=".pdf,.jpg,.jpeg,.png" multiple onChange={(e) => e.target.files && setDocuments([...documents, ...Array.from(e.target.files)])} className="hidden" id="documents" />
-                  <label htmlFor="documents" className="cursor-pointer"><div className="h-10 w-10 text-gray-400 mx-auto mb-2">Upload</div><p className="text-sm text-gray-600 text-center">Choose documents to preview</p><p className="text-xs text-gray-400 text-center mt-1">PDF, JPG or PNG · Prototype only</p></label>
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Photos and supporting documents</h2><p className="text-sm text-gray-500 mb-4">Choose property photos and supporting title or tenure records, survey plans, agreements, identification, or evidence of authority to represent the owner. Files stay in this browser preview and are not uploaded.</p>
+                <div className="space-y-5">
+                  <div>
+                    <label htmlFor="property-photos" className="mb-2 block text-sm font-medium text-gray-700">Property photos (at least one)</label>
+                    <input type="file" accept="image/*" multiple onChange={(e) => e.target.files && setImages((current) => [...current, ...Array.from(e.target.files ?? [])])} className="block w-full text-sm text-gray-600 file:mr-4 file:rounded-lg file:border-0 file:bg-primary-50 file:px-4 file:py-2 file:font-semibold file:text-primary-700 hover:file:bg-primary-100" id="property-photos" />
+                    {images.length > 0 && <ul className="mt-2 space-y-1 text-sm text-gray-600">{images.map((image, index) => <li key={`${image.name}-${index}`} className="flex justify-between gap-3"><span className="truncate">{image.name}</span><button type="button" onClick={() => setImages((current) => current.filter((_, i) => i !== index))} className="text-error-600 hover:text-error-700">Remove</button></li>)}</ul>}
+                  </div>
+                  <div>
+                    <label htmlFor="documents" className="mb-2 block text-sm font-medium text-gray-700">Property documents (at least one)</label>
+                    <input type="file" accept=".pdf,.jpg,.jpeg,.png" multiple onChange={(e) => e.target.files && setDocuments((current) => [...current, ...Array.from(e.target.files ?? [])])} className="block w-full text-sm text-gray-600 file:mr-4 file:rounded-lg file:border-0 file:bg-primary-50 file:px-4 file:py-2 file:font-semibold file:text-primary-700 hover:file:bg-primary-100" id="documents" />
+                    {documents.length > 0 && <ul className="mt-2 space-y-1 text-sm text-gray-600">{documents.map((doc, index) => <li key={`${doc.name}-${index}`} className="flex justify-between gap-3"><span className="truncate">{doc.name}</span><button type="button" onClick={() => setDocuments((current) => current.filter((_, i) => i !== index))} className="text-error-600 hover:text-error-700">Remove</button></li>)}</ul>}
+                  </div>
                 </div>
                 {documents.length > 0 && (<div className="mt-4 space-y-2">{documents.map((doc, index) => (<div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"><div className="flex items-center gap-2"><span className="text-sm text-gray-700">{doc.name}</span></div><button onClick={() => setDocuments(documents.filter((_, i) => i !== index))} className="text-error-600 hover:text-error-700">Remove</button></div>))}</div>)}
               </div>
@@ -442,6 +466,8 @@ export function NewPropertyPage() {
                 </div>
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Price</p><p className="font-medium text-gray-900">{Number(formData.price).toLocaleString()} {formData.price_unit}</p></div>
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Location</p><p className="font-medium text-gray-900">{formData.address}, {formData.city}, {formData.country}</p></div>
+                <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Submitted by</p><p className="font-medium text-gray-900">{formData.submitter_name} · {formData.submitter_phone}</p><p className="text-sm text-gray-600">{formData.submitter_role === 'owner' ? 'Owner' : formData.submitter_role === 'representative' ? 'Authorised representative' : 'Other submitter'}</p></div>
+                <p className="text-sm text-gray-500">{images.length} photo(s) and {documents.length} document(s) selected.</p>
                 <Select label="Buyer chat contact" options={[{ value: 'owner', label: 'Chat directly with me (the owner)' }, { value: 'representative', label: 'Chat with my lawful representative' }, { value: 'ttakamarket', label: 'Let TtakaMarket coordinate all chats' }]} value={formData.contact_preference} onChange={(e) => updateForm('contact_preference', e.target.value)} />
                 {formData.features.length > 0 && (<div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-2">Features</p><div className="flex flex-wrap gap-2">{formData.features.map(feature => (<Badge key={feature} variant="secondary">{feature}</Badge>))}</div></div>)}
               </div></div>
@@ -451,7 +477,7 @@ export function NewPropertyPage() {
           <div className="mt-8 pt-6 border-t border-gray-200 flex gap-3">
             {currentStep > 1 && <Button variant="secondary" onClick={() => setCurrentStep(currentStep - 1)}>Previous</Button>}
             <div className="flex-1" />
-            {currentStep < 5 ? (<Button variant="primary" onClick={() => setCurrentStep(currentStep + 1)} disabled={!isStepValid()}>Next</Button>) : (<Button variant="primary" loading={loading} onClick={handleSubmit}>Preview submission</Button>)}
+            {currentStep < 5 ? (<Button variant="primary" onClick={() => setCurrentStep(currentStep + 1)} disabled={!isStepValid()}>Next</Button>) : (<Button variant="primary" onClick={handleSubmit}>Preview submission</Button>)}
           </div>
         </Card>
       </div>

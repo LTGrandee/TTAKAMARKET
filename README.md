@@ -73,7 +73,7 @@ The broad category model separates:
 
 ### Administrator-managed property submissions
 
-Owners and lawful representatives can submit a property for review. The submission flow captures:
+Anyone submitting a property can use the one-time submission flow without creating an account. It captures the submitter's name, phone number, relationship to the property, property information, location, photos, and supporting documents. An email address is optional. A dashboard account is only needed for ongoing features such as monitoring submissions, seller-page tools, saved properties, and messaging.
 
 - Property title and description
 - Land/housing/commercial/storage category
@@ -83,7 +83,9 @@ Owners and lawful representatives can submit a property for review. The submissi
 - Size and unit
 - Bedrooms, bathrooms, parking, and year built where relevant
 - Address, city, region, and country
-- Features and contact preference
+- Submitter name, phone number, optional email, and relationship to the property
+- Property photos and supporting documents
+- Features and preferred enquiry contact
 - Rental suitability details when applicable
 
 The intended administrator workflow is:
@@ -97,7 +99,7 @@ The intended administrator workflow is:
 7. Approve and publish the property through TtakaMarket.
 8. Manage advertising, enquiries, and approved contact routing.
 
-The current frontend represents this process with pending and verification states. A production backend, administrator queue, document storage, survey records, audit trail, and approval permissions still need to be implemented.
+The current frontend provides a no-account submission preview. Because this is a frontend-only prototype, it does not transmit or save submissions or upload selected files. A production backend, secure document storage, administrator queue, survey records, audit trail, and approval permissions still need to be implemented. In the live service, a submitter should be able to provide contact details and receive follow-up without needing a dashboard account.
 
 ### Managed seller pages
 
@@ -194,10 +196,11 @@ Rental listings can include structured rental details, and renter registration c
 
 ### User account experience
 
-- Login and registration pages.
-- User type selection for buyers, owners, agents, and developers.
+- Login and registration pages for people who want ongoing account features.
+- One-time property submission is available without registering or signing in.
+- Buyer accounts support saved properties, messaging, and optional renter preferences.
+- Owner, agent, and developer accounts can use the dashboard to monitor submissions and request managed seller-page tools.
 - Optional seller-page configuration during registration.
-- Optional renter preference collection.
 - Dashboard for submission status, managed seller-page status, post requests, performance, and rental preferences.
 - Profile page for account information.
 - Saved-property page for bookmarked listings.
@@ -211,7 +214,7 @@ Rental listings can include structured rental details, and renter registration c
 | `/login` | Sign in |
 | `/register` | Register as a buyer, owner, agent, or developer |
 | `/properties` | Browse and filter published properties |
-| `/properties/new` | Submit a property for administrator review |
+| `/properties/new` | Submit property details, photos, and documents without an account |
 | `/properties/:id` | View property details |
 | `/dashboard` | View submissions, managed seller-page information, post requests, and performance |
 | `/seller/:slug` | View a TtakaMarket-managed seller page |

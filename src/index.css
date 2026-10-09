@@ -79,7 +79,33 @@
 }
 
 html { scroll-behavior: smooth; }
-body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; color: var(--color-charcoal); }
+body {
+  min-width: 320px;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  color: var(--color-charcoal);
+  background: var(--color-gray-50);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { text-decoration-thickness: from-font; }
+:focus-visible { outline: 3px solid var(--color-accent-400); outline-offset: 3px; }
+img { max-width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .app-main { padding-bottom: 0; }
+}
 
 .text-charcoal { color: var(--color-charcoal); }
 .bg-charcoal { background-color: var(--color-charcoal); }

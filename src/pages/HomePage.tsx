@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { Shield, CheckCircle, MessageSquare, ArrowRight, Search, SlidersHorizontal, Home, Key, Tag, Building2, BedDouble, Bath, Square, MapPin, Heart, Handshake, Headphones, Users, TreePine, AlertTriangle, TrendingUp } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { Property } from '../lib/types';
 import { formatPrice, getListingTypeLabel } from '../lib/utils';
 import { cn } from '../lib/utils';
@@ -10,10 +10,9 @@ const HERO_IMG = 'https://images.pexels.com/photos/1396132/pexels-photo-1396132.
 const categories = [
   { label: 'Houses', href: '/properties?type=house', Icon: Home },
   { label: 'Apartments', href: '/properties?type=apartment', Icon: Building2 },
-  { label: 'Townhouses', href: '/properties?type=rental_unit', Icon: Building2 },
   { label: 'Land', href: '/properties?category=land', Icon: MapPin },
-  { label: 'Housing', href: '/properties?category=housing', Icon: Home },
   { label: 'Commercial', href: '/properties?category=commercial', Icon: Building2 },
+  { label: 'Storage', href: '/properties?category=storage', Icon: Building2 },
   { label: 'Rentals', href: '/properties?listing_type=rent', Icon: TreePine },
 ];
 
@@ -41,71 +40,60 @@ const propertyTypeOpts = [
   { value: 'office_space', label: 'Office Space' },
 ];
 
-const priceRanges = [
-  { value: '', label: 'Price Range' },
-  { value: '0-50000000', label: 'Under UGX 50M' },
-  { value: '50000000-200000000', label: 'UGX 50M – 200M' },
-  { value: '200000000-500000000', label: 'UGX 200M – 500M' },
-  { value: '500000000-', label: 'Above UGX 500M' },
-];
-
 function FeaturedCard({ property }: { property: Property }) {
   const [saved, setSaved] = useState(false);
   const img = property.images?.find(i => i.is_primary) || property.images?.[0];
   return (
-    <Link to={`/properties/${property.id}`} className="flex-shrink-0 w-56 sm:w-64 bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100 hover:shadow-lg transition-all duration-300 group">
-      <div className="relative h-40 overflow-hidden">
-        <img src={img?.image_url} alt={property.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+    <article className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg">
+      <Link to={`/properties/${property.id}`} className="block">
+      <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+        <img src={img?.image_url} alt={property.title} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
         <div className="absolute top-2 left-2">
           <span className="bg-primary-600 text-white text-xs font-semibold px-2 py-0.5 rounded">Sample listing</span>
         </div>
-        <button
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSaved(!saved); }}
-          className="absolute top-2 right-2 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow"
-        >
-          <Heart className={cn('h-3.5 w-3.5 transition-colors', saved ? 'fill-error-500 text-error-500' : 'text-gray-400')} />
-        </button>
         <div className="absolute bottom-2 left-2">
           <span className="bg-accent-500 text-white text-xs font-bold px-2 py-0.5 rounded">
             {getListingTypeLabel(property.listing_type)}
           </span>
         </div>
       </div>
-      <div className="p-3">
-        <p className="text-base font-bold text-primary-600 leading-tight">
+      <div className="p-4">
+        <p className="text-lg font-bold leading-tight text-primary-700">
           {formatPrice(property.price, property.price_unit)}
           {property.listing_type === 'rent' && <span className="text-xs font-normal text-gray-500"> / month</span>}
           {property.listing_type === 'lease' && <span className="text-xs font-normal text-gray-500"> / term</span>}
         </p>
-        <div className="flex items-center gap-1 mt-1 text-gray-400 text-xs">
-          <MapPin className="h-3 w-3 flex-shrink-0" />
+        <div className="mt-2 flex items-center gap-1.5 text-sm text-gray-500">
+          <MapPin className="h-4 w-4 shrink-0" />
           <span className="line-clamp-1">{property.address}, {property.city}</span>
         </div>
-        <div className="flex items-center gap-3 mt-2 text-gray-400 text-xs pt-2 border-t border-gray-50">
-          {property.bedrooms && <span className="flex items-center gap-1"><BedDouble className="h-3.5 w-3.5" />{property.bedrooms}</span>}
-          {property.bathrooms && <span className="flex items-center gap-1"><Bath className="h-3.5 w-3.5" />{property.bathrooms}</span>}
-          {property.size_sqm && <span className="flex items-center gap-1"><Square className="h-3.5 w-3.5" />{property.size_sqm} m²</span>}
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-gray-100 pt-3 text-sm text-gray-600">
+          {property.bedrooms && <span className="flex items-center gap-1"><BedDouble className="h-4 w-4" />{property.bedrooms}</span>}
+          {property.bathrooms && <span className="flex items-center gap-1"><Bath className="h-4 w-4" />{property.bathrooms}</span>}
+          {property.size_sqm && <span className="flex items-center gap-1"><Square className="h-4 w-4" />{property.size_sqm} m²</span>}
         </div>
       </div>
-    </Link>
+      </Link>
+      <button type="button" onClick={() => setSaved(value => !value)} aria-label={saved ? 'Remove from saved properties' : 'Save property'} aria-pressed={saved} className="absolute right-3 top-3 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 text-gray-600 shadow-md transition-colors hover:bg-white hover:text-error-600">
+        <Heart className={cn('h-5 w-5', saved && 'fill-error-500 text-error-500')} />
+      </button>
+    </article>
   );
 }
 
 export function HomePage() {
   const navigate = useNavigate();
-  const [featured, setFeatured] = useState<Property[]>(MOCK_FEATURED);
+  const featured = MOCK_FEATURED;
   const [activeTab, setActiveTab] = useState<'buy' | 'rent' | 'lease'>('buy');
   const [search, setSearch] = useState('');
   const [propertyType, setPropertyType] = useState('');
-
-  useEffect(() => {
-    // Using mock data for demonstration
-  }, []);
+  const [city, setCity] = useState('');
 
   const handleSearch = () => {
     const p = new URLSearchParams();
     if (search) p.set('search', search);
     if (propertyType) p.set('type', propertyType);
+    if (city) p.set('city', city);
     if (activeTab === 'buy') p.set('listing_type', 'sale');
     else if (activeTab === 'rent') p.set('listing_type', 'rent');
     else if (activeTab === 'lease') p.set('listing_type', 'lease');
@@ -116,45 +104,42 @@ export function HomePage() {
     <div className="bg-gray-50">
 
       {/* ── HERO ── */}
-      <section className="relative h-64 sm:h-72 md:h-96">
+      <section className="relative min-h-[24rem] overflow-hidden sm:min-h-[28rem] lg:min-h-[34rem]">
         <img src={HERO_IMG} alt="Luxury property" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-primary-900/72" />
-        <div className="relative h-full flex flex-col justify-center px-4 sm:px-5 md:px-10 max-w-4xl">
-          <div className="inline-flex items-center gap-2 bg-accent-500/25 border border-accent-400/50 rounded-full px-3 py-1 mb-3 w-fit">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-900/90 via-primary-900/70 to-primary-900/25" />
+        <div className="relative mx-auto flex min-h-[24rem] w-full max-w-7xl flex-col justify-center px-5 py-12 sm:min-h-[28rem] sm:px-8 lg:min-h-[34rem] lg:px-10">
+          <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 backdrop-blur">
             <Shield className="h-3.5 w-3.5 text-accent-400" />
-            <span className="text-xs font-semibold text-accent-300">Land, homes and more · Across Uganda</span>
+            <span className="text-xs font-semibold text-white sm:text-sm">Land, homes and more · Across Uganda</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white leading-tight mb-2">
-            Uganda's Property<br className="sm:hidden" /> <span className="text-accent-500">Marketplace</span>
+          <h1 className="mb-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Uganda&apos;s trusted <span className="text-accent-400">property marketplace.</span>
           </h1>
-          <p className="text-sm md:text-base text-white/75 mb-4">Explore land, homes, commercial spaces and storage for sale, rent or lease. Submit a property for TtakaMarket review.</p>
-          <div className="flex flex-wrap gap-2 sm:gap-3">
-            <Link to="/properties">
-              <button className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-semibold text-sm px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg transition-colors shadow-lg">
-                Browse Properties <ArrowRight className="h-4 w-4" />
-              </button>
+          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">Explore land, homes, commercial spaces and storage for sale, rent or lease across Uganda.</p>
+          <div className="flex flex-wrap gap-3">
+            <Link to="/properties" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-accent-600 px-5 text-sm font-bold text-white shadow-lg transition hover:bg-accent-700 sm:px-6">
+                Browse properties <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link to="/register?type=owner">
-              <button className="inline-flex items-center gap-2 border border-white/60 hover:border-white text-white font-semibold text-sm px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg transition-colors">
-                <Home className="h-4 w-4" /> Submit for Review
-              </button>
+            <Link to="/properties/new" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/45 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20 sm:px-6">
+                <Home className="h-4 w-4" /> Submit a property
             </Link>
           </div>
         </div>
       </section>
 
       {/* ── SEARCH CARD ── */}
-      <div className="px-4 -mt-4 sm:-mt-6 relative z-10 mb-6">
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-4">
+      <div className="relative z-10 mx-auto -mt-8 mb-8 max-w-6xl px-4 sm:-mt-10 sm:px-6">
+        <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-xl shadow-primary-900/10 sm:p-6">
           {/* Tabs */}
-          <div className="flex gap-4 border-b border-gray-100 mb-4">
+          <div className="mb-4 flex gap-2 border-b border-gray-100 sm:gap-5">
             {(['buy', 'rent', 'lease'] as const).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
+                aria-pressed={activeTab === tab}
                 className={cn(
-                  'flex items-center gap-1.5 pb-2.5 text-sm font-semibold capitalize transition-colors border-b-2 -mb-px',
-                  activeTab === tab ? 'border-accent-500 text-accent-500' : 'border-transparent text-gray-400 hover:text-gray-600'
+                  'mb-[-1px] flex min-h-11 items-center gap-2 border-b-2 px-3 text-sm font-semibold capitalize transition-colors sm:px-4',
+                  activeTab === tab ? 'border-accent-600 text-accent-700' : 'border-transparent text-gray-500 hover:text-gray-900'
                 )}
               >
                 {tab === 'buy' && <Home className="h-4 w-4" />}
@@ -174,95 +159,76 @@ export function HomePage() {
               onChange={e => setSearch(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && handleSearch()}
               placeholder="Search by city, area or property..."
-              className="w-full pl-9 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-accent-400/50 focus:border-accent-400"
+              className="h-12 w-full rounded-xl border border-gray-200 pl-10 pr-4 text-sm text-gray-900 placeholder-gray-400 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
             />
           </div>
 
           {/* Dropdowns */}
-          <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="mb-3 grid grid-cols-1 gap-3 sm:grid-cols-[1fr_1fr_auto]">
             <div className="relative">
-              <Building2 className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 pointer-events-none" />
-              <select
-                value={propertyType}
-                onChange={e => setPropertyType(e.target.value)}
-                className="w-full appearance-none pl-8 pr-6 py-2.5 border border-gray-200 rounded-lg text-xs text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent-400/50 focus:border-accent-400 bg-white"
-              >
+              <Building2 className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+              <select value={propertyType} onChange={e => setPropertyType(e.target.value)} className="h-12 w-full appearance-none rounded-xl border border-gray-200 bg-white pl-10 pr-4 text-sm text-gray-700 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20">
                 {propertyTypeOpts.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
               </select>
-              <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 text-xs">▾</span>
             </div>
-            <div className="relative">
-              <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs font-bold pointer-events-none">UGX</span>
-              <select
-                className="w-full appearance-none pl-9 pr-6 py-2.5 border border-gray-200 rounded-lg text-xs text-gray-600 focus:outline-none focus:ring-2 focus:ring-accent-400/50 focus:border-accent-400 bg-white"
-              >
-                {priceRanges.map(o => <option key={o.value} value={o.value}>{o.label}</option>)}
-              </select>
-              <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 text-xs">▾</span>
-            </div>
-          </div>
-
-          {/* Search button */}
-          <button
-            onClick={handleSearch}
-            className="w-full bg-accent-500 hover:bg-accent-600 text-white font-bold text-sm py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
-          >
-            Search Properties <Search className="h-4 w-4" />
-          </button>
-          <div className="mt-2.5 text-center">
-            <button
-              onClick={() => navigate('/properties')}
-              className="inline-flex items-center gap-1 text-xs text-accent-500 hover:text-accent-600 font-semibold"
-            >
-              More filters <SlidersHorizontal className="h-3.5 w-3.5" />
+            <select value={city} onChange={e => setCity(e.target.value)} className="h-12 w-full rounded-xl border border-gray-200 bg-white px-3 text-sm text-gray-700 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/20">
+              <option value="">Any location</option>
+              {['Kampala', 'Wakiso', 'Entebbe', 'Jinja', 'Mbarara', 'Mukono', 'Gulu', 'Arua', 'Mbale'].map(name => <option key={name} value={name}>{name}</option>)}
+            </select>
+            <button onClick={handleSearch} className="inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary-700 px-6 text-sm font-bold text-white transition hover:bg-primary-800">
+              Search <Search className="h-4 w-4" />
             </button>
           </div>
+
+          <button onClick={() => navigate('/properties')} className="inline-flex min-h-10 items-center gap-1 text-sm font-semibold text-primary-700 hover:text-accent-700">
+            More filters <SlidersHorizontal className="h-4 w-4" />
+          </button>
         </div>
       </div>
 
       {/* ── EXPLORE BY CATEGORY ── */}
-      <section className="px-4 mb-6">
-        <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base font-bold text-gray-900">Explore by Category</h2>
-          <Link to="/properties" className="flex items-center gap-0.5 text-xs font-semibold text-accent-500">
-            See all <ArrowRight className="h-3.5 w-3.5" />
+      <section id="categories" className="mx-auto mb-12 max-w-7xl scroll-mt-20 px-4 sm:px-6 lg:px-8">
+        <div className="mb-4 flex items-end justify-between">
+          <div><p className="text-xs font-bold uppercase tracking-wider text-accent-700">Find your fit</p><h2 className="mt-1 text-xl font-bold text-gray-900 sm:text-2xl">Explore by category</h2></div>
+          <Link to="/properties" className="inline-flex min-h-10 items-center gap-1 text-sm font-semibold text-primary-700 hover:text-accent-700">
+            See all <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {categories.map(({ label, href, Icon }) => (
             <Link
               key={label}
               to={href}
-              className="group flex flex-col items-center gap-1.5 p-3 bg-white border border-gray-100 rounded-xl shadow-sm hover:border-accent-300 hover:shadow-md transition-all"
+              className="group flex min-h-28 flex-col items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent-300 hover:shadow-md"
             >
-              <div className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center group-hover:bg-accent-50 transition-colors">
-                <Icon className="h-5 w-5 text-primary-600 group-hover:text-accent-500 transition-colors" />
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 transition-colors group-hover:bg-accent-50">
+                <Icon className="h-5 w-5 text-primary-700 transition-colors group-hover:text-accent-700" />
               </div>
-              <span className="text-xs font-semibold text-gray-700 group-hover:text-accent-500 text-center transition-colors leading-tight">{label}</span>
+              <span className="text-sm font-semibold leading-tight text-gray-700 transition-colors group-hover:text-accent-700">{label}</span>
             </Link>
           ))}
         </div>
       </section>
 
       {/* ── FEATURED PROPERTIES ── */}
-      <section className="mb-6">
-        <div className="flex items-center justify-between mb-3 px-4">
-          <h2 className="text-base font-bold text-gray-900">Featured Properties</h2>
-          <Link to="/properties" className="flex items-center gap-0.5 text-xs font-semibold text-accent-500">
-            See all <ArrowRight className="h-3.5 w-3.5" />
+      <section className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-4 flex items-end justify-between">
+          <div><p className="text-xs font-bold uppercase tracking-wider text-accent-700">A place to start</p><h2 className="mt-1 text-xl font-bold text-gray-900 sm:text-2xl">Featured property examples</h2></div>
+          <Link to="/properties" className="inline-flex min-h-10 items-center gap-1 text-sm font-semibold text-primary-700 hover:text-accent-700">
+            Browse all <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="flex gap-4 overflow-x-auto px-4 pb-2 scrollbar-hide">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {featured.map(p => <FeaturedCard key={p.id} property={p} />)}
         </div>
       </section>
 
       {/* ── TRUST STRIP ── */}
-      <section className="bg-primary-600 px-4 py-8">
-        <div className="grid grid-cols-2 gap-5 max-w-4xl mx-auto">
+      <section className="bg-primary-800 px-4 py-8 sm:py-10">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {trustPoints.map(({ Icon, title, desc }) => (
-            <div key={title} className="flex items-start gap-3">
-              <div className="w-9 h-9 rounded-full bg-white/15 flex items-center justify-center flex-shrink-0">
+            <div key={title} className="flex items-start gap-3 rounded-2xl border border-white/10 bg-white/5 p-4">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/10">
                 <Icon className="h-5 w-5 text-white" />
               </div>
               <div>
@@ -275,14 +241,14 @@ export function HomePage() {
       </section>
 
       {/* ── THE PROBLEM ── */}
-      <section className="px-4 py-10 bg-gray-50">
+      <section id="property-guidance" className="scroll-mt-20 bg-gray-50 px-4 py-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-block bg-error-100 text-error-700 text-xs font-bold px-3 py-1 rounded-full mb-3">The Problem</span>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Property decisions need clear information</h2>
               <p className="text-sm text-gray-500 max-w-md mx-auto">Finding land or a place to live or work can involve complex documents, representation and terms. TtakaMarket is designed to make the review and enquiry process clearer.</p>
           </div>
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {[
               { Icon: AlertTriangle, title: 'Property details', desc: 'Know what information a submission should include' },
               { Icon: Users, title: 'Representation', desc: 'Clarify who is authorised to speak for the owner' },
@@ -302,13 +268,13 @@ export function HomePage() {
       </section>
 
       {/* ── HOW IT WORKS ── */}
-      <section className="px-4 py-10 bg-white">
+      <section id="how-it-works" className="scroll-mt-20 bg-white px-4 py-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-primary-600 mb-2">How TtakaMarket Works</h2>
             <p className="text-sm text-gray-500">A managed process for property submissions and enquiries</p>
           </div>
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {[
               { num: '01', title: 'Submit details', desc: 'Owners or lawful representatives share property information and supporting documents.', Icon: Users },
               { num: '02', title: 'Administrator review', desc: 'The intended process includes document checks and a site survey.', Icon: Shield },
@@ -372,13 +338,13 @@ export function HomePage() {
             <h2 className="text-2xl font-bold text-primary-600 mb-2">Property options for different needs</h2>
             <p className="text-sm text-gray-500">Explore, rent, buy, lease or submit property through one managed marketplace.</p>
           </div>
-          <div className="flex gap-4 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { name: 'Buyers', city: 'Find a property', initials: 'BY', review: 'Browse land, housing, commercial premises and storage or industrial spaces offered for sale, rent or lease.' },
               { name: 'Renters', city: 'Find a rental', initials: 'RT', review: 'Share your accommodation, duration and tenancy preferences to help narrow down suitable rental options.' },
               { name: 'Owners & representatives', city: 'Submit for review', initials: 'OR', review: 'Send property details and supporting documents to TtakaMarket for administrator review and managed publication.' },
             ].map((t) => (
-              <div key={t.name} className="flex-shrink-0 w-72 sm:w-auto bg-gray-50 rounded-2xl p-5 border border-gray-100">
+              <div key={t.name} className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
                 <div className="flex items-center gap-0.5 text-accent-500 mb-3">
                   <span className="text-xs font-semibold uppercase tracking-wide">TtakaMarket</span>
                 </div>
@@ -401,16 +367,12 @@ export function HomePage() {
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-white mb-3">Start your property search</h2>
           <p className="text-sm text-primary-200 mb-6">Explore available property options or submit land, housing, commercial or storage property for TtakaMarket review.</p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link to="/register">
-              <button className="w-full sm:w-auto bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-3 rounded-lg transition-colors shadow-lg text-sm">
-                Create an Account
-              </button>
+          <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
+            <Link to="/properties" className="inline-flex min-h-12 items-center justify-center rounded-xl bg-accent-600 px-8 text-sm font-bold text-white shadow-lg transition-colors hover:bg-accent-700">
+              Browse properties
             </Link>
-            <Link to="/properties">
-              <button className="w-full sm:w-auto border border-white/60 hover:border-white text-white font-semibold px-8 py-3 rounded-lg transition-colors text-sm">
-                Browse Properties
-              </button>
+            <Link to="/properties/new" className="inline-flex min-h-12 items-center justify-center rounded-xl border border-white/60 px-8 text-sm font-semibold text-white transition-colors hover:border-white hover:bg-white/10">
+              Submit property without an account
             </Link>
           </div>
         </div>

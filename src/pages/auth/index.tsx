@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Building2, Mail, Lock, Eye, EyeOff, ArrowLeft, User, Phone, Building, Shield, CheckCircle } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, User, Phone, Building, Shield, CheckCircle } from 'lucide-react';
 import { Button, Card, Input, Select, Textarea } from '../../components/ui';
+import { BrandLogo } from '../../components/BrandLogo';
 import { useAuth } from '../../context';
 import type { RentalPreferences } from '../../lib/types';
 
@@ -36,7 +37,7 @@ export function LoginPage() {
         <div className="w-full max-w-md">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-8"><ArrowLeft className="h-4 w-4" />Back to Home</Link>
           <div className="mb-8">
-            <Link to="/" className="flex items-center gap-2 mb-6"><div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center"><Building2 className="h-6 w-6 text-white" /></div><span className="text-2xl font-bold text-gray-900">Ttaka<span className="text-primary-600">Market</span></span></Link>
+            <Link to="/" aria-label="TtakaMarket home" className="mb-6 inline-flex rounded-lg bg-white"><BrandLogo className="h-14 w-40 rounded-lg" /></Link>
             <h1 className="text-3xl font-bold text-gray-900">Welcome back</h1>
             <p className="mt-2 text-gray-600">Sign in to continue your property search</p>
           </div>
@@ -58,7 +59,7 @@ export function LoginPage() {
       </div>
       <div className="hidden lg:block relative flex-1 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900">
         <div className="relative h-full flex flex-col items-center justify-center px-20 text-white">
-          <div className="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center mb-8 backdrop-blur-sm"><Building2 className="h-10 w-10" /></div>
+          <BrandLogo className="mb-8 h-24 w-72 rounded-2xl" />
           <h2 className="text-3xl font-bold mb-4 text-center">Uganda's property marketplace</h2>
           <p className="text-lg text-primary-100 text-center max-w-md">Explore property across Uganda, with submissions reviewed and public listings managed by TtakaMarket.</p>
           <div className="mt-8 grid grid-cols-2 gap-6 text-center"><div><div className="text-3xl font-bold">Land</div><div className="text-sm text-primary-200">And built property</div></div><div><div className="text-3xl font-bold">Sale · Rent</div><div className="text-sm text-primary-200">Or lease</div></div></div>
@@ -111,7 +112,7 @@ export function RegisterPage() {
     finally { setLoading(false); }
   };
 
-  const userTypes = [{ type: 'buyer', label: 'Buyer or renter', description: 'I want to find property to buy, rent or lease', icon: User }, { type: 'owner', label: 'Owner or representative', description: 'I want to submit property for review', icon: Building }];
+  const userTypes = [{ type: 'buyer', label: 'Buyer or renter', description: 'I want to find property to buy, rent or lease', icon: User }, { type: 'owner', label: 'Owner or representative account', description: 'I want a dashboard to track submissions or use seller tools', icon: Building }];
   const steps = [{ id: 1, title: 'Account Type' }, { id: 2, title: 'Personal Info' }, { id: 3, title: 'Location & Consent' }];
 
   return (
@@ -120,9 +121,9 @@ export function RegisterPage() {
         <div className="w-full max-w-md">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-8"><ArrowLeft className="h-4 w-4" />Back to Home</Link>
           <div className="mb-8">
-            <Link to="/" className="flex items-center gap-2 mb-6"><div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center"><Building2 className="h-6 w-6 text-white" /></div><span className="text-2xl font-bold text-gray-900">Ttaka<span className="text-primary-600">Market</span></span></Link>
+            <Link to="/" aria-label="TtakaMarket home" className="mb-6 inline-flex rounded-lg bg-white"><BrandLogo className="h-14 w-40 rounded-lg" /></Link>
             <h1 className="text-3xl font-bold text-gray-900">Create Your Account</h1>
-            <p className="mt-2 text-gray-600">Explore property across Uganda, or submit details for TtakaMarket administrator review.</p>
+            <p className="mt-2 text-gray-600">Create an account to save properties, use messages or track submissions in a dashboard. A one-time property submission does not require an account.</p>
           </div>
           <div className="flex items-center gap-4 mb-8">
             {steps.map((step, index) => (
@@ -149,6 +150,9 @@ export function RegisterPage() {
                         <p className="text-xs text-gray-500 mt-1">{type.description}</p>
                       </button>
                     ))}
+                  </div>
+                  <div className="rounded-lg border border-gray-200 p-3 text-sm text-gray-600">
+                    Only submitting property details and documents? <Link to="/properties/new" className="font-semibold text-primary-600 hover:text-primary-700">Submit without creating an account</Link>.
                   </div>
                   {userType === 'owner' && (
                     <div className="mt-4 p-3 bg-primary-50 rounded-lg border border-primary-200">
