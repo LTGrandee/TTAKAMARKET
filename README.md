@@ -1,8 +1,12 @@
 # TtakaMarket | Concept Note and Product Overview
 
+> **Homepage positioning:** Uganda’s Trusted Property (Real-Estate) & Accommodation Marketplace.
+>
+> “Trusted” describes the marketplace ambition, not a claim that the current prototype or its sample listings have been verified.
+
 ## 1. Executive summary
 
-TtakaMarket is a proposed Uganda-focused property marketplace for land, homes, commercial and industrial premises, and temporary accommodation such as hotel rooms and short stays. People will be able to discover property to **buy, rent, lease, or book**. Owners and people with lawful authority to represent them will be able to submit property information without first creating an account.
+TtakaMarket is a proposed Uganda-focused property (real-estate) and accommodation marketplace for land, homes, commercial and industrial premises, and temporary accommodation such as hotel rooms and short stays. People will be able to discover property to **buy, rent, lease, or book**. Owners and people with lawful authority to represent them will be able to submit property information without first creating an account.
 
 The product's central purpose is to help **break the chain of manipulation and unlawful middlemen** in property transactions. It aims to make it easier to understand who owns or controls a property, who is authorised to represent the owner, what the stated price and terms are, and how an enquiry is expected to reach an accountable contact. Legitimate agents and representatives are not inherently a problem; the concern is unauthorised, misleading, or unaccountable intermediation.
 
@@ -165,6 +169,42 @@ The revenue model is not specified in this prototype and should be validated wit
 - Support managed personal or business seller pages only as an approved service capability.
 - Ensure future communication reaches the owner, an authorised representative, or the designated managed contact.
 - Make prototype limitations and unverified sample content unmistakable.
+
+## 12. Scope, boundaries, and intended outcomes
+
+### In scope for the proposed service
+
+- A Uganda-focused discovery marketplace covering land, residential, commercial, storage/industrial, and accommodation needs.
+- The distinct **Buy**, **Rent**, **Lease**, and **Book** discovery journeys, with a clear price basis and currency.
+- One-time owner or authorised-representative submissions without a required dashboard account.
+- A proposed central review, approval, publication, and change-control process.
+- Optional accounts for ongoing submission monitoring, saved listings, managed seller-page tools, and future communications.
+- Clear disclosures about who is offering a listing, the stated representative relationship, what evidence has been reviewed, and what remains unchecked.
+
+### Not implied by the concept or current prototype
+
+- A guarantee of title, ownership, boundaries, property condition, legal authority, accuracy, availability, or transaction safety.
+- A claim that every agent or intermediary is unlawful; the concern is unauthorised, misleading, or unaccountable conduct.
+- A live estate-agency, legal, surveying, title-search, accommodation-provider, escrow, banking, or payment service.
+- Instant public posting by submitters or independent approval and publication by seller accounts.
+- A live booking or reservation confirmation, availability calendar, cancellation/refund service, or payment collection.
+- A currently staffed customer-support or fraud-reporting operation.
+
+These boundaries must be reflected in the interface, operating policies, partner agreements, and staff procedures before launch—not only in the README.
+
+### Intended outcomes and evaluation
+
+The concept should be evaluated on whether it creates more accountable and understandable property journeys, rather than on listing volume alone. Possible measures for a future live service include:
+
+- The share of published listings with an identified owner or documented representative relationship.
+- The share of submissions with a recorded review outcome and reason before publication.
+- The frequency of material price, availability, authority, or property-detail discrepancies.
+- The number and resolution time of reports involving impersonation or misleading claims.
+- User understanding of the contact's role, review scope, price basis, and prototype/live-service limitations.
+- Time from complete submission to review decision, and the reasons submissions are returned or declined.
+- For short stays, successful date/availability checks, accurate total-price disclosure, cancellations, refunds, and support outcomes after a real booking service exists.
+
+Targets should be set only after operational capacity and a baseline are established. Metrics must not reward rushed reviews, suppress legitimate complaints, or turn a review status into an unsupported guarantee.
 
 ## Current prototype: demonstrated screens and flows
 
