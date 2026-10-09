@@ -120,7 +120,7 @@ export function HomePage() {
             <span className="text-xs font-semibold text-white sm:text-sm">Land, homes and more · Across Uganda</span>
           </div>
           <h1 className="mb-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Uganda&apos;s Trusted <span className="text-accent-400">Property (Real-Estate) Marketplace</span>
+            Uganda&apos;s Trusted <span className="text-accent-400">Property (Real-Estate) &amp; Accommodation Marketplace</span>
           </h1>
           <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">Explore land, homes, hotel rooms and other short stays, commercial spaces and storage across Uganda.</p>
           <div className="flex flex-wrap gap-3">
