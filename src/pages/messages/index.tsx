@@ -56,7 +56,8 @@ export function MessagesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Messages</h1>
+        <h1 className="text-2xl font-bold text-gray-900 mb-2">Property enquiries</h1>
+        <p className="text-sm text-gray-500 mb-6">Sample conversations in the TtakaMarket prototype.</p>
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="flex h-[calc(100vh-200px)]">
             <div className={cn('w-full border-r border-gray-200 overflow-y-auto', 'md:w-80 md:block', conversationId ? 'hidden md:block' : 'block')}>
@@ -69,8 +70,8 @@ export function MessagesPage() {
                       <button key={conv.id} onClick={() => { navigate(`/messages/${conv.id}`); setSelectedConversation(conv); fetchMessages(conv.id); }} className={cn('w-full p-4 flex items-center gap-3 text-left hover:bg-gray-50 transition-colors', isSelected && 'bg-primary-50 border-l-4 border-l-primary-600')}>
                         <Avatar size="md" />
                         <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between"><p className="font-medium text-gray-900 truncate">Property Owner</p><span className="text-xs text-gray-400">{formatRelativeTime(conv.last_message_at)}</span></div>
-                          <p className="text-sm text-gray-500 truncate">Click to view conversation</p>
+                          <div className="flex items-center justify-between"><p className="font-medium text-gray-900 truncate">Property contact</p><span className="text-xs text-gray-400">{formatRelativeTime(conv.last_message_at)}</span></div>
+                          <p className="text-sm text-gray-500 truncate">Sample property enquiry</p>
                         </div>
                       </button>
                     );
@@ -84,7 +85,7 @@ export function MessagesPage() {
                   <div className="p-4 border-b border-gray-200 flex items-center gap-3">
                     <button onClick={() => navigate('/messages')} className="md:hidden p-2 text-gray-500 hover:bg-gray-100 rounded-lg"><ArrowLeft className="h-5 w-5" /></button>
                     <Avatar size="md" />
-                    <div><p className="font-medium text-gray-900">Owner / Lawful Representative</p><p className="text-sm text-gray-500">Contact managed through TtakaMarket</p></div>
+                    <div><p className="font-medium text-gray-900">Property contact</p><p className="text-sm text-gray-500">Example contact in the prototype</p></div>
                   </div>
                   <div className="flex-1 overflow-y-auto p-4 space-y-4">
                     {messages.map((message) => {

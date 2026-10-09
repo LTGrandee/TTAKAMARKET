@@ -61,7 +61,7 @@ export function PropertiesPage() {
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{filters.type ? `Properties` : 'All Properties'}</h1>
-          <p className="mt-1 text-gray-500">Browse verified land, housing, commercial, and storage properties from trusted submitters</p>
+          <p className="mt-1 text-gray-500">Browse sample listings across land, housing, commercial and storage property for sale, rent or lease.</p>
           <div className="mt-6"><SearchBar /></div>
         </div>
       </div>
@@ -114,7 +114,7 @@ export function PropertyDetailPage() {
     try {
       const mockProperty: Property = {
         id: id || '1', owner_id: 'mock', title: 'Prime Residential Land in Kololo',
-        description: `This is a rare opportunity to own a prime piece of residential land in one of Kampala's most prestigious neighborhoods. Kololo is known for its diplomatic residences, upscale homes, and excellent infrastructure.\n\nKey Features:\n• 2,500 square meters of flat, developable land\n• Already surveyed with clear boundaries\n• Main road access with electricity and water available\n• Peaceful and secure neighborhood\n• Perfect for building your dream home or investment property\n\nLocation:\nLocated on Kololo Hill Drive, just 5 minutes from the city center.\n\nDocumentation:\n• Clean land title (Mailo Land)\n• Survey plan available\n• All transfer documents ready`,
+        description: `Sample property description for the TtakaMarket frontend prototype.\n\nBefore making a decision, independently confirm the property's tenure, boundaries, access, services and supporting documents with the relevant professionals.`,
         property_type: 'residential_land', listing_type: 'sale', price: 850000000, price_unit: 'UGX', currency: 'UGX',
         size_sqm: 2500, size_unit: 'sqm', address: 'Kololo Hill Drive', city: 'Kampala', region: 'Central', country: 'Uganda',
         latitude: 0.3284, longitude: 32.5894, features: ['Main Road Access', 'Electricity', 'Water', 'Surveyed', 'Garden'],
@@ -186,7 +186,7 @@ export function PropertyDetailPage() {
                     )}
                   </>
                 ) : (<div className="w-full h-full bg-gray-100 flex items-center justify-center"><Building2 className="h-16 w-16 text-gray-300" /></div>)}
-                {property.verification_status === 'verified' && <div className="absolute top-4 left-4 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg"><Shield className="h-4 w-4 text-primary-600" /><span className="text-sm font-medium text-primary-700">Verified Property</span></div>}
+                <div className="absolute top-4 left-4 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg"><Shield className="h-4 w-4 text-primary-600" /><span className="text-sm font-medium text-primary-700">Sample listing</span></div>
               </div>
               {property.images && property.images.length > 1 && (
                 <div className="flex gap-2 p-4 overflow-x-auto">
@@ -255,14 +255,14 @@ export function PropertyDetailPage() {
 
           <div className="space-y-6">
             <Card className="p-6 sticky top-24">
-              <div className="flex items-center gap-4 mb-4"><Avatar name={owner?.full_name} size="lg" /><div><div className="flex items-center gap-2"><h3 className="font-semibold text-gray-900">{owner?.full_name}</h3>{owner?.is_verified && <Shield className="h-4 w-4 text-primary-600" />}</div><p className="text-sm text-gray-500">Verified Property Owner</p></div></div>
+              <div className="flex items-center gap-4 mb-4"><Avatar name={owner?.full_name} size="lg" /><div><div className="flex items-center gap-2"><h3 className="font-semibold text-gray-900">{owner?.full_name}</h3></div><p className="text-sm text-gray-500">Sample property contact</p></div></div>
               <div className="flex items-center gap-2 text-sm text-gray-500 mb-4"><Clock className="h-4 w-4" /><span>Listed {formatDate(property.created_at)}</span></div>
               <div className="space-y-3">
                 <Button variant="primary" className="w-full" leftIcon={<MessageSquare className="h-4 w-4" />} onClick={() => setShowContactModal(true)}>Chat with Owner / Representative</Button>
                 <Button variant="outline" className="w-full" leftIcon={<Calendar className="h-4 w-4" />} onClick={() => setShowAppointmentModal(true)}>Schedule Viewing</Button>
               </div>
               <div className="mt-6 pt-6 border-t border-gray-100">
-                <h4 className="text-sm font-medium text-gray-900 mb-3">Property Statistics</h4>
+                <h4 className="text-sm font-medium text-gray-900 mb-3">Sample listing statistics</h4>
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div><p className="text-2xl font-bold text-gray-900">{property.views_count}</p><p className="text-xs text-gray-500">Views</p></div>
                   <div><p className="text-2xl font-bold text-gray-900">{property.saves_count}</p><p className="text-xs text-gray-500">Saved</p></div>
@@ -272,16 +272,15 @@ export function PropertyDetailPage() {
             </Card>
 
             <Card className="p-6 bg-primary-50 border-primary-200">
-              <div className="flex items-center gap-3 mb-3"><Shield className="h-6 w-6 text-primary-600" /><h4 className="font-semibold text-primary-900">Verified Property</h4></div>
-              <p className="text-sm text-primary-700 mb-3">This property has been verified by our team. The owner's identity and ownership documents have been confirmed.</p>
-              <div className="flex flex-wrap gap-2"><Badge variant="primary" size="sm"><CheckCircle className="h-3 w-3 mr-1" />Owner Verified</Badge><Badge variant="primary" size="sm"><CheckCircle className="h-3 w-3 mr-1" />Documents Verified</Badge></div>
+              <div className="flex items-center gap-3 mb-3"><Shield className="h-6 w-6 text-primary-600" /><h4 className="font-semibold text-primary-900">Review before you proceed</h4></div>
+              <p className="text-sm text-primary-700">This is example content; no property documents or ownership details have been checked. Confirm the information and seek appropriate independent advice before making a commitment.</p>
             </Card>
           </div>
         </div>
       </div>
 
-      <Modal isOpen={showContactModal} onClose={() => setShowContactModal(false)} title="Contact Property Owner" size="md">
-        {!user ? (<div className="text-center py-6"><User className="h-12 w-12 text-gray-300 mx-auto mb-4" /><h3 className="font-semibold text-gray-900 mb-2">Sign in to send a message</h3><p className="text-sm text-gray-500 mb-4">You need an account to contact property owners</p><Link to="/login"><Button variant="primary">Sign In</Button></Link></div>) : (<div className="space-y-4"><Textarea label="Your Message" placeholder="Hi, I'm interested in this property..." value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /><div className="flex gap-3"><Button variant="secondary" onClick={() => setShowContactModal(false)}>Cancel</Button><Button variant="primary" disabled={!message.trim()}>Send Message</Button></div></div>)}
+      <Modal isOpen={showContactModal} onClose={() => setShowContactModal(false)} title="Contact about this property" size="md">
+        {!user ? (<div className="text-center py-6"><User className="h-12 w-12 text-gray-300 mx-auto mb-4" /><h3 className="font-semibold text-gray-900 mb-2">Sign in to send an enquiry</h3><p className="text-sm text-gray-500 mb-4">Create an account to enquire about a property.</p><Link to="/login"><Button variant="primary">Sign In</Button></Link></div>) : (<div className="space-y-4"><Textarea label="Your Message" placeholder="Hello, I would like to know more about this property..." value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /><div className="flex gap-3"><Button variant="secondary" onClick={() => setShowContactModal(false)}>Cancel</Button><Button variant="primary" disabled={!message.trim()}>Send Enquiry</Button></div></div>)}
       </Modal>
 
       <Modal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} title="Schedule a Viewing" size="md">
@@ -290,7 +289,7 @@ export function PropertyDetailPage() {
 
       <Modal isOpen={showReportModal} onClose={() => setShowReportModal(false)} title="Report This Property" size="md">
         <div className="space-y-4">
-          <p className="text-sm text-gray-500">If you believe this listing is fraudulent or violates our terms, please report it. Our team will investigate within 24 hours.</p>
+          <p className="text-sm text-gray-500">Use this form to flag information you believe is inaccurate or concerning. Reports are not sent to a live review team in this prototype.</p>
           <Select label="Reason" options={[{ value: 'fake_listing', label: 'Fake Listing' }, { value: 'fraudulent_sale', label: 'Fraudulent Sale' }, { value: 'impersonation', label: 'Owner Impersonation' }, { value: 'ownership_dispute', label: 'Ownership Dispute' }, { value: 'misrepresentation', label: 'Misrepresentation' }, { value: 'other', label: 'Other' }]} placeholder="Select a reason" />
           <Textarea label="Details" placeholder="Please provide any additional details..." rows={4} />
           <div className="flex gap-3"><Button variant="secondary" onClick={() => setShowReportModal(false)}>Cancel</Button><Button variant="danger">Submit Report</Button></div>
@@ -354,7 +353,7 @@ export function NewPropertyPage() {
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Submit a Property</h1>
-          <p className="mt-1 text-gray-500">Give TtakaMarket the details and documents needed to verify and market it for you</p>
+          <p className="mt-1 text-gray-500">Share property details for administrator review and possible TtakaMarket-managed publication.</p>
           <div className="mt-8 flex items-center gap-2">
             {steps.map((step, index) => (
               <div key={step.id} className="flex items-center">
@@ -422,10 +421,10 @@ export function NewPropertyPage() {
 
           {currentStep === 4 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Ownership Documents</h2><p className="text-sm text-gray-500 mb-4">Upload the land title, survey plan, sale agreement, identification, or other documents that prove your right to sell or rent this property. TtakaMarket administrators will review them and arrange a site survey.</p>
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Supporting Documents</h2><p className="text-sm text-gray-500 mb-4">Add relevant title or tenure records, survey plans, agreements, identification, or evidence of authority to represent the owner. The intended review includes document checks and site-survey coordination. Files are not uploaded to a live service in this prototype.</p>
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-8">
                   <input type="file" accept=".pdf,.jpg,.jpeg,.png" multiple onChange={(e) => e.target.files && setDocuments([...documents, ...Array.from(e.target.files)])} className="hidden" id="documents" />
-                  <label htmlFor="documents" className="cursor-pointer"><div className="h-10 w-10 text-gray-400 mx-auto mb-2">Upload</div><p className="text-sm text-gray-600 text-center">Click to upload documents</p><p className="text-xs text-gray-400 text-center mt-1">PDF, JPG, PNG up to 10MB each</p></label>
+                  <label htmlFor="documents" className="cursor-pointer"><div className="h-10 w-10 text-gray-400 mx-auto mb-2">Upload</div><p className="text-sm text-gray-600 text-center">Choose documents to preview</p><p className="text-xs text-gray-400 text-center mt-1">PDF, JPG or PNG · Prototype only</p></label>
                 </div>
                 {documents.length > 0 && (<div className="mt-4 space-y-2">{documents.map((doc, index) => (<div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg"><div className="flex items-center gap-2"><span className="text-sm text-gray-700">{doc.name}</span></div><button onClick={() => setDocuments(documents.filter((_, i) => i !== index))} className="text-error-600 hover:text-error-700">Remove</button></div>))}</div>)}
               </div>
@@ -434,7 +433,7 @@ export function NewPropertyPage() {
 
           {currentStep === 5 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Review Your Submission</h2><p className="text-sm text-gray-500 mb-4">After submission, TtakaMarket administrators verify the documents, conduct a site survey, and decide whether to publish and manage the advertisement.</p><div className="space-y-4">
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Review your property details</h2><p className="text-sm text-gray-500 mb-4">In the planned service, an administrator reviews supporting documents and coordinates a site survey before deciding whether a listing can be published. This prototype does not send submissions to TtakaMarket.</p><div className="space-y-4">
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Property Title</p><p className="font-medium text-gray-900">{formData.title}</p></div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Asset category</p><p className="font-medium text-gray-900">{getPropertyCategoryLabel(formData.asset_category)}</p></div>
@@ -452,7 +451,7 @@ export function NewPropertyPage() {
           <div className="mt-8 pt-6 border-t border-gray-200 flex gap-3">
             {currentStep > 1 && <Button variant="secondary" onClick={() => setCurrentStep(currentStep - 1)}>Previous</Button>}
             <div className="flex-1" />
-            {currentStep < 5 ? (<Button variant="primary" onClick={() => setCurrentStep(currentStep + 1)} disabled={!isStepValid()}>Next</Button>) : (<Button variant="primary" loading={loading} onClick={handleSubmit}>Submit to TtakaMarket</Button>)}
+            {currentStep < 5 ? (<Button variant="primary" onClick={() => setCurrentStep(currentStep + 1)} disabled={!isStepValid()}>Next</Button>) : (<Button variant="primary" loading={loading} onClick={handleSubmit}>Preview submission</Button>)}
           </div>
         </Card>
       </div>

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Shield, CheckCircle, MessageSquare, ArrowRight, Star, Search, SlidersHorizontal, Home, Key, Tag, Building2, BedDouble, Bath, Square, MapPin, Heart, Handshake, Headphones, Users, TreePine, AlertTriangle, TrendingUp } from 'lucide-react';
+import { Shield, CheckCircle, MessageSquare, ArrowRight, Search, SlidersHorizontal, Home, Key, Tag, Building2, BedDouble, Bath, Square, MapPin, Heart, Handshake, Headphones, Users, TreePine, AlertTriangle, TrendingUp } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import type { Property } from '../lib/types';
 import { formatPrice, getListingTypeLabel } from '../lib/utils';
@@ -14,14 +14,14 @@ const categories = [
   { label: 'Land', href: '/properties?category=land', Icon: MapPin },
   { label: 'Housing', href: '/properties?category=housing', Icon: Home },
   { label: 'Commercial', href: '/properties?category=commercial', Icon: Building2 },
-  { label: 'Short Lets', href: '/properties?listing_type=rent', Icon: TreePine },
+  { label: 'Rentals', href: '/properties?listing_type=rent', Icon: TreePine },
 ];
 
 const trustPoints = [
-  { Icon: Shield, title: '100% Verified', desc: 'Every property is verified' },
-  { Icon: Users, title: 'Trusted Contacts', desc: 'Chat with owners or lawful representatives' },
-  { Icon: Handshake, title: 'Secure Deals', desc: 'Safe & transparent transactions' },
-  { Icon: Headphones, title: '24/7 Support', desc: "We're here to help you" },
+  { Icon: Shield, title: 'Administrator-led review', desc: 'Submissions are reviewed before publication' },
+  { Icon: Users, title: 'Clear representation', desc: 'Owner or lawful representative details' },
+  { Icon: Handshake, title: 'Managed enquiries', desc: 'Contact arrangements are set for each property' },
+  { Icon: Headphones, title: 'One marketplace', desc: 'Land, homes, business and storage spaces' },
 ];
 
 const MOCK_FEATURED: Property[] = [
@@ -57,7 +57,7 @@ function FeaturedCard({ property }: { property: Property }) {
       <div className="relative h-40 overflow-hidden">
         <img src={img?.image_url} alt={property.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
         <div className="absolute top-2 left-2">
-          <span className="bg-primary-600 text-white text-xs font-semibold px-2 py-0.5 rounded">Verified</span>
+          <span className="bg-primary-600 text-white text-xs font-semibold px-2 py-0.5 rounded">Sample listing</span>
         </div>
         <button
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); setSaved(!saved); }}
@@ -94,7 +94,7 @@ function FeaturedCard({ property }: { property: Property }) {
 export function HomePage() {
   const navigate = useNavigate();
   const [featured, setFeatured] = useState<Property[]>(MOCK_FEATURED);
-  const [activeTab, setActiveTab] = useState<'buy' | 'rent' | 'sell'>('buy');
+  const [activeTab, setActiveTab] = useState<'buy' | 'rent' | 'lease'>('buy');
   const [search, setSearch] = useState('');
   const [propertyType, setPropertyType] = useState('');
 
@@ -108,6 +108,7 @@ export function HomePage() {
     if (propertyType) p.set('type', propertyType);
     if (activeTab === 'buy') p.set('listing_type', 'sale');
     else if (activeTab === 'rent') p.set('listing_type', 'rent');
+    else if (activeTab === 'lease') p.set('listing_type', 'lease');
     navigate(`/properties?${p.toString()}`);
   };
 
@@ -121,12 +122,12 @@ export function HomePage() {
         <div className="relative h-full flex flex-col justify-center px-4 sm:px-5 md:px-10 max-w-4xl">
           <div className="inline-flex items-center gap-2 bg-accent-500/25 border border-accent-400/50 rounded-full px-3 py-1 mb-3 w-fit">
             <Shield className="h-3.5 w-3.5 text-accent-400" />
-            <span className="text-xs font-semibold text-accent-300">Verified Owners. Direct Deals.</span>
+            <span className="text-xs font-semibold text-accent-300">Land, homes and more · Across Uganda</span>
           </div>
           <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white leading-tight mb-2">
-            Africa's Trusted<br className="sm:hidden" /> Property <span className="text-accent-500">Marketplace</span>
+            Uganda's Property<br className="sm:hidden" /> <span className="text-accent-500">Marketplace</span>
           </h1>
-          <p className="text-sm md:text-base text-white/75 mb-4">Buy, sell, or rent properties with confidence.</p>
+          <p className="text-sm md:text-base text-white/75 mb-4">Explore land, homes, commercial spaces and storage for sale, rent or lease. Submit a property for TtakaMarket review.</p>
           <div className="flex flex-wrap gap-2 sm:gap-3">
             <Link to="/properties">
               <button className="inline-flex items-center gap-2 bg-accent-500 hover:bg-accent-600 text-white font-semibold text-sm px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg transition-colors shadow-lg">
@@ -135,7 +136,7 @@ export function HomePage() {
             </Link>
             <Link to="/register?type=owner">
               <button className="inline-flex items-center gap-2 border border-white/60 hover:border-white text-white font-semibold text-sm px-4 py-2 sm:px-5 sm:py-2.5 rounded-lg transition-colors">
-                <Home className="h-4 w-4" /> Submit a Property
+                <Home className="h-4 w-4" /> Submit for Review
               </button>
             </Link>
           </div>
@@ -147,7 +148,7 @@ export function HomePage() {
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-4">
           {/* Tabs */}
           <div className="flex gap-4 border-b border-gray-100 mb-4">
-            {(['buy', 'rent', 'sell'] as const).map(tab => (
+            {(['buy', 'rent', 'lease'] as const).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
@@ -158,7 +159,7 @@ export function HomePage() {
               >
                 {tab === 'buy' && <Home className="h-4 w-4" />}
                 {tab === 'rent' && <Key className="h-4 w-4" />}
-                {tab === 'sell' && <Tag className="h-4 w-4" />}
+                {tab === 'lease' && <Tag className="h-4 w-4" />}
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
             ))}
@@ -278,15 +279,15 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-block bg-error-100 text-error-700 text-xs font-bold px-3 py-1 rounded-full mb-3">The Problem</span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Property Fraud is a Major Issue in Africa</h2>
-            <p className="text-sm text-gray-500 max-w-md mx-auto">Every day, thousands of people lose money through fake listings, fraudulent brokers, and ownership disputes.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Property decisions need clear information</h2>
+              <p className="text-sm text-gray-500 max-w-md mx-auto">Finding land or a place to live or work can involve complex documents, representation and terms. TtakaMarket is designed to make the review and enquiry process clearer.</p>
           </div>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { Icon: AlertTriangle, title: 'Fake Listings', desc: "Fraudulent properties that don't exist" },
-              { Icon: Users, title: 'Fake Brokers', desc: 'Impersonators claiming to represent owners' },
-              { Icon: TrendingUp, title: 'Hidden Costs', desc: 'Inflated commissions and surprise fees' },
-              { Icon: Shield, title: 'Ownership Disputes', desc: 'Properties with unclear ownership' },
+              { Icon: AlertTriangle, title: 'Property details', desc: 'Know what information a submission should include' },
+              { Icon: Users, title: 'Representation', desc: 'Clarify who is authorised to speak for the owner' },
+              { Icon: TrendingUp, title: 'Listing terms', desc: 'Compare sale, rent and lease arrangements' },
+              { Icon: Shield, title: 'Supporting documents', desc: 'Understand what administrators review' },
             ].map(({ Icon, title, desc }) => (
               <div key={title} className="bg-white rounded-xl p-4 border border-error-100 shadow-sm">
                 <div className="w-10 h-10 bg-error-50 rounded-xl flex items-center justify-center mb-3">
@@ -305,14 +306,14 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-primary-600 mb-2">How TtakaMarket Works</h2>
-            <p className="text-sm text-gray-500">A simple, transparent process for safe property transactions</p>
+            <p className="text-sm text-gray-500">A managed process for property submissions and enquiries</p>
           </div>
           <div className="grid grid-cols-2 gap-4">
             {[
-              { num: '01', title: 'Owner Registration', desc: 'Property owners create an account and submit verification documents.', Icon: Users },
-              { num: '02', title: 'Verification', desc: 'We verify ownership documents, national ID, and property details.', Icon: Shield },
-              { num: '03', title: 'Publication', desc: 'Verified properties are listed with the trusted verification badge.', Icon: CheckCircle },
-              { num: '04', title: 'Managed Connection', desc: 'Buyers chat with the owner or lawful representative through TtakaMarket.', Icon: MessageSquare },
+              { num: '01', title: 'Submit details', desc: 'Owners or lawful representatives share property information and supporting documents.', Icon: Users },
+              { num: '02', title: 'Administrator review', desc: 'The intended process includes document checks and a site survey.', Icon: Shield },
+              { num: '03', title: 'Publication decision', desc: 'TtakaMarket decides whether an approved submission is ready to publish.', Icon: CheckCircle },
+              { num: '04', title: 'Manage enquiries', desc: 'Contact is arranged with the owner, representative or TtakaMarket.', Icon: MessageSquare },
             ].map(({ num, title, desc, Icon }) => (
               <div key={num} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                 <div className="w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center mb-3">
@@ -332,14 +333,14 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-block bg-success-100 text-success-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Our Solution</span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Verification First. Trust Always.</h2>
-            <p className="text-sm text-gray-500 max-w-md mx-auto">Before any property is listed, we verify both the owner and the ownership documents.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">A marketplace built around review</h2>
+            <p className="text-sm text-gray-500 max-w-md mx-auto">TtakaMarket's model puts submission review, administrator approval and managed publication at the centre of the experience.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 mb-6">
             {[
-              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Verified Owners', desc: 'Every property owner is verified using government ID and ownership documents before they can list on our platform.' },
-              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: Shield, title: 'Verified Properties', desc: 'Land titles, survey plans, and ownership certificates are verified by our team before publication.' },
-              { color: 'bg-accent-50 border-accent-100', iconBg: 'bg-accent-500', Icon: MessageSquare, title: 'Managed Communication', desc: 'Chat with the owner or lawful representative through TtakaMarket, with no hidden fees.' },
+              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Submission review', desc: 'The planned review covers identity, ownership or tenure documents, and authority to represent the owner.' },
+              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: Shield, title: 'Site survey coordination', desc: "The process is designed to check the property's location, size, access and condition before publication." },
+              { color: 'bg-accent-50 border-accent-100', iconBg: 'bg-accent-500', Icon: MessageSquare, title: 'Managed enquiries', desc: 'Approved contact arrangements can connect people with the owner, representative or TtakaMarket.' },
             ].map(({ color, iconBg, Icon, title, desc }) => (
               <div key={title} className={`flex gap-4 p-4 rounded-xl border ${color}`}>
                 <div className={`w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>
@@ -353,10 +354,10 @@ export function HomePage() {
             ))}
           </div>
           <div className="bg-primary-600 rounded-2xl p-6 text-center">
-            <h3 className="text-lg font-bold text-white mb-2">Our Promise</h3>
-            <p className="text-sm text-primary-200 mb-4">Verify the Owner. Verify the Property. Build Trust.</p>
+            <h3 className="text-lg font-bold text-white mb-2">Designed for careful property decisions</h3>
+            <p className="text-sm text-primary-200 mb-4">Review the details. Ask questions. Make informed decisions.</p>
             <div className="flex flex-wrap items-center justify-center gap-4 text-primary-200">
-              {['No fake listings', 'No fraudulent brokers', 'No hidden costs'].map(t => (
+              {['Land and built property', 'Sale, rent and lease', 'Administrator-managed publishing'].map(t => (
                 <div key={t} className="flex items-center gap-1.5 text-xs"><CheckCircle className="h-4 w-4 text-primary-300" />{t}</div>
               ))}
             </div>
@@ -364,22 +365,22 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ── TESTIMONIALS ── */}
+      {/* ── WHO IT SERVES ── */}
       <section className="px-4 py-10 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-primary-600 mb-2">Trusted by Thousands</h2>
-            <p className="text-sm text-gray-500">See what our users say about TtakaMarket</p>
+            <h2 className="text-2xl font-bold text-primary-600 mb-2">Property options for different needs</h2>
+            <p className="text-sm text-gray-500">Explore, rent, buy, lease or submit property through one managed marketplace.</p>
           </div>
           <div className="flex gap-4 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0 sm:grid sm:grid-cols-3 sm:overflow-visible">
             {[
-              { name: 'John K.', city: 'Kampala', initials: 'JK', review: '"I had been looking for land for years but was afraid of fraud. TtakaMarket gave me the confidence to finally make a purchase."' },
-              { name: 'Sarah M.', city: 'Entebbe', initials: 'SM', review: '"As a property owner, I was tired of dealing with fake brokers. Now I connect directly with genuine buyers."' },
-              { name: 'Peter O.', city: 'Jinja', initials: 'PO', review: '"I found my office space in just 2 weeks. The owner was verified, the paperwork was legit. Highly recommended!"' },
+              { name: 'Buyers', city: 'Find a property', initials: 'BY', review: 'Browse land, housing, commercial premises and storage or industrial spaces offered for sale, rent or lease.' },
+              { name: 'Renters', city: 'Find a rental', initials: 'RT', review: 'Share your accommodation, duration and tenancy preferences to help narrow down suitable rental options.' },
+              { name: 'Owners & representatives', city: 'Submit for review', initials: 'OR', review: 'Send property details and supporting documents to TtakaMarket for administrator review and managed publication.' },
             ].map((t) => (
               <div key={t.name} className="flex-shrink-0 w-72 sm:w-auto bg-gray-50 rounded-2xl p-5 border border-gray-100">
                 <div className="flex items-center gap-0.5 text-accent-500 mb-3">
-                  {[...Array(5)].map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}
+                  <span className="text-xs font-semibold uppercase tracking-wide">TtakaMarket</span>
                 </div>
                 <p className="text-gray-600 text-sm mb-4 leading-relaxed">{t.review}</p>
                 <div className="flex items-center gap-3">
@@ -398,12 +399,12 @@ export function HomePage() {
       {/* ── CTA ── */}
       <section className="bg-primary-600 px-4 py-12">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-white mb-3">Ready to Find Your Perfect Property?</h2>
-          <p className="text-sm text-primary-200 mb-6">Find verified property opportunities, or submit your land or housing property for TtakaMarket to verify and advertise on your behalf.</p>
+          <h2 className="text-2xl font-bold text-white mb-3">Start your property search</h2>
+          <p className="text-sm text-primary-200 mb-6">Explore available property options or submit land, housing, commercial or storage property for TtakaMarket review.</p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link to="/register">
               <button className="w-full sm:w-auto bg-accent-500 hover:bg-accent-600 text-white font-bold px-8 py-3 rounded-lg transition-colors shadow-lg text-sm">
-                Get Started Free
+                Create an Account
               </button>
             </Link>
             <Link to="/properties">

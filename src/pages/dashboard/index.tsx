@@ -6,10 +6,10 @@ import { useAuth } from '../../context';
 import { getRentalLabel } from '../../lib/utils';
 
 const reviewSteps = [
-  { title: 'Property submitted', description: 'Your details and supporting documents have been received.', Icon: FileText },
-  { title: 'Document verification', description: 'TtakaMarket administrators review ownership and identity documents.', Icon: Shield },
-  { title: 'Site survey', description: 'Our team confirms the property location and condition on site.', Icon: MapPin },
-  { title: 'Publication and management', description: 'Once approved, TtakaMarket publishes and manages enquiries for the property.', Icon: CheckCircle },
+  { title: 'Submit property details', description: 'Share the property information and supporting documents for review.', Icon: FileText },
+  { title: 'Administrator review', description: 'The planned review includes ownership, tenure and identity documents.', Icon: Shield },
+  { title: 'Site survey', description: 'A site survey can be coordinated to review location, access and condition.', Icon: MapPin },
+  { title: 'Publication decision', description: 'TtakaMarket decides whether to approve and manage the public listing.', Icon: CheckCircle },
 ];
 
 export function DashboardPage() {
@@ -29,12 +29,12 @@ export function DashboardPage() {
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">
-            {isSubmitter ? 'Property Submission Status' : `Welcome back, ${profile.full_name.split(' ')[0]}`}
+            {isSubmitter ? 'Your property submissions' : `Welcome back, ${profile.full_name.split(' ')[0]}`}
           </h1>
           <p className="mt-1 text-gray-500">
             {isSubmitter
-              ? 'TtakaMarket administrators handle verification, site surveys, advertising, and buyer enquiries.'
-              : 'Browse verified properties, save favourites, and contact owners or lawful representatives.'}
+              ? 'Submit land or built property for administrator review and managed publication.'
+              : 'Browse property for sale, rent or lease, save options and review contact arrangements.'}
           </p>
         </div>
       </div>
@@ -49,7 +49,7 @@ export function DashboardPage() {
                 </div>
                 <div>
                   <h2 className="font-semibold text-primary-900">No active submission yet</h2>
-                  <p className="mt-1 text-sm text-primary-700">Submit a land or housing property for sale or rent. You do not need to create or manage a public listing yourself.</p>
+                  <p className="mt-1 text-sm text-primary-700">Submit land, housing, commercial or storage property for sale, rent or lease. TtakaMarket manages review and any approved public listing.</p>
                   <Link to="/properties/new"><Button size="sm" variant="primary" className="mt-4">Submit a Property</Button></Link>
                 </div>
               </div>
@@ -59,7 +59,7 @@ export function DashboardPage() {
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-900">Managed seller page</h2>
-                  <p className="mt-1 text-sm text-gray-500">TtakaMarket creates and controls your public personal or business brand page. You can request posts, but our administrators approve every public update.</p>
+                  <p className="mt-1 text-sm text-gray-500">Request a TtakaMarket-managed personal or business page. Any public property posts are subject to administrator approval.</p>
                   {profile.seller_profile_enabled && profile.seller_profile_slug && (
                     <Link to={`/seller/${profile.seller_profile_slug}`} className="inline-flex mt-3 text-sm font-semibold text-primary-600 hover:text-primary-700">View public seller page</Link>
                   )}
@@ -76,7 +76,7 @@ export function DashboardPage() {
               <div className="flex flex-wrap gap-3 mt-5">
                 <Link to="/properties/new"><Button size="sm" variant="primary">Request a property post</Button></Link>
                 <Link to="/messages"><Button size="sm" variant="outline" leftIcon={<MessageSquare className="h-4 w-4" />}>Optional customer chats</Button></Link>
-                <span className="text-xs text-gray-500 self-center">Performance reporting is shown above and is managed by TtakaMarket.</span>
+                <span className="text-xs text-gray-500 self-center">Figures shown here are sample prototype data.</span>
               </div>
             </Card>
 
@@ -101,13 +101,13 @@ export function DashboardPage() {
               <Card className="p-6">
                 <MessageSquare className="h-6 w-6 text-accent-500 mb-3" />
                 <h2 className="font-semibold text-gray-900">Owner communication</h2>
-                <p className="mt-1 text-sm text-gray-500">Choose whether buyers should chat with you or an authorised lawful representative after TtakaMarket publishes the property.</p>
+                <p className="mt-1 text-sm text-gray-500">Set a preferred enquiry contact for a property submission. Contact routing is part of the planned service.</p>
                 <Link to="/messages"><Button variant="outline" size="sm" className="mt-4">Open Messages</Button></Link>
               </Card>
               <Card className="p-6">
                 <Search className="h-6 w-6 text-primary-600 mb-3" />
                 <h2 className="font-semibold text-gray-900">Browse the marketplace</h2>
-                <p className="mt-1 text-sm text-gray-500">Find verified properties while our team reviews your submission.</p>
+                <p className="mt-1 text-sm text-gray-500">Browse sample listings while the marketplace prototype is in development.</p>
                 <Link to="/properties"><Button variant="outline" size="sm" className="mt-4">Browse Properties</Button></Link>
               </Card>
             </div>
@@ -117,13 +117,13 @@ export function DashboardPage() {
             <Card className="p-6">
               <Search className="h-6 w-6 text-primary-600 mb-3" />
               <h2 className="font-semibold text-gray-900">Find a property</h2>
-              <p className="mt-1 text-sm text-gray-500">Browse land and housing listings verified and managed by TtakaMarket.</p>
+              <p className="mt-1 text-sm text-gray-500">Browse land, housing, commercial and storage listings for sale, rent or lease.</p>
               <Link to="/properties"><Button variant="primary" size="sm" className="mt-4">Browse Properties</Button></Link>
             </Card>
             <Card className="p-6">
               <MessageSquare className="h-6 w-6 text-accent-500 mb-3" />
               <h2 className="font-semibold text-gray-900">Chat with the right contact</h2>
-              <p className="mt-1 text-sm text-gray-500">Ask questions through TtakaMarket’s chat channel and connect with the owner or lawful representative.</p>
+              <p className="mt-1 text-sm text-gray-500">Use the prototype chat screen to view a sample enquiry with a property contact.</p>
               <Link to="/messages"><Button variant="outline" size="sm" className="mt-4">Open Messages</Button></Link>
             </Card>
             {profile.rental_preferences && (

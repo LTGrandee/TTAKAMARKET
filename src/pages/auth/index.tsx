@@ -42,8 +42,8 @@ export function LoginPage() {
           </div>
           <Card className="p-6">
             <div className="flex gap-4 mb-6">
-              <button onClick={() => setUserType('buyer')} className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${userType === 'buyer' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Property Seeker</button>
-              <button onClick={() => setUserType('owner')} className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${userType === 'owner' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Property Owner</button>
+              <button onClick={() => setUserType('buyer')} className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${userType === 'buyer' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Buyer or renter</button>
+              <button onClick={() => setUserType('owner')} className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${userType === 'owner' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Owner or representative</button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && <div className="p-3 bg-error-50 border border-error-200 rounded-lg text-sm text-error-700">{error}</div>}
@@ -59,9 +59,9 @@ export function LoginPage() {
       <div className="hidden lg:block relative flex-1 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900">
         <div className="relative h-full flex flex-col items-center justify-center px-20 text-white">
           <div className="w-20 h-20 bg-white/10 rounded-2xl flex items-center justify-center mb-8 backdrop-blur-sm"><Building2 className="h-10 w-10" /></div>
-          <h2 className="text-3xl font-bold mb-4 text-center">Africa's Trusted Property Marketplace</h2>
-          <p className="text-lg text-primary-100 text-center max-w-md">Connect with verified property owners for safe, transparent transactions.</p>
-          <div className="mt-8 grid grid-cols-2 gap-6 text-center"><div><div className="text-3xl font-bold">5,000+</div><div className="text-sm text-primary-200">Verified Properties</div></div><div><div className="text-3xl font-bold">2,500+</div><div className="text-sm text-primary-200">Verified Owners</div></div></div>
+          <h2 className="text-3xl font-bold mb-4 text-center">Uganda's property marketplace</h2>
+          <p className="text-lg text-primary-100 text-center max-w-md">Explore property across Uganda, with submissions reviewed and public listings managed by TtakaMarket.</p>
+          <div className="mt-8 grid grid-cols-2 gap-6 text-center"><div><div className="text-3xl font-bold">Land</div><div className="text-sm text-primary-200">And built property</div></div><div><div className="text-3xl font-bold">Sale · Rent</div><div className="text-sm text-primary-200">Or lease</div></div></div>
         </div>
       </div>
     </div>
@@ -111,8 +111,8 @@ export function RegisterPage() {
     finally { setLoading(false); }
   };
 
-  const userTypes = [{ type: 'buyer', label: 'Property Seeker', description: 'I want to buy or rent property', icon: User }, { type: 'owner', label: 'Property Owner', description: 'I want to list my properties', icon: Building }];
-  const steps = [{ id: 1, title: 'Account Type' }, { id: 2, title: 'Personal Info' }, { id: 3, title: 'Verification' }];
+  const userTypes = [{ type: 'buyer', label: 'Buyer or renter', description: 'I want to find property to buy, rent or lease', icon: User }, { type: 'owner', label: 'Owner or representative', description: 'I want to submit property for review', icon: Building }];
+  const steps = [{ id: 1, title: 'Account Type' }, { id: 2, title: 'Personal Info' }, { id: 3, title: 'Location & Consent' }];
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -122,7 +122,7 @@ export function RegisterPage() {
           <div className="mb-8">
             <Link to="/" className="flex items-center gap-2 mb-6"><div className="w-10 h-10 bg-gradient-to-br from-primary-600 to-primary-700 rounded-lg flex items-center justify-center"><Building2 className="h-6 w-6 text-white" /></div><span className="text-2xl font-bold text-gray-900">Ttaka<span className="text-primary-600">Market</span></span></Link>
             <h1 className="text-3xl font-bold text-gray-900">Create Your Account</h1>
-            <p className="mt-2 text-gray-600">Buy, rent, or submit a property for TtakaMarket to verify and market.</p>
+            <p className="mt-2 text-gray-600">Explore property across Uganda, or submit details for TtakaMarket administrator review.</p>
           </div>
           <div className="flex items-center gap-4 mb-8">
             {steps.map((step, index) => (
@@ -152,7 +152,7 @@ export function RegisterPage() {
                   </div>
                   {userType === 'owner' && (
                     <div className="mt-4 p-3 bg-primary-50 rounded-lg border border-primary-200">
-                      <div className="flex items-start gap-2"><Shield className="h-5 w-5 text-primary-600 flex-shrink-0 mt-0.5" /><div><p className="text-sm font-medium text-primary-900">TtakaMarket manages the listing</p><p className="text-xs text-primary-700 mt-1">Submit your property documents and site details. Our administrators verify the property, conduct a site survey, and manage advertising and buyer enquiries on your behalf.</p></div></div>
+                      <div className="flex items-start gap-2"><Shield className="h-5 w-5 text-primary-600 flex-shrink-0 mt-0.5" /><div><p className="text-sm font-medium text-primary-900">TtakaMarket manages publication</p><p className="text-xs text-primary-700 mt-1">Share property details and supporting documents for review. The intended process includes document checks, a site survey and an administrator decision before publication.</p></div></div>
                     </div>
                   )}
                   {userType === 'buyer' && (
@@ -214,11 +214,11 @@ export function RegisterPage() {
       </div>
       <div className="hidden lg:block relative flex-1 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900">
         <div className="relative h-full flex flex-col justify-center px-20 text-white">
-          <h2 className="text-3xl font-bold mb-6">Why Choose TtakaMarket?</h2>
+          <h2 className="text-3xl font-bold mb-6">A managed property marketplace</h2>
           <div className="space-y-6">
-            <div className="flex items-start gap-4"><div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><Shield className="h-5 w-5" /></div><div><h3 className="font-semibold mb-1">Verified Properties Only</h3><p className="text-sm text-primary-100">Every property is verified by our team before publication</p></div></div>
-            <div className="flex items-start gap-4"><div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><CheckCircle className="h-5 w-5" /></div><div><h3 className="font-semibold mb-1">Direct Owner Contact</h3><p className="text-sm text-primary-100">Connect directly with verified owners, no middlemen</p></div></div>
-            <div className="flex items-start gap-4"><div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><Lock className="h-5 w-5" /></div><div><h3 className="font-semibold mb-1">Secure Transactions</h3><p className="text-sm text-primary-100">Protected messaging and verified ownership documents</p></div></div>
+            <div className="flex items-start gap-4"><div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><Shield className="h-5 w-5" /></div><div><h3 className="font-semibold mb-1">Administrator review</h3><p className="text-sm text-primary-100">The planned process reviews submitted documents and property details</p></div></div>
+            <div className="flex items-start gap-4"><div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><CheckCircle className="h-5 w-5" /></div><div><h3 className="font-semibold mb-1">Managed publication</h3><p className="text-sm text-primary-100">TtakaMarket controls approval and publication of submitted properties</p></div></div>
+            <div className="flex items-start gap-4"><div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><Lock className="h-5 w-5" /></div><div><h3 className="font-semibold mb-1">Clear contact arrangements</h3><p className="text-sm text-primary-100">Enquiries can be routed to an owner, lawful representative or TtakaMarket</p></div></div>
           </div>
         </div>
       </div>

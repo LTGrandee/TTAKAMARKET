@@ -22,7 +22,7 @@ export function PropertyCard({ property, variant = 'default', className }: Prope
             : <div className="w-full h-full bg-gray-100 flex items-center justify-center"><Square className="h-12 w-12 text-gray-300" /></div>}
           {property.verification_status === 'verified' && (
             <div className="absolute top-2 left-2 flex items-center gap-1 bg-primary-600 rounded px-2 py-0.5 text-xs font-semibold text-white">
-              <Shield className="h-3 w-3" /> Verified
+              <Shield className="h-3 w-3" /> Sample listing
             </div>
           )}
         </div>
@@ -63,10 +63,10 @@ export function PropertyCard({ property, variant = 'default', className }: Prope
         {!imageError
           ? <img src={imageUrl} alt={property.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onError={() => setImageError(true)} />
           : <div className="w-full h-full bg-gray-100 flex items-center justify-center"><Square className="h-12 w-12 text-gray-300" /></div>}
-        {/* Top-left: Verified badge */}
+        {/* Sample data is used throughout this frontend prototype. */}
         {property.verification_status === 'verified' && (
           <div className="absolute top-3 left-3 flex items-center gap-1 bg-primary-600 rounded px-2 py-1 text-xs font-semibold text-white shadow">
-            Verified
+            Sample listing
           </div>
         )}
         {/* Top-right: Save button */}
@@ -111,7 +111,7 @@ import { Search, ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Input, Select } from '../ui';
 
-const propertyCategories = [{ value: '', label: 'Land or housing' }, { value: 'land', label: 'Land' }, { value: 'housing', label: 'Housing' }, { value: 'commercial', label: 'Commercial' }, { value: 'storage', label: 'Storage / Industrial' }];
+const propertyCategories = [{ value: '', label: 'All property categories' }, { value: 'land', label: 'Land' }, { value: 'housing', label: 'Housing' }, { value: 'commercial', label: 'Commercial' }, { value: 'storage', label: 'Storage / Industrial' }];
 const propertyTypes = [{ value: '', label: 'All Property Types' }, { value: 'residential_land', label: 'Residential Land' }, { value: 'commercial_land', label: 'Commercial Land' }, { value: 'agricultural_land', label: 'Agricultural Land' }, { value: 'house', label: 'House' }, { value: 'apartment', label: 'Apartment' }, { value: 'rental_unit', label: 'Rental Unit' }, { value: 'commercial_building', label: 'Commercial Building' }, { value: 'office_space', label: 'Office Space' }, { value: 'warehouse', label: 'Warehouse' }, { value: 'hotel_lodge', label: 'Hotel / Lodge' }, { value: 'mixed_use', label: 'Mixed Use' }, { value: 'investment_property', label: 'Investment Property' }];
 const listingTypes = [{ value: '', label: 'Sale, Rent, or Lease' }, { value: 'sale', label: 'For Sale' }, { value: 'rent', label: 'For Rent' }, { value: 'lease', label: 'For Lease' }];
 const cities = [{ value: '', label: 'All Locations' }, { value: 'Kampala', label: 'Kampala' }, { value: 'Entebbe', label: 'Entebbe' }, { value: 'Jinja', label: 'Jinja' }, { value: 'Mbarara', label: 'Mbarara' }, { value: 'Gulu', label: 'Gulu' }, { value: 'Arua', label: 'Arua' }, { value: 'Mbale', label: 'Mbale' }];
@@ -150,7 +150,7 @@ export function SearchBar({ variant = 'default', className, onSearch }: SearchBa
         <div className="bg-white rounded-2xl shadow-xl p-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="md:col-span-2">
-              <Input placeholder="Search by location, property name..." value={search} onChange={(e) => setSearch(e.target.value)} leftIcon={<Search className="h-5 w-5" />} className="h-12" />
+              <Input placeholder="Search by town, area or property..." value={search} onChange={(e) => setSearch(e.target.value)} leftIcon={<Search className="h-5 w-5" />} className="h-12" />
             </div>
             <Select options={propertyCategories} value={category} onChange={(e) => setCategory(e.target.value)} className="h-12" />
             <Button variant="accent" size="lg" onClick={handleSearch} className="h-12">Search Properties</Button>

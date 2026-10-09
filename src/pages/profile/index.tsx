@@ -158,11 +158,11 @@ function DeleteConfirmModal({ onClose, onConfirm }: { onClose: () => void; onCon
         <div className="w-12 h-12 bg-error-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <AlertTriangle className="h-6 w-6 text-error-500" />
         </div>
-        <h3 className="text-base font-bold text-gray-900 text-center mb-2">Delete Account</h3>
-        <p className="text-sm text-gray-500 text-center mb-6">This action is permanent and cannot be undone. All your data will be deleted.</p>
+        <h3 className="text-base font-bold text-gray-900 text-center mb-2">Account deletion unavailable</h3>
+        <p className="text-sm text-gray-500 text-center mb-6">This prototype cannot delete account data. You can sign out to end the session on this device.</p>
         <div className="flex gap-3">
           <button onClick={onClose} className="flex-1 border border-gray-200 text-gray-700 font-semibold py-2.5 rounded-xl text-sm">Cancel</button>
-          <button onClick={onConfirm} className="flex-1 bg-error-500 hover:bg-error-600 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors">Delete</button>
+          <button onClick={onConfirm} className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors">Sign Out</button>
         </div>
       </div>
     </div>
@@ -219,6 +219,7 @@ export function ProfilePage() {
           </div>
         </div>
       </div>
+      <p className="px-4 pt-3 text-center text-xs text-gray-500">Account controls are a prototype preview and are not connected to live verification or payment services.</p>
 
       {/* Quick stats */}
       <div className="mx-4 -mt-6 bg-white rounded-2xl shadow-md grid grid-cols-3 divide-x divide-gray-100 mb-4 overflow-hidden">

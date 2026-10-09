@@ -15,18 +15,18 @@ import { cn } from '../../lib/utils';
 /* ─── Sidebar sections ─── */
 const sidebarSections = [
   {
-    title: 'Property Management',
+    title: 'Property Submissions',
     items: [
       { label: 'Submit Property', href: '/properties/new', Icon: Plus },
       { label: 'Submission Status', href: '/dashboard', Icon: Building2 },
     ],
   },
   {
-    title: 'Direct Deals',
+    title: 'Managed Enquiries',
     items: [
-      { label: 'Why Buy Direct?', href: '#why-direct', Icon: Handshake },
-      { label: 'Verification Process', href: '#verification', Icon: CheckCircle },
-      { label: 'Safe Transaction Tips', href: '#safe-tips', Icon: AlertCircle },
+      { label: 'How enquiries work', href: '#why-direct', Icon: Handshake },
+      { label: 'Property review process', href: '#verification', Icon: CheckCircle },
+      { label: 'Before you commit', href: '#safe-tips', Icon: AlertCircle },
     ],
   },
   {
