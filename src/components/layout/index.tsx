@@ -187,8 +187,9 @@ export function Header() {
 
               <button
                 onClick={() => setDrawerOpen(true)}
-                className="flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100 lg:hidden"
+                className="flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100"
                 aria-label="Open account and navigation menu"
+                aria-expanded={drawerOpen}
               >
                 <Menu className="h-5 w-5" />
               </button>
