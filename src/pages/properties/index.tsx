@@ -126,6 +126,22 @@ export function PropertyDetailPage() {
           { id: '2', property_id: '1', image_url: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1200', is_primary: false, display_order: 1, created_at: new Date().toISOString() },
           { id: '3', property_id: '1', image_url: 'https://images.pexels.com/photos/1732414/pexels-photo-1732414.jpeg?auto=compress&cs=tinysrgb&w=1200', is_primary: false, display_order: 2, created_at: new Date().toISOString() },
         ],
+        ...(id === '7' ? {
+          title: 'Hotel Room for a Short Stay in Entebbe',
+          description: 'Sample short-stay accommodation. Confirm availability, inclusions and all terms directly before making a decision.',
+          property_type: 'hotel_lodge',
+          listing_type: 'rent',
+          rental_details: { accommodation_type: 'holiday_short_stay', duration: 'short_term', purpose: 'holiday', living_arrangement: 'individual', tenancy_arrangement: 'lodger', payment_method: 'nightly' },
+          price: 180000,
+          size_unit: 'room',
+          bedrooms: 1,
+          bathrooms: 1,
+          address: 'Entebbe Road',
+          city: 'Entebbe',
+          region: 'Central',
+          features: ['Furnished', 'Wi-Fi'],
+          images: [{ id: '7', property_id: '7', image_url: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }],
+        } : {}),
       };
       const mockOwner: Profile = {
         id: 'mock-owner', email: 'owner@example.com', full_name: 'Mutesi Grace', phone: '+256 700 123 456',
