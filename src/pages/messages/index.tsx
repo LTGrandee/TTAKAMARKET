@@ -57,9 +57,9 @@ export function MessagesPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Property enquiries</h1>
-        <p className="text-sm text-gray-500 mb-6">Sample conversations in the TtakaMarket prototype.</p>
+        <p className="mb-6 rounded-xl border border-warning-200 bg-warning-50 px-4 py-3 text-sm leading-5 text-warning-800">Demo conversations only. Messages entered here are not delivered to property owners or representatives.</p>
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-          <div className="flex h-[calc(100vh-200px)]">
+          <div className="flex h-[calc(100dvh-14rem)] min-h-[24rem] md:h-[min(42rem,calc(100dvh-14rem))]">
             <div className={cn('w-full border-r border-gray-200 overflow-y-auto', 'md:w-80 md:block', conversationId ? 'hidden md:block' : 'block')}>
               <div className="p-4 border-b border-gray-200"><Input placeholder="Search conversations..." leftIcon={<User className="h-4 w-4" />} /></div>
               {conversations.length === 0 ? (<div className="p-6"><EmptyState title="No conversations" description="Start browsing properties and contact owners" action={<Button variant="primary" onClick={() => navigate('/properties')}>Browse Properties</Button>} /></div>) : (
@@ -102,7 +102,7 @@ export function MessagesPage() {
                     <div ref={messagesEndRef} />
                   </div>
                   <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-200">
-                    <div className="flex gap-3"><Input placeholder="Type your message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)} className="flex-1" /><Button type="submit" variant="primary" loading={sending}><Send className="h-4 w-4" /></Button></div>
+                    <div className="flex gap-3"><Input placeholder="Type a demo message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)} className="min-w-0 flex-1" /><Button type="submit" variant="primary" loading={sending} aria-label="Add demo message"><Send className="h-4 w-4" /></Button></div>
                   </form>
                 </>
               ) : (<div className="flex-1 flex items-center justify-center"><EmptyState icon={<User className="h-12 w-12" />} title="Select a conversation" description="Choose a conversation from the list" /></div>)}

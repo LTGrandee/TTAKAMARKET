@@ -1,14 +1,14 @@
 # TtakaMarket
 
-TtakaMarket is an administrator-managed property marketplace for land, housing, commercial premises, and storage/industrial property. It is designed around a trust-first operating model: property owners and lawful representatives submit property information, while TtakaMarket administrators review documents, coordinate site surveys, approve publication, manage advertising, and help coordinate enquiries.
+TtakaMarket is being designed as Uganda's property marketplace for land, homes, hotel rooms and other short stays, commercial premises, and storage/industrial property. Its goal is to help break the chain of manipulation and unlawful middlemen by making ownership, authority to represent, and the enquiry path clearer.
 
-The current repository is a responsive frontend prototype built with React and TypeScript. It demonstrates the intended marketplace experience and workflows using mock data and browser `localStorage`; it is not yet connected to a production backend.
+The current repository is a responsive frontend prototype built with React and TypeScript. It demonstrates proposed marketplace workflows using sample data and browser `localStorage`; it does not verify property documents or representatives, receive submissions, publish listings, arrange bookings, deliver messages, or provide a live support service.
 
 ## Product goals
 
-- Make verified property discovery easier for buyers, renters, and lease seekers.
+- Design a property discovery process that makes independent checks and representative authority clearer.
 - Cover both land and built property rather than treating housing as the only inventory.
-- Support property offered for **sale, rent, or lease**, including plain/vacant land.
+- Support property offered to **buy, rent, or lease**, and short stays to **book**, including daily and nightly price examples.
 - Keep public listing approval, verification, uploads, and publication under TtakaMarket control.
 - Give owners and lawful representatives a clear submission and status experience instead of an independent seller-operated listing dashboard.
 - Support optional TtakaMarket-managed personal or business seller pages.
@@ -30,8 +30,8 @@ The current repository is a responsive frontend prototype built with React and T
   - Rental accommodation type
   - Rental duration
   - Sort order
-- Property detail pages with descriptions, images, pricing, location, physical attributes, rental suitability, verification status, and contact actions.
-- Homepage category shortcuts for houses, apartments, land, housing, commercial properties, and short lets.
+- Property detail pages with sample descriptions, images, pricing, location, physical attributes, rental suitability, and clearly labelled demonstration actions.
+- Homepage category shortcuts for houses, apartments, land, commercial properties, storage, and short stays.
 
 ### Land coverage
 
@@ -88,7 +88,7 @@ Anyone submitting a property can use the one-time submission flow without creati
 - Features and preferred enquiry contact
 - Rental suitability details when applicable
 
-The intended administrator workflow is:
+The proposed administrator workflow is:
 
 1. Receive the owner or lawful representative submission.
 2. Review identity, ownership, title, tenure, and supporting documents.
@@ -99,11 +99,11 @@ The intended administrator workflow is:
 7. Approve and publish the property through TtakaMarket.
 8. Manage advertising, enquiries, and approved contact routing.
 
-The current frontend provides a no-account submission preview. Because this is a frontend-only prototype, it does not transmit or save submissions or upload selected files. A production backend, secure document storage, administrator queue, survey records, audit trail, and approval permissions still need to be implemented. In the live service, a submitter should be able to provide contact details and receive follow-up without needing a dashboard account.
+The current frontend provides a no-account submission preview. Because this is a frontend-only prototype, it does not transmit or save submissions or upload selected files. A production backend, secure document storage, administrator queue, survey records, audit trail, and approval permissions still need to be implemented. Any operational review or follow-up described here is a product goal, not a service currently provided.
 
 ### Managed seller pages
 
-TtakaMarket can create a managed public page for an approved seller, owner, developer, agent, business, or personal brand.
+The proposed service may provide a managed public page for an approved seller, owner, developer, agent, business, or personal brand. Seller pages shown in this prototype are previews only.
 
 Seller registration can include:
 

@@ -226,7 +226,8 @@ export function BottomNav() {
             <Link
               key={href}
               to={href}
-              className="flex min-w-0 flex-1 flex-col items-center justify-center gap-1 transition-colors"
+              aria-current={active ? 'page' : undefined}
+              className="flex min-h-11 min-w-0 flex-1 flex-col items-center justify-center gap-1 transition-colors"
             >
               <Icon
                 className={cn('h-5 w-5 transition-colors', active ? 'text-accent-600' : 'text-gray-400')}
@@ -256,7 +257,7 @@ export function Layout() {
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <div>
             <BrandLogo className="h-12 w-36" />
-            <p className="mt-1 text-sm text-gray-500">Property discovery and managed submissions across Uganda.</p>
+            <p className="mt-1 text-sm text-gray-500">Property discovery and submission previews across Uganda.</p>
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600">
             <Link className="hover:text-primary-700" to="/properties">Browse properties</Link>

@@ -34,7 +34,7 @@ export function DashboardPage() {
           <p className="mt-1 text-gray-500">
             {isSubmitter
               ? 'Submit land or built property for administrator review and managed publication.'
-              : 'Browse property for sale, rent or lease, save options and review contact arrangements.'}
+              : 'Explore sample listings to buy, rent, lease or book for a short stay. Account tools shown here are a prototype preview.'}
           </p>
         </div>
       </div>
@@ -49,7 +49,7 @@ export function DashboardPage() {
                 </div>
                 <div>
                   <h2 className="font-semibold text-primary-900">No active submission yet</h2>
-                  <p className="mt-1 text-sm text-primary-700">Submit land, housing, commercial or storage property for sale, rent or lease. TtakaMarket manages review and any approved public listing.</p>
+                  <p className="mt-1 text-sm text-primary-700">Preview a submission for land, housing, short stays, commercial or storage property. The live review and publishing service is not connected yet.</p>
                   <Link to="/properties/new"><Button size="sm" variant="primary" className="mt-4">Submit a Property</Button></Link>
                 </div>
               </div>
@@ -59,7 +59,7 @@ export function DashboardPage() {
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-900">Managed seller page</h2>
-                  <p className="mt-1 text-sm text-gray-500">Request a TtakaMarket-managed personal or business page. Any public property posts are subject to administrator approval.</p>
+                  <p className="mt-1 text-sm text-gray-500">Preview the planned TtakaMarket-managed personal or business page. Approval and public posting are not active in this prototype.</p>
                   {profile.seller_profile_enabled && profile.seller_profile_slug && (
                     <Link to={`/seller/${profile.seller_profile_slug}`} className="inline-flex mt-3 text-sm font-semibold text-primary-600 hover:text-primary-700">View public seller page</Link>
                   )}
@@ -129,7 +129,7 @@ export function DashboardPage() {
             {profile.rental_preferences && (
               <Card className="p-6 md:col-span-2">
                 <h2 className="font-semibold text-gray-900">Your rental matching profile</h2>
-                <p className="mt-1 text-sm text-gray-500">Use these preferences to help TtakaMarket recommend suitable rentals.</p>
+                <p className="mt-1 text-sm text-gray-500">These saved preferences are a prototype preview; rental recommendations are not active.</p>
                 <div className="flex flex-wrap gap-2 mt-4">
                   {[profile.rental_preferences.accommodation_type, profile.rental_preferences.duration, profile.rental_preferences.purpose, profile.rental_preferences.living_arrangement, profile.rental_preferences.tenancy_arrangement, profile.rental_preferences.payment_method].map((value) => <Badge key={value} variant="secondary">{getRentalLabel(value)}</Badge>)}
                 </div>

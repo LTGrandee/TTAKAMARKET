@@ -78,9 +78,10 @@
   --color-gray-900: #111827;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 body {
   min-width: 320px;
+  overflow-x: clip;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   color: var(--color-charcoal);

@@ -54,7 +54,7 @@ export function AboutPage() {
           <p className="mt-5 text-sm font-semibold uppercase tracking-wider text-primary-200">About us</p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">About TtakaMarket</h1>
           <p className="mt-3 max-w-2xl text-base leading-7 text-primary-100">
-            TtakaMarket is being shaped as Uganda&apos;s property marketplace for discovering land and built property offered for sale, rent or lease.
+            TtakaMarket is being shaped as Uganda&apos;s property marketplace for discovering land, homes, hotel rooms and other short stays, commercial spaces and storage.
           </p>
         </div>
       </section>

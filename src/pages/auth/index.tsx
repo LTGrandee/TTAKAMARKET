@@ -50,7 +50,7 @@ export function LoginPage() {
               {error && <div className="p-3 bg-error-50 border border-error-200 rounded-lg text-sm text-error-700">{error}</div>}
               <Input label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} leftIcon={<Mail className="h-5 w-5" />} required />
               <Input label="Password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} leftIcon={<Lock className="h-5 w-5" />} rightIcon={<button type="button" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>} required />
-              <div className="flex items-center justify-between"><label className="flex items-center gap-2"><input type="checkbox" className="rounded border-gray-300" /><span className="text-sm text-gray-600">Remember me</span></label><Link to="/forgot-password" className="text-sm text-primary-600 hover:text-primary-700">Forgot password?</Link></div>
+              <div className="flex items-center justify-between"><label className="flex items-center gap-2"><input type="checkbox" className="rounded border-gray-300" /><span className="text-sm text-gray-600">Remember me</span></label><span className="text-right text-xs text-gray-500">Password recovery is not available yet</span></div>
               <Button type="submit" variant="primary" className="w-full" loading={loading}>Sign In</Button>
             </form>
             <div className="mt-6 text-center text-sm text-gray-500">Don't have an account? <Link to="/register" className="text-primary-600 hover:text-primary-700 font-medium">Create one now</Link></div>
@@ -61,8 +61,8 @@ export function LoginPage() {
         <div className="relative h-full flex flex-col items-center justify-center px-20 text-white">
           <BrandLogo className="mb-8 h-24 w-72 rounded-2xl" />
           <h2 className="text-3xl font-bold mb-4 text-center">Uganda's property marketplace</h2>
-          <p className="text-lg text-primary-100 text-center max-w-md">Explore property across Uganda, with submissions reviewed and public listings managed by TtakaMarket.</p>
-          <div className="mt-8 grid grid-cols-2 gap-6 text-center"><div><div className="text-3xl font-bold">Land</div><div className="text-sm text-primary-200">And built property</div></div><div><div className="text-3xl font-bold">Sale · Rent</div><div className="text-sm text-primary-200">Or lease</div></div></div>
+          <p className="text-lg text-primary-100 text-center max-w-md">Explore sample property listings. TtakaMarket is being designed to help break the chain of manipulation and unlawful middlemen.</p>
+          <div className="mt-8 grid grid-cols-2 gap-6 text-center"><div><div className="text-2xl font-bold sm:text-3xl">Land · Homes</div><div className="text-sm text-primary-200">And short stays</div></div><div><div className="text-2xl font-bold sm:text-3xl">Buy · Rent</div><div className="text-sm text-primary-200">Lease · Book</div></div></div>
         </div>
       </div>
     </div>
@@ -168,7 +168,7 @@ export function RegisterPage() {
                         <Select label="Purpose" options={[{ value: 'living', label: 'Living' }, { value: 'student', label: 'Student' }, { value: 'holiday', label: 'Holiday' }, { value: 'temporary_work', label: 'Temporary work' }, { value: 'business', label: 'Business' }, { value: 'storage', label: 'Storage' }]} value={formData.rentalPurpose} onChange={(e) => updateForm('rentalPurpose', e.target.value)} />
                         <Select label="Living arrangement" options={[{ value: 'individual', label: 'Individual' }, { value: 'couple', label: 'Couple' }, { value: 'family', label: 'Family' }, { value: 'student', label: 'Student' }, { value: 'group', label: 'Group' }, { value: 'corporate', label: 'Corporate' }]} value={formData.rentalLiving} onChange={(e) => updateForm('rentalLiving', e.target.value)} />
                         <Select label="Tenancy" options={[{ value: 'sole_tenant', label: 'Sole tenant' }, { value: 'joint_tenants', label: 'Joint tenants' }, { value: 'subtenant', label: 'Subtenant' }, { value: 'leaseholder', label: 'Leaseholder' }, { value: 'lodger', label: 'Lodger' }]} value={formData.rentalTenancy} onChange={(e) => updateForm('rentalTenancy', e.target.value)} />
-                        <Select label="Payment" options={[{ value: 'monthly', label: 'Monthly' }, { value: 'weekly', label: 'Weekly' }, { value: 'advance', label: 'Several months in advance' }, { value: 'corporate_paid', label: 'Paid by company' }, { value: 'subsidised', label: 'Subsidised support' }]} value={formData.rentalPayment} onChange={(e) => updateForm('rentalPayment', e.target.value)} />
+                        <Select label="Payment" options={[{ value: 'daily', label: 'Per day' }, { value: 'nightly', label: 'Per night' }, { value: 'weekly', label: 'Per week' }, { value: 'monthly', label: 'Per month' }, { value: 'advance', label: 'Several months in advance' }, { value: 'corporate_paid', label: 'Paid by company' }, { value: 'subsidised', label: 'Subsidised support' }]} value={formData.rentalPayment} onChange={(e) => updateForm('rentalPayment', e.target.value)} />
                       </div>
                     </div>
                   )}
@@ -185,7 +185,7 @@ export function RegisterPage() {
                   </div>
                   {userType === 'owner' && (
                     <>
-                      <label className="flex items-start gap-3 text-sm text-gray-600"><input type="checkbox" checked={formData.requestSellerPage} onChange={(e) => updateForm('requestSellerPage', e.target.checked)} className="mt-1 rounded border-gray-300" /><span><strong className="text-gray-900">Request a managed seller page</strong><br />TtakaMarket can create a personal or business-branded public page and manage all public posts, uploads, and verification.</span></label>
+                      <label className="flex items-start gap-3 text-sm text-gray-600"><input type="checkbox" checked={formData.requestSellerPage} onChange={(e) => updateForm('requestSellerPage', e.target.checked)} className="mt-1 rounded border-gray-300" /><span><strong className="text-gray-900">Preview a managed seller page</strong><br />Seller pages, post approvals, uploads and verification are planned features and are not active in this prototype.</span></label>
                       {formData.requestSellerPage && <div className="p-3 bg-primary-50 rounded-lg border border-primary-200">
                         <p className="text-sm font-medium text-primary-900">Optional managed seller page</p>
                         <p className="text-xs text-primary-700 mt-1">TtakaMarket can create a personal or business-branded public page for you. Our administrators approve posts, uploads, and verification.</p>

@@ -211,7 +211,7 @@ export function ProfilePage() {
           <p className="text-primary-200 text-sm mt-0.5">{profile.email}</p>
           <div className="flex items-center gap-2 mt-3">
             <span className={cn('text-xs font-bold px-3 py-1 rounded-full', verificationColor)}>
-              {profile.verification_status === 'verified' ? '✓ Verified' : profile.verification_status === 'pending' ? '⏳ Pending' : 'Unverified'}
+              {profile.verification_status === 'verified' ? 'Demo status · verified' : profile.verification_status === 'pending' ? 'Demo status · pending' : 'Demo status · unverified'}
             </span>
             <span className="text-xs font-bold px-3 py-1 rounded-full bg-white/20 text-white capitalize">
               {profile.user_type}
@@ -219,7 +219,7 @@ export function ProfilePage() {
           </div>
         </div>
       </div>
-      <p className="px-4 pt-3 text-center text-xs text-gray-500">Account controls are a prototype preview and are not connected to live verification or payment services.</p>
+      <p className="mx-auto max-w-3xl px-4 pt-3 text-center text-xs leading-5 text-gray-500">Prototype preview only. Verification, payments, document uploads, notifications and account settings are not connected to live services.</p>
 
       {/* Quick stats */}
       <div className="mx-4 -mt-6 bg-white rounded-2xl shadow-md grid grid-cols-3 divide-x divide-gray-100 mb-4 overflow-hidden">

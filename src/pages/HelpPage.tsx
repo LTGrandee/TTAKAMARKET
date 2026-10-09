@@ -20,7 +20,7 @@ const frequentlyAskedQuestions = [
   },
   {
     question: 'How do I find a property by type or location?',
-    answer: 'Browse properties and use the search and filters to narrow sample listings by category, property type, listing type and location.',
+    answer: 'Browse properties and use the search and filters to narrow sample listings by category, property type, listing type, accommodation type, stay duration and location. Choose Book for short stays such as hotel rooms. This only filters sample listings; it does not make a reservation.',
   },
   {
     question: 'What is the difference between rent and lease?',

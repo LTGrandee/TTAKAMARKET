@@ -20,8 +20,8 @@ export function SellerProfilePage() {
                 <h1 className="text-2xl md:text-3xl font-bold">{brandName}</h1>
                 <CheckCircle className="h-5 w-5 text-success-300" />
               </div>
-              <p className="mt-1 text-primary-100">{profile?.seller_brand_type === 'business' ? 'TtakaMarket managed business profile' : 'TtakaMarket managed personal profile'}</p>
-              <Badge variant="success" size="sm" className="mt-3">TtakaMarket-managed profile</Badge>
+              <p className="mt-1 text-primary-100">{profile?.seller_brand_type === 'business' ? 'Business profile preview' : 'Personal profile preview'}</p>
+              <Badge variant="neutral" size="sm" className="mt-3">Prototype preview</Badge>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@ export function SellerProfilePage() {
         <Card className="p-6 h-fit">
           <Shield className="h-6 w-6 text-primary-600 mb-3" />
           <h2 className="font-semibold text-gray-900">Managed seller profile</h2>
-          <p className="mt-2 text-sm text-gray-500">TtakaMarket is designed to manage approvals, document handling and public property posts for this profile.</p>
+          <p className="mt-2 text-sm text-gray-500">The planned service would manage approvals, document handling and public property posts. These services are not active in this prototype.</p>
           {isOwnerProfile && profile?.seller_chat_enabled && (
             <Link to="/messages"><Button variant="primary" className="w-full mt-5" leftIcon={<MessageSquare className="h-4 w-4" />}>Chat with seller</Button></Link>
           )}

@@ -28,6 +28,7 @@ export function PropertiesPage() {
         { id: '4', owner_id: 'mock', title: 'Luxury Apartment in Nakasero', description: 'Modern apartment with views', property_type: 'apartment', listing_type: 'rent', rental_details: { accommodation_type: 'residential', duration: 'long_term', purpose: 'living', living_arrangement: 'family', tenancy_arrangement: 'sole_tenant', payment_method: 'monthly' }, price: 3500000, price_unit: 'UGX', currency: 'UGX', size_sqm: 120, size_unit: 'sqm', bedrooms: 2, bathrooms: 2, parking_spaces: 1, address: 'Nakasero Road', city: 'Kampala', country: 'Uganda', features: ['Balcony', 'Gym'], amenities: [], status: 'published', verification_status: 'verified', views_count: 312, saves_count: 89, inquiries_count: 34, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '4', property_id: '4', image_url: 'https://images.pexels.com/photos/1918290/pexels-photo-1918290.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
         { id: '5', owner_id: 'mock', title: 'Agricultural Land in Mukono', description: '50 acres of farmland', property_type: 'agricultural_land', listing_type: 'sale', price: 250000000, price_unit: 'UGX', currency: 'UGX', size_sqm: 202343, size_unit: 'sqm', address: 'Mukono District', city: 'Mukono', country: 'Uganda', features: ['Water Source'], amenities: [], status: 'published', verification_status: 'verified', views_count: 98, saves_count: 23, inquiries_count: 5, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '5', property_id: '5', image_url: 'https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
         { id: '6', owner_id: 'mock', title: 'Office Space in Kampala CBD', description: 'Modern office with parking', property_type: 'office_space', listing_type: 'rent', rental_details: { accommodation_type: 'commercial', duration: 'periodic', purpose: 'business', living_arrangement: 'corporate', tenancy_arrangement: 'leaseholder', payment_method: 'monthly' }, price: 8500000, price_unit: 'UGX', currency: 'UGX', size_sqm: 200, size_unit: 'sqm', address: 'Kampala Road', city: 'Kampala', country: 'Uganda', features: ['AC', 'Elevator'], amenities: [], status: 'published', verification_status: 'verified', views_count: 167, saves_count: 41, inquiries_count: 15, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '6', property_id: '6', image_url: 'https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
+        { id: '7', owner_id: 'mock', title: 'Hotel Room for a Short Stay in Entebbe', description: 'Sample short-stay accommodation. Confirm availability, inclusions and all terms directly before making a decision.', property_type: 'hotel_lodge', listing_type: 'rent', rental_details: { accommodation_type: 'holiday_short_stay', duration: 'short_term', purpose: 'holiday', living_arrangement: 'individual', tenancy_arrangement: 'lodger', payment_method: 'nightly' }, price: 180000, price_unit: 'UGX', currency: 'UGX', size_unit: 'room', bedrooms: 1, bathrooms: 1, address: 'Entebbe Road', city: 'Entebbe', country: 'Uganda', features: ['Furnished', 'Wi-Fi'], amenities: [], status: 'published', verification_status: 'verified', views_count: 0, saves_count: 0, inquiries_count: 0, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '7', property_id: '7', image_url: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
       ];
 
       let filtered = mockProperties;
@@ -91,7 +92,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { MapPin, Bed, Bath, Square, Calendar, Heart, Share2, Flag, Shield, CheckCircle, MessageSquare, ChevronLeft, ChevronRight, Building2, Clock, User } from 'lucide-react';
 import { Badge, Card, Avatar, Modal, Input, Textarea, Loading } from '../../components/ui';
 import type { Profile } from '../../lib/types';
-import { formatPrice, getListingTypeLabel, getPropertyCategory, getPropertyCategoryLabel, getPropertyTypeLabel, getRentalLabel, formatDate } from '../../lib/utils';
+import { formatPrice, getListingTypeLabel, getPropertyCategory, getPropertyCategoryLabel, getPropertyTypeLabel, getRentalLabel, getRentalPricePeriod, formatDate } from '../../lib/utils';
 import { useAuth } from '../../context';
 
 export function PropertyDetailPage() {
@@ -198,7 +199,7 @@ export function PropertyDetailPage() {
             <div className="min-w-0 rounded-xl border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
               <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div className="min-w-0">
-                  <div className="flex items-center gap-2 mb-2"><Badge variant="neutral">{getPropertyTypeLabel(property.property_type)}</Badge><Badge variant={property.listing_type === 'sale' ? 'accent' : 'primary'}>{getListingTypeLabel(property.listing_type)}</Badge></div>
+                  <div className="flex flex-wrap items-center gap-2 mb-2"><Badge variant="neutral">{getPropertyTypeLabel(property.property_type)}</Badge><Badge variant={property.listing_type === 'sale' ? 'accent' : 'primary'}>{getListingTypeLabel(property.listing_type, property.rental_details?.accommodation_type)}</Badge></div>
                   <h1 className="break-words text-2xl font-bold text-gray-900 md:text-3xl">{property.title}</h1>
                   <div className="mt-2 flex items-start gap-1 text-gray-500"><MapPin className="mt-0.5 h-4 w-4 shrink-0" /><span className="break-words">{property.address}, {property.city}, {property.country}</span></div>
                 </div>
@@ -209,7 +210,10 @@ export function PropertyDetailPage() {
                 </div>
               </div>
               <div className="mt-6 pt-6 border-t border-gray-100">
-                <div className="flex items-baseline gap-2"><span className="text-3xl font-bold text-gray-900">{formatPrice(property.price, property.price_unit)}</span>{property.listing_type === 'rent' && <span className="text-gray-500">/month</span>}</div>
+                <div className="flex items-baseline gap-2"><span className="text-3xl font-bold text-gray-900">{formatPrice(property.price, property.price_unit)}</span>{property.listing_type === 'rent' && <span className="text-gray-500">/{getRentalPricePeriod(property.rental_details?.payment_method)}</span>}</div>
+                {property.rental_details?.accommodation_type === 'holiday_short_stay' && (
+                  <p className="mt-2 text-xs leading-5 text-gray-500">Short-stay listing for discovery only. Confirm availability, terms and payment directly; booking requests and payments are not available in this prototype.</p>
+                )}
               </div>
               <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {property.size_sqm && <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"><Square className="h-5 w-5 text-primary-600" /><div><p className="text-xs text-gray-500">Size</p><p className="font-semibold text-gray-900">{property.size_sqm.toLocaleString()} {property.size_unit}</p></div></div>}
@@ -258,8 +262,8 @@ export function PropertyDetailPage() {
               <div className="flex items-center gap-4 mb-4"><Avatar name={owner?.full_name} size="lg" /><div><div className="flex items-center gap-2"><h3 className="font-semibold text-gray-900">{owner?.full_name}</h3></div><p className="text-sm text-gray-500">Sample property contact</p></div></div>
               <div className="flex items-center gap-2 text-sm text-gray-500 mb-4"><Clock className="h-4 w-4" /><span>Listed {formatDate(property.created_at)}</span></div>
               <div className="space-y-3">
-                <Button variant="primary" className="w-full" leftIcon={<MessageSquare className="h-4 w-4" />} onClick={() => setShowContactModal(true)}>Chat with Owner / Representative</Button>
-                <Button variant="outline" className="w-full" leftIcon={<Calendar className="h-4 w-4" />} onClick={() => setShowAppointmentModal(true)}>Schedule Viewing</Button>
+                <Button variant="primary" className="w-full" leftIcon={<MessageSquare className="h-4 w-4" />} onClick={() => setShowContactModal(true)}>Preview enquiry form</Button>
+                <Button variant="outline" className="w-full" leftIcon={<Calendar className="h-4 w-4" />} onClick={() => setShowAppointmentModal(true)}>{property.rental_details?.accommodation_type === 'holiday_short_stay' ? 'Ask about stay availability' : 'Preview viewing request'}</Button>
               </div>
               <div className="mt-6 pt-6 border-t border-gray-100">
                 <h4 className="text-sm font-medium text-gray-900 mb-3">Sample listing statistics</h4>
@@ -279,20 +283,23 @@ export function PropertyDetailPage() {
         </div>
       </div>
 
-      <Modal isOpen={showContactModal} onClose={() => setShowContactModal(false)} title="Contact about this property" size="md">
-        {!user ? (<div className="text-center py-6"><User className="h-12 w-12 text-gray-300 mx-auto mb-4" /><h3 className="font-semibold text-gray-900 mb-2">Sign in to send an enquiry</h3><p className="text-sm text-gray-500 mb-4">Create an account to enquire about a property.</p><Link to="/login"><Button variant="primary">Sign In</Button></Link></div>) : (<div className="space-y-4"><Textarea label="Your Message" placeholder="Hello, I would like to know more about this property..." value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /><div className="flex gap-3"><Button variant="secondary" onClick={() => setShowContactModal(false)}>Cancel</Button><Button variant="primary" disabled={!message.trim()}>Send Enquiry</Button></div></div>)}
+      <Modal isOpen={showContactModal} onClose={() => setShowContactModal(false)} title="Property enquiry preview" size="md">
+        <p className="mb-4 rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">This prototype does not deliver enquiries. Do not enter personal or sensitive information.</p>
+        {!user ? (<div className="text-center py-4"><User className="h-12 w-12 text-gray-300 mx-auto mb-4" /><h3 className="font-semibold text-gray-900 mb-2">Account preview</h3><p className="text-sm text-gray-500 mb-4">Signing in will not send an enquiry; this is only a demonstration.</p><Link to="/login"><Button variant="primary">Open sign-in</Button></Link></div>) : (<div className="space-y-4"><Textarea label="Demo message" placeholder="Enter a sample message (not delivered)..." value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /><div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowContactModal(false)}>Close</Button><Button variant="primary" disabled>Enquiries are not available</Button></div></div>)}
       </Modal>
 
-      <Modal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} title="Schedule a Viewing" size="md">
-        {!user ? (<div className="text-center py-6"><Calendar className="h-12 w-12 text-gray-300 mx-auto mb-4" /><h3 className="font-semibold text-gray-900 mb-2">Sign in to schedule a viewing</h3><p className="text-sm text-gray-500 mb-4">You need an account to book viewings</p><Link to="/login"><Button variant="primary">Sign In</Button></Link></div>) : (<div className="space-y-4"><Input label="Preferred Date" type="date" /><Input label="Preferred Time" type="time" /><Textarea label="Message (optional)" placeholder="Any specific questions?" rows={3} /><div className="flex gap-3"><Button variant="secondary" onClick={() => setShowAppointmentModal(false)}>Cancel</Button><Button variant="primary">Request Viewing</Button></div></div>)}
+      <Modal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} title={property.rental_details?.accommodation_type === 'holiday_short_stay' ? 'Short-stay enquiry preview' : 'Viewing request preview'} size="md">
+        <p className="mb-4 rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">Requests are not sent and availability is not checked in this prototype. Confirm details directly through a trusted, independently verified contact.</p>
+        <div className="space-y-4"><Input label="Preferred date" type="date" disabled /><Input label="Preferred time" type="time" disabled /><Textarea label="Demo message" placeholder="Request details are unavailable in this prototype." rows={3} disabled /><div className="flex justify-end"><Button variant="secondary" onClick={() => setShowAppointmentModal(false)}>Close</Button></div></div>
       </Modal>
 
       <Modal isOpen={showReportModal} onClose={() => setShowReportModal(false)} title="Report This Property" size="md">
         <div className="space-y-4">
           <p className="text-sm text-gray-500">Use this form to flag information you believe is inaccurate or concerning. Reports are not sent to a live review team in this prototype.</p>
-          <Select label="Reason" options={[{ value: 'fake_listing', label: 'Fake Listing' }, { value: 'fraudulent_sale', label: 'Fraudulent Sale' }, { value: 'impersonation', label: 'Owner Impersonation' }, { value: 'ownership_dispute', label: 'Ownership Dispute' }, { value: 'misrepresentation', label: 'Misrepresentation' }, { value: 'other', label: 'Other' }]} placeholder="Select a reason" />
+          <p className="rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">Reports are not sent to a review team. Do not rely on this form to report a real safety or fraud concern.</p>
+          <Select label="Reason" options={[{ value: 'fake_listing', label: 'Fake listing' }, { value: 'fraudulent_sale', label: 'Fraud concern' }, { value: 'impersonation', label: 'Owner impersonation' }, { value: 'ownership_dispute', label: 'Ownership dispute' }, { value: 'misrepresentation', label: 'Misleading information' }, { value: 'other', label: 'Other' }]} placeholder="Select a reason" />
           <Textarea label="Details" placeholder="Please provide any additional details..." rows={4} />
-          <div className="flex gap-3"><Button variant="secondary" onClick={() => setShowReportModal(false)}>Cancel</Button><Button variant="danger">Submit Report</Button></div>
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowReportModal(false)}>Close</Button><Button variant="danger" disabled>Reporting is unavailable</Button></div>
         </div>
       </Modal>
     </div>
@@ -394,7 +401,7 @@ export function NewPropertyPage() {
                     <Select label="Suitable purpose" options={[{ value: 'living', label: 'Living' }, { value: 'student', label: 'Student' }, { value: 'holiday', label: 'Holiday' }, { value: 'temporary_work', label: 'Temporary work' }, { value: 'business', label: 'Business' }, { value: 'storage', label: 'Storage' }]} value={formData.rental_purpose} onChange={(e) => updateForm('rental_purpose', e.target.value)} />
                     <Select label="Preferred renter arrangement" options={[{ value: 'individual', label: 'Individual' }, { value: 'couple', label: 'Couple' }, { value: 'family', label: 'Family' }, { value: 'student', label: 'Student' }, { value: 'group', label: 'Group' }, { value: 'corporate', label: 'Corporate' }]} value={formData.rental_living} onChange={(e) => updateForm('rental_living', e.target.value)} />
                     <Select label="Tenancy arrangement" options={[{ value: 'sole_tenant', label: 'Sole tenant' }, { value: 'joint_tenants', label: 'Joint tenants' }, { value: 'subtenant', label: 'Subtenant' }, { value: 'leaseholder', label: 'Leaseholder' }, { value: 'lodger', label: 'Lodger' }]} value={formData.rental_tenancy} onChange={(e) => updateForm('rental_tenancy', e.target.value)} />
-                    <Select label="Payment arrangement" options={[{ value: 'monthly', label: 'Monthly' }, { value: 'weekly', label: 'Weekly' }, { value: 'advance', label: 'Several months in advance' }, { value: 'corporate_paid', label: 'Company-paid' }, { value: 'subsidised', label: 'Subsidised' }]} value={formData.rental_payment} onChange={(e) => updateForm('rental_payment', e.target.value)} />
+                    <Select label="Rate / payment basis" options={[{ value: 'daily', label: 'Per day' }, { value: 'nightly', label: 'Per night' }, { value: 'weekly', label: 'Per week' }, { value: 'monthly', label: 'Per month' }, { value: 'advance', label: 'Several months in advance' }, { value: 'corporate_paid', label: 'Company-paid' }, { value: 'subsidised', label: 'Subsidised' }]} value={formData.rental_payment} onChange={(e) => updateForm('rental_payment', e.target.value)} />
                   </div>
                 </div>
               )}

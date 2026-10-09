@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Heart, MapPin, Bed, Bath, Square, Building2 } from 'lucide-react';
 import type { Property } from '../../lib/types';
-import { formatPrice, getListingTypeLabel, getPropertyCategory, getPropertyCategoryLabel, getPropertyTypeLabel, getRentalLabel, cn } from '../../lib/utils';
+import { formatPrice, getListingTypeLabel, getPropertyCategory, getPropertyCategoryLabel, getPropertyTypeLabel, getRentalLabel, getRentalPricePeriod, cn } from '../../lib/utils';
 import { Badge } from '../ui';
 import { useState } from 'react';
 
@@ -34,8 +34,8 @@ export function PropertyCard({ property, variant = 'default', className }: Prope
               {property.size_sqm && <span className="inline-flex items-center gap-1.5"><Square className="h-4 w-4" />{property.size_sqm.toLocaleString()} m²</span>}
             </div>
             <div className="mt-4 flex flex-wrap items-baseline justify-between gap-2 border-t border-gray-100 pt-3">
-              <span className="text-lg font-bold text-primary-700 sm:text-xl">{formatPrice(property.price, property.price_unit)}{property.listing_type === 'rent' && <span className="ml-1 text-xs font-normal text-gray-500">/ month</span>}</span>
-              <span className="rounded-lg bg-accent-50 px-2.5 py-1 text-xs font-semibold text-accent-700">{getListingTypeLabel(property.listing_type)}</span>
+              <span className="text-lg font-bold text-primary-700 sm:text-xl">{formatPrice(property.price, property.price_unit)}{property.listing_type === 'rent' && <span className="ml-1 text-xs font-normal text-gray-500">/ {getRentalPricePeriod(property.rental_details?.payment_method)}</span>}</span>
+              <span className="rounded-lg bg-accent-50 px-2.5 py-1 text-xs font-semibold text-accent-700">{getListingTypeLabel(property.listing_type, property.rental_details?.accommodation_type)}</span>
             </div>
           </div>
         </Link>
@@ -58,14 +58,14 @@ export function PropertyCard({ property, variant = 'default', className }: Prope
         </div>
         <div className="absolute bottom-3 left-3">
           <span className="rounded-lg bg-accent-600 px-2.5 py-1 text-xs font-semibold text-white shadow">
-            {getListingTypeLabel(property.listing_type)}
+            {getListingTypeLabel(property.listing_type, property.rental_details?.accommodation_type)}
           </span>
         </div>
       </div>
       <div className="p-4 sm:p-5">
         <p className="text-lg font-bold leading-tight text-primary-700 sm:text-xl">
           {formatPrice(property.price, property.price_unit)}
-          {property.listing_type === 'rent' && <span className="ml-1 text-xs font-normal text-gray-500">/ month</span>}
+          {property.listing_type === 'rent' && <span className="ml-1 text-xs font-normal text-gray-500">/ {getRentalPricePeriod(property.rental_details?.payment_method)}</span>}
         </p>
         {property.listing_type === 'rent' && property.rental_details && <p className="mt-1 text-xs font-medium text-primary-700">{getRentalLabel(property.rental_details.accommodation_type)} · {getRentalLabel(property.rental_details.duration)}</p>}
         <h3 className="mt-2 line-clamp-2 min-h-11 text-sm font-semibold leading-5 text-gray-900 transition-colors group-hover:text-primary-700 sm:text-base">{property.title}</h3>
@@ -95,7 +95,7 @@ import { Button, Input, Select } from '../ui';
 
 const propertyCategories = [{ value: '', label: 'All property categories' }, { value: 'land', label: 'Land' }, { value: 'housing', label: 'Housing' }, { value: 'commercial', label: 'Commercial' }, { value: 'storage', label: 'Storage / Industrial' }];
 const propertyTypes = [{ value: '', label: 'All Property Types' }, { value: 'residential_land', label: 'Residential Land' }, { value: 'commercial_land', label: 'Commercial Land' }, { value: 'agricultural_land', label: 'Agricultural Land' }, { value: 'house', label: 'House' }, { value: 'apartment', label: 'Apartment' }, { value: 'rental_unit', label: 'Rental Unit' }, { value: 'commercial_building', label: 'Commercial Building' }, { value: 'office_space', label: 'Office Space' }, { value: 'warehouse', label: 'Warehouse' }, { value: 'hotel_lodge', label: 'Hotel / Lodge' }, { value: 'mixed_use', label: 'Mixed Use' }, { value: 'investment_property', label: 'Investment Property' }];
-const listingTypes = [{ value: '', label: 'Sale, Rent, or Lease' }, { value: 'sale', label: 'For Sale' }, { value: 'rent', label: 'For Rent' }, { value: 'lease', label: 'For Lease' }];
+const listingTypes = [{ value: '', label: 'Buy, Rent, Lease or Book' }, { value: 'sale', label: 'Buy' }, { value: 'rent', label: 'Rent' }, { value: 'lease', label: 'Lease' }, { value: 'book', label: 'Book a short stay' }];
 const cities = [{ value: '', label: 'All Locations' }, { value: 'Kampala', label: 'Kampala' }, { value: 'Entebbe', label: 'Entebbe' }, { value: 'Jinja', label: 'Jinja' }, { value: 'Mbarara', label: 'Mbarara' }, { value: 'Gulu', label: 'Gulu' }, { value: 'Arua', label: 'Arua' }, { value: 'Mbale', label: 'Mbale' }];
 const rentalAccommodationTypes = [{ value: '', label: 'Any rental type' }, { value: 'residential', label: 'Residential' }, { value: 'room', label: 'Room / shared home' }, { value: 'commercial', label: 'Commercial' }, { value: 'holiday_short_stay', label: 'Holiday / short stay' }, { value: 'storage_industrial', label: 'Storage / industrial' }];
 const rentalDurations = [{ value: '', label: 'Any rental duration' }, { value: 'short_term', label: 'Short-term' }, { value: 'medium_term', label: 'Medium-term' }, { value: 'long_term', label: 'Long-term' }, { value: 'periodic', label: 'Periodic' }];
@@ -117,7 +117,11 @@ export function SearchBar({ variant = 'default', className, onSearch }: SearchBa
     if (search) params.append('search', search);
     if (propertyType) params.append('type', propertyType);
     if (category) params.append('category', category);
-    if (listingType) params.append('listing_type', listingType);
+    if (listingType === 'book') {
+      params.append('listing_type', 'rent');
+      params.append('rental_accommodation', 'holiday_short_stay');
+      params.append('rental_duration', 'short_term');
+    } else if (listingType) params.append('listing_type', listingType);
     if (city) params.append('city', city);
     if (rentalAccommodation) params.append('rental_accommodation', rentalAccommodation);
     if (rentalDuration) params.append('rental_duration', rentalDuration);

@@ -35,7 +35,7 @@ export type RentalDuration = 'short_term' | 'medium_term' | 'long_term' | 'perio
 export type RentalPurpose = 'living' | 'student' | 'holiday' | 'temporary_work' | 'business' | 'storage';
 export type RentalLivingArrangement = 'individual' | 'couple' | 'family' | 'student' | 'group' | 'corporate';
 export type TenancyArrangement = 'sole_tenant' | 'joint_tenants' | 'subtenant' | 'leaseholder' | 'lodger';
-export type RentalPaymentMethod = 'monthly' | 'weekly' | 'advance' | 'corporate_paid' | 'subsidised';
+export type RentalPaymentMethod = 'daily' | 'nightly' | 'monthly' | 'weekly' | 'advance' | 'corporate_paid' | 'subsidised';
 
 export type RentalPreferences = {
   accommodation_type: RentalAccommodationType;

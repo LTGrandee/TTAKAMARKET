@@ -30,7 +30,7 @@ const sizeStyles: Record<ButtonSize, string> = {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading, leftIcon, rightIcon, disabled, children, ...props }, ref) => (
-    <button ref={ref} className={cn('inline-flex items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed', variantStyles[variant], sizeStyles[size], className)} disabled={disabled || loading} {...props}>
+    <button ref={ref} className={cn('inline-flex min-h-10 items-center justify-center font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed', variantStyles[variant], sizeStyles[size], className)} disabled={disabled || loading} {...props}>
       {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <>{leftIcon}{children}{rightIcon}</>}
     </button>
   )
@@ -126,7 +126,7 @@ export function Modal({ isOpen, onClose, title, children, size = 'md', className
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
-      <div className={cn('relative w-full mx-4 bg-white rounded-xl shadow-2xl animate-scale-in', modalSizeStyles[size], className)}>
+      <div className={cn('relative mx-4 max-h-[calc(100dvh-2rem)] w-full overflow-y-auto overscroll-contain rounded-xl bg-white shadow-2xl animate-scale-in', modalSizeStyles[size], className)}>
         {title && (<div className="flex items-center justify-between p-6 border-b border-gray-100"><h2 className="text-xl font-semibold text-gray-900">{title}</h2><button onClick={onClose} className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"><X className="h-5 w-5" /></button></div>)}
         <div className="p-6">{children}</div>
       </div>

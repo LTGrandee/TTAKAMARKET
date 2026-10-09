@@ -77,7 +77,8 @@ export function getPropertyCategoryLabel(category: string): string {
   return ({ land: 'Land', housing: 'Housing', commercial: 'Commercial', storage: 'Storage / Industrial' } as Record<string, string>)[category] || category;
 }
 
-export function getListingTypeLabel(listingType: string): string {
+export function getListingTypeLabel(listingType: string, accommodationType?: string): string {
+  if (listingType === 'rent' && accommodationType === 'holiday_short_stay') return 'Book';
   return ({ sale: 'For Sale', rent: 'For Rent', lease: 'For Lease' } as Record<string, string>)[listingType] || listingType;
 }
 
@@ -110,9 +111,18 @@ export function getRentalLabel(value: string): string {
     lodger: 'Lodger',
     monthly: 'Monthly',
     weekly: 'Weekly',
+    daily: 'Daily',
+    nightly: 'Nightly',
     advance: 'Paid in advance',
     corporate_paid: 'Company-paid',
     subsidised: 'Subsidised',
   };
   return labels[value] || value;
+}
+
+export function getRentalPricePeriod(paymentMethod?: string): string {
+  if (paymentMethod === 'daily') return 'day';
+  if (paymentMethod === 'nightly') return 'night';
+  if (paymentMethod === 'weekly') return 'week';
+  return 'month';
 }
