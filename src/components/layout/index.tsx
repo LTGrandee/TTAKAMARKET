@@ -18,12 +18,11 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
     { label: 'Messages', href: '/messages', Icon: MessageSquare },
     { label: 'Profile and settings', href: '/profile', Icon: User },
   ];
-  const accountLinks = user
-    ? [{ label: 'Dashboard', href: '/dashboard', Icon: Building2 }]
-    : [
-      { label: 'Sign in', href: '/login', Icon: User },
-      { label: 'Create an account', href: '/register', Icon: Plus },
-    ];
+  const submissionLinks = [
+    { label: 'Submit a property', href: '/properties/new', Icon: Plus },
+    { label: 'Submit accommodation', href: '/accommodation/new', Icon: BedDouble },
+  ];
+  const accountLinks = user ? [{ label: 'Dashboard', href: '/dashboard', Icon: Building2 }] : [];
   const usefulLinks = [
     { label: 'FAQs', href: '/help#faqs', Icon: CircleHelp },
     { label: 'Help & support', href: '/help#support', Icon: MessageSquare },
@@ -83,6 +82,10 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
             <div className="space-y-1">{navigationLinks.map(renderLink)}</div>
           </div>
           <div className="mb-4">
+            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Submit a listing</p>
+            <div className="space-y-1">{submissionLinks.map(renderLink)}</div>
+          </div>
+          <div className="mb-4">
             <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Discover</p>
             <div className="space-y-1">{usefulLinks.map(renderLink)}</div>
           </div>
@@ -102,10 +105,10 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
             </div>
             <p className="px-3 pt-1 text-xs leading-5 text-gray-500">Interface language: English. Prices are displayed in the listed currency.</p>
           </div>
-          <div className="mt-1 border-t border-gray-100 pt-4 md:mt-4">
+          {accountLinks.length > 0 && <div className="mt-1 border-t border-gray-100 pt-4 md:mt-4">
             <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Account</p>
             <div className="space-y-1">{accountLinks.map(renderLink)}</div>
-          </div>
+          </div>}
         </nav>
         <div className="border-t border-gray-100 px-5 py-4 md:hidden"><p className="text-center text-xs text-gray-400">&copy; {new Date().getFullYear()} TtakaMarket · Uganda</p></div>
       </div>
@@ -137,7 +140,7 @@ export function Header() {
           <div className="flex h-16 items-center justify-between gap-2">
             {/* Logo */}
             <Link to="/" aria-label="TtakaMarket home" className="flex min-w-0 shrink-0 items-center">
-              <BrandLogo className="h-12 w-32 sm:w-36" />
+              <BrandLogo className="h-10 w-24 min-[400px]:h-12 min-[400px]:w-32 sm:w-36" />
             </Link>
 
             {/* Desktop Nav */}
@@ -165,12 +168,6 @@ export function Header() {
 
             {/* Right side */}
             <div className="flex shrink-0 items-center gap-1 sm:gap-2">
-              <Link to="/properties/new" className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-accent-600 px-2.5 text-xs font-semibold text-white transition-colors hover:bg-accent-700 sm:px-3 sm:text-sm">
-                <Plus className="h-4 w-4" /> <span className="hidden min-[380px]:inline sm:inline">Submit</span><span className="hidden sm:inline"> Property</span>
-              </Link>
-              <Link to="/accommodation/new" aria-label="Submit accommodation" className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl border border-primary-200 bg-white px-2.5 text-xs font-semibold text-primary-800 transition-colors hover:bg-primary-50 sm:px-3 sm:text-sm">
-                <BedDouble className="h-4 w-4" /><span className="hidden min-[380px]:inline">Accommodation</span>
-              </Link>
               {user ? (
                 <Link to="/dashboard" className="hidden items-center gap-2 rounded-xl px-2 py-1.5 transition-colors hover:bg-gray-50 lg:flex">
                   <Avatar src={profile?.avatar_url} name={profile?.full_name} size="sm" />
@@ -179,11 +176,11 @@ export function Header() {
                 </Link>
               ) : (
                 <>
-                  <Link to="/login" className="hidden rounded-xl px-2 py-2 text-sm font-medium text-charcoal transition-colors hover:bg-gray-50 hover:text-primary-600 lg:inline-flex">
+                  <Link to="/login" className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-xl px-1.5 text-[11px] font-semibold text-charcoal transition-colors hover:bg-gray-50 hover:text-primary-600 min-[400px]:px-2.5 min-[400px]:text-xs sm:h-10 sm:px-3 sm:text-sm">
                     Sign In
                   </Link>
-                  <Link to="/register" className="hidden rounded-xl bg-primary-700 px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-primary-800 lg:inline-flex">
-                    Get Started
+                  <Link to="/register" className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-xl bg-primary-700 px-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-primary-800 min-[400px]:px-2.5 min-[400px]:text-xs sm:h-10 sm:px-3 sm:text-sm">
+                    Create Account
                   </Link>
                 </>
               )}
