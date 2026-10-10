@@ -122,7 +122,7 @@ export function HomePage() {
           <h1 className="mb-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
             Uganda&apos;s Trusted <span className="text-accent-400">Property (Real-Estate &amp; Accommodation) Marketplace</span>
           </h1>
-          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">Find property across Uganda with clearer ownership, representation, pricing and contact information—helping you navigate the complex web of fraudulent and manipulative intermediaries.</p>
+          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">Discover property across Uganda with transparent listings, clear pricing and direct access to owners and authorised representatives—all in one marketplace.</p>
           <div className="flex flex-wrap gap-3">
             <Link to="/properties" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-accent-600 px-5 text-sm font-bold text-white shadow-lg transition hover:bg-accent-700 sm:px-6">
                 Browse properties <ArrowRight className="h-4 w-4" />
@@ -317,14 +317,14 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-block bg-success-100 text-success-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Our Solution</span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Countering untrustworthy intermediation with transparency</h2>
-            <p className="text-sm text-gray-500 max-w-md mx-auto">TtakaMarket counters fraud and manipulation by clarifying who submits a property, their authority to represent the owner, the offer details and the enquiry route.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">A Transparent Property Marketplace Platform</h2>
+            <p className="text-sm text-gray-500 max-w-2xl mx-auto">TtakaMarket brings property seekers, owners and authorised representatives together through a managed marketplace built around transparent listings and accountable contact. Clear ownership and representation details, consistent prices and terms, and traceable enquiries help reduce the confusion, manipulation and unaccountable hand-offs that put property transactions at risk.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 mb-6">
             {[
-              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Submission review', desc: 'Identity, ownership or tenure documents, and authority to represent the owner are assessed.' },
-              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: Shield, title: 'Site survey coordination', desc: "The process is designed to check the property's location, size, access and condition before publication." },
-              { color: 'bg-accent-50 border-accent-100', iconBg: 'bg-accent-500', Icon: MessageSquare, title: 'Managed enquiries', desc: 'Approved contact arrangements can connect people with the owner, representative or TtakaMarket.' },
+              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Ownership and authority review', desc: 'Review submitter identity, ownership or tenure records, and documented authority to represent the owner.' },
+              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: Shield, title: 'Property detail checks', desc: 'Coordinate site checks to establish a clear record of the property’s location, size, access and condition.' },
+              { color: 'bg-accent-50 border-accent-100', iconBg: 'bg-accent-500', Icon: MessageSquare, title: 'Accountable contact', desc: 'Make the contact’s role clear and route enquiries to the owner, authorised representative or designated TtakaMarket contact.' },
             ].map(({ color, iconBg, Icon, title, desc }) => (
               <div key={title} className={`flex gap-4 p-4 rounded-xl border ${color}`}>
                 <div className={`w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>

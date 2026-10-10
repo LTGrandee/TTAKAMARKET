@@ -315,7 +315,7 @@ export function NewPropertyPage() {
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
-    title: '', description: '', asset_category: 'housing', property_type: '', listing_type: '', price: '', price_unit: 'UGX',
+    title: '', description: '', asset_category: 'housing', property_type: '', listing_type: '', listing_intent: '', price: '', price_unit: 'UGX',
     size_sqm: '', size_unit: 'sqm', bedrooms: '', bathrooms: '', parking_spaces: '', year_built: '',
     address: '', city: '', region: '', country: 'Uganda', features: [] as string[], custom_feature: '',
     submitter_name: '', submitter_phone: '', submitter_email: '', submitter_role: '',
@@ -343,8 +343,32 @@ export function NewPropertyPage() {
     }
   };
 
-  const propertyTypes = [{ value: 'residential_land', label: 'Residential Land' }, { value: 'commercial_land', label: 'Commercial Land' }, { value: 'agricultural_land', label: 'Agricultural Land' }, { value: 'house', label: 'House' }, { value: 'apartment', label: 'Apartment' }, { value: 'rental_unit', label: 'Rental Unit' }, { value: 'commercial_building', label: 'Commercial Building' }, { value: 'office_space', label: 'Office Space' }, { value: 'warehouse', label: 'Warehouse' }, { value: 'hotel_lodge', label: 'Hotel / Lodge' }, { value: 'mixed_use', label: 'Mixed Use Development' }, { value: 'investment_property', label: 'Investment Property' }];
-  const listingTypes = [{ value: 'sale', label: 'For Sale' }, { value: 'rent', label: 'For Rent' }, { value: 'lease', label: 'For Lease' }];
+  const propertyTypes = [{ value: 'residential_land', label: 'Residential Land' }, { value: 'commercial_land', label: 'Commercial Land' }, { value: 'agricultural_land', label: 'Agricultural Land' }, { value: 'house', label: 'House' }, { value: 'apartment', label: 'Apartment' }, { value: 'rental_unit', label: 'Rental Unit' }, { value: 'commercial_building', label: 'Commercial Building' }, { value: 'office_space', label: 'Office Space' }, { value: 'warehouse', label: 'Warehouse' }, { value: 'hotel_lodge', label: 'Hotel / Lodge / Guest Room' }, { value: 'mixed_use', label: 'Mixed Use Development' }, { value: 'investment_property', label: 'Investment Property' }];
+  const listingTypes = [{ value: 'sale', label: 'For Sale' }, { value: 'rent', label: 'For Rent' }, { value: 'lease', label: 'For Lease' }, { value: 'book', label: 'Short Stay / Room Booking' }];
+  const handleListingIntentChange = (value: string) => {
+    if (value === 'book') {
+      setFormData((prev) => ({
+        ...prev,
+        listing_type: 'rent',
+        listing_intent: value,
+        property_type: prev.property_type || 'hotel_lodge',
+        rental_accommodation: 'holiday_short_stay',
+        rental_duration: 'short_term',
+        rental_purpose: 'holiday',
+        rental_payment: 'nightly',
+      }));
+      return;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      listing_type: value,
+      listing_intent: value,
+      ...(value === 'rent' && prev.rental_accommodation === 'holiday_short_stay'
+        ? { rental_accommodation: 'residential', rental_duration: 'long_term', rental_purpose: 'living', rental_payment: 'monthly' }
+        : {}),
+    }));
+  };
   const cities = [{ value: 'Kampala', label: 'Kampala' }, { value: 'Entebbe', label: 'Entebbe' }, { value: 'Jinja', label: 'Jinja' }, { value: 'Mbarara', label: 'Mbarara' }, { value: 'Gulu', label: 'Gulu' }, { value: 'Arua', label: 'Arua' }, { value: 'Mbale', label: 'Mbale' }];
   const commonFeatures = ['Garden', 'Swimming Pool', 'Parking', 'Security', 'Air Conditioning', 'Balcony', 'Gym', 'Electricity', 'Water', 'Main Road Access', 'Corner Plot', 'Boundary Wall', 'Internet', 'Furnished'];
   const steps = [{ id: 1, title: 'Property Details' }, { id: 2, title: 'Location & Contact' }, { id: 3, title: 'Features' }, { id: 4, title: 'Photos & Documents' }, { id: 5, title: 'Review' }];
@@ -394,13 +418,13 @@ export function NewPropertyPage() {
               <div className="grid sm:grid-cols-2 gap-4">
                 <Select label="Asset category" options={[{ value: 'land', label: 'Land' }, { value: 'housing', label: 'Housing' }, { value: 'commercial', label: 'Commercial' }, { value: 'storage', label: 'Storage / Industrial' }]} value={formData.asset_category} onChange={(e) => updateForm('asset_category', e.target.value)} />
                 <Select label="Property Type" options={propertyTypes} value={formData.property_type} onChange={(e) => updateForm('property_type', e.target.value)} placeholder="Select property type" />
-                <Select label="Listing Type" options={listingTypes} value={formData.listing_type} onChange={(e) => updateForm('listing_type', e.target.value)} placeholder="Select listing type" />
+                <Select label="Offer Type" options={listingTypes} value={formData.listing_intent} onChange={(e) => handleListingIntentChange(e.target.value)} placeholder="Choose how the property is offered" />
               </div>
               {formData.listing_type === 'rent' && (
                 <div className="rounded-xl border border-primary-100 bg-primary-50 p-4 space-y-4">
-                  <div><h3 className="font-semibold text-primary-900">Rental profile</h3><p className="text-xs text-primary-700 mt-1">These details help TtakaMarket match the property with the right renter.</p></div>
+                  <div><h3 className="font-semibold text-primary-900">Rental and accommodation details</h3><p className="text-xs text-primary-700 mt-1">Specify the accommodation type, stay duration and rate basis.</p></div>
                   <div className="grid sm:grid-cols-2 gap-4">
-                    <Select label="Accommodation type" options={[{ value: 'residential', label: 'Residential home' }, { value: 'room', label: 'Room / shared home' }, { value: 'commercial', label: 'Commercial premises' }, { value: 'holiday_short_stay', label: 'Holiday / short stay' }, { value: 'storage_industrial', label: 'Storage / industrial' }]} value={formData.rental_accommodation} onChange={(e) => updateForm('rental_accommodation', e.target.value)} />
+                    <Select label="Accommodation type" options={[{ value: 'residential', label: 'Residential home' }, { value: 'room', label: 'Room / shared home' }, { value: 'commercial', label: 'Commercial premises' }, { value: 'holiday_short_stay', label: 'Short stay / hotel, lodge or room booking' }, { value: 'storage_industrial', label: 'Storage / industrial' }]} value={formData.rental_accommodation} onChange={(e) => updateForm('rental_accommodation', e.target.value)} />
                     <Select label="Available duration" options={[{ value: 'short_term', label: 'Days / weeks' }, { value: 'medium_term', label: 'Weeks / months' }, { value: 'long_term', label: 'Year or longer' }, { value: 'periodic', label: 'Weekly / monthly periodic' }]} value={formData.rental_duration} onChange={(e) => updateForm('rental_duration', e.target.value)} />
                     <Select label="Suitable purpose" options={[{ value: 'living', label: 'Living' }, { value: 'student', label: 'Student' }, { value: 'holiday', label: 'Holiday' }, { value: 'temporary_work', label: 'Temporary work' }, { value: 'business', label: 'Business' }, { value: 'storage', label: 'Storage' }]} value={formData.rental_purpose} onChange={(e) => updateForm('rental_purpose', e.target.value)} />
                     <Select label="Preferred renter arrangement" options={[{ value: 'individual', label: 'Individual' }, { value: 'couple', label: 'Couple' }, { value: 'family', label: 'Family' }, { value: 'student', label: 'Student' }, { value: 'group', label: 'Group' }, { value: 'corporate', label: 'Corporate' }]} value={formData.rental_living} onChange={(e) => updateForm('rental_living', e.target.value)} />
@@ -415,7 +439,7 @@ export function NewPropertyPage() {
               </div>
               <div className="grid sm:grid-cols-3 gap-4">
                 <Input label="Size (sqm)" type="number" placeholder="e.g., 500" value={formData.size_sqm} onChange={(e) => updateForm('size_sqm', e.target.value)} />
-                {['house', 'apartment', 'rental_unit'].includes(formData.property_type) && (<><Input label="Bedrooms" type="number" placeholder="e.g., 4" value={formData.bedrooms} onChange={(e) => updateForm('bedrooms', e.target.value)} /><Input label="Bathrooms" type="number" placeholder="e.g., 3" value={formData.bathrooms} onChange={(e) => updateForm('bathrooms', e.target.value)} /></>)}
+                {['house', 'apartment', 'rental_unit', 'hotel_lodge'].includes(formData.property_type) && (<><Input label="Bedrooms / rooms" type="number" placeholder={formData.property_type === 'hotel_lodge' ? 'e.g., 1' : 'e.g., 4'} value={formData.bedrooms} onChange={(e) => updateForm('bedrooms', e.target.value)} /><Input label="Bathrooms" type="number" placeholder="e.g., 3" value={formData.bathrooms} onChange={(e) => updateForm('bathrooms', e.target.value)} /></>)}
               </div>
             </div>
           )}
@@ -473,8 +497,19 @@ export function NewPropertyPage() {
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Asset category</p><p className="font-medium text-gray-900">{getPropertyCategoryLabel(formData.asset_category)}</p></div>
                   <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Property Type</p><p className="font-medium text-gray-900">{propertyTypes.find(t => t.value === formData.property_type)?.label}</p></div>
-                  <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Listing Type</p><p className="font-medium text-gray-900">{listingTypes.find(t => t.value === formData.listing_type)?.label}</p></div>
+                  <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Offer Type</p><p className="font-medium text-gray-900">{listingTypes.find(t => t.value === formData.listing_intent)?.label}</p></div>
                 </div>
+                {formData.listing_type === 'rent' && (
+                  <div className="p-4 bg-gray-50 rounded-lg">
+                    <p className="text-sm text-gray-500 mb-2">Rental and accommodation details</p>
+                    <div className="grid gap-2 text-sm text-gray-800 sm:grid-cols-2">
+                      <p><strong>Accommodation:</strong> {getRentalLabel(formData.rental_accommodation)}</p>
+                      <p><strong>Duration:</strong> {getRentalLabel(formData.rental_duration)}</p>
+                      <p><strong>Purpose:</strong> {getRentalLabel(formData.rental_purpose)}</p>
+                      <p><strong>Rate basis:</strong> {getRentalLabel(formData.rental_payment)}</p>
+                    </div>
+                  </div>
+                )}
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Price</p><p className="font-medium text-gray-900">{Number(formData.price).toLocaleString()} {formData.price_unit}</p></div>
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Location</p><p className="font-medium text-gray-900">{formData.address}, {formData.city}, {formData.country}</p></div>
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Submitted by</p><p className="font-medium text-gray-900">{formData.submitter_name} · {formData.submitter_phone}</p><p className="text-sm text-gray-600">{formData.submitter_role === 'owner' ? 'Owner' : formData.submitter_role === 'representative' ? 'Authorised representative' : 'Other submitter'}</p></div>
