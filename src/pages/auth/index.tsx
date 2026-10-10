@@ -44,7 +44,7 @@ export function LoginPage() {
           <Card className="p-6">
             <div className="flex gap-4 mb-6">
               <button onClick={() => setUserType('buyer')} className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${userType === 'buyer' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Buyer or renter</button>
-              <button onClick={() => setUserType('owner')} className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${userType === 'owner' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Owner or representative</button>
+              <button onClick={() => setUserType('owner')} className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${userType === 'owner' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Registered Owner/Legal Representative</button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && <div className="p-3 bg-error-50 border border-error-200 rounded-lg text-sm text-error-700">{error}</div>}
