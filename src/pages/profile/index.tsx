@@ -159,7 +159,7 @@ function DeleteConfirmModal({ onClose, onConfirm }: { onClose: () => void; onCon
           <AlertTriangle className="h-6 w-6 text-error-500" />
         </div>
         <h3 className="text-base font-bold text-gray-900 text-center mb-2">Account deletion unavailable</h3>
-        <p className="text-sm text-gray-500 text-center mb-6">This prototype cannot delete account data. You can sign out to end the session on this device.</p>
+        <p className="text-sm text-gray-500 text-center mb-6">Account deletion is being developed. You can sign out to end your current session.</p>
         <div className="flex gap-3">
           <button onClick={onClose} className="flex-1 border border-gray-200 text-gray-700 font-semibold py-2.5 rounded-xl text-sm">Cancel</button>
           <button onClick={onConfirm} className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors">Sign Out</button>
@@ -211,7 +211,7 @@ export function ProfilePage() {
           <p className="text-primary-200 text-sm mt-0.5">{profile.email}</p>
           <div className="flex items-center gap-2 mt-3">
             <span className={cn('text-xs font-bold px-3 py-1 rounded-full', verificationColor)}>
-              {profile.verification_status === 'verified' ? 'Demo status · verified' : profile.verification_status === 'pending' ? 'Demo status · pending' : 'Demo status · unverified'}
+              {profile.verification_status === 'verified' ? 'Verification · verified' : profile.verification_status === 'pending' ? 'Verification · pending' : 'Verification · not complete'}
             </span>
             <span className="text-xs font-bold px-3 py-1 rounded-full bg-white/20 text-white capitalize">
               {profile.user_type}
@@ -219,7 +219,7 @@ export function ProfilePage() {
           </div>
         </div>
       </div>
-      <p className="mx-auto max-w-3xl px-4 pt-3 text-center text-xs leading-5 text-gray-500">Prototype preview only. Verification, payments, document uploads, notifications and account settings are not connected to live services.</p>
+      <p className="mx-auto max-w-3xl px-4 pt-3 text-center text-xs leading-5 text-gray-500">Verification, payments, secure document uploads and notification tools are being developed.</p>
 
       {/* Quick stats */}
       <div className="mx-4 -mt-6 bg-white rounded-2xl shadow-md grid grid-cols-3 divide-x divide-gray-100 mb-4 overflow-hidden">

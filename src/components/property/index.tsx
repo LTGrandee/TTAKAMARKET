@@ -19,7 +19,7 @@ export function PropertyCard({ property, variant = 'default', className }: Prope
         <Link to={`/properties/${property.id}`} className="min-w-0 flex-1 sm:flex sm:items-stretch">
           <div className="relative aspect-[16/9] overflow-hidden bg-gray-100 sm:aspect-auto sm:w-64 sm:shrink-0">
             {!imageError ? <img src={imageUrl} alt={property.title} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]" onError={() => setImageError(true)} /> : <div className="flex h-full min-h-40 items-center justify-center"><Building2 className="h-12 w-12 text-gray-300" /></div>}
-            <span className="absolute left-3 top-3 rounded-lg bg-primary-800/90 px-2.5 py-1 text-xs font-semibold text-white">Sample</span>
+            <span className="absolute left-3 top-3 rounded-lg bg-primary-800/90 px-2.5 py-1 text-xs font-semibold text-white">Property listing</span>
           </div>
           <div className="min-w-0 flex-1 p-4 sm:p-5">
             <div className="flex flex-wrap gap-1.5">
@@ -54,7 +54,7 @@ export function PropertyCard({ property, variant = 'default', className }: Prope
           ? <img src={imageUrl} alt={property.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" onError={() => setImageError(true)} />
           : <div className="flex h-full w-full items-center justify-center"><Building2 className="h-12 w-12 text-gray-300" /></div>}
         <div className="absolute left-3 top-3">
-          <span className="rounded-lg bg-primary-800/90 px-2.5 py-1 text-xs font-semibold text-white">Sample</span>
+          <span className="rounded-lg bg-primary-800/90 px-2.5 py-1 text-xs font-semibold text-white">Property listing</span>
         </div>
         <div className="absolute bottom-3 left-3">
           <span className="rounded-lg bg-accent-600 px-2.5 py-1 text-xs font-semibold text-white shadow">

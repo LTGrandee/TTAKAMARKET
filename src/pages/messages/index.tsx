@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Send, ArrowLeft, User } from 'lucide-react';
-import { Button, Input, Avatar, Card, EmptyState, Loading } from '../../components/ui';
-import type { Conversation, Message, Profile } from '../../lib/types';
+import { Button, Input, Avatar, EmptyState, Loading } from '../../components/ui';
+import type { Conversation, Message } from '../../lib/types';
 import { useAuth } from '../../context';
 import { formatRelativeTime, cn } from '../../lib/utils';
 
@@ -57,7 +57,7 @@ export function MessagesPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Property enquiries</h1>
-        <p className="mb-6 rounded-xl border border-warning-200 bg-warning-50 px-4 py-3 text-sm leading-5 text-warning-800">Demo conversations only. Messages entered here are not delivered to property owners or representatives.</p>
+        <p className="mb-6 text-sm text-gray-500">Direct messaging with property owners and authorised representatives is in development.</p>
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="flex h-[calc(100dvh-14rem)] min-h-[24rem] md:h-[min(42rem,calc(100dvh-14rem))]">
             <div className={cn('w-full border-r border-gray-200 overflow-y-auto', 'md:w-80 md:block', conversationId ? 'hidden md:block' : 'block')}>
@@ -71,7 +71,7 @@ export function MessagesPage() {
                         <Avatar size="md" />
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between"><p className="font-medium text-gray-900 truncate">Property contact</p><span className="text-xs text-gray-400">{formatRelativeTime(conv.last_message_at)}</span></div>
-                          <p className="text-sm text-gray-500 truncate">Sample property enquiry</p>
+                          <p className="text-sm text-gray-500 truncate">Property enquiry</p>
                         </div>
                       </button>
                     );
@@ -85,7 +85,7 @@ export function MessagesPage() {
                   <div className="p-4 border-b border-gray-200 flex items-center gap-3">
                     <button onClick={() => navigate('/messages')} className="md:hidden p-2 text-gray-500 hover:bg-gray-100 rounded-lg"><ArrowLeft className="h-5 w-5" /></button>
                     <Avatar size="md" />
-                    <div><p className="font-medium text-gray-900">Property contact</p><p className="text-sm text-gray-500">Example contact in the prototype</p></div>
+                    <div><p className="font-medium text-gray-900">Property contact</p><p className="text-sm text-gray-500">Property owner or representative</p></div>
                   </div>
                   <div className="flex-1 overflow-y-auto p-4 space-y-4">
                     {messages.map((message) => {
@@ -102,7 +102,7 @@ export function MessagesPage() {
                     <div ref={messagesEndRef} />
                   </div>
                   <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-200">
-                    <div className="flex gap-3"><Input placeholder="Type a demo message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)} className="min-w-0 flex-1" /><Button type="submit" variant="primary" loading={sending} aria-label="Add demo message"><Send className="h-4 w-4" /></Button></div>
+                    <div className="flex gap-3"><Input placeholder="Write a message..." value={newMessage} onChange={(e) => setNewMessage(e.target.value)} className="min-w-0 flex-1" /><Button type="submit" variant="primary" loading={sending} aria-label="Send message"><Send className="h-4 w-4" /></Button></div>
                   </form>
                 </>
               ) : (<div className="flex-1 flex items-center justify-center"><EmptyState icon={<User className="h-12 w-12" />} title="Select a conversation" description="Choose a conversation from the list" /></div>)}

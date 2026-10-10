@@ -7,7 +7,7 @@ import { getRentalLabel } from '../../lib/utils';
 
 const reviewSteps = [
   { title: 'Submit property details', description: 'Share the property information and supporting documents for review.', Icon: FileText },
-  { title: 'Administrator review', description: 'The planned review includes ownership, tenure and identity documents.', Icon: Shield },
+  { title: 'Administrator review', description: 'Review workflows cover ownership, tenure and identity documents.', Icon: Shield },
   { title: 'Site survey', description: 'A site survey can be coordinated to review location, access and condition.', Icon: MapPin },
   { title: 'Publication decision', description: 'TtakaMarket decides whether to approve and manage the public listing.', Icon: CheckCircle },
 ];
@@ -34,7 +34,7 @@ export function DashboardPage() {
           <p className="mt-1 text-gray-500">
             {isSubmitter
               ? 'Submit land or built property for administrator review and managed publication.'
-              : 'Explore sample listings to buy, rent, lease or book for a short stay. Account tools shown here are a prototype preview.'}
+              : 'Explore properties to buy, rent, lease or book for a short stay.'}
           </p>
         </div>
       </div>
@@ -49,7 +49,7 @@ export function DashboardPage() {
                 </div>
                 <div>
                   <h2 className="font-semibold text-primary-900">No active submission yet</h2>
-                  <p className="mt-1 text-sm text-primary-700">Preview a submission for land, housing, short stays, commercial or storage property. The live review and publishing service is not connected yet.</p>
+                  <p className="mt-1 text-sm text-primary-700">Submit land, housing, short stays, commercial or storage property for administrator review.</p>
                   <Link to="/properties/new"><Button size="sm" variant="primary" className="mt-4">Submit a Property</Button></Link>
                 </div>
               </div>
@@ -59,7 +59,7 @@ export function DashboardPage() {
               <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-900">Managed seller page</h2>
-                  <p className="mt-1 text-sm text-gray-500">Preview the planned TtakaMarket-managed personal or business page. Approval and public posting are not active in this prototype.</p>
+                  <p className="mt-1 text-sm text-gray-500">Manage a personal or business page and request approval for property posts.</p>
                   {profile.seller_profile_enabled && profile.seller_profile_slug && (
                     <Link to={`/seller/${profile.seller_profile_slug}`} className="inline-flex mt-3 text-sm font-semibold text-primary-600 hover:text-primary-700">View public seller page</Link>
                   )}
@@ -76,7 +76,7 @@ export function DashboardPage() {
               <div className="flex flex-wrap gap-3 mt-5">
                 <Link to="/properties/new"><Button size="sm" variant="primary">Request a property post</Button></Link>
                 <Link to="/messages"><Button size="sm" variant="outline" leftIcon={<MessageSquare className="h-4 w-4" />}>Optional customer chats</Button></Link>
-                <span className="text-xs text-gray-500 self-center">Figures shown here are sample prototype data.</span>
+                <span className="text-xs text-gray-500 self-center">Seller-page tools are being developed.</span>
               </div>
             </Card>
 
@@ -101,13 +101,13 @@ export function DashboardPage() {
               <Card className="p-6">
                 <MessageSquare className="h-6 w-6 text-accent-500 mb-3" />
                 <h2 className="font-semibold text-gray-900">Owner communication</h2>
-                <p className="mt-1 text-sm text-gray-500">Set a preferred enquiry contact for a property submission. Contact routing is part of the planned service.</p>
+                <p className="mt-1 text-sm text-gray-500">Set a preferred enquiry contact for your property submission. Contact routing is being developed.</p>
                 <Link to="/messages"><Button variant="outline" size="sm" className="mt-4">Open Messages</Button></Link>
               </Card>
               <Card className="p-6">
                 <Search className="h-6 w-6 text-primary-600 mb-3" />
                 <h2 className="font-semibold text-gray-900">Browse the marketplace</h2>
-                <p className="mt-1 text-sm text-gray-500">Browse sample listings while the marketplace prototype is in development.</p>
+                <p className="mt-1 text-sm text-gray-500">Browse land, housing, commercial and storage properties across Uganda.</p>
                 <Link to="/properties"><Button variant="outline" size="sm" className="mt-4">Browse Properties</Button></Link>
               </Card>
             </div>
@@ -122,14 +122,14 @@ export function DashboardPage() {
             </Card>
             <Card className="p-6">
               <MessageSquare className="h-6 w-6 text-accent-500 mb-3" />
-              <h2 className="font-semibold text-gray-900">Preview a property enquiry</h2>
-              <p className="mt-1 text-sm text-gray-500">Review a sample conversation flow. Contacts and representative authority are not verified, and messages are not delivered in this prototype.</p>
+              <h2 className="font-semibold text-gray-900">Property enquiries</h2>
+              <p className="mt-1 text-sm text-gray-500">Direct enquiries with property owners and authorised representatives are in development.</p>
               <Link to="/messages"><Button variant="outline" size="sm" className="mt-4">Open Messages</Button></Link>
             </Card>
             {profile.rental_preferences && (
               <Card className="p-6 md:col-span-2">
                 <h2 className="font-semibold text-gray-900">Your rental matching profile</h2>
-                <p className="mt-1 text-sm text-gray-500">These saved preferences are a prototype preview; rental recommendations are not active.</p>
+                <p className="mt-1 text-sm text-gray-500">Your preferences help tailor property recommendations to your needs.</p>
                 <div className="flex flex-wrap gap-2 mt-4">
                   {[profile.rental_preferences.accommodation_type, profile.rental_preferences.duration, profile.rental_preferences.purpose, profile.rental_preferences.living_arrangement, profile.rental_preferences.tenancy_arrangement, profile.rental_preferences.payment_method].map((value) => <Badge key={value} variant="secondary">{getRentalLabel(value)}</Badge>)}
                 </div>

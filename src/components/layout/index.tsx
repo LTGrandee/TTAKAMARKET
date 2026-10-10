@@ -257,7 +257,7 @@ export function Layout() {
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <div>
             <BrandLogo className="h-12 w-36" />
-            <p className="mt-1 text-sm text-gray-500">Property discovery and submission previews across Uganda.</p>
+            <p className="mt-1 text-sm text-gray-500">Property discovery and submissions across Uganda.</p>
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600">
             <Link className="hover:text-primary-700" to="/properties">Browse properties</Link>

@@ -18,7 +18,7 @@ const categories = [
 ];
 
 const trustPoints = [
-  { Icon: Shield, title: 'Planned administrator review', desc: 'A proposed review before property publication' },
+  { Icon: Shield, title: 'Administrator review', desc: 'Review workflows for ownership and representative authority' },
   { Icon: Users, title: 'Clear representation', desc: 'Designed to identify owners and authorised representatives' },
   { Icon: Handshake, title: 'Accountable enquiries', desc: 'A clearer route to the owner or authorised contact' },
   { Icon: Headphones, title: 'One marketplace', desc: 'Land, homes, short stays, business and storage' },
@@ -51,7 +51,7 @@ function FeaturedCard({ property }: { property: Property }) {
       <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
         <img src={img?.image_url} alt={property.title} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
         <div className="absolute top-2 left-2">
-          <span className="bg-primary-600 text-white text-xs font-semibold px-2 py-0.5 rounded">Sample listing</span>
+          <span className="bg-primary-600 text-white text-xs font-semibold px-2 py-0.5 rounded">Featured property</span>
         </div>
         <div className="absolute bottom-2 left-2">
           <span className="bg-accent-500 text-white text-xs font-bold px-2 py-0.5 rounded">
@@ -120,9 +120,9 @@ export function HomePage() {
             <span className="text-xs font-semibold text-white sm:text-sm">Land, homes and more · Across Uganda</span>
           </div>
           <h1 className="mb-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            A More Transparent <span className="text-accent-400">Property (Real-Estate) &amp; Accommodation Marketplace</span>
+            Uganda&apos;s Trusted <span className="text-accent-400">Property (Real-Estate &amp; Accommodation) Marketplace</span>
           </h1>
-          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">Explore sample property listings and learn how clearer ownership, representative authority, pricing and contact details can help counter fraud and manipulation in Uganda&apos;s real-estate market.</p>
+          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">Find property across Uganda with clearer ownership, representation, pricing and contact information—helping you navigate the complex web of fraudulent and manipulative intermediaries.</p>
           <div className="flex flex-wrap gap-3">
             <Link to="/properties" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-accent-600 px-5 text-sm font-bold text-white shadow-lg transition hover:bg-accent-700 sm:px-6">
                 Browse properties <ArrowRight className="h-4 w-4" />
@@ -159,7 +159,7 @@ export function HomePage() {
           </div>
           {activeTab === 'book' && (
             <p className="mb-3 text-xs leading-5 text-gray-500">
-              Find short stays, including hotel rooms, with daily or nightly prices where provided. Reservations and payments are not available in this prototype.
+              Find short stays, including hotel rooms, with daily or nightly rates. Booking and payment features are in development.
             </p>
           )}
 
@@ -226,7 +226,7 @@ export function HomePage() {
       {/* ── FEATURED PROPERTIES ── */}
       <section className="mx-auto mb-12 max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-4 flex items-end justify-between">
-          <div><p className="text-xs font-bold uppercase tracking-wider text-accent-700">A place to start</p><h2 className="mt-1 text-xl font-bold text-gray-900 sm:text-2xl">Featured property examples</h2></div>
+          <div><p className="text-xs font-bold uppercase tracking-wider text-accent-700">A place to start</p><h2 className="mt-1 text-xl font-bold text-gray-900 sm:text-2xl">Featured properties</h2></div>
           <Link to="/properties" className="inline-flex min-h-10 items-center gap-1 text-sm font-semibold text-primary-700 hover:text-accent-700">
             Browse all <ArrowRight className="h-4 w-4" />
           </Link>
@@ -280,7 +280,7 @@ export function HomePage() {
             ))}
           </div>
           <p className="mx-auto mt-5 max-w-2xl text-center text-xs leading-5 text-gray-500">
-            TtakaMarket is intended to help expose and weaken this complex web by making ownership, authority to represent and the contact path clearer. This prototype does not verify properties, documents or representatives; always make independent checks.
+            TtakaMarket is being developed to address this complex web by bringing ownership, representative authority and contact information into clearer view. Always verify property documents and a representative&apos;s authority independently before making a commitment.
           </p>
         </div>
       </section>
@@ -290,14 +290,14 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-primary-600 mb-2">How TtakaMarket Works</h2>
-            <p className="text-sm text-gray-500">The planned submission and enquiry process</p>
+            <p className="text-sm text-gray-500">Property submission, review and enquiry workflows</p>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {[
               { num: '01', title: 'Submit details', desc: 'Owners or lawful representatives share property information and supporting documents.', Icon: Users },
-              { num: '02', title: 'Planned review', desc: 'The proposed service includes document and representative-authority checks, plus a site survey.', Icon: Shield },
-              { num: '03', title: 'Publication decision', desc: 'In the planned service, TtakaMarket would decide whether a submission is ready to publish.', Icon: CheckCircle },
-              { num: '04', title: 'Clearer enquiries', desc: 'The intended contact path leads to the owner, authorised representative or TtakaMarket.', Icon: MessageSquare },
+              { num: '02', title: 'Administrator review', desc: 'Review workflows cover documents, representative authority and property details.', Icon: Shield },
+              { num: '03', title: 'Publication decision', desc: 'Administrator approval determines whether a property is ready to publish.', Icon: CheckCircle },
+              { num: '04', title: 'Accountable enquiries', desc: 'Enquiry routes connect property seekers with owners and authorised representatives.', Icon: MessageSquare },
             ].map(({ num, title, desc, Icon }) => (
               <div key={num} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                 <div className="w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center mb-3">
@@ -310,7 +310,7 @@ export function HomePage() {
             ))}
           </div>
           <p className="mt-5 rounded-xl border border-warning-200 bg-warning-50 p-4 text-center text-xs leading-5 text-warning-800">
-            This prototype does not receive submissions, verify documents, arrange surveys or deliver enquiries. These steps describe the intended service.
+            Submission review, document checks, site surveys and enquiry handling are being developed as part of the service.
           </p>
         </div>
       </section>
@@ -321,11 +321,11 @@ export function HomePage() {
           <div className="text-center mb-8">
             <span className="inline-block bg-success-100 text-success-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Our Solution</span>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Countering untrustworthy intermediation with transparency</h2>
-            <p className="text-sm text-gray-500 max-w-md mx-auto">The proposed service aims to reduce opportunities for fraud and manipulation by clarifying who submits a property, their stated authority to represent the owner, the offer details and the intended enquiry route.</p>
+            <p className="text-sm text-gray-500 max-w-md mx-auto">TtakaMarket is developing safeguards against fraud and manipulation by clarifying who submits a property, their authority to represent the owner, the offer details and the enquiry route.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 mb-6">
             {[
-              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Submission review', desc: 'The planned review covers identity, ownership or tenure documents, and authority to represent the owner.' },
+              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Submission review', desc: 'Administrator review covers identity, ownership or tenure documents, and authority to represent the owner.' },
               { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: Shield, title: 'Site survey coordination', desc: "The process is designed to check the property's location, size, access and condition before publication." },
               { color: 'bg-accent-50 border-accent-100', iconBg: 'bg-accent-500', Icon: MessageSquare, title: 'Managed enquiries', desc: 'Approved contact arrangements can connect people with the owner, representative or TtakaMarket.' },
             ].map(({ color, iconBg, Icon, title, desc }) => (
@@ -344,7 +344,7 @@ export function HomePage() {
             <h3 className="text-lg font-bold text-white mb-2">Designed to make property offers more accountable</h3>
             <p className="text-sm text-primary-200 mb-4">Check the details. Confirm authority. Ask questions before making a commitment.</p>
             <div className="flex flex-wrap items-center justify-center gap-4 text-primary-200">
-              {['Land, homes and short stays', 'Buy, rent, lease or book', 'Planned administrator review'].map(t => (
+              {['Land, homes and short stays', 'Buy, rent, lease or book', 'Administrator review'].map(t => (
                 <div key={t} className="flex items-center gap-1.5 text-xs"><CheckCircle className="h-4 w-4 text-primary-300" />{t}</div>
               ))}
             </div>
@@ -363,7 +363,7 @@ export function HomePage() {
             {[
               { name: 'Buyers', city: 'Find a property', initials: 'BY', review: 'Browse land, housing, commercial premises and storage or industrial spaces offered for sale, rent or lease.' },
               { name: 'Renters & short-stay guests', city: 'Find a place to stay', initials: 'RT', review: 'Explore long- or short-term stays, including hotel rooms, with daily or nightly rates where provided.' },
-              { name: 'Owners & representatives', city: 'Submit for review', initials: 'OR', review: 'Share property details for the proposed review process. One-time submission is designed not to require an account.' },
+              { name: 'Owners & representatives', city: 'Submit for review', initials: 'OR', review: 'Share property details for administrator review. One-time submission does not require an account.' },
             ].map((t) => (
               <div key={t.name} className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
                 <div className="flex items-center gap-0.5 text-accent-500 mb-3">
@@ -387,7 +387,7 @@ export function HomePage() {
       <section className="bg-primary-600 px-4 py-12">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-white mb-3">Start your property search</h2>
-          <p className="text-sm text-primary-200 mb-6">Explore land, homes, short stays and business spaces—or preview a property submission without an account.</p>
+          <p className="text-sm text-primary-200 mb-6">Explore land, homes, short stays and business spaces—or submit a property for review without an account.</p>
           <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center">
             <Link to="/properties" className="inline-flex min-h-12 items-center justify-center rounded-xl bg-accent-600 px-8 text-sm font-bold text-white shadow-lg transition-colors hover:bg-accent-700">
               Browse properties

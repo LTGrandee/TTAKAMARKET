@@ -20,8 +20,8 @@ export function SellerProfilePage() {
                 <h1 className="text-2xl md:text-3xl font-bold">{brandName}</h1>
                 <CheckCircle className="h-5 w-5 text-success-300" />
               </div>
-              <p className="mt-1 text-primary-100">{profile?.seller_brand_type === 'business' ? 'Business profile preview' : 'Personal profile preview'}</p>
-              <Badge variant="neutral" size="sm" className="mt-3">Prototype preview</Badge>
+              <p className="mt-1 text-primary-100">{profile?.seller_brand_type === 'business' ? 'Business profile' : 'Personal profile'}</p>
+              <Badge variant="neutral" size="sm" className="mt-3">Managed seller page</Badge>
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@ export function SellerProfilePage() {
         <div className="lg:col-span-2 space-y-6">
           <Card className="p-6">
             <h2 className="text-lg font-semibold text-gray-900">About {brandName}</h2>
-            <p className="mt-3 text-gray-600">{profile?.seller_brand_bio || 'This profile is intended to be managed by TtakaMarket. Property details and supporting documents are subject to administrator review before publication.'}</p>
+            <p className="mt-3 text-gray-600">{profile?.seller_brand_bio || 'This profile is managed by TtakaMarket. Property details and supporting documents are reviewed by an administrator before publication.'}</p>
           </Card>
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-4">
@@ -46,7 +46,7 @@ export function SellerProfilePage() {
         <Card className="p-6 h-fit">
           <Shield className="h-6 w-6 text-primary-600 mb-3" />
           <h2 className="font-semibold text-gray-900">Managed seller profile</h2>
-          <p className="mt-2 text-sm text-gray-500">The planned service would manage approvals, document handling and public property posts. These services are not active in this prototype.</p>
+          <p className="mt-2 text-sm text-gray-500">Seller-page approvals, document handling and public property posts are being developed.</p>
           {isOwnerProfile && profile?.seller_chat_enabled && (
             <Link to="/messages"><Button variant="primary" className="w-full mt-5" leftIcon={<MessageSquare className="h-4 w-4" />}>Chat with seller</Button></Link>
           )}

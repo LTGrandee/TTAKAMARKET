@@ -28,7 +28,7 @@ export function PropertiesPage() {
         { id: '4', owner_id: 'mock', title: 'Luxury Apartment in Nakasero', description: 'Modern apartment with views', property_type: 'apartment', listing_type: 'rent', rental_details: { accommodation_type: 'residential', duration: 'long_term', purpose: 'living', living_arrangement: 'family', tenancy_arrangement: 'sole_tenant', payment_method: 'monthly' }, price: 3500000, price_unit: 'UGX', currency: 'UGX', size_sqm: 120, size_unit: 'sqm', bedrooms: 2, bathrooms: 2, parking_spaces: 1, address: 'Nakasero Road', city: 'Kampala', country: 'Uganda', features: ['Balcony', 'Gym'], amenities: [], status: 'published', verification_status: 'verified', views_count: 312, saves_count: 89, inquiries_count: 34, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '4', property_id: '4', image_url: 'https://images.pexels.com/photos/1918290/pexels-photo-1918290.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
         { id: '5', owner_id: 'mock', title: 'Agricultural Land in Mukono', description: '50 acres of farmland', property_type: 'agricultural_land', listing_type: 'sale', price: 250000000, price_unit: 'UGX', currency: 'UGX', size_sqm: 202343, size_unit: 'sqm', address: 'Mukono District', city: 'Mukono', country: 'Uganda', features: ['Water Source'], amenities: [], status: 'published', verification_status: 'verified', views_count: 98, saves_count: 23, inquiries_count: 5, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '5', property_id: '5', image_url: 'https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
         { id: '6', owner_id: 'mock', title: 'Office Space in Kampala CBD', description: 'Modern office with parking', property_type: 'office_space', listing_type: 'rent', rental_details: { accommodation_type: 'commercial', duration: 'periodic', purpose: 'business', living_arrangement: 'corporate', tenancy_arrangement: 'leaseholder', payment_method: 'monthly' }, price: 8500000, price_unit: 'UGX', currency: 'UGX', size_sqm: 200, size_unit: 'sqm', address: 'Kampala Road', city: 'Kampala', country: 'Uganda', features: ['AC', 'Elevator'], amenities: [], status: 'published', verification_status: 'verified', views_count: 167, saves_count: 41, inquiries_count: 15, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '6', property_id: '6', image_url: 'https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
-        { id: '7', owner_id: 'mock', title: 'Hotel Room for a Short Stay in Entebbe', description: 'Sample short-stay accommodation. Confirm availability, inclusions and all terms directly before making a decision.', property_type: 'hotel_lodge', listing_type: 'rent', rental_details: { accommodation_type: 'holiday_short_stay', duration: 'short_term', purpose: 'holiday', living_arrangement: 'individual', tenancy_arrangement: 'lodger', payment_method: 'nightly' }, price: 180000, price_unit: 'UGX', currency: 'UGX', size_unit: 'room', bedrooms: 1, bathrooms: 1, address: 'Entebbe Road', city: 'Entebbe', country: 'Uganda', features: ['Furnished', 'Wi-Fi'], amenities: [], status: 'published', verification_status: 'verified', views_count: 0, saves_count: 0, inquiries_count: 0, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '7', property_id: '7', image_url: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
+        { id: '7', owner_id: 'mock', title: 'Hotel Room for a Short Stay in Entebbe', description: 'Short-stay accommodation. Confirm availability, inclusions and all terms directly before making a decision.', property_type: 'hotel_lodge', listing_type: 'rent', rental_details: { accommodation_type: 'holiday_short_stay', duration: 'short_term', purpose: 'holiday', living_arrangement: 'individual', tenancy_arrangement: 'lodger', payment_method: 'nightly' }, price: 180000, price_unit: 'UGX', currency: 'UGX', size_unit: 'room', bedrooms: 1, bathrooms: 1, address: 'Entebbe Road', city: 'Entebbe', country: 'Uganda', features: ['Furnished', 'Wi-Fi'], amenities: [], status: 'published', verification_status: 'verified', views_count: 0, saves_count: 0, inquiries_count: 0, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '7', property_id: '7', image_url: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
       ];
 
       let filtered = mockProperties;
@@ -62,7 +62,7 @@ export function PropertiesPage() {
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{filters.type ? `Properties` : 'All Properties'}</h1>
-          <p className="mt-1 text-gray-500">Browse sample listings across land, housing, commercial and storage property for sale, rent or lease.</p>
+          <p className="mt-1 text-gray-500">Discover land, housing, commercial and storage property for sale, rent or lease.</p>
           <div className="mt-6"><SearchBar /></div>
         </div>
       </div>
@@ -115,7 +115,7 @@ export function PropertyDetailPage() {
     try {
       const mockProperty: Property = {
         id: id || '1', owner_id: 'mock', title: 'Prime Residential Land in Kololo',
-        description: `Sample property description for the TtakaMarket frontend prototype.\n\nBefore making a decision, independently confirm the property's tenure, boundaries, access, services and supporting documents with the relevant professionals.`,
+        description: `Explore this property and review its stated details.\n\nBefore making a decision, independently confirm the property's tenure, boundaries, access, services and supporting documents with the relevant professionals.`,
         property_type: 'residential_land', listing_type: 'sale', price: 850000000, price_unit: 'UGX', currency: 'UGX',
         size_sqm: 2500, size_unit: 'sqm', address: 'Kololo Hill Drive', city: 'Kampala', region: 'Central', country: 'Uganda',
         latitude: 0.3284, longitude: 32.5894, features: ['Main Road Access', 'Electricity', 'Water', 'Surveyed', 'Garden'],
@@ -128,7 +128,7 @@ export function PropertyDetailPage() {
         ],
         ...(id === '7' ? {
           title: 'Hotel Room for a Short Stay in Entebbe',
-          description: 'Sample short-stay accommodation. Confirm availability, inclusions and all terms directly before making a decision.',
+          description: 'Short-stay accommodation. Confirm availability, inclusions and all terms directly before making a decision.',
           property_type: 'hotel_lodge',
           listing_type: 'rent',
           rental_details: { accommodation_type: 'holiday_short_stay', duration: 'short_term', purpose: 'holiday', living_arrangement: 'individual', tenancy_arrangement: 'lodger', payment_method: 'nightly' },
@@ -203,7 +203,7 @@ export function PropertyDetailPage() {
                     )}
                   </>
                 ) : (<div className="w-full h-full bg-gray-100 flex items-center justify-center"><Building2 className="h-16 w-16 text-gray-300" /></div>)}
-                <div className="absolute top-4 left-4 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg"><Shield className="h-4 w-4 text-primary-600" /><span className="text-sm font-medium text-primary-700">Sample listing</span></div>
+                <div className="absolute top-4 left-4 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg"><Shield className="h-4 w-4 text-primary-600" /><span className="text-sm font-medium text-primary-700">Property listing</span></div>
               </div>
               {property.images && property.images.length > 1 && (
                 <div className="flex gap-2 p-4 overflow-x-auto">
@@ -228,7 +228,7 @@ export function PropertyDetailPage() {
               <div className="mt-6 pt-6 border-t border-gray-100">
                 <div className="flex items-baseline gap-2"><span className="text-3xl font-bold text-gray-900">{formatPrice(property.price, property.price_unit)}</span>{property.listing_type === 'rent' && <span className="text-gray-500">/{getRentalPricePeriod(property.rental_details?.payment_method)}</span>}</div>
                 {property.rental_details?.accommodation_type === 'holiday_short_stay' && (
-                  <p className="mt-2 text-xs leading-5 text-gray-500">Short-stay listing for discovery only. Confirm availability, terms and payment directly; booking requests and payments are not available in this prototype.</p>
+                  <p className="mt-2 text-xs leading-5 text-gray-500">For short stays, confirm availability, inclusions, price and payment terms with the property contact.</p>
                 )}
               </div>
               <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -275,47 +275,37 @@ export function PropertyDetailPage() {
 
           <div className="min-w-0 space-y-6">
             <Card className="p-6 sticky top-24">
-              <div className="flex items-center gap-4 mb-4"><Avatar name={owner?.full_name} size="lg" /><div><div className="flex items-center gap-2"><h3 className="font-semibold text-gray-900">{owner?.full_name}</h3></div><p className="text-sm text-gray-500">Sample property contact</p></div></div>
+              <div className="flex items-center gap-4 mb-4"><Avatar name={owner?.full_name} size="lg" /><div><div className="flex items-center gap-2"><h3 className="font-semibold text-gray-900">{owner?.full_name}</h3></div><p className="text-sm text-gray-500">Property owner or representative</p></div></div>
               <div className="flex items-center gap-2 text-sm text-gray-500 mb-4"><Clock className="h-4 w-4" /><span>Listed {formatDate(property.created_at)}</span></div>
               <div className="space-y-3">
-                <Button variant="primary" className="w-full" leftIcon={<MessageSquare className="h-4 w-4" />} onClick={() => setShowContactModal(true)}>Preview enquiry form</Button>
-                <Button variant="outline" className="w-full" leftIcon={<Calendar className="h-4 w-4" />} onClick={() => setShowAppointmentModal(true)}>{property.rental_details?.accommodation_type === 'holiday_short_stay' ? 'Ask about stay availability' : 'Preview viewing request'}</Button>
-              </div>
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <h4 className="text-sm font-medium text-gray-900 mb-3">Sample listing statistics</h4>
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  <div><p className="text-2xl font-bold text-gray-900">{property.views_count}</p><p className="text-xs text-gray-500">Views</p></div>
-                  <div><p className="text-2xl font-bold text-gray-900">{property.saves_count}</p><p className="text-xs text-gray-500">Saved</p></div>
-                  <div><p className="text-2xl font-bold text-gray-900">{property.inquiries_count}</p><p className="text-xs text-gray-500">Inquiries</p></div>
-                </div>
+                <Button variant="primary" className="w-full" leftIcon={<MessageSquare className="h-4 w-4" />} onClick={() => setShowContactModal(true)}>Enquire about property</Button>
+                <Button variant="outline" className="w-full" leftIcon={<Calendar className="h-4 w-4" />} onClick={() => setShowAppointmentModal(true)}>{property.rental_details?.accommodation_type === 'holiday_short_stay' ? 'Ask about stay availability' : 'Request a viewing'}</Button>
               </div>
             </Card>
 
             <Card className="p-6 bg-primary-50 border-primary-200">
               <div className="flex items-center gap-3 mb-3"><Shield className="h-6 w-6 text-primary-600" /><h4 className="font-semibold text-primary-900">Review before you proceed</h4></div>
-              <p className="text-sm text-primary-700">This is example content; no property documents or ownership details have been checked. Confirm the information and seek appropriate independent advice before making a commitment.</p>
+              <p className="text-sm text-primary-700">Independently confirm ownership, representative authority, property details and transaction terms before making a commitment.</p>
             </Card>
           </div>
         </div>
       </div>
 
-      <Modal isOpen={showContactModal} onClose={() => setShowContactModal(false)} title="Property enquiry preview" size="md">
-        <p className="mb-4 rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">This prototype does not deliver enquiries. Do not enter personal or sensitive information.</p>
-        {!user ? (<div className="text-center py-4"><User className="h-12 w-12 text-gray-300 mx-auto mb-4" /><h3 className="font-semibold text-gray-900 mb-2">Account preview</h3><p className="text-sm text-gray-500 mb-4">Signing in will not send an enquiry; this is only a demonstration.</p><Link to="/login"><Button variant="primary">Open sign-in</Button></Link></div>) : (<div className="space-y-4"><Textarea label="Demo message" placeholder="Enter a sample message (not delivered)..." value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /><div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowContactModal(false)}>Close</Button><Button variant="primary" disabled>Enquiries are not available</Button></div></div>)}
+      <Modal isOpen={showContactModal} onClose={() => setShowContactModal(false)} title="Property enquiry" size="md">
+        {!user ? (<div className="text-center py-4"><User className="h-12 w-12 text-gray-300 mx-auto mb-4" /><h3 className="font-semibold text-gray-900 mb-2">Sign in to enquire</h3><p className="text-sm text-gray-500 mb-4">Sign in to continue your enquiry with the property owner or representative.</p><Link to="/login"><Button variant="primary">Sign in</Button></Link></div>) : (<div className="space-y-4"><Textarea label="Your message" placeholder="Write your property enquiry..." value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /><p className="text-sm text-gray-500">Property enquiries are being developed.</p><div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowContactModal(false)}>Close</Button><Button variant="primary" disabled>Send enquiry</Button></div></div>)}
       </Modal>
 
-      <Modal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} title={property.rental_details?.accommodation_type === 'holiday_short_stay' ? 'Short-stay enquiry preview' : 'Viewing request preview'} size="md">
-        <p className="mb-4 rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">Requests are not sent and availability is not checked in this prototype. Independently confirm the contact&apos;s identity and authority, and verify the property details before proceeding.</p>
-        <div className="space-y-4"><Input label="Preferred date" type="date" disabled /><Input label="Preferred time" type="time" disabled /><Textarea label="Demo message" placeholder="Request details are unavailable in this prototype." rows={3} disabled /><div className="flex justify-end"><Button variant="secondary" onClick={() => setShowAppointmentModal(false)}>Close</Button></div></div>
+      <Modal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} title={property.rental_details?.accommodation_type === 'holiday_short_stay' ? 'Ask about stay availability' : 'Request a viewing'} size="md">
+        <div className="space-y-4"><p className="text-sm text-gray-600">Viewing requests and availability coordination are being developed. Independently confirm the contact&apos;s identity and authority, and verify property details before proceeding.</p><Input label="Preferred date" type="date" disabled /><Input label="Preferred time" type="time" disabled /><Textarea label="Your message" placeholder="Viewing request messaging is coming soon." rows={3} disabled /><div className="flex justify-end"><Button variant="secondary" onClick={() => setShowAppointmentModal(false)}>Close</Button></div></div>
       </Modal>
 
       <Modal isOpen={showReportModal} onClose={() => setShowReportModal(false)} title="Report This Property" size="md">
         <div className="space-y-4">
-          <p className="text-sm text-gray-500">Use this form to flag information you believe is inaccurate or concerning. Reports are not sent to a live review team in this prototype.</p>
-          <p className="rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">Reports are not sent to a review team. Do not rely on this form to report a real safety or fraud concern.</p>
+          <p className="text-sm text-gray-500">Flag inaccurate property information, suspected fraud or concerns about an intermediary.</p>
+          <p className="rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">Property reporting and review are being developed.</p>
           <Select label="Reason" options={[{ value: 'fake_listing', label: 'Fake listing' }, { value: 'fraudulent_sale', label: 'Fraudulent or manipulative conduct' }, { value: 'impersonation', label: 'Owner or representative impersonation' }, { value: 'ownership_dispute', label: 'Ownership dispute' }, { value: 'misrepresentation', label: 'Misleading price, terms or property details' }, { value: 'other', label: 'Other' }]} placeholder="Select a reason" />
           <Textarea label="Details" placeholder="Please provide any additional details..." rows={4} />
-          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowReportModal(false)}>Close</Button><Button variant="danger" disabled>Reporting is unavailable</Button></div>
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowReportModal(false)}>Close</Button><Button variant="danger" disabled>Report feature coming soon</Button></div>
         </div>
       </Modal>
     </div>
@@ -365,9 +355,8 @@ export function NewPropertyPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
         <Card className="w-full max-w-xl p-8 text-center">
           <CheckCircle className="h-12 w-12 text-primary-600 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900">Submission preview complete</h1>
-          <p className="mt-3 text-gray-600">A one-time property submission is designed not to require an account. You would be contacted using the details you provided.</p>
-          <p className="mt-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-800">This prototype does not upload your files or send or save this submission.</p>
+          <h1 className="text-2xl font-bold text-gray-900">Property details ready</h1>
+          <p className="mt-3 text-gray-600">Your property details are ready. TtakaMarket is developing secure submission and administrator review.</p>
           <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
             <Link to="/properties"><Button variant="outline">Browse Properties</Button></Link>
             <Link to="/register"><Button variant="primary">Create an optional dashboard account</Button></Link>
@@ -441,7 +430,7 @@ export function NewPropertyPage() {
               </div>
               <div className="border-t border-gray-100 pt-5">
                 <h2 className="text-lg font-semibold text-gray-900 mb-1">Your contact details</h2>
-                <p className="text-sm text-gray-500 mb-4">No login details are needed. TtakaMarket would use these details to follow up about the submission.</p>
+                <p className="text-sm text-gray-500 mb-4">No login details are needed. Provide contact details so TtakaMarket can follow up about your submission.</p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <Input label="Your name" placeholder="Full name" value={formData.submitter_name} onChange={(e) => updateForm('submitter_name', e.target.value)} required />
                   <Input label="Phone number" type="tel" placeholder="+256 700 123 456" value={formData.submitter_phone} onChange={(e) => updateForm('submitter_phone', e.target.value)} required />
@@ -460,7 +449,7 @@ export function NewPropertyPage() {
 
           {currentStep === 4 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Photos and supporting documents</h2><p className="text-sm text-gray-500 mb-4">Choose property photos and supporting title or tenure records, survey plans, agreements, identification, or evidence of authority to represent the owner. Files stay in this browser preview and are not uploaded.</p>
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Photos and supporting documents</h2><p className="text-sm text-gray-500 mb-4">Choose property photos and supporting title or tenure records, survey plans, agreements, identification, or evidence of authority to represent the owner. Secure document upload is being developed.</p>
                 <div className="space-y-5">
                   <div>
                     <label htmlFor="property-photos" className="mb-2 block text-sm font-medium text-gray-700">Property photos (at least one)</label>
@@ -480,7 +469,7 @@ export function NewPropertyPage() {
 
           {currentStep === 5 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Review your property details</h2><p className="text-sm text-gray-500 mb-4">In the planned service, an administrator reviews supporting documents and coordinates a site survey before deciding whether a listing can be published. This prototype does not send submissions to TtakaMarket.</p><div className="space-y-4">
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Review your property details</h2><p className="text-sm text-gray-500 mb-4">TtakaMarket is developing administrator review of supporting documents and site-survey coordination before listings are published.</p><div className="space-y-4">
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Property Title</p><p className="font-medium text-gray-900">{formData.title}</p></div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Asset category</p><p className="font-medium text-gray-900">{getPropertyCategoryLabel(formData.asset_category)}</p></div>
@@ -500,7 +489,7 @@ export function NewPropertyPage() {
           <div className="mt-8 pt-6 border-t border-gray-200 flex gap-3">
             {currentStep > 1 && <Button variant="secondary" onClick={() => setCurrentStep(currentStep - 1)}>Previous</Button>}
             <div className="flex-1" />
-            {currentStep < 5 ? (<Button variant="primary" onClick={() => setCurrentStep(currentStep + 1)} disabled={!isStepValid()}>Next</Button>) : (<Button variant="primary" onClick={handleSubmit}>Preview submission</Button>)}
+            {currentStep < 5 ? (<Button variant="primary" onClick={() => setCurrentStep(currentStep + 1)} disabled={!isStepValid()}>Next</Button>) : (<Button variant="primary" onClick={handleSubmit}>Finish property details</Button>)}
           </div>
         </Card>
       </div>

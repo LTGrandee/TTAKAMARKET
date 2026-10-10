@@ -7,28 +7,28 @@ const frequentlyAskedQuestions = [
     answer: 'No. You can submit property details, photos, documents and contact information without creating an account. An account is optional for dashboard features.',
   },
   {
-    question: 'Are property submissions sent to TtakaMarket?',
-    answer: 'Not yet. This is a frontend prototype: the form can show a local preview, but it does not upload files or send or save your submission.',
+    question: 'How are property submissions reviewed?',
+    answer: 'TtakaMarket is developing a submission and administrator-review process for property details and supporting documents.',
   },
   {
-    question: 'Have the sample listings and documents been verified?',
-    answer: 'No. Listings shown in this prototype are examples. Their ownership, documents, location and contact details have not been verified.',
+    question: 'How can I check a property or representative?',
+    answer: 'Independently confirm ownership or tenure, the representative’s authority, property details, price and terms with appropriate professionals and relevant authorities.',
   },
   {
     question: 'Does TtakaMarket verify an intermediary’s authority to represent an owner?',
-    answer: 'No. The prototype does not verify identities, ownership or a representative’s authority. In a future service, administrator review is proposed, but it is not active. Independently check who is offering the property and their authority before paying or committing.',
+    answer: 'Identity, ownership and representative-authority checks are being developed. Always independently confirm who is offering the property and their authority before paying or committing.',
   },
   {
     question: 'Can I contact an owner or renter through the site?',
-    answer: 'Messaging and enquiry screens are demonstration flows. They do not deliver messages to property owners or representatives.',
+    answer: 'Property enquiry and messaging features are being developed to connect seekers with owners and authorised representatives.',
   },
   {
     question: 'How do I find a property by type or location?',
-    answer: 'Browse properties and use the search and filters to narrow sample listings by category, property type, listing type, accommodation type, stay duration and location. Choose Book for short stays such as hotel rooms. This only filters sample listings; it does not make a reservation.',
+    answer: 'Browse properties and use the search and filters to narrow listings by category, property type, listing type, accommodation type, stay duration and location. Choose Book for short stays such as hotel rooms.',
   },
   {
     question: 'What is the difference between rent and lease?',
-    answer: 'Listings use the terms supplied for each example. Confirm the proposed duration, payment terms and legal agreement directly with the relevant parties before making a commitment.',
+    answer: 'Rent generally covers occupancy for an agreed period, while a lease sets out a longer-term right to use a property or land. Confirm the duration, payment terms and legal agreement with the relevant parties before making a commitment.',
   },
 ];
 
@@ -40,7 +40,7 @@ export function HelpPage() {
           <p className="text-sm font-semibold uppercase tracking-wider text-primary-200">TtakaMarket help centre</p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Help, support & FAQs</h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-primary-100 sm:text-base">
-            Find answers about the problem of deceptive property intermediaries, safer checks, submissions and what this prototype can currently do.
+            Find answers about deceptive property intermediaries, safer checks, submissions and marketplace features.
           </p>
         </div>
       </section>
@@ -72,7 +72,7 @@ export function HelpPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-50 text-accent-700"><LifeBuoy className="h-5 w-5" /></div>
             <h2 className="mt-4 text-lg font-bold text-gray-900">Help & support</h2>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              TtakaMarket is currently a prototype and does not have a live support desk. Submissions, messages and account changes shown here are not sent to a service team.
+              TtakaMarket is developing its customer-support service. Help and contact options will expand as marketplace features are introduced.
             </p>
             <div className="mt-5 rounded-xl bg-amber-50 p-4">
               <p className="flex items-center gap-2 text-sm font-semibold text-amber-900"><FileText className="h-4 w-4 shrink-0" /> Before making property decisions</p>
@@ -95,10 +95,10 @@ export function HelpPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-700"><LifeBuoy className="h-5 w-5" /></div>
             <h2 className="mt-4 text-lg font-bold text-gray-900">Contact us</h2>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              There is no active customer service inbox or phone line for this prototype. Contact forms and property enquiries are not connected to a live team.
+              Customer-service contact options are being developed alongside property enquiries and messaging.
             </p>
             <p className="mt-3 text-sm leading-6 text-gray-600">
-              Please do not use this prototype to send real identity, title or other sensitive documents. Contact details for the operational service will be published here when available.
+              Secure document submission and support channels are in development.
             </p>
           </div>
         </section>

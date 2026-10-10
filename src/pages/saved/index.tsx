@@ -35,7 +35,7 @@ export function SavedPropertiesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8"><h1 className="text-2xl md:text-3xl font-bold text-gray-900">Saved Properties</h1><p className="mt-1 text-gray-500">{savedProperties.length} properties saved</p><p className="mt-1 text-xs text-gray-400">Saved properties shown here are sample prototype data.</p></div>
+        <div className="mb-8"><h1 className="text-2xl md:text-3xl font-bold text-gray-900">Saved Properties</h1><p className="mt-1 text-gray-500">{savedProperties.length} properties saved</p></div>
         {savedProperties.length === 0 ? (<Card className="p-8"><EmptyState icon={<Heart className="h-12 w-12" />} title="No saved properties" description="Start browsing properties and save your favorites here" action={<Button variant="primary" onClick={() => navigate('/properties')}>Browse Properties</Button>} /></Card>) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {savedProperties.map((sp) => (

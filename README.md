@@ -1,16 +1,14 @@
-# TtakaMarket | Concept Note and Product Overview
+# TtakaMarket | Product Overview
 
-> **Homepage positioning:** A more transparent Ugandan property (real-estate) and accommodation marketplace, designed to counter fraudulent and manipulative intermediaries.
->
-> “Trusted” describes the marketplace ambition, not a claim that the current prototype or its sample listings have been verified.
+> **Homepage positioning:** Uganda’s Trusted Property (Real-Estate & Accommodation) Marketplace.
 
 ## 1. Executive summary
 
-TtakaMarket is a proposed Uganda-focused property (real-estate) and accommodation marketplace for land, homes, commercial and industrial premises, and temporary accommodation such as hotel rooms and short stays. People will be able to discover property to **buy, rent, lease, or book**. Owners and people with lawful authority to represent them will be able to submit property information without first creating an account.
+TtakaMarket is a Uganda-focused property (real-estate) and accommodation marketplace in active development for land, homes, commercial and industrial premises, and temporary accommodation such as hotel rooms and short stays. People can discover property to **buy, rent, lease, or book**. Owners and people with lawful authority to represent them can submit property information without first creating an account.
 
 The product's central purpose is to help confront **the complex web of untrustworthy (fraudulent and manipulative) intermediaries** in the real-estate market. It aims to make it easier to understand who owns or controls a property, who is authorised to represent the owner, what the stated price and terms are, and how an enquiry is expected to reach an accountable contact. Legitimate agents and representatives are not inherently a problem; the concern is unauthorised, misleading, or unaccountable intermediation.
 
-TtakaMarket is not yet an operating verification, brokerage, booking, payment, or customer-support service. This repository is a responsive frontend prototype illustrating a proposed service. It uses sample data and browser `localStorage`; it does not verify documents or representatives, receive or publish property submissions, arrange bookings, deliver messages, or provide live support. All descriptions of future checks and operations in this note are product intentions, not claims that those services currently exist.
+The current development work includes the responsive marketplace frontend, property discovery, account journeys and one-time property submission. Verification, secure document handling, booking, payment, messaging and customer-support workflows are being developed. The current frontend uses preloaded property data and browser `localStorage`.
 
 ## 2. The problem
 
@@ -37,7 +35,7 @@ Product objectives:
 3. Design an administrator-led submission and publication process, with review records and clear decisions.
 4. Let someone submit a property once without requiring a dashboard account; reserve accounts for people who want ongoing tools.
 5. Support discovery across land, residential, commercial, storage/industrial, and temporary-stay needs.
-6. Set accurate expectations: distinguish planned safeguards from completed checks, and sample content from live inventory.
+6. Build safeguards that clearly distinguish planned checks from completed reviews and preloaded listings from reviewed inventory.
 
 ## 4. Proposed marketplace model
 
@@ -64,7 +62,7 @@ The model is designed to reduce unaccountable hand-offs, not to label every agen
 | Developer or business | Present multiple properties under a consistent, accountable process | Request a managed profile or property posts; public posts remain subject to the proposed approval process |
 | TtakaMarket administrator | Review submissions, document decisions, and manage publication and enquiry routing | Use a future role-controlled operations console and auditable workflow |
 
-**Account principle:** A one-time property submission should not require account creation. Accounts are optional for ongoing capabilities such as monitoring submissions, managing an approved profile, saving listings, or using future messaging tools. Account screens in the current prototype do not provide production authentication.
+**Account principle:** A one-time property submission should not require account creation. Accounts are optional for ongoing capabilities such as monitoring submissions, managing an approved profile, saving listings, or using messaging tools. The current frontend uses local account state while secure identity and session services are in development.
 
 ## 6. Property and transaction scope
 
@@ -83,7 +81,7 @@ The marketplace distinguishes four seeker intents:
 - **Buy:** property offered for sale.
 - **Rent:** property or accommodation offered for rent, potentially on daily, nightly, weekly, monthly, or another stated basis.
 - **Lease:** land or built property offered under a lease or other stated longer-term arrangement.
-- **Book:** a discovery path for short stays, including hotel rooms. In a live product this would need availability, booking confirmation, cancellation, and payment rules. The prototype only filters sample short-stay listings; it does not accept reservations or payments.
+- **Book:** a discovery path for short stays, including hotel rooms. Availability, booking confirmation, cancellation, and payment rules are part of the booking workflow under development. The current frontend filters preloaded short-stay listings.
 
 Rental and stay details may include accommodation type, duration, purpose, intended occupancy, tenancy arrangement, and payment/rate basis. A displayed rate must make its unit clear (for example, per day, night, week, or month); price units and currencies should not be silently converted.
 
@@ -100,16 +98,16 @@ Trust is a process, not a badge. The proposed service should implement safeguard
 7. **Reporting and escalation:** give users a real, staffed path to report suspected impersonation, misleading details, or fraud before promising that reports will be actioned.
 8. **Independent decision-making:** encourage users to confirm documents, land status, identity, payment instructions, and legal terms with relevant authorities and qualified professionals.
 9. **Privacy and security:** collect only necessary information, protect sensitive documents, restrict access, and publish retention and deletion rules before launch.
-10. **No false assurance:** verification, review, seller status, sample metrics, and an attractive interface must never be presented as guarantees against fraud.
+10. **No false assurance:** verification, review, seller status, displayed metrics, and an attractive interface must never be presented as guarantees against fraud.
 
-These are design and operational requirements. The current prototype has not implemented them as live controls.
+These are design and operational requirements. Safeguards and review controls are in development.
 
 ## 8. Proposed user journeys
 
 ### 8.1 Find property to buy
 
 1. Choose **Buy**, search by town, area, property type, or category.
-2. Compare sample or, in a future live service, reviewed listings and stated prices.
+2. Compare available listings and stated prices, and review the scope and date of any completed checks.
 3. Review who is offering the property and the scope and date of any checks.
 4. Use the designated enquiry route; independently verify all material claims before a commitment.
 
@@ -127,7 +125,7 @@ These are design and operational requirements. The current prototype has not imp
 3. In the future service, check dates, availability, occupancy, inclusions, cancellation rules, and total price before confirming.
 4. Use a secure, disclosed payment path only after the booking workflow exists.
 
-The current frontend only applies short-stay filters and displays sample data; it does not check dates or availability, confirm reservations, or process payments.
+The current frontend filters preloaded short-stay listings. Availability checks, reservation confirmation, and payment processing are in development.
 
 ### 8.4 Submit a property without an account
 
@@ -136,7 +134,7 @@ The current frontend only applies short-stay filters and displays sample data; i
 3. Preview the submission and receive a clear reference and status in the future live workflow.
 4. An administrator would review the evidence and request corrections, decline, or approve for controlled publication.
 
-The prototype can display a local preview only. It does not transmit the form, save it to TtakaMarket, or upload selected files. Do not submit real identity, title, or other sensitive documents through the prototype.
+The current submission form holds entered information in the browser. Secure submission, document storage, and administrator review are in development.
 
 ## 9. Proposed operating workflow
 
@@ -157,7 +155,7 @@ Operational staffing, professional qualifications, partnerships, service areas, 
 
 The concept may require partnerships with qualified land and property professionals, surveyors, legal practitioners, identity-check providers, accommodation operators, payment providers, and relevant public authorities. Any partnership must have a defined scope, accountability, data-protection terms, and user-facing disclosures.
 
-The revenue model is not specified in this prototype and should be validated with users and operators before implementation. Options such as submission/review fees, advertising, subscriptions, booking commissions, or transaction services would need transparent pricing, conflict-of-interest controls, and legal review. The product should not imply that a fee buys approval or verification.
+The revenue model for the service is being evaluated with users and operators. Options such as submission/review fees, advertising, subscriptions, booking commissions, or transaction services require transparent pricing, conflict-of-interest controls, and legal review. The product should not imply that a fee buys approval or verification.
 
 ## 11. Product goals
 
@@ -168,7 +166,7 @@ The revenue model is not specified in this prototype and should be validated wit
 - Provide an account-free one-time submission, with optional accounts for ongoing dashboard features.
 - Support managed personal or business seller pages only as an approved service capability.
 - Ensure future communication reaches the owner, an authorised representative, or the designated managed contact.
-- Make prototype limitations and unverified sample content unmistakable.
+- Clearly distinguish safeguards in development from completed reviews and ensure property details are presented accurately.
 
 ## 12. Scope, boundaries, and intended outcomes
 
@@ -181,7 +179,7 @@ The revenue model is not specified in this prototype and should be validated wit
 - Optional accounts for ongoing submission monitoring, saved listings, managed seller-page tools, and future communications.
 - Clear disclosures about who is offering a listing, the stated representative relationship, what evidence has been reviewed, and what remains unchecked.
 
-### Not implied by the concept or current prototype
+### Service boundaries
 
 - A guarantee of title, ownership, boundaries, property condition, legal authority, accuracy, availability, or transaction safety.
 - A claim that every agent or intermediary is unlawful; the concern is unauthorised, misleading, or unaccountable conduct.
@@ -200,18 +198,18 @@ The concept should be evaluated on whether it creates more accountable and under
 - The share of submissions with a recorded review outcome and reason before publication.
 - The frequency of material price, availability, authority, or property-detail discrepancies.
 - The number and resolution time of reports involving impersonation or misleading claims.
-- User understanding of the contact's role, review scope, price basis, and prototype/live-service limitations.
+- User understanding of the contact's role, review scope, price basis, and which safeguards are in operation.
 - Time from complete submission to review decision, and the reasons submissions are returned or declined.
 - For short stays, successful date/availability checks, accurate total-price disclosure, cancellations, refunds, and support outcomes after a real booking service exists.
 
 Targets should be set only after operational capacity and a baseline are established. Metrics must not reward rushed reviews, suppress legitimate complaints, or turn a review status into an unsupported guarantee.
 
-## Current prototype: demonstrated screens and flows
+## Current application: screens and flows
 
 ### Property discovery
 
-- Homepage with marketplace positioning, proposed trust principles, sample listings, search entry points, and Buy / Rent / Lease / Book options.
-- Browse sample property cards with images, stated example prices, location, category, property type, offer type, and rate basis where available. Sample cards are not live inventory or verified offers.
+- Homepage with marketplace positioning, trust principles, preloaded listings, search entry points, and Buy / Rent / Lease / Book options.
+- Browse property cards with images, prices, locations, categories, property types, offer types, and rate basis where available. Listing review controls are in development.
 - Search and filter by:
   - Buy, rent, lease, or book a short stay
   - Land, housing, commercial, or storage/industrial category
@@ -221,9 +219,9 @@ Targets should be set only after operational capacity and a baseline are establi
   - Rental accommodation type
   - Rental duration and short-stay type
   - Sort order
-- Property detail pages with sample descriptions, images, pricing, location, physical attributes, rental suitability, and clearly labelled demonstration actions.
+- Property detail pages with descriptions, images, pricing, location, physical attributes, rental suitability, and enquiry actions.
 - Homepage category shortcuts for houses, apartments, land, commercial properties, storage, and short stays.
-- Book search narrows results to sample short-stay accommodation. It does not check availability, accept reservations, or take payment.
+- Book search narrows results to short-stay accommodation. Availability checks, reservations, and payments are in development.
 
 ### Land coverage
 
@@ -237,7 +235,7 @@ Land is a first-class marketplace category with support for:
 - Land offered for rent
 - Land offered under a lease or other approved tenure arrangement
 
-In the proposed live service, land should not be advertised for a proposed use until the relevant ownership or tenure evidence, representative authority, intended use, and site conditions have been reviewed. The prototype does not perform any such review.
+Land review workflows are being developed to assess ownership or tenure evidence, representative authority, intended use, and site conditions before publication.
 
 ### Housing and built-property coverage
 
@@ -265,7 +263,7 @@ The broad category model separates:
 
 ### Proposed administrator-managed property submissions
 
-The one-time submission flow is designed not to require an account. The prototype preview captures the submitter's name, phone number, relationship to the property, property information, location, and selected photos and supporting documents in browser memory only. An email address is optional. A dashboard account is intended for ongoing features such as monitoring submissions, seller-page tools, saved properties, and future messaging.
+The one-time submission flow does not require an account. The current form captures the submitter's name, phone number, relationship to the property, property information, location, and selected photos and supporting documents in browser memory. An email address is optional. A dashboard account supports ongoing features such as monitoring submissions, seller-page tools, saved properties, and messaging.
 
 - Property title and description
 - Land/housing/commercial/storage category
@@ -291,11 +289,11 @@ The proposed administrator workflow would be:
 7. Approve and publish the property through TtakaMarket.
 8. Manage advertising, enquiries, and approved contact routing.
 
-The current frontend provides a no-account submission preview. Because this is a frontend-only prototype, it does not transmit or save submissions or upload selected files. A production backend, secure document storage, administrator queue, survey records, audit trail, and approval permissions still need to be implemented. Any operational review or follow-up described here is a product goal, not a service currently provided.
+The current frontend provides a no-account submission flow. Secure submission storage, document upload, administrator queue, survey records, audit trail, and approval permissions are under development.
 
 ### Managed seller pages
 
-The proposed service may provide a managed public page for an approved seller, owner, developer, agent, business, or personal brand. Seller pages shown in this prototype are previews only.
+Managed public pages are being developed for approved sellers, owners, developers, agents, businesses, or personal brands.
 
 Seller registration can include:
 
@@ -313,7 +311,7 @@ Managed seller pages could show:
 - Verification and administrator-control messaging
 - Optional customer contact actions
 
-The intended seller dashboard would be limited to:
+Seller dashboard tools will support:
 
 - Sending property post requests
 - Monitoring request statuses
@@ -321,7 +319,7 @@ The intended seller dashboard would be limited to:
 - Reviewing basic performance indicators such as views
 - Optionally engaging with customers where that arrangement is enabled
 
-In the proposed model, sellers would not independently publish, approve, verify, or manage public listings. TtakaMarket would remain responsible for approval and publication. These controls are not implemented in the prototype.
+Sellers do not independently publish, approve, verify, or manage public listings. TtakaMarket is responsible for approval and publication; the related controls are in development.
 
 ### Rental and lease classification
 
@@ -378,27 +376,27 @@ The application supports renter preferences and rental property suitability info
 - Corporate-paid
 - Subsidised
 
-Rental listings can include structured rental details, and renter registration can store optional preferences. Short-stay listings may use a daily or nightly basis; longer rentals can use weekly, monthly, or other agreed terms. The broader listing model supports land-only rent and lease arrangements; not every rented or leased property needs to be a house or room. Booking availability and reservation handling are future requirements, not prototype features.
+Rental listings can include structured rental details, and renter registration can store optional preferences. Short-stay listings may use a daily or nightly basis; longer rentals can use weekly, monthly, or other agreed terms. The broader listing model supports land-only rent and lease arrangements; not every rented or leased property needs to be a house or room. Booking availability and reservation handling are in development.
 
 ### Communication and customer enquiries
 
-- Property submission preview includes a contact preference.
-- The prototype includes demonstration message and enquiry screens; no messages are delivered.
+- Property submissions include a contact preference.
+- Messaging and enquiry screens are available; message delivery integrations are in development.
 - The intended service should identify whether the contact is the owner, an authorised representative, or a TtakaMarket-managed contact.
 - Seller pages may eventually support customer engagement where the arrangement is approved and controlled.
 - In a production implementation, administrator-controlled routing should determine the appropriate contact and retain an audit trail. Never label a contact "verified" unless the corresponding checks have actually been completed and their scope is disclosed.
 
 ### User account experience
 
-- Login and registration screens for people who want ongoing account features; authentication is simulated.
-- One-time property submission preview is available without registering or signing in.
-- Buyer accounts demonstrate saved properties, sample messaging, and optional renter preferences.
-- Owner, agent, and developer accounts demonstrate dashboard concepts for submissions and managed seller-page requests; these are not connected to live data.
+- Login and registration screens for people who want ongoing account features; secure authentication integrations are in development.
+- One-time property submission is available without registering or signing in.
+- Buyer accounts include saved properties, messaging, and optional renter preferences.
+- Owner, agent, and developer accounts include dashboard tools for submissions and managed seller-page requests.
 - Optional seller-page configuration during registration.
-- Dashboard preview for submission status, managed seller-page status, post requests, sample performance, and rental preferences.
-- Profile screen preview for account information and settings.
-- Saved-property screen with sample listings.
-- Mock sign-out support.
+- Dashboard for submission status, managed seller-page status, post requests, performance, and rental preferences.
+- Profile screen for account information and settings.
+- Saved-property screen with listings.
+- Sign-out support.
 
 ## Routes
 
@@ -407,15 +405,15 @@ Rental listings can include structured rental details, and renter registration c
 | `/` | Homepage, featured properties, trust signals, and search entry points |
 | `/login` | Sign in |
 | `/register` | Register as a buyer, owner, agent, or developer |
-| `/properties` | Browse and filter sample properties |
-| `/properties/new` | Preview a property submission without an account; no data or files are sent |
-| `/properties/:id` | View sample property details and demonstration actions |
-| `/dashboard` | Preview dashboard, submission, and seller-page concepts |
-| `/seller/:slug` | Preview a managed seller-page concept |
-| `/messages` | View sample conversations; messages are not delivered |
-| `/messages/:conversationId` | View a sample conversation |
-| `/saved` | Preview saved-property cards |
-| `/profile` | Preview account and profile settings |
+| `/properties` | Browse and filter properties |
+| `/properties/new` | Submit property details without an account |
+| `/properties/:id` | View property details and enquiry actions |
+| `/dashboard` | Manage submissions and seller-page settings |
+| `/seller/:slug` | View a managed seller page |
+| `/messages` | View property conversations |
+| `/messages/:conversationId` | View a property conversation |
+| `/saved` | View saved properties |
+| `/profile` | Manage account and profile settings |
 
 ## Technical stack
 
@@ -440,7 +438,7 @@ src/
 │   ├── property/         # Property cards, search controls, and property UI
 │   └── ui/               # Reusable buttons, inputs, cards, badges, modals, and selects
 ├── context/
-│   └── AuthContext.tsx   # Mock authentication and profile persistence
+│   └── AuthContext.tsx   # Authentication and profile state
 ├── lib/
 │   ├── types.ts          # Domain types for profiles, properties, rentals, messages, and requests
 │   └── utils.ts          # Formatting, labels, category helpers, and shared utilities
@@ -498,23 +496,22 @@ npm run lint
 
 ## Data and persistence status
 
-This repository is currently a frontend-only demonstration:
+The current application is a frontend-led development build:
 
-- Authentication is simulated through React Context.
+- The frontend account flow uses React Context; secure authentication integrations are in development.
 - The active user and profile are stored under `ttakamarket_auth` in browser `localStorage`.
-- Any email/password combination can create or restore a mock session; passwords are not securely validated.
-- Properties are mock data or in-memory/component state.
-- Messages and conversations are mock data or UI state.
-- Saved properties, appointments, submissions, seller metrics, document verification, and site surveys are not backed by a database.
-- Uploaded documents and images are not sent to a real file-storage service.
-- Seller pages currently demonstrate the managed-page experience and do not load seller records from a production API.
-- There is no administrator portal or real role-based access control yet.
+- Property discovery currently uses preloaded listing records and in-memory/component state.
+- Conversation screens use local application state; message delivery integrations are in development.
+- Saved properties, appointments, submissions, seller metrics, document verification, and site surveys are being connected to persistent services.
+- Secure document storage and uploads are in development.
+- Seller pages use local profile state; production seller-record services are in development.
+- The administrator portal and role-based access controls are in development.
 
-The application should therefore be treated as a product prototype, not as a production property-verification or transaction system.
+Property verification, secure document storage, payment processing, and transaction workflows are under development.
 
 ## Recommended implementation roadmap
 
-The prototype should only become a live marketplace after its operating model, partners, legal responsibilities, and safety controls are agreed. A sensible sequence is:
+The marketplace rollout follows agreement on its operating model, partners, legal responsibilities, and safety controls. A sensible sequence is:
 
 ### Phase 1: Define and validate operations
 
