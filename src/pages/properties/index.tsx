@@ -311,18 +311,22 @@ export function PropertyDetailPage() {
   );
 }
 
-export function NewPropertyPage() {
+export function NewPropertyPage({ submissionType = 'property' }: { submissionType?: 'property' | 'accommodation' }) {
+  const isAccommodationSubmission = submissionType === 'accommodation';
   const [currentStep, setCurrentStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    title: '', description: '', asset_category: 'housing', property_type: '', listing_type: '', listing_intent: '', price: '', price_unit: 'UGX',
+  const [formData, setFormData] = useState(() => ({
+    title: '', description: '', asset_category: 'housing', property_type: isAccommodationSubmission ? 'hotel_lodge' : '', listing_type: isAccommodationSubmission ? 'rent' : '', listing_intent: isAccommodationSubmission ? 'book' : '', price: '', price_unit: 'UGX',
     size_sqm: '', size_unit: 'sqm', bedrooms: '', bathrooms: '', parking_spaces: '', year_built: '',
     address: '', city: '', region: '', country: 'Uganda', features: [] as string[], custom_feature: '',
     submitter_name: '', submitter_phone: '', submitter_email: '', submitter_role: '',
     contact_preference: 'owner',
-    rental_accommodation: 'residential', rental_duration: 'long_term', rental_purpose: 'living',
-    rental_living: 'individual', rental_tenancy: 'sole_tenant', rental_payment: 'monthly',
-  });
+    rental_accommodation: isAccommodationSubmission ? 'holiday_short_stay' : 'residential',
+    rental_duration: isAccommodationSubmission ? 'short_term' : 'long_term',
+    rental_purpose: isAccommodationSubmission ? 'holiday' : 'living',
+    rental_living: 'individual', rental_tenancy: 'sole_tenant',
+    rental_payment: isAccommodationSubmission ? 'nightly' : 'monthly',
+  }));
   const [images, setImages] = useState<File[]>([]);
   const [documents, setDocuments] = useState<File[]>([]);
 
@@ -378,8 +382,8 @@ export function NewPropertyPage() {
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-12">
         <Card className="w-full max-w-xl p-8 text-center">
           <CheckCircle className="h-12 w-12 text-primary-600 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900">Property details ready</h1>
-          <p className="mt-3 text-gray-600">Your property details are ready for administrator review.</p>
+          <h1 className="text-2xl font-bold text-gray-900">{isAccommodationSubmission ? 'Accommodation details ready' : 'Property details ready'}</h1>
+          <p className="mt-3 text-gray-600">Your {isAccommodationSubmission ? 'accommodation' : 'property'} details are ready for administrator review.</p>
           <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
             <Link to="/properties"><Button variant="outline">Browse Properties</Button></Link>
             <Link to="/register"><Button variant="primary">Create an optional dashboard account</Button></Link>
@@ -393,14 +397,14 @@ export function NewPropertyPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Submit a Property</h1>
-          <p className="mt-1 text-gray-500">Submit property details, photos and supporting documents for review. No account is needed for a one-time submission.</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{isAccommodationSubmission ? 'Submit Accommodation' : 'Submit a Property'}</h1>
+          <p className="mt-1 text-gray-500">{isAccommodationSubmission ? 'List a room, hotel, lodge or short-stay accommodation with clear availability and rates.' : 'Submit property details, photos and supporting documents for review. No account is needed for a one-time submission.'}</p>
           <div className="mt-8 flex w-full items-center">
             {steps.map((step, index) => (
               <div key={step.id} className={cn('flex min-w-0 items-center', index < steps.length - 1 && 'flex-1')}>
                 <div className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-medium sm:h-auto sm:w-auto sm:gap-2 sm:px-3 sm:py-2', currentStep >= step.id ? 'bg-primary-600 text-white' : 'bg-gray-100 text-gray-500')}>
-                  {currentStep > step.id ? <CheckCircle className="h-4 w-4" /> : <span>{step.id}</span>}
-                  <span className="hidden sm:inline">{step.title}</span>
+                    {currentStep > step.id ? <CheckCircle className="h-4 w-4" /> : <span>{step.id}</span>}
+                    <span className="hidden sm:inline">{isAccommodationSubmission && step.id === 1 ? 'Accommodation Details' : step.title}</span>
                 </div>
                 {index < steps.length - 1 && <div className={cn('mx-1 h-0.5 min-w-1 flex-1 sm:w-8 sm:flex-none', currentStep > step.id ? 'bg-primary-600' : 'bg-gray-200')} />}
               </div>
@@ -413,12 +417,12 @@ export function NewPropertyPage() {
         <Card className="p-4 sm:p-6">
           {currentStep === 1 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Property Details</h2><Input label="Property Title" placeholder="e.g., Modern 4 Bedroom House in Muyenga" value={formData.title} onChange={(e) => updateForm('title', e.target.value)} /></div>
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">{isAccommodationSubmission ? 'Accommodation Details' : 'Property Details'}</h2><Input label={isAccommodationSubmission ? 'Accommodation Name' : 'Property Title'} placeholder={isAccommodationSubmission ? 'e.g., Furnished Guest Room in Entebbe' : 'e.g., Modern 4 Bedroom House in Muyenga'} value={formData.title} onChange={(e) => updateForm('title', e.target.value)} /></div>
               <Textarea label="Description" placeholder="Describe your property in detail" value={formData.description} onChange={(e) => updateForm('description', e.target.value)} rows={5} />
               <div className="grid sm:grid-cols-2 gap-4">
                 <Select label="Asset category" options={[{ value: 'land', label: 'Land' }, { value: 'housing', label: 'Housing' }, { value: 'commercial', label: 'Commercial' }, { value: 'storage', label: 'Storage / Industrial' }]} value={formData.asset_category} onChange={(e) => updateForm('asset_category', e.target.value)} />
-                <Select label="Property Type" options={propertyTypes} value={formData.property_type} onChange={(e) => updateForm('property_type', e.target.value)} placeholder="Select property type" />
-                <Select label="Offer Type" options={listingTypes} value={formData.listing_intent} onChange={(e) => handleListingIntentChange(e.target.value)} placeholder="Choose how the property is offered" />
+                <Select label={isAccommodationSubmission ? 'Accommodation property type' : 'Property Type'} options={isAccommodationSubmission ? propertyTypes.filter(({ value }) => ['house', 'apartment', 'rental_unit', 'hotel_lodge'].includes(value)) : propertyTypes} value={formData.property_type} onChange={(e) => updateForm('property_type', e.target.value)} placeholder={isAccommodationSubmission ? 'Select accommodation type' : 'Select property type'} />
+                {!isAccommodationSubmission && <Select label="Offer Type" options={listingTypes} value={formData.listing_intent} onChange={(e) => handleListingIntentChange(e.target.value)} placeholder="Choose how the property is offered" />}
               </div>
               {formData.listing_type === 'rent' && (
                 <div className="rounded-xl border border-primary-100 bg-primary-50 p-4 space-y-4">
@@ -446,7 +450,7 @@ export function NewPropertyPage() {
 
           {currentStep === 2 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Property location</h2><Input label="Address or nearby landmark" placeholder="e.g., Plot 45, Kololo Hill Drive" value={formData.address} onChange={(e) => updateForm('address', e.target.value)} leftIcon={<MapPin className="h-5 w-5" />} required /></div>
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">{isAccommodationSubmission ? 'Accommodation location' : 'Property location'}</h2><Input label="Address or nearby landmark" placeholder={isAccommodationSubmission ? 'e.g., Near Entebbe Airport' : 'e.g., Plot 45, Kololo Hill Drive'} value={formData.address} onChange={(e) => updateForm('address', e.target.value)} leftIcon={<MapPin className="h-5 w-5" />} required /></div>
               <div className="grid sm:grid-cols-2 gap-4">
                 <Select label="City" options={cities} value={formData.city} onChange={(e) => updateForm('city', e.target.value)} placeholder="Select city" required />
                 <Input label="Region/District" placeholder="e.g., Central Region" value={formData.region} onChange={(e) => updateForm('region', e.target.value)} />
@@ -472,15 +476,15 @@ export function NewPropertyPage() {
 
           {currentStep === 4 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Photos and supporting documents</h2><p className="text-sm text-gray-500 mb-4">Include property photos and supporting title or tenure records, survey plans, agreements, identification, or evidence of authority to represent the owner.</p>
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">{isAccommodationSubmission ? 'Accommodation photos and supporting documents' : 'Photos and supporting documents'}</h2><p className="text-sm text-gray-500 mb-4">Include {isAccommodationSubmission ? 'accommodation photos and relevant supporting records, permits or evidence of authority to represent the owner.' : 'property photos and supporting title or tenure records, survey plans, agreements, identification, or evidence of authority to represent the owner.'}</p>
                 <div className="space-y-5">
                   <div>
-                    <label htmlFor="property-photos" className="mb-2 block text-sm font-medium text-gray-700">Property photos (at least one)</label>
+                    <label htmlFor="property-photos" className="mb-2 block text-sm font-medium text-gray-700">{isAccommodationSubmission ? 'Accommodation photos (at least one)' : 'Property photos (at least one)'}</label>
                     <input type="file" accept="image/*" multiple onChange={(e) => e.target.files && setImages((current) => [...current, ...Array.from(e.target.files ?? [])])} className="block w-full text-sm text-gray-600 file:mr-4 file:rounded-lg file:border-0 file:bg-primary-50 file:px-4 file:py-2 file:font-semibold file:text-primary-700 hover:file:bg-primary-100" id="property-photos" />
                     {images.length > 0 && <ul className="mt-2 space-y-1 text-sm text-gray-600">{images.map((image, index) => <li key={`${image.name}-${index}`} className="flex justify-between gap-3"><span className="truncate">{image.name}</span><button type="button" onClick={() => setImages((current) => current.filter((_, i) => i !== index))} className="text-error-600 hover:text-error-700">Remove</button></li>)}</ul>}
                   </div>
                   <div>
-                    <label htmlFor="documents" className="mb-2 block text-sm font-medium text-gray-700">Property documents (at least one)</label>
+                    <label htmlFor="documents" className="mb-2 block text-sm font-medium text-gray-700">{isAccommodationSubmission ? 'Accommodation documents (at least one)' : 'Property documents (at least one)'}</label>
                     <input type="file" accept=".pdf,.jpg,.jpeg,.png" multiple onChange={(e) => e.target.files && setDocuments((current) => [...current, ...Array.from(e.target.files ?? [])])} className="block w-full text-sm text-gray-600 file:mr-4 file:rounded-lg file:border-0 file:bg-primary-50 file:px-4 file:py-2 file:font-semibold file:text-primary-700 hover:file:bg-primary-100" id="documents" />
                     {documents.length > 0 && <ul className="mt-2 space-y-1 text-sm text-gray-600">{documents.map((doc, index) => <li key={`${doc.name}-${index}`} className="flex justify-between gap-3"><span className="truncate">{doc.name}</span><button type="button" onClick={() => setDocuments((current) => current.filter((_, i) => i !== index))} className="text-error-600 hover:text-error-700">Remove</button></li>)}</ul>}
                   </div>
@@ -492,12 +496,12 @@ export function NewPropertyPage() {
 
           {currentStep === 5 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Review your property details</h2><p className="text-sm text-gray-500 mb-4">TtakaMarket is developing administrator review of supporting documents and site-survey coordination before listings are published.</p><div className="space-y-4">
-                <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Property Title</p><p className="font-medium text-gray-900">{formData.title}</p></div>
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Review your {isAccommodationSubmission ? 'accommodation' : 'property'} details</h2><p className="text-sm text-gray-500 mb-4">Confirm the details below before completing your submission.</p><div className="space-y-4">
+                <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">{isAccommodationSubmission ? 'Accommodation Name' : 'Property Title'}</p><p className="font-medium text-gray-900">{formData.title}</p></div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Asset category</p><p className="font-medium text-gray-900">{getPropertyCategoryLabel(formData.asset_category)}</p></div>
-                  <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Property Type</p><p className="font-medium text-gray-900">{propertyTypes.find(t => t.value === formData.property_type)?.label}</p></div>
-                  <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Offer Type</p><p className="font-medium text-gray-900">{listingTypes.find(t => t.value === formData.listing_intent)?.label}</p></div>
+                  <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">{isAccommodationSubmission ? 'Accommodation property type' : 'Property Type'}</p><p className="font-medium text-gray-900">{propertyTypes.find(t => t.value === formData.property_type)?.label}</p></div>
+                  {!isAccommodationSubmission && <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Offer Type</p><p className="font-medium text-gray-900">{listingTypes.find(t => t.value === formData.listing_intent)?.label}</p></div>}
                 </div>
                 {formData.listing_type === 'rent' && (
                   <div className="p-4 bg-gray-50 rounded-lg">
@@ -523,7 +527,7 @@ export function NewPropertyPage() {
           <div className="mt-8 pt-6 border-t border-gray-200 flex gap-3">
             {currentStep > 1 && <Button variant="secondary" onClick={() => setCurrentStep(currentStep - 1)}>Previous</Button>}
             <div className="flex-1" />
-            {currentStep < 5 ? (<Button variant="primary" onClick={() => setCurrentStep(currentStep + 1)} disabled={!isStepValid()}>Next</Button>) : (<Button variant="primary" onClick={handleSubmit}>Finish property details</Button>)}
+            {currentStep < 5 ? (<Button variant="primary" onClick={() => setCurrentStep(currentStep + 1)} disabled={!isStepValid()}>Next</Button>) : (<Button variant="primary" onClick={handleSubmit}>Finish {isAccommodationSubmission ? 'accommodation' : 'property'} details</Button>)}
           </div>
         </Card>
       </div>

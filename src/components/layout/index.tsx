@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context';
 import {
-  Home, Building2, MessageSquare, Heart, User, Menu, X, Plus, Shield, ChevronRight, CircleHelp, ClipboardCheck, Globe2, Coins, Info, Mail, Scale, LockKeyhole,
+  Home, Building2, MessageSquare, Heart, User, Menu, X, Plus, Shield, ChevronRight, CircleHelp, ClipboardCheck, Globe2, Coins, Info, Mail, Scale, LockKeyhole, BedDouble,
 } from 'lucide-react';
 import { Avatar } from '../ui';
 import { BrandLogo } from '../BrandLogo';
@@ -167,6 +167,9 @@ export function Header() {
             <div className="flex shrink-0 items-center gap-1 sm:gap-2">
               <Link to="/properties/new" className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl bg-accent-600 px-2.5 text-xs font-semibold text-white transition-colors hover:bg-accent-700 sm:px-3 sm:text-sm">
                 <Plus className="h-4 w-4" /> <span className="hidden min-[380px]:inline sm:inline">Submit</span><span className="hidden sm:inline"> Property</span>
+              </Link>
+              <Link to="/accommodation/new" aria-label="Submit accommodation" className="inline-flex h-10 items-center justify-center gap-1.5 whitespace-nowrap rounded-xl border border-primary-200 bg-white px-2.5 text-xs font-semibold text-primary-800 transition-colors hover:bg-primary-50 sm:px-3 sm:text-sm">
+                <BedDouble className="h-4 w-4" /><span className="hidden min-[380px]:inline">Accommodation</span>
               </Link>
               {user ? (
                 <Link to="/dashboard" className="hidden items-center gap-2 rounded-xl px-2 py-1.5 transition-colors hover:bg-gray-50 lg:flex">

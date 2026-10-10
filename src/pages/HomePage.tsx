@@ -130,6 +130,9 @@ export function HomePage() {
             <Link to="/properties/new" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/45 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20 sm:px-6">
                 <Home className="h-4 w-4" /> Submit a property
             </Link>
+            <Link to="/accommodation/new" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/45 bg-white/10 px-5 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20 sm:px-6">
+                <BedDouble className="h-4 w-4" /> Submit accommodation
+            </Link>
           </div>
         </div>
       </section>
