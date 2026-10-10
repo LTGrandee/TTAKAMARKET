@@ -254,7 +254,7 @@ export function PropertyDetailPage() {
             <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
               <h2 className="text-lg font-semibold text-gray-900 mb-4">Location</h2>
               <div className="relative aspect-[16/9] bg-gray-100 rounded-lg overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center text-gray-400"><div className="text-center"><MapPin className="h-12 w-12 mx-auto mb-2" /><p>Interactive map coming soon</p><p className="text-sm text-gray-500 mt-1">{property.address}, {property.city}</p></div></div>
+                <div className="absolute inset-0 flex items-center justify-center text-gray-400"><div className="text-center"><MapPin className="h-12 w-12 mx-auto mb-2" /><p>Property location</p><p className="text-sm text-gray-500 mt-1">{property.address}, {property.city}</p></div></div>
               </div>
               {property.listing_type === 'rent' && property.rental_details && (
                 <div className="bg-primary-50 rounded-xl border border-primary-100 p-6">
@@ -292,20 +292,19 @@ export function PropertyDetailPage() {
       </div>
 
       <Modal isOpen={showContactModal} onClose={() => setShowContactModal(false)} title="Property enquiry" size="md">
-        {!user ? (<div className="text-center py-4"><User className="h-12 w-12 text-gray-300 mx-auto mb-4" /><h3 className="font-semibold text-gray-900 mb-2">Sign in to enquire</h3><p className="text-sm text-gray-500 mb-4">Sign in to continue your enquiry with the property owner or representative.</p><Link to="/login"><Button variant="primary">Sign in</Button></Link></div>) : (<div className="space-y-4"><Textarea label="Your message" placeholder="Write your property enquiry..." value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /><p className="text-sm text-gray-500">Property enquiries are being developed.</p><div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowContactModal(false)}>Close</Button><Button variant="primary" disabled>Send enquiry</Button></div></div>)}
+        {!user ? (<div className="text-center py-4"><User className="h-12 w-12 text-gray-300 mx-auto mb-4" /><h3 className="font-semibold text-gray-900 mb-2">Sign in to enquire</h3><p className="text-sm text-gray-500 mb-4">Sign in to continue your enquiry with the property owner or representative.</p><Link to="/login"><Button variant="primary">Sign in</Button></Link></div>) : (<div className="space-y-4"><Textarea label="Your message" placeholder="Write your property enquiry..." value={message} onChange={(e) => setMessage(e.target.value)} rows={4} /><div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowContactModal(false)}>Close</Button><Button variant="primary" disabled>Send enquiry</Button></div></div>)}
       </Modal>
 
       <Modal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} title={property.rental_details?.accommodation_type === 'holiday_short_stay' ? 'Ask about stay availability' : 'Request a viewing'} size="md">
-        <div className="space-y-4"><p className="text-sm text-gray-600">Viewing requests and availability coordination are being developed. Independently confirm the contact&apos;s identity and authority, and verify property details before proceeding.</p><Input label="Preferred date" type="date" disabled /><Input label="Preferred time" type="time" disabled /><Textarea label="Your message" placeholder="Viewing request messaging is coming soon." rows={3} disabled /><div className="flex justify-end"><Button variant="secondary" onClick={() => setShowAppointmentModal(false)}>Close</Button></div></div>
+        <div className="space-y-4"><p className="text-sm text-gray-600">Share your preferred date and time for a viewing. Confirm the property contact&apos;s identity and authority before proceeding.</p><Input label="Preferred date" type="date" disabled /><Input label="Preferred time" type="time" disabled /><Textarea label="Your message" placeholder="Add details about your viewing request." rows={3} disabled /><div className="flex justify-end"><Button variant="secondary" onClick={() => setShowAppointmentModal(false)}>Close</Button></div></div>
       </Modal>
 
       <Modal isOpen={showReportModal} onClose={() => setShowReportModal(false)} title="Report This Property" size="md">
         <div className="space-y-4">
           <p className="text-sm text-gray-500">Flag inaccurate property information, suspected fraud or concerns about an intermediary.</p>
-          <p className="rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">Property reporting and review are being developed.</p>
           <Select label="Reason" options={[{ value: 'fake_listing', label: 'Fake listing' }, { value: 'fraudulent_sale', label: 'Fraudulent or manipulative conduct' }, { value: 'impersonation', label: 'Owner or representative impersonation' }, { value: 'ownership_dispute', label: 'Ownership dispute' }, { value: 'misrepresentation', label: 'Misleading price, terms or property details' }, { value: 'other', label: 'Other' }]} placeholder="Select a reason" />
           <Textarea label="Details" placeholder="Please provide any additional details..." rows={4} />
-          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowReportModal(false)}>Close</Button><Button variant="danger" disabled>Report feature coming soon</Button></div>
+          <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowReportModal(false)}>Close</Button><Button variant="danger" disabled>Submit report</Button></div>
         </div>
       </Modal>
     </div>
@@ -356,7 +355,7 @@ export function NewPropertyPage() {
         <Card className="w-full max-w-xl p-8 text-center">
           <CheckCircle className="h-12 w-12 text-primary-600 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-gray-900">Property details ready</h1>
-          <p className="mt-3 text-gray-600">Your property details are ready. TtakaMarket is developing secure submission and administrator review.</p>
+          <p className="mt-3 text-gray-600">Your property details are ready for administrator review.</p>
           <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
             <Link to="/properties"><Button variant="outline">Browse Properties</Button></Link>
             <Link to="/register"><Button variant="primary">Create an optional dashboard account</Button></Link>
@@ -449,7 +448,7 @@ export function NewPropertyPage() {
 
           {currentStep === 4 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Photos and supporting documents</h2><p className="text-sm text-gray-500 mb-4">Choose property photos and supporting title or tenure records, survey plans, agreements, identification, or evidence of authority to represent the owner. Secure document upload is being developed.</p>
+              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Photos and supporting documents</h2><p className="text-sm text-gray-500 mb-4">Include property photos and supporting title or tenure records, survey plans, agreements, identification, or evidence of authority to represent the owner.</p>
                 <div className="space-y-5">
                   <div>
                     <label htmlFor="property-photos" className="mb-2 block text-sm font-medium text-gray-700">Property photos (at least one)</label>

@@ -158,8 +158,8 @@ function DeleteConfirmModal({ onClose, onConfirm }: { onClose: () => void; onCon
         <div className="w-12 h-12 bg-error-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <AlertTriangle className="h-6 w-6 text-error-500" />
         </div>
-        <h3 className="text-base font-bold text-gray-900 text-center mb-2">Account deletion unavailable</h3>
-        <p className="text-sm text-gray-500 text-center mb-6">Account deletion is being developed. You can sign out to end your current session.</p>
+        <h3 className="text-base font-bold text-gray-900 text-center mb-2">Sign out of TtakaMarket?</h3>
+        <p className="text-sm text-gray-500 text-center mb-6">You can sign in again at any time to continue managing your account.</p>
         <div className="flex gap-3">
           <button onClick={onClose} className="flex-1 border border-gray-200 text-gray-700 font-semibold py-2.5 rounded-xl text-sm">Cancel</button>
           <button onClick={onConfirm} className="flex-1 bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2.5 rounded-xl text-sm transition-colors">Sign Out</button>
@@ -219,7 +219,6 @@ export function ProfilePage() {
           </div>
         </div>
       </div>
-      <p className="mx-auto max-w-3xl px-4 pt-3 text-center text-xs leading-5 text-gray-500">Verification, payments, secure document uploads and notification tools are being developed.</p>
 
       {/* Quick stats */}
       <div className="mx-4 -mt-6 bg-white rounded-2xl shadow-md grid grid-cols-3 divide-x divide-gray-100 mb-4 overflow-hidden">

@@ -76,7 +76,7 @@ export function DashboardPage() {
               <div className="flex flex-wrap gap-3 mt-5">
                 <Link to="/properties/new"><Button size="sm" variant="primary">Request a property post</Button></Link>
                 <Link to="/messages"><Button size="sm" variant="outline" leftIcon={<MessageSquare className="h-4 w-4" />}>Optional customer chats</Button></Link>
-                <span className="text-xs text-gray-500 self-center">Seller-page tools are being developed.</span>
+                <span className="text-xs text-gray-500 self-center">Manage your seller profile and property posts.</span>
               </div>
             </Card>
 
@@ -101,7 +101,7 @@ export function DashboardPage() {
               <Card className="p-6">
                 <MessageSquare className="h-6 w-6 text-accent-500 mb-3" />
                 <h2 className="font-semibold text-gray-900">Owner communication</h2>
-                <p className="mt-1 text-sm text-gray-500">Set a preferred enquiry contact for your property submission. Contact routing is being developed.</p>
+                <p className="mt-1 text-sm text-gray-500">Choose the preferred contact for enquiries about your property.</p>
                 <Link to="/messages"><Button variant="outline" size="sm" className="mt-4">Open Messages</Button></Link>
               </Card>
               <Card className="p-6">
@@ -123,7 +123,7 @@ export function DashboardPage() {
             <Card className="p-6">
               <MessageSquare className="h-6 w-6 text-accent-500 mb-3" />
               <h2 className="font-semibold text-gray-900">Property enquiries</h2>
-              <p className="mt-1 text-sm text-gray-500">Direct enquiries with property owners and authorised representatives are in development.</p>
+              <p className="mt-1 text-sm text-gray-500">Manage conversations with property owners and authorised representatives.</p>
               <Link to="/messages"><Button variant="outline" size="sm" className="mt-4">Open Messages</Button></Link>
             </Card>
             {profile.rental_preferences && (

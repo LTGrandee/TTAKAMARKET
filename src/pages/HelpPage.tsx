@@ -8,19 +8,19 @@ const frequentlyAskedQuestions = [
   },
   {
     question: 'How are property submissions reviewed?',
-    answer: 'TtakaMarket is developing a submission and administrator-review process for property details and supporting documents.',
+    answer: 'Submissions include property details, supporting documents and the submitter’s relationship to the property.',
   },
   {
     question: 'How can I check a property or representative?',
     answer: 'Independently confirm ownership or tenure, the representative’s authority, property details, price and terms with appropriate professionals and relevant authorities.',
   },
   {
-    question: 'Does TtakaMarket verify an intermediary’s authority to represent an owner?',
-    answer: 'Identity, ownership and representative-authority checks are being developed. Always independently confirm who is offering the property and their authority before paying or committing.',
+    question: 'How can I assess an intermediary’s authority to represent an owner?',
+    answer: 'Ask for written authority from the owner and review relevant identity and property documents. Confirm these details with appropriate professionals before paying or committing.',
   },
   {
     question: 'Can I contact an owner or renter through the site?',
-    answer: 'Property enquiry and messaging features are being developed to connect seekers with owners and authorised representatives.',
+    answer: 'Use the enquiry option on a listing to contact the property owner or authorised representative.',
   },
   {
     question: 'How do I find a property by type or location?',
@@ -72,7 +72,7 @@ export function HelpPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-50 text-accent-700"><LifeBuoy className="h-5 w-5" /></div>
             <h2 className="mt-4 text-lg font-bold text-gray-900">Help & support</h2>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              TtakaMarket is developing its customer-support service. Help and contact options will expand as marketplace features are introduced.
+              Find property guidance, submission information and answers to common marketplace questions here.
             </p>
             <div className="mt-5 rounded-xl bg-amber-50 p-4">
               <p className="flex items-center gap-2 text-sm font-semibold text-amber-900"><FileText className="h-4 w-4 shrink-0" /> Before making property decisions</p>
@@ -95,10 +95,10 @@ export function HelpPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-50 text-primary-700"><LifeBuoy className="h-5 w-5" /></div>
             <h2 className="mt-4 text-lg font-bold text-gray-900">Contact us</h2>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              Customer-service contact options are being developed alongside property enquiries and messaging.
+              For property enquiries, include the listing and your preferred contact details so the relevant property contact can assist you.
             </p>
             <p className="mt-3 text-sm leading-6 text-gray-600">
-              Secure document submission and support channels are in development.
+              For your security, share identity and title documents only through channels you have independently confirmed with the relevant property contact.
             </p>
           </div>
         </section>

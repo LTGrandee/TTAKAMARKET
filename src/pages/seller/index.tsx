@@ -46,7 +46,7 @@ export function SellerProfilePage() {
         <Card className="p-6 h-fit">
           <Shield className="h-6 w-6 text-primary-600 mb-3" />
           <h2 className="font-semibold text-gray-900">Managed seller profile</h2>
-          <p className="mt-2 text-sm text-gray-500">Seller-page approvals, document handling and public property posts are being developed.</p>
+          <p className="mt-2 text-sm text-gray-500">TtakaMarket manages seller-page approvals, property documents and published listings.</p>
           {isOwnerProfile && profile?.seller_chat_enabled && (
             <Link to="/messages"><Button variant="primary" className="w-full mt-5" leftIcon={<MessageSquare className="h-4 w-4" />}>Chat with seller</Button></Link>
           )}

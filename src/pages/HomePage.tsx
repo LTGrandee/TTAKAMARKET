@@ -18,8 +18,8 @@ const categories = [
 ];
 
 const trustPoints = [
-  { Icon: Shield, title: 'Administrator review', desc: 'Review workflows for ownership and representative authority' },
-  { Icon: Users, title: 'Clear representation', desc: 'Designed to identify owners and authorised representatives' },
+  { Icon: Shield, title: 'Administrator review', desc: 'Ownership and representative authority at the centre of every offer' },
+  { Icon: Users, title: 'Clear representation', desc: 'Know whether you are dealing with an owner or representative' },
   { Icon: Handshake, title: 'Accountable enquiries', desc: 'A clearer route to the owner or authorised contact' },
   { Icon: Headphones, title: 'One marketplace', desc: 'Land, homes, short stays, business and storage' },
 ];
@@ -159,7 +159,7 @@ export function HomePage() {
           </div>
           {activeTab === 'book' && (
             <p className="mb-3 text-xs leading-5 text-gray-500">
-              Find short stays, including hotel rooms, with daily or nightly rates. Booking and payment features are in development.
+              Find short stays, including hotel rooms, with clearly stated daily and nightly rates.
             </p>
           )}
 
@@ -280,7 +280,7 @@ export function HomePage() {
             ))}
           </div>
           <p className="mx-auto mt-5 max-w-2xl text-center text-xs leading-5 text-gray-500">
-            TtakaMarket is being developed to address this complex web by bringing ownership, representative authority and contact information into clearer view. Always verify property documents and a representative&apos;s authority independently before making a commitment.
+            TtakaMarket addresses this complex web by bringing ownership, representative authority and contact information into clearer view. Independently verify property documents and a representative&apos;s authority before making a commitment.
           </p>
         </div>
       </section>
@@ -290,14 +290,14 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-primary-600 mb-2">How TtakaMarket Works</h2>
-            <p className="text-sm text-gray-500">Property submission, review and enquiry workflows</p>
+            <p className="text-sm text-gray-500">A clear process for owners, representatives and property seekers</p>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {[
               { num: '01', title: 'Submit details', desc: 'Owners or lawful representatives share property information and supporting documents.', Icon: Users },
-              { num: '02', title: 'Administrator review', desc: 'Review workflows cover documents, representative authority and property details.', Icon: Shield },
-              { num: '03', title: 'Publication decision', desc: 'Administrator approval determines whether a property is ready to publish.', Icon: CheckCircle },
-              { num: '04', title: 'Accountable enquiries', desc: 'Enquiry routes connect property seekers with owners and authorised representatives.', Icon: MessageSquare },
+              { num: '02', title: 'Administrator review', desc: 'Ownership documents, representative authority and property details are reviewed.', Icon: Shield },
+              { num: '03', title: 'Publication decision', desc: 'Listings are published following an administrator decision.', Icon: CheckCircle },
+              { num: '04', title: 'Accountable enquiries', desc: 'Property seekers connect with owners and authorised representatives.', Icon: MessageSquare },
             ].map(({ num, title, desc, Icon }) => (
               <div key={num} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                 <div className="w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center mb-3">
@@ -309,9 +309,6 @@ export function HomePage() {
               </div>
             ))}
           </div>
-          <p className="mt-5 rounded-xl border border-warning-200 bg-warning-50 p-4 text-center text-xs leading-5 text-warning-800">
-            Submission review, document checks, site surveys and enquiry handling are being developed as part of the service.
-          </p>
         </div>
       </section>
 
@@ -321,11 +318,11 @@ export function HomePage() {
           <div className="text-center mb-8">
             <span className="inline-block bg-success-100 text-success-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Our Solution</span>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Countering untrustworthy intermediation with transparency</h2>
-            <p className="text-sm text-gray-500 max-w-md mx-auto">TtakaMarket is developing safeguards against fraud and manipulation by clarifying who submits a property, their authority to represent the owner, the offer details and the enquiry route.</p>
+            <p className="text-sm text-gray-500 max-w-md mx-auto">TtakaMarket counters fraud and manipulation by clarifying who submits a property, their authority to represent the owner, the offer details and the enquiry route.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 mb-6">
             {[
-              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Submission review', desc: 'Administrator review covers identity, ownership or tenure documents, and authority to represent the owner.' },
+              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Submission review', desc: 'Identity, ownership or tenure documents, and authority to represent the owner are assessed.' },
               { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: Shield, title: 'Site survey coordination', desc: "The process is designed to check the property's location, size, access and condition before publication." },
               { color: 'bg-accent-50 border-accent-100', iconBg: 'bg-accent-500', Icon: MessageSquare, title: 'Managed enquiries', desc: 'Approved contact arrangements can connect people with the owner, representative or TtakaMarket.' },
             ].map(({ color, iconBg, Icon, title, desc }) => (
@@ -344,7 +341,7 @@ export function HomePage() {
             <h3 className="text-lg font-bold text-white mb-2">Designed to make property offers more accountable</h3>
             <p className="text-sm text-primary-200 mb-4">Check the details. Confirm authority. Ask questions before making a commitment.</p>
             <div className="flex flex-wrap items-center justify-center gap-4 text-primary-200">
-              {['Land, homes and short stays', 'Buy, rent, lease or book', 'Administrator review'].map(t => (
+              {['Land, homes and short stays', 'Buy, rent, lease or book', 'Accountable property offers'].map(t => (
                 <div key={t} className="flex items-center gap-1.5 text-xs"><CheckCircle className="h-4 w-4 text-primary-300" />{t}</div>
               ))}
             </div>

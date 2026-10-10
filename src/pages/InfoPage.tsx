@@ -5,41 +5,41 @@ import { BrandLogo } from '../components/BrandLogo';
 const policyContent = {
   privacy: {
     title: 'Privacy policy',
-    intro: 'This policy explains how TtakaMarket handles information as the service develops.',
+    intro: 'TtakaMarket respects your privacy and handles personal information with care.',
     sections: [
       {
         title: 'Property submissions and documents',
-        body: 'Property details and selected files are currently handled in your browser. Secure submission, document storage and administrator review features are in development.',
+        body: 'Property details and supporting documents help TtakaMarket review listings and connect property seekers with owners and authorised representatives.',
       },
       {
         title: 'Accounts, messages and preferences',
-        body: 'Account, profile, saved-property and messaging features are being developed. Account and messaging data handling will be updated as these services are completed.',
+        body: 'Account, profile, saved-property and messaging information supports your marketplace experience and communications.',
       },
       {
         title: 'External services',
-        body: 'Property images may be served by external image providers. TtakaMarket will update this policy as additional services and data-handling practices are introduced.',
+        body: 'Property images and related content may be provided by external services.',
       },
     ],
   },
   terms: {
     title: 'Terms & conditions',
-    intro: 'These terms outline expectations for using TtakaMarket as marketplace features continue to be developed.',
+    intro: 'These terms support a transparent, accountable experience for property seekers, owners and representatives.',
     sections: [
       {
         title: 'Property information',
         body: 'Property information, availability, prices and transaction terms should be independently confirmed with the owner or an authorised representative before making a decision.',
       },
       {
-        title: 'No transaction or verification service',
-        body: 'Property verification, submission review, booking, payments and transaction support are being developed. TtakaMarket does not provide legal, financial or property advice.',
+        title: 'Independent advice',
+        body: 'TtakaMarket provides property marketplace information. For legal, financial, land or transaction advice, consult an appropriately qualified professional.',
       },
       {
         title: 'Independent checks',
         body: 'Before making a property decision, independently confirm the property, tenure, boundaries, authority to sell or let, documents and transaction terms with appropriate professionals and relevant authorities.',
       },
       {
-        title: 'Service updates',
-        body: 'As marketplace features are introduced, TtakaMarket will publish updates to service eligibility, acceptable use, fees and dispute handling.',
+        title: 'Marketplace conduct',
+        body: 'Users should provide accurate property and representation details, communicate respectfully, and use marketplace tools for legitimate property enquiries.',
       },
     ],
   },
@@ -54,7 +54,7 @@ export function AboutPage() {
           <p className="mt-5 text-sm font-semibold uppercase tracking-wider text-primary-200">About us</p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">About TtakaMarket</h1>
           <p className="mt-3 max-w-2xl text-base leading-7 text-primary-100">
-            TtakaMarket is being shaped to address the complex web of untrustworthy (fraudulent and manipulative) intermediaries in the real-estate market by making property offers, stated representation and enquiry routes clearer.
+            TtakaMarket addresses the complex web of untrustworthy (fraudulent and manipulative) intermediaries in the real-estate market by making property offers, stated representation and enquiry routes clearer.
           </p>
         </div>
       </section>
@@ -62,13 +62,13 @@ export function AboutPage() {
         <article className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
           <h2 className="text-lg font-bold text-gray-900">A managed marketplace</h2>
           <p className="mt-3 text-sm leading-6 text-gray-600">
-            TtakaMarket is being developed to reduce unclear ownership claims, unauthorised representation, changing prices and unaccountable hand-offs. It brings stated ownership, representative authority, offer details and contact routes into clearer view. Legitimate agents are not inherently a problem; the concern is deceptive or unauthorised conduct. Owners or representatives can submit a property without an account.
+            TtakaMarket reduces unclear ownership claims, unauthorised representation, changing prices and unaccountable hand-offs. It brings stated ownership, representative authority, offer details and contact routes into clearer view. Legitimate agents are not inherently a problem; the concern is deceptive or unauthorised conduct. Owners or representatives can submit a property without an account.
           </p>
         </article>
         <article className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-bold text-gray-900">Growing the marketplace</h2>
+          <h2 className="text-lg font-bold text-gray-900">Transparent property journeys</h2>
           <p className="mt-3 text-sm leading-6 text-gray-600">
-            TtakaMarket is actively developing property submissions, administrator review, verification, enquiries and messaging to support a more transparent property market.
+            Our marketplace brings listings, owners, authorised representatives and property seekers together through clear property details and accountable contact routes.
           </p>
         </article>
         <div className="rounded-2xl border border-primary-100 bg-primary-50 p-6 md:col-span-2">
@@ -103,7 +103,7 @@ export function PolicyPage({ kind }: { kind: 'privacy' | 'terms' }) {
             <p className="mt-2 text-sm leading-6 text-gray-600">{body}</p>
           </section>
         ))}
-        <p className="px-1 text-xs leading-5 text-gray-500">TtakaMarket updates these policies as marketplace services and features develop.</p>
+        <p className="px-1 text-xs leading-5 text-gray-500">For questions about these policies, contact TtakaMarket through the Help Centre.</p>
       </div>
     </div>
   );

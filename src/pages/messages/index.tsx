@@ -57,7 +57,6 @@ export function MessagesPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">Property enquiries</h1>
-        <p className="mb-6 text-sm text-gray-500">Direct messaging with property owners and authorised representatives is in development.</p>
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
           <div className="flex h-[calc(100dvh-14rem)] min-h-[24rem] md:h-[min(42rem,calc(100dvh-14rem))]">
             <div className={cn('w-full border-r border-gray-200 overflow-y-auto', 'md:w-80 md:block', conversationId ? 'hidden md:block' : 'block')}>

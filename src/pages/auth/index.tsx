@@ -50,7 +50,7 @@ export function LoginPage() {
               {error && <div className="p-3 bg-error-50 border border-error-200 rounded-lg text-sm text-error-700">{error}</div>}
               <Input label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} leftIcon={<Mail className="h-5 w-5" />} required />
               <Input label="Password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} leftIcon={<Lock className="h-5 w-5" />} rightIcon={<button type="button" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>} required />
-              <div className="flex items-center justify-between"><label className="flex items-center gap-2"><input type="checkbox" className="rounded border-gray-300" /><span className="text-sm text-gray-600">Remember me</span></label><span className="text-right text-xs text-gray-500">Password recovery coming soon</span></div>
+              <div className="flex items-center justify-between"><label className="flex items-center gap-2"><input type="checkbox" className="rounded border-gray-300" /><span className="text-sm text-gray-600">Remember me</span></label></div>
               <Button type="submit" variant="primary" className="w-full" loading={loading}>Sign In</Button>
             </form>
             <div className="mt-6 text-center text-sm text-gray-500">Don't have an account? <Link to="/register" className="text-primary-600 hover:text-primary-700 font-medium">Create one now</Link></div>
@@ -185,7 +185,7 @@ export function RegisterPage() {
                   </div>
                   {userType === 'owner' && (
                     <>
-                      <label className="flex items-start gap-3 text-sm text-gray-600"><input type="checkbox" checked={formData.requestSellerPage} onChange={(e) => updateForm('requestSellerPage', e.target.checked)} className="mt-1 rounded border-gray-300" /><span><strong className="text-gray-900">Request a managed seller page</strong><br />Seller pages, post approvals, uploads and verification are being developed.</span></label>
+                      <label className="flex items-start gap-3 text-sm text-gray-600"><input type="checkbox" checked={formData.requestSellerPage} onChange={(e) => updateForm('requestSellerPage', e.target.checked)} className="mt-1 rounded border-gray-300" /><span><strong className="text-gray-900">Create a managed seller page</strong><br />Present your properties under a consistent personal or business profile.</span></label>
                       {formData.requestSellerPage && <div className="p-3 bg-primary-50 rounded-lg border border-primary-200">
                         <p className="text-sm font-medium text-primary-900">Optional managed seller page</p>
                         <p className="text-xs text-primary-700 mt-1">TtakaMarket can create a personal or business-branded public page for you. Our administrators approve posts, uploads, and verification.</p>

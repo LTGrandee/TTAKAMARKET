@@ -89,7 +89,7 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
           <div className="mb-4 border-t border-gray-100 pt-4">
             <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Preferences</p>
             <div className="space-y-1 px-3">
-              <div className="flex min-h-11 items-center gap-3 text-sm text-gray-700" title="English is the only language currently available">
+              <div className="flex min-h-11 items-center gap-3 text-sm text-gray-700" title="Interface language">
                 <Globe2 className="h-5 w-5 text-gray-400" />
                 <span className="flex-1">Language</span>
                 <span className="text-xs font-medium text-gray-500">English</span>
@@ -100,7 +100,7 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
                 <span className="text-right text-xs font-medium text-gray-500">As listed</span>
               </div>
             </div>
-            <p className="px-3 pt-1 text-xs leading-5 text-gray-500">English is currently the only language. Prices are not converted.</p>
+            <p className="px-3 pt-1 text-xs leading-5 text-gray-500">Interface language: English. Prices are displayed in the listed currency.</p>
           </div>
           <div className="mt-1 border-t border-gray-100 pt-4 md:mt-4">
             <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Account</p>
