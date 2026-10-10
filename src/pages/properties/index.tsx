@@ -321,6 +321,7 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
     address: '', city: '', region: '', country: 'Uganda', features: [] as string[], custom_feature: '',
     submitter_name: '', submitter_phone: '', submitter_email: '', submitter_role: '',
     contact_preference: 'owner',
+    request_seller_dashboard: false,
     accommodation_availability: 'hourly',
     accommodation_rate_basis: 'per_hour',
     accommodation_capacity: '',
@@ -380,7 +381,7 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
         <Card className="w-full max-w-xl p-8 text-center">
           <CheckCircle className="h-12 w-12 text-primary-600 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-gray-900">{isAccommodationSubmission ? 'Accommodation details ready' : 'Property details ready'}</h1>
-          <p className="mt-3 text-gray-600">Your {isAccommodationSubmission ? 'accommodation' : 'property'} details are ready for administrator review.</p>
+          <p className="mt-3 text-gray-600">Your {isAccommodationSubmission ? 'accommodation' : 'property'} details are ready for administrator review.{formData.request_seller_dashboard ? ' Your seller dashboard request has also been noted.' : ''}</p>
           <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
             <Link to="/properties"><Button variant="outline">Browse Properties</Button></Link>
             <Link to="/register"><Button variant="primary">Create an optional dashboard account</Button></Link>
@@ -463,6 +464,18 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
                   <Input label="Email (optional)" type="email" placeholder="you@example.com" value={formData.submitter_email} onChange={(e) => updateForm('submitter_email', e.target.value)} />
                   <Select label="Your relationship to the property" options={[{ value: 'owner', label: 'I am the owner' }, { value: 'representative', label: 'I am authorised to represent the owner' }, { value: 'other', label: 'I am helping the owner submit' }]} value={formData.submitter_role} onChange={(e) => updateForm('submitter_role', e.target.value)} placeholder="Select your relationship" required />
                 </div>
+                <label className="flex items-start gap-3 rounded-xl border border-gray-200 p-4 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={formData.request_seller_dashboard}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, request_seller_dashboard: e.target.checked }))}
+                    className="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+                  />
+                  <span>
+                    <strong className="text-gray-900">Request a seller dashboard</strong>
+                    <span className="mt-1 block text-gray-500">Request a dashboard to manage this submission and your future property or accommodation listings.</span>
+                  </span>
+                </label>
               </div>
             </div>
           )}
@@ -515,6 +528,7 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">{isAccommodationSubmission ? `Price (${accommodationRateBases.find(({ value }) => value === formData.accommodation_rate_basis)?.label.toLowerCase()})` : 'Price'}</p><p className="font-medium text-gray-900">{Number(formData.price).toLocaleString()} {formData.price_unit}</p></div>
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Location</p><p className="font-medium text-gray-900">{formData.address}, {formData.city}, {formData.country}</p></div>
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Submitted by</p><p className="font-medium text-gray-900">{formData.submitter_name} · {formData.submitter_phone}</p><p className="text-sm text-gray-600">{formData.submitter_role === 'owner' ? 'Owner' : formData.submitter_role === 'representative' ? 'Authorised representative' : 'Other submitter'}</p></div>
+                <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Seller dashboard</p><p className="font-medium text-gray-900">{formData.request_seller_dashboard ? 'Requested' : 'Not requested'}</p></div>
                 <p className="text-sm text-gray-500">{images.length} photo(s) and {documents.length} document(s) selected.</p>
                 <Select label="Buyer chat contact" options={[{ value: 'owner', label: 'Chat directly with me (the owner)' }, { value: 'representative', label: 'Chat with my lawful representative' }, { value: 'ttakamarket', label: 'Let TtakaMarket coordinate all chats' }]} value={formData.contact_preference} onChange={(e) => updateForm('contact_preference', e.target.value)} />
                 {formData.features.length > 0 && (<div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-2">Features</p><div className="flex flex-wrap gap-2">{formData.features.map(feature => (<Badge key={feature} variant="secondary">{feature}</Badge>))}</div></div>)}
