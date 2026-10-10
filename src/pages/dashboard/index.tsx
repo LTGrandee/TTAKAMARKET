@@ -122,8 +122,8 @@ export function DashboardPage() {
             </Card>
             <Card className="p-6">
               <MessageSquare className="h-6 w-6 text-accent-500 mb-3" />
-              <h2 className="font-semibold text-gray-900">Chat with the right contact</h2>
-              <p className="mt-1 text-sm text-gray-500">Use the prototype chat screen to view a sample enquiry with a property contact.</p>
+              <h2 className="font-semibold text-gray-900">Preview a property enquiry</h2>
+              <p className="mt-1 text-sm text-gray-500">Review a sample conversation flow. Contacts and representative authority are not verified, and messages are not delivered in this prototype.</p>
               <Link to="/messages"><Button variant="outline" size="sm" className="mt-4">Open Messages</Button></Link>
             </Card>
             {profile.rental_preferences && (

@@ -54,7 +54,7 @@ export function AboutPage() {
           <p className="mt-5 text-sm font-semibold uppercase tracking-wider text-primary-200">About us</p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">About TtakaMarket</h1>
           <p className="mt-3 max-w-2xl text-base leading-7 text-primary-100">
-            TtakaMarket is being shaped as Uganda&apos;s property marketplace for discovering land, homes, hotel rooms and other short stays, commercial spaces and storage.
+            TtakaMarket is being shaped to address the complex web of untrustworthy (fraudulent and manipulative) intermediaries in the real-estate market by making property offers, stated representation and enquiry routes clearer.
           </p>
         </div>
       </section>
@@ -62,7 +62,7 @@ export function AboutPage() {
         <article className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
           <h2 className="text-lg font-bold text-gray-900">A managed marketplace concept</h2>
           <p className="mt-3 text-sm leading-6 text-gray-600">
-            The product is intended to help people explore property information and provide a path for owners or their representatives to submit property details for review. A one-time submission is designed not to require an account; dashboard features are optional.
+            The proposed marketplace aims to reduce unclear ownership claims, unauthorised representation, changing prices and unaccountable hand-offs. It is intended to make stated ownership, authority to represent, offer details and contact routes easier to understand. Legitimate agents are not inherently a problem; the concern is deceptive or unauthorised conduct. Owners or representatives may preview a property submission without an account.
           </p>
         </article>
         <article className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">

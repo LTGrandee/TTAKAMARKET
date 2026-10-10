@@ -305,7 +305,7 @@ export function PropertyDetailPage() {
       </Modal>
 
       <Modal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} title={property.rental_details?.accommodation_type === 'holiday_short_stay' ? 'Short-stay enquiry preview' : 'Viewing request preview'} size="md">
-        <p className="mb-4 rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">Requests are not sent and availability is not checked in this prototype. Confirm details directly through a trusted, independently verified contact.</p>
+        <p className="mb-4 rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">Requests are not sent and availability is not checked in this prototype. Independently confirm the contact&apos;s identity and authority, and verify the property details before proceeding.</p>
         <div className="space-y-4"><Input label="Preferred date" type="date" disabled /><Input label="Preferred time" type="time" disabled /><Textarea label="Demo message" placeholder="Request details are unavailable in this prototype." rows={3} disabled /><div className="flex justify-end"><Button variant="secondary" onClick={() => setShowAppointmentModal(false)}>Close</Button></div></div>
       </Modal>
 
@@ -313,7 +313,7 @@ export function PropertyDetailPage() {
         <div className="space-y-4">
           <p className="text-sm text-gray-500">Use this form to flag information you believe is inaccurate or concerning. Reports are not sent to a live review team in this prototype.</p>
           <p className="rounded-lg border border-warning-200 bg-warning-50 p-3 text-sm leading-5 text-warning-800">Reports are not sent to a review team. Do not rely on this form to report a real safety or fraud concern.</p>
-          <Select label="Reason" options={[{ value: 'fake_listing', label: 'Fake listing' }, { value: 'fraudulent_sale', label: 'Fraud concern' }, { value: 'impersonation', label: 'Owner impersonation' }, { value: 'ownership_dispute', label: 'Ownership dispute' }, { value: 'misrepresentation', label: 'Misleading information' }, { value: 'other', label: 'Other' }]} placeholder="Select a reason" />
+          <Select label="Reason" options={[{ value: 'fake_listing', label: 'Fake listing' }, { value: 'fraudulent_sale', label: 'Fraudulent or manipulative conduct' }, { value: 'impersonation', label: 'Owner or representative impersonation' }, { value: 'ownership_dispute', label: 'Ownership dispute' }, { value: 'misrepresentation', label: 'Misleading price, terms or property details' }, { value: 'other', label: 'Other' }]} placeholder="Select a reason" />
           <Textarea label="Details" placeholder="Please provide any additional details..." rows={4} />
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowReportModal(false)}>Close</Button><Button variant="danger" disabled>Reporting is unavailable</Button></div>
         </div>

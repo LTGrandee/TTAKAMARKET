@@ -61,7 +61,7 @@ export function LoginPage() {
         <div className="relative h-full flex flex-col items-center justify-center px-20 text-white">
           <BrandLogo className="mb-8 h-24 w-72 rounded-2xl" />
           <h2 className="text-3xl font-bold mb-4 text-center">Uganda's property marketplace</h2>
-          <p className="text-lg text-primary-100 text-center max-w-md">Explore sample property listings. TtakaMarket is being designed to help break the chain of manipulation and unlawful middlemen.</p>
+          <p className="text-lg text-primary-100 text-center max-w-md">Explore sample listings. TtakaMarket aims to counter fraudulent and manipulative intermediaries through clearer ownership, representative authority, offer details and contact routes. This prototype does not verify listings or people.</p>
           <div className="mt-8 grid grid-cols-2 gap-6 text-center"><div><div className="text-2xl font-bold sm:text-3xl">Land · Homes</div><div className="text-sm text-primary-200">And short stays</div></div><div><div className="text-2xl font-bold sm:text-3xl">Buy · Rent</div><div className="text-sm text-primary-200">Lease · Book</div></div></div>
         </div>
       </div>

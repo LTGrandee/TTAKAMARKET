@@ -1,6 +1,6 @@
 # TtakaMarket | Concept Note and Product Overview
 
-> **Homepage positioning:** Uganda’s Trusted Property (Real-Estate) & Accommodation Marketplace.
+> **Homepage positioning:** A more transparent Ugandan property (real-estate) and accommodation marketplace, designed to counter fraudulent and manipulative intermediaries.
 >
 > “Trusted” describes the marketplace ambition, not a claim that the current prototype or its sample listings have been verified.
 
@@ -8,7 +8,7 @@
 
 TtakaMarket is a proposed Uganda-focused property (real-estate) and accommodation marketplace for land, homes, commercial and industrial premises, and temporary accommodation such as hotel rooms and short stays. People will be able to discover property to **buy, rent, lease, or book**. Owners and people with lawful authority to represent them will be able to submit property information without first creating an account.
 
-The product's central purpose is to help **break the chain of manipulation and unlawful middlemen** in property transactions. It aims to make it easier to understand who owns or controls a property, who is authorised to represent the owner, what the stated price and terms are, and how an enquiry is expected to reach an accountable contact. Legitimate agents and representatives are not inherently a problem; the concern is unauthorised, misleading, or unaccountable intermediation.
+The product's central purpose is to help confront **the complex web of untrustworthy (fraudulent and manipulative) intermediaries** in the real-estate market. It aims to make it easier to understand who owns or controls a property, who is authorised to represent the owner, what the stated price and terms are, and how an enquiry is expected to reach an accountable contact. Legitimate agents and representatives are not inherently a problem; the concern is unauthorised, misleading, or unaccountable intermediation.
 
 TtakaMarket is not yet an operating verification, brokerage, booking, payment, or customer-support service. This repository is a responsive frontend prototype illustrating a proposed service. It uses sample data and browser `localStorage`; it does not verify documents or representatives, receive or publish property submissions, arrange bookings, deliver messages, or provide live support. All descriptions of future checks and operations in this note are product intentions, not claims that those services currently exist.
 

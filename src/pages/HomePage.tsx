@@ -120,9 +120,9 @@ export function HomePage() {
             <span className="text-xs font-semibold text-white sm:text-sm">Land, homes and more · Across Uganda</span>
           </div>
           <h1 className="mb-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Uganda&apos;s Trusted <span className="text-accent-400">Property (Real-Estate) &amp; Accommodation Marketplace</span>
+            A More Transparent <span className="text-accent-400">Property (Real-Estate) &amp; Accommodation Marketplace</span>
           </h1>
-          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">Explore land, homes, hotel rooms and other short stays, commercial spaces and storage across Uganda.</p>
+          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">Explore sample property listings and learn how clearer ownership, representative authority, pricing and contact details can help counter fraud and manipulation in Uganda&apos;s real-estate market.</p>
           <div className="flex flex-wrap gap-3">
             <Link to="/properties" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-accent-600 px-5 text-sm font-bold text-white shadow-lg transition hover:bg-accent-700 sm:px-6">
                 Browse properties <ArrowRight className="h-4 w-4" />
@@ -258,9 +258,9 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="mb-3 inline-block rounded-full bg-error-100 px-3 py-1 text-xs font-bold text-error-700">The problem</span>
-            <h2 className="mb-2 text-2xl font-bold text-gray-900">Breaking the chain of manipulation and unlawful middlemen.</h2>
+            <h2 className="mb-2 text-2xl font-bold text-gray-900">The Complex Web of Untrustworthy (Fraudulent and Manipulative) Intermediaries in the Real Estate Market.</h2>
             <p className="mx-auto max-w-2xl text-sm leading-6 text-gray-600 sm:text-base">
-              In a chain of property hand-offs, buyers and renters can struggle to identify the real owner or confirm whether an intermediary has authority to act. When people present a property without the owner&apos;s knowledge or lawful authority, or change prices and details along the way, the result can be fraud, manipulation and wasted time for both property seekers and owners.
+              In a chain of property hand-offs, buyers and renters can struggle to identify the real owner or confirm whether an intermediary has authority to act. When deceptive, manipulative or unauthorised intermediaries present property without the owner&apos;s knowledge, change prices and details along the way, or exploit trust for personal gain, the result can be fraud, manipulation and wasted time for both property seekers and owners.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -280,7 +280,7 @@ export function HomePage() {
             ))}
           </div>
           <p className="mx-auto mt-5 max-w-2xl text-center text-xs leading-5 text-gray-500">
-            TtakaMarket is intended to help break this chain by making ownership, authority to represent and the contact path clearer. This prototype does not verify properties, documents or representatives; always make independent checks.
+            TtakaMarket is intended to help expose and weaken this complex web by making ownership, authority to represent and the contact path clearer. This prototype does not verify properties, documents or representatives; always make independent checks.
           </p>
         </div>
       </section>
@@ -320,8 +320,8 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-block bg-success-100 text-success-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Our Solution</span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">A clearer path from owner to property seeker</h2>
-            <p className="text-sm text-gray-500 max-w-md mx-auto">The proposed service aims to reduce unaccountable hand-offs by checking who submits a property, their authority to represent the owner, and how enquiries should reach the right contact.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Countering untrustworthy intermediation with transparency</h2>
+            <p className="text-sm text-gray-500 max-w-md mx-auto">The proposed service aims to reduce opportunities for fraud and manipulation by clarifying who submits a property, their stated authority to represent the owner, the offer details and the intended enquiry route.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 mb-6">
             {[
@@ -341,8 +341,8 @@ export function HomePage() {
             ))}
           </div>
           <div className="bg-primary-600 rounded-2xl p-6 text-center">
-            <h3 className="text-lg font-bold text-white mb-2">Designed for careful property decisions</h3>
-            <p className="text-sm text-primary-200 mb-4">Review the details. Ask questions. Make informed decisions.</p>
+            <h3 className="text-lg font-bold text-white mb-2">Designed to make property offers more accountable</h3>
+            <p className="text-sm text-primary-200 mb-4">Check the details. Confirm authority. Ask questions before making a commitment.</p>
             <div className="flex flex-wrap items-center justify-center gap-4 text-primary-200">
               {['Land, homes and short stays', 'Buy, rent, lease or book', 'Planned administrator review'].map(t => (
                 <div key={t} className="flex items-center gap-1.5 text-xs"><CheckCircle className="h-4 w-4 text-primary-300" />{t}</div>

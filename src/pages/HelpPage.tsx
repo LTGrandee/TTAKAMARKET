@@ -15,6 +15,10 @@ const frequentlyAskedQuestions = [
     answer: 'No. Listings shown in this prototype are examples. Their ownership, documents, location and contact details have not been verified.',
   },
   {
+    question: 'Does TtakaMarket verify an intermediary’s authority to represent an owner?',
+    answer: 'No. The prototype does not verify identities, ownership or a representative’s authority. In a future service, administrator review is proposed, but it is not active. Independently check who is offering the property and their authority before paying or committing.',
+  },
+  {
     question: 'Can I contact an owner or renter through the site?',
     answer: 'Messaging and enquiry screens are demonstration flows. They do not deliver messages to property owners or representatives.',
   },
@@ -36,7 +40,7 @@ export function HelpPage() {
           <p className="text-sm font-semibold uppercase tracking-wider text-primary-200">TtakaMarket help centre</p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Help, support & FAQs</h1>
           <p className="mt-3 max-w-2xl text-sm leading-6 text-primary-100 sm:text-base">
-            Find answers about browsing, property submissions and what this prototype can currently do.
+            Find answers about the problem of deceptive property intermediaries, safer checks, submissions and what this prototype can currently do.
           </p>
         </div>
       </section>
@@ -73,7 +77,7 @@ export function HelpPage() {
             <div className="mt-5 rounded-xl bg-amber-50 p-4">
               <p className="flex items-center gap-2 text-sm font-semibold text-amber-900"><FileText className="h-4 w-4 shrink-0" /> Before making property decisions</p>
               <p className="mt-2 text-sm leading-5 text-amber-800">
-                Independently confirm property details and documents with appropriate professionals and relevant authorities.
+                Independently confirm ownership or tenure, a representative&apos;s authority, property details, price and terms with appropriate professionals and relevant authorities.
               </p>
             </div>
             <div className="mt-5 space-y-2">
