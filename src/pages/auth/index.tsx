@@ -60,7 +60,7 @@ export function LoginPage() {
       <div className="hidden lg:block relative flex-1 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900">
         <div className="relative h-full flex flex-col items-center justify-center px-20 text-white">
           <BrandLogo className="mb-8 h-24 w-72 rounded-2xl" />
-          <h2 className="text-3xl font-bold mb-4 text-center">Uganda's property marketplace</h2>
+          <h2 className="text-3xl font-bold mb-4 text-center">Uganda's Trusted Property Marketplace</h2>
           <p className="text-lg text-primary-100 text-center max-w-md">TtakaMarket is building a more transparent property market by clarifying ownership, representative authority, offer details and contact routes.</p>
           <div className="mt-8 grid grid-cols-2 gap-6 text-center">
             <div className="space-y-1">
