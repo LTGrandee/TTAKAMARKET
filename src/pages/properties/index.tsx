@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { LayoutGrid, List } from 'lucide-react';
 import { PropertyCard, SearchBar } from '../../components/property';
@@ -10,15 +10,26 @@ const sortOptions = [{ value: 'newest', label: 'Newest First' }, { value: 'price
 
 export function PropertiesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { profile } = useAuth();
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(true);
   const [view, setView] = useState<'grid' | 'list'>('grid');
 
   const filters = { search: searchParams.get('search') || '', type: searchParams.get('type') || '', category: searchParams.get('category') || '', listing_type: searchParams.get('listing_type') || '', city: searchParams.get('city') || '', rental_accommodation: searchParams.get('rental_accommodation') || '', rental_duration: searchParams.get('rental_duration') || '', sort: searchParams.get('sort') || 'newest' };
+  const matchingMode = searchParams.get('matches') === 'true';
 
-  useEffect(() => { fetchProperties(); }, [searchParams]);
-
-  async function fetchProperties() {
+  const fetchProperties = useCallback(async () => {
+    const activeFilters = {
+      search: searchParams.get('search') || '',
+      type: searchParams.get('type') || '',
+      category: searchParams.get('category') || '',
+      listing_type: searchParams.get('listing_type') || '',
+      city: searchParams.get('city') || '',
+      rental_accommodation: searchParams.get('rental_accommodation') || '',
+      rental_duration: searchParams.get('rental_duration') || '',
+      sort: searchParams.get('sort') || 'newest',
+    };
+    const useMatchingPreferences = searchParams.get('matches') === 'true';
     setLoading(true);
     try {
       const mockProperties: Property[] = [
@@ -32,20 +43,38 @@ export function PropertiesPage() {
       ];
 
       let filtered = mockProperties;
-      if (filters.type) filtered = filtered.filter(p => p.property_type === filters.type);
-      if (filters.category) filtered = filtered.filter(p => (p.asset_category || getPropertyCategory(p.property_type)) === filters.category);
-      if (filters.listing_type) filtered = filtered.filter(p => p.listing_type === filters.listing_type);
-      if (filters.rental_accommodation) filtered = filtered.filter(p => p.rental_details?.accommodation_type === filters.rental_accommodation);
-      if (filters.rental_duration) filtered = filtered.filter(p => p.rental_details?.duration === filters.rental_duration);
-      if (filters.city) filtered = filtered.filter(p => p.city.toLowerCase().includes(filters.city.toLowerCase()));
-      if (filters.search) {
-        const search = filters.search.toLowerCase();
+      if (useMatchingPreferences && profile?.marketplace_preferences) {
+        const { property_categories: categories, listing_intents: intents } = profile.marketplace_preferences;
+        if (categories.length > 0) {
+          filtered = filtered.filter((property) => categories.includes(property.asset_category || getPropertyCategory(property.property_type)));
+        }
+        if (intents.length > 0) {
+          filtered = filtered.filter((property) => intents.some((intent) => {
+            if (intent === 'book') return property.rental_details?.accommodation_type === 'holiday_short_stay';
+            if (intent === 'rent') return property.listing_type === 'rent' && property.rental_details?.accommodation_type !== 'holiday_short_stay';
+            return property.listing_type === (intent === 'sale' ? 'sale' : 'lease');
+          }));
+        }
+      }
+      if (activeFilters.type) filtered = filtered.filter(p => p.property_type === activeFilters.type);
+      if (activeFilters.category) filtered = filtered.filter(p => (p.asset_category || getPropertyCategory(p.property_type)) === activeFilters.category);
+      if (activeFilters.listing_type) filtered = filtered.filter(p => p.listing_type === activeFilters.listing_type);
+      if (activeFilters.rental_accommodation) filtered = filtered.filter(p => p.rental_details?.accommodation_type === activeFilters.rental_accommodation);
+      if (activeFilters.rental_duration) filtered = filtered.filter(p => p.rental_details?.duration === activeFilters.rental_duration);
+      if (activeFilters.city) filtered = filtered.filter(p => p.city.toLowerCase().includes(activeFilters.city.toLowerCase()));
+      if (activeFilters.search) {
+        const search = activeFilters.search.toLowerCase();
         filtered = filtered.filter(p => p.title.toLowerCase().includes(search) || p.city.toLowerCase().includes(search) || p.address.toLowerCase().includes(search));
       }
       setProperties(filtered);
     } catch (error) { console.error('Error:', error); }
     finally { setLoading(false); }
-  }
+  }, [profile, searchParams]);
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => { void fetchProperties(); }, 0);
+    return () => window.clearTimeout(timeoutId);
+  }, [fetchProperties]);
 
   function handleFilterChange(key: string, value: string) {
     const newParams = new URLSearchParams(searchParams);
@@ -55,14 +84,14 @@ export function PropertiesPage() {
   }
 
   function clearFilters() { setSearchParams(new URLSearchParams()); }
-  const hasActiveFilters = Object.values(filters).some((v) => v && v !== 'newest');
+  const hasActiveFilters = matchingMode || Object.values(filters).some((v) => v && v !== 'newest');
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{filters.type ? `Properties` : 'All Properties'}</h1>
-          <p className="mt-1 text-gray-500">Discover land, housing, commercial and storage property for sale, rent or lease.</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{matchingMode ? 'Properties matching your interests' : filters.type ? 'Properties' : 'All Properties'}</h1>
+          <p className="mt-1 text-gray-500">{matchingMode ? 'Explore listings that match your saved categories and offer types.' : 'Discover land, housing, commercial and storage property for sale, rent or lease.'}</p>
           <div className="mt-6"><SearchBar /></div>
         </div>
       </div>

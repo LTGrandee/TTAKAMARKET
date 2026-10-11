@@ -4,11 +4,12 @@ import {
   User, Building2, Shield, CheckCircle, Clock, Upload, Mail, Phone,
   MapPin, Edit2, Camera, ChevronRight, Eye, Bell as BellIcon,
   CreditCard, Receipt, Lock, Smartphone, Monitor, Moon, LogOut,
-  Trash2, FileText, Award, AlertTriangle, X, Save, KeyRound
+  Trash2, FileText, Award, AlertTriangle, X, Save, KeyRound, Search
 } from 'lucide-react';
-import { Input, Loading, Avatar } from '../../components/ui';
+import { Avatar, Button, Input, Loading, Select } from '../../components/ui';
 import { useAuth } from '../../context';
-import { cn } from '../../lib/utils';
+import type { MarketplaceListingIntent, MarketplacePreferences, Profile, PropertyCategory, RentalPreferences } from '../../lib/types';
+import { cn, getPropertyCategoryLabel, getRentalLabel } from '../../lib/utils';
 
 /* ─── Section row component ─── */
 function SettingsRow({
@@ -101,6 +102,210 @@ function EditProfileModal({ profile, onClose, onSave }: {
   );
 }
 
+function RentalPreferencesModal({ profile, onClose, onSave }: {
+  profile: Profile;
+  onClose: () => void;
+  onSave: (updates: Partial<Profile>) => Promise<{ error: Error | null }>;
+}) {
+  const [preferences, setPreferences] = useState<RentalPreferences>(profile.rental_preferences ?? {
+    accommodation_type: 'residential',
+    duration: 'long_term',
+    purpose: 'living',
+    living_arrangement: 'individual',
+    tenancy_arrangement: 'sole_tenant',
+    payment_method: 'monthly',
+  });
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  const updatePreference = <K extends keyof RentalPreferences>(key: K, value: RentalPreferences[K]) => {
+    setPreferences((current) => ({ ...current, [key]: value }));
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    setError('');
+    try {
+      const result = await onSave({ rental_preferences: preferences });
+      if (result.error) throw result.error;
+      onClose();
+    } catch (saveError) {
+      setError(saveError instanceof Error ? saveError.message : 'Unable to save preferences. Please try again.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const accommodationOptions = [
+    { value: 'residential', label: 'House / apartment' },
+    { value: 'room', label: 'Room / shared home' },
+    { value: 'commercial', label: 'Shop / office' },
+    { value: 'holiday_short_stay', label: 'Holiday / short stay' },
+    { value: 'storage_industrial', label: 'Storage / industrial' },
+  ];
+  const durationOptions = [
+    { value: 'short_term', label: 'Days / weeks' },
+    { value: 'medium_term', label: 'Weeks / months' },
+    { value: 'long_term', label: 'Year or longer' },
+    { value: 'periodic', label: 'Weekly / monthly periodic' },
+  ];
+  const purposeOptions = [
+    { value: 'living', label: 'Living' },
+    { value: 'student', label: 'Student' },
+    { value: 'holiday', label: 'Holiday' },
+    { value: 'temporary_work', label: 'Temporary work' },
+    { value: 'business', label: 'Business' },
+    { value: 'storage', label: 'Storage' },
+  ];
+  const livingOptions = [
+    { value: 'individual', label: 'Individual' },
+    { value: 'couple', label: 'Couple' },
+    { value: 'family', label: 'Family' },
+    { value: 'student', label: 'Student' },
+    { value: 'group', label: 'Group' },
+    { value: 'corporate', label: 'Corporate' },
+  ];
+  const tenancyOptions = [
+    { value: 'sole_tenant', label: 'Sole tenant' },
+    { value: 'joint_tenants', label: 'Joint tenants' },
+    { value: 'subtenant', label: 'Subtenant' },
+    { value: 'leaseholder', label: 'Leaseholder' },
+    { value: 'lodger', label: 'Lodger' },
+  ];
+  const paymentOptions = [
+    { value: 'daily', label: 'Per day' },
+    { value: 'nightly', label: 'Per night' },
+    { value: 'weekly', label: 'Per week' },
+    { value: 'monthly', label: 'Per month' },
+    { value: 'advance', label: 'Several months in advance' },
+    { value: 'corporate_paid', label: 'Paid by company' },
+    { value: 'subsidised', label: 'Subsidised support' },
+  ];
+
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col bg-white">
+      <div className="sticky top-0 flex items-center justify-between border-b border-gray-100 bg-white px-4 py-4">
+        <div>
+          <h2 className="text-base font-bold text-gray-900">Rental matching preferences</h2>
+          <p className="mt-1 text-xs text-gray-500">Optional preferences to help tailor property discovery.</p>
+        </div>
+        <button type="button" onClick={onClose} aria-label="Close rental preferences" className="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+          <X className="h-5 w-5" />
+        </button>
+      </div>
+      <div className="flex-1 space-y-4 overflow-y-auto px-4 py-6">
+        <Select name="accommodation-type" label="Accommodation type" options={accommodationOptions} value={preferences.accommodation_type} onChange={(event) => updatePreference('accommodation_type', event.target.value as RentalPreferences['accommodation_type'])} />
+        <Select name="rental-duration" label="Rental duration" options={durationOptions} value={preferences.duration} onChange={(event) => updatePreference('duration', event.target.value as RentalPreferences['duration'])} />
+        <Select name="rental-purpose" label="Purpose" options={purposeOptions} value={preferences.purpose} onChange={(event) => updatePreference('purpose', event.target.value as RentalPreferences['purpose'])} />
+        <Select name="living-arrangement" label="Occupancy" options={livingOptions} value={preferences.living_arrangement} onChange={(event) => updatePreference('living_arrangement', event.target.value as RentalPreferences['living_arrangement'])} />
+        <Select name="tenancy-arrangement" label="Tenancy arrangement" options={tenancyOptions} value={preferences.tenancy_arrangement} onChange={(event) => updatePreference('tenancy_arrangement', event.target.value as RentalPreferences['tenancy_arrangement'])} />
+        <Select name="payment-frequency" label="Payment frequency" options={paymentOptions} value={preferences.payment_method} onChange={(event) => updatePreference('payment_method', event.target.value as RentalPreferences['payment_method'])} />
+        {error && <p role="alert" className="rounded-lg bg-error-50 p-3 text-sm text-error-700">{error}</p>}
+      </div>
+      <div className="flex justify-end gap-3 border-t border-gray-100 bg-white px-4 py-4">
+        <Button type="button" variant="secondary" onClick={onClose}>Cancel</Button>
+        <Button type="button" variant="primary" loading={saving} onClick={handleSave}>Save preferences</Button>
+      </div>
+    </div>
+  );
+}
+
+function MarketplacePreferencesModal({ profile, onClose, onSave }: {
+  profile: Profile;
+  onClose: () => void;
+  onSave: (updates: Partial<Profile>) => Promise<{ error: Error | null }>;
+}) {
+  const [preferences, setPreferences] = useState<MarketplacePreferences>(profile.marketplace_preferences ?? {
+    property_categories: [],
+    listing_intents: [],
+  });
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState('');
+
+  const togglePreference = <K extends keyof MarketplacePreferences>(key: K, value: MarketplacePreferences[K][number]) => {
+    setPreferences((current) => {
+      const selected = current[key] as Array<typeof value>;
+      const next = selected.includes(value) ? selected.filter((item) => item !== value) : [...selected, value];
+      return { ...current, [key]: next };
+    });
+  };
+
+  const handleSave = async () => {
+    setSaving(true);
+    setError('');
+    try {
+      const result = await onSave({ marketplace_preferences: preferences });
+      if (result.error) throw result.error;
+      onClose();
+    } catch (saveError) {
+      setError(saveError instanceof Error ? saveError.message : 'Unable to save preferences. Please try again.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const categories: Array<[PropertyCategory, string]> = [
+    ['land', 'Land'],
+    ['housing', 'Homes & rooms'],
+    ['commercial', 'Shops & commercial'],
+    ['storage', 'Storage & industrial'],
+  ];
+  const intents: Array<[MarketplaceListingIntent, string]> = [
+    ['sale', 'Buy'],
+    ['rent', 'Rent'],
+    ['lease', 'Lease'],
+    ['book', 'Book a stay'],
+  ];
+
+  return (
+    <div className="fixed inset-0 z-50 flex flex-col bg-white">
+      <div className="sticky top-0 flex items-center justify-between border-b border-gray-100 bg-white px-4 py-4">
+        <div>
+          <h2 className="text-base font-bold text-gray-900">Marketplace discovery preferences</h2>
+          <p className="mt-1 text-xs text-gray-500">Choose what you want to find. You can update these any time.</p>
+        </div>
+        <button type="button" onClick={onClose} aria-label="Close marketplace preferences" className="rounded-lg p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600">
+          <X className="h-5 w-5" />
+        </button>
+      </div>
+      <div className="flex-1 space-y-6 overflow-y-auto px-4 py-6">
+        <fieldset>
+          <legend className="mb-2 text-sm font-medium text-gray-700">Property categories</legend>
+          <div className="flex flex-wrap gap-2">
+            {categories.map(([value, label]) => {
+              const selected = preferences.property_categories.includes(value);
+              return (
+                <button key={value} type="button" aria-pressed={selected} onClick={() => togglePreference('property_categories', value)} className={cn('min-h-10 rounded-full border px-3 py-2 text-sm font-medium transition-colors', selected ? 'border-primary-600 bg-primary-50 text-primary-700' : 'border-gray-200 bg-white text-gray-600 hover:border-primary-300')}>
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend className="mb-2 text-sm font-medium text-gray-700">What are you looking to do?</legend>
+          <div className="flex flex-wrap gap-2">
+            {intents.map(([value, label]) => {
+              const selected = preferences.listing_intents.includes(value);
+              return (
+                <button key={value} type="button" aria-pressed={selected} onClick={() => togglePreference('listing_intents', value)} className={cn('min-h-10 rounded-full border px-3 py-2 text-sm font-medium transition-colors', selected ? 'border-primary-600 bg-primary-50 text-primary-700' : 'border-gray-200 bg-white text-gray-600 hover:border-primary-300')}>
+                  {label}
+                </button>
+              );
+            })}
+          </div>
+        </fieldset>
+        <p className="text-xs leading-5 text-gray-500">These choices help you quickly find matching listings. They do not limit access to other properties.</p>
+        {error && <p role="alert" className="rounded-lg bg-error-50 p-3 text-sm text-error-700">{error}</p>}
+      </div>
+      <div className="flex justify-end gap-3 border-t border-gray-100 bg-white px-4 py-4">
+        <Button type="button" variant="secondary" onClick={onClose}>Cancel</Button>
+        <Button type="button" variant="primary" loading={saving} onClick={handleSave}>Save preferences</Button>
+      </div>
+    </div>
+  );
+}
+
 /* ─── Change Password Modal ─── */
 function ChangePasswordModal({ onClose }: { onClose: () => void }) {
   const [form, setForm] = useState({ current: '', next: '', confirm: '' });
@@ -173,8 +378,15 @@ function DeleteConfirmModal({ onClose, onConfirm }: { onClose: () => void; onCon
 export function ProfilePage() {
   const navigate = useNavigate();
   const { user, profile, updateProfile, signOut, loading: authLoading } = useAuth();
-  const [modal, setModal] = useState<'edit' | 'password' | 'notifications' | 'delete' | null>(null);
-  const [darkMode, setDarkMode] = useState(false);
+  const [modal, setModal] = useState<'edit' | 'marketplace-preferences' | 'rental-preferences' | 'password' | 'notifications' | 'delete' | null>(null);
+  const [darkMode, setDarkMode] = useState(() => document.documentElement.classList.contains('dark'));
+
+  const toggleDarkMode = () => {
+    const nextDarkMode = !darkMode;
+    document.documentElement.classList.toggle('dark', nextDarkMode);
+    localStorage.setItem('ttakamarket-theme', nextDarkMode ? 'dark' : 'light');
+    setDarkMode(nextDarkMode);
+  };
 
   useEffect(() => {
     if (!authLoading && !user) navigate('/login');
@@ -194,6 +406,8 @@ export function ProfilePage() {
 
       {/* Modals */}
       {modal === 'edit' && <EditProfileModal profile={profile} onClose={() => setModal(null)} onSave={updateProfile} />}
+      {modal === 'marketplace-preferences' && <MarketplacePreferencesModal profile={profile} onClose={() => setModal(null)} onSave={updateProfile} />}
+      {modal === 'rental-preferences' && <RentalPreferencesModal profile={profile} onClose={() => setModal(null)} onSave={updateProfile} />}
       {modal === 'password' && <ChangePasswordModal onClose={() => setModal(null)} />}
       {modal === 'notifications' && <NotificationSettingsModal onClose={() => setModal(null)} />}
       {modal === 'delete' && <DeleteConfirmModal onClose={() => setModal(null)} onConfirm={handleLogout} />}
@@ -270,6 +484,29 @@ export function ProfilePage() {
         <SettingsRow Icon={BellIcon} label="Notification Settings" onClick={() => setModal('notifications')} />
       </SectionGroup>
 
+      {/* ── Property Search ── */}
+      <SectionGroup title="Property Search">
+        <SettingsRow
+          Icon={Search}
+          label="Marketplace discovery preferences"
+          desc={profile.marketplace_preferences
+            ? [
+                ...profile.marketplace_preferences.property_categories.map(getPropertyCategoryLabel),
+                ...profile.marketplace_preferences.listing_intents.map((intent) => intent === 'sale' ? 'Buy' : intent === 'book' ? 'Book a stay' : intent === 'rent' ? 'Rent' : 'Lease'),
+              ].join(' · ') || 'Choose categories and offer types to find matches faster'
+            : 'Choose categories and offer types to find matches faster'}
+          onClick={() => setModal('marketplace-preferences')}
+        />
+        <SettingsRow
+          Icon={Search}
+          label="Rental matching preferences"
+          desc={profile.rental_preferences
+            ? [profile.rental_preferences.accommodation_type, profile.rental_preferences.duration, profile.rental_preferences.purpose].map(getRentalLabel).join(' · ')
+            : 'Optional preferences for rental property discovery'}
+          onClick={() => setModal('rental-preferences')}
+        />
+      </SectionGroup>
+
       {/* ── Payments ── */}
       <SectionGroup title="Payments">
         <SettingsRow Icon={CreditCard} label="Payment Methods" desc="Manage your payment options" onClick={() => {}} />
@@ -290,11 +527,15 @@ export function ProfilePage() {
         <SettingsRow
           Icon={Moon}
           label="Dark Mode"
-          desc="Switch to dark theme"
-          onClick={() => setDarkMode(!darkMode)}
+          desc={darkMode ? 'Dark theme is on' : 'Switch to dark theme'}
+          onClick={toggleDarkMode}
           right={
             <button
-              onClick={e => { e.stopPropagation(); setDarkMode(!darkMode); }}
+              type="button"
+              role="switch"
+              aria-checked={darkMode}
+              aria-label="Dark mode"
+              onClick={e => { e.stopPropagation(); toggleDarkMode(); }}
               className={cn('w-11 h-6 rounded-full transition-colors relative flex-shrink-0', darkMode ? 'bg-accent-500' : 'bg-gray-200')}
             >
               <span className={cn('absolute top-0.5 h-5 w-5 bg-white rounded-full shadow transition-transform', darkMode ? 'translate-x-5' : 'translate-x-0.5')} />

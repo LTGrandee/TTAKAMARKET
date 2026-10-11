@@ -4,7 +4,7 @@ import { Mail, Lock, Eye, EyeOff, ArrowLeft, User, Phone, Building, Shield, Chec
 import { Button, Card, Input, Select, Textarea } from '../../components/ui';
 import { BrandLogo } from '../../components/BrandLogo';
 import { useAuth } from '../../context';
-import type { RentalPreferences } from '../../lib/types';
+import type { MarketplaceListingIntent, PropertyCategory } from '../../lib/types';
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -180,12 +180,19 @@ export function RegisterPage() {
   const { signUp } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [userType, setUserType] = useState<'buyer' | 'owner'>('buyer');
-  const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', password: '', confirmPassword: '', companyName: '', address: '', city: '', brandName: '', brandType: 'personal' as 'personal' | 'business', brandBio: '', allowChat: false, requestSellerPage: false, rentalAccommodation: 'residential', rentalDuration: 'long_term', rentalPurpose: 'living', rentalLiving: 'individual', rentalTenancy: 'sole_tenant', rentalPayment: 'monthly' });
+  const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', password: '', confirmPassword: '', companyName: '', address: '', city: '', brandName: '', brandType: 'personal' as 'personal' | 'business', brandBio: '', allowChat: false, requestSellerPage: false, propertyCategories: [] as PropertyCategory[], listingIntents: [] as MarketplaceListingIntent[] });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const updateForm = (field: string, value: string | boolean) => setFormData((prev) => ({ ...prev, [field]: value }));
+  const toggleMarketplacePreference = (field: 'propertyCategories' | 'listingIntents', value: PropertyCategory | MarketplaceListingIntent) => {
+    setFormData((prev) => {
+      const selected = prev[field] as (PropertyCategory | MarketplaceListingIntent)[];
+      const next = selected.includes(value) ? selected.filter((item) => item !== value) : [...selected, value];
+      return { ...prev, [field]: next };
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -201,16 +208,12 @@ export function RegisterPage() {
         seller_brand_type: formData.brandType,
         seller_brand_bio: formData.brandBio,
         seller_chat_enabled: formData.allowChat,
-        } : {
-          rental_preferences: {
-            accommodation_type: formData.rentalAccommodation,
-            duration: formData.rentalDuration,
-            purpose: formData.rentalPurpose,
-            living_arrangement: formData.rentalLiving,
-            tenancy_arrangement: formData.rentalTenancy,
-            payment_method: formData.rentalPayment,
-          } as RentalPreferences,
-        }),
+        } : (formData.propertyCategories.length > 0 || formData.listingIntents.length > 0) ? {
+          marketplace_preferences: {
+            property_categories: formData.propertyCategories,
+            listing_intents: formData.listingIntents,
+          },
+        } : {}),
       });
       if (error) throw error;
       navigate('/dashboard?welcome=true');
@@ -267,15 +270,46 @@ export function RegisterPage() {
                   )}
                   {userType === 'buyer' && (
                     <div className="mt-5 space-y-4 border-t border-gray-100 pt-5">
-                      <div><h3 className="text-base font-semibold text-gray-900">Rental preferences (optional)</h3><p className="text-xs text-gray-500 mt-1">These help TtakaMarket match you with suitable rental properties.</p></div>
-                      <div className="grid grid-cols-2 gap-3">
-                        <Select label="Accommodation" options={[{ value: 'residential', label: 'House / apartment' }, { value: 'room', label: 'Room / shared home' }, { value: 'commercial', label: 'Shop / office' }, { value: 'holiday_short_stay', label: 'Holiday / short stay' }, { value: 'storage_industrial', label: 'Storage / industrial' }]} value={formData.rentalAccommodation} onChange={(e) => updateForm('rentalAccommodation', e.target.value)} />
-                        <Select label="Duration" options={[{ value: 'short_term', label: 'Days / weeks' }, { value: 'medium_term', label: 'Weeks / months' }, { value: 'long_term', label: 'Year or longer' }, { value: 'periodic', label: 'Weekly / monthly periodic' }]} value={formData.rentalDuration} onChange={(e) => updateForm('rentalDuration', e.target.value)} />
-                        <Select label="Purpose" options={[{ value: 'living', label: 'Living' }, { value: 'student', label: 'Student' }, { value: 'holiday', label: 'Holiday' }, { value: 'temporary_work', label: 'Temporary work' }, { value: 'business', label: 'Business' }, { value: 'storage', label: 'Storage' }]} value={formData.rentalPurpose} onChange={(e) => updateForm('rentalPurpose', e.target.value)} />
-                        <Select label="Living arrangement" options={[{ value: 'individual', label: 'Individual' }, { value: 'couple', label: 'Couple' }, { value: 'family', label: 'Family' }, { value: 'student', label: 'Student' }, { value: 'group', label: 'Group' }, { value: 'corporate', label: 'Corporate' }]} value={formData.rentalLiving} onChange={(e) => updateForm('rentalLiving', e.target.value)} />
-                        <Select label="Tenancy" options={[{ value: 'sole_tenant', label: 'Sole tenant' }, { value: 'joint_tenants', label: 'Joint tenants' }, { value: 'subtenant', label: 'Subtenant' }, { value: 'leaseholder', label: 'Leaseholder' }, { value: 'lodger', label: 'Lodger' }]} value={formData.rentalTenancy} onChange={(e) => updateForm('rentalTenancy', e.target.value)} />
-                        <Select label="Payment" options={[{ value: 'daily', label: 'Per day' }, { value: 'nightly', label: 'Per night' }, { value: 'weekly', label: 'Per week' }, { value: 'monthly', label: 'Per month' }, { value: 'advance', label: 'Several months in advance' }, { value: 'corporate_paid', label: 'Paid by company' }, { value: 'subsidised', label: 'Subsidised support' }]} value={formData.rentalPayment} onChange={(e) => updateForm('rentalPayment', e.target.value)} />
+                      <div>
+                        <h3 className="text-base font-semibold text-gray-900">What are you interested in? <span className="font-normal text-gray-500">(optional)</span></h3>
+                        <p className="mt-1 text-xs leading-5 text-gray-500">Choose any categories and offer types. Your account can be used to explore everything on TtakaMarket; these choices only personalize discovery.</p>
                       </div>
+                      <fieldset>
+                        <legend className="mb-2 text-sm font-medium text-gray-700">Property categories</legend>
+                        <div className="flex flex-wrap gap-2">
+                          {([
+                            ['land', 'Land'],
+                            ['housing', 'Homes & rooms'],
+                            ['commercial', 'Shops & commercial'],
+                            ['storage', 'Storage & industrial'],
+                          ] as const).map(([value, label]) => {
+                            const selected = formData.propertyCategories.includes(value);
+                            return (
+                              <button key={value} type="button" aria-pressed={selected} onClick={() => toggleMarketplacePreference('propertyCategories', value)} className={`min-h-10 rounded-full border px-3 py-2 text-sm font-medium transition-colors ${selected ? 'border-primary-600 bg-primary-50 text-primary-700' : 'border-gray-200 bg-white text-gray-600 hover:border-primary-300'}`}>
+                                {label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </fieldset>
+                      <fieldset>
+                        <legend className="mb-2 text-sm font-medium text-gray-700">Offer types</legend>
+                        <div className="flex flex-wrap gap-2">
+                          {([
+                            ['sale', 'Buy'],
+                            ['rent', 'Rent'],
+                            ['lease', 'Lease'],
+                            ['book', 'Book a stay'],
+                          ] as const).map(([value, label]) => {
+                            const selected = formData.listingIntents.includes(value);
+                            return (
+                              <button key={value} type="button" aria-pressed={selected} onClick={() => toggleMarketplacePreference('listingIntents', value)} className={`min-h-10 rounded-full border px-3 py-2 text-sm font-medium transition-colors ${selected ? 'border-primary-600 bg-primary-50 text-primary-700' : 'border-gray-200 bg-white text-gray-600 hover:border-primary-300'}`}>
+                                {label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </fieldset>
                     </div>
                   )}
                 </div>

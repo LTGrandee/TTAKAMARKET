@@ -79,6 +79,7 @@
 }
 
 html { scroll-behavior: smooth; overflow-x: clip; }
+html.dark { color-scheme: dark; }
 body {
   min-width: 320px;
   overflow-x: clip;
@@ -111,6 +112,58 @@ img { max-width: 100%; }
 .text-charcoal { color: var(--color-charcoal); }
 .bg-charcoal { background-color: var(--color-charcoal); }
 .border-charcoal { border-color: var(--color-charcoal); }
+
+/* Keep high-contrast text on accent-colored controls in the light theme. */
+.bg-accent-500 { background-color: #a54200; }
+.bg-accent-600 { background-color: #903c00; }
+.text-accent-400,
+.text-accent-500,
+.text-accent-600 { color: #a54200; }
+.text-gray-300,
+.text-gray-400 { color: #4b5563; }
+
+html.dark body { color: #f3f4f6; background: #111827; }
+html.dark [class~="bg-white"] { background-color: #1f2937; }
+html.dark [class~="bg-white/95"] { background-color: rgb(31 41 55 / 95%); }
+html.dark [class~="bg-white/90"] { background-color: rgb(31 41 55 / 90%); }
+html.dark [class~="bg-white/80"] { background-color: rgb(31 41 55 / 80%); }
+html.dark [class~="bg-white/50"] { background-color: rgb(31 41 55 / 50%); }
+html.dark [class~="bg-gray-50"] { background-color: #111827; }
+html.dark [class~="bg-gray-100"] { background-color: #374151; }
+html.dark [class~="bg-gray-200"] { background-color: #4b5563; }
+html.dark [class~="bg-primary-50"],
+html.dark [class~="bg-primary-100"] { background-color: #1e3a5f; }
+html.dark [class~="bg-primary-200"] { background-color: #234873; }
+html.dark [class~="bg-accent-50"],
+html.dark [class~="bg-accent-100"] { background-color: #4a2c17; }
+html.dark [class~="bg-success-50"],
+html.dark [class~="bg-success-100"] { background-color: #123b27; }
+html.dark [class~="bg-warning-50"],
+html.dark [class~="bg-warning-100"] { background-color: #473816; }
+html.dark [class~="bg-error-50"],
+html.dark [class~="bg-error-100"] { background-color: #4b2026; }
+html.dark [class~="text-gray-900"] { color: #f9fafb; }
+html.dark [class~="text-gray-800"] { color: #f3f4f6; }
+html.dark [class~="text-gray-700"] { color: #e5e7eb; }
+html.dark [class~="text-gray-600"] { color: #d1d5db; }
+html.dark [class~="text-gray-500"] { color: #9ca3af; }
+html.dark [class~="text-gray-300"],
+html.dark [class~="text-gray-400"] { color: #cbd5e1; }
+html.dark [class*="text-primary-"] { color: #bfdbfe; }
+html.dark [class*="text-accent-"] { color: #fdba74; }
+html.dark [class*="text-success-"] { color: #86efac; }
+html.dark [class*="text-warning-"] { color: #fde68a; }
+html.dark [class*="text-error-"] { color: #fca5a5; }
+html.dark [class~="border-gray-50"],
+html.dark [class~="border-gray-100"],
+html.dark [class~="border-gray-200"],
+html.dark [class~="border-gray-200/80"] { border-color: #374151; }
+html.dark [class~="border-gray-300"] { border-color: #4b5563; }
+html.dark input,
+html.dark select,
+html.dark textarea { color: #f3f4f6; }
+html.dark input::placeholder,
+html.dark textarea::placeholder { color: #9ca3af; }
 
 .animate-fade-in { animation: fadeIn 0.5s ease-in-out; }
 .animate-slide-up { animation: slideUp 0.5s ease-out; }

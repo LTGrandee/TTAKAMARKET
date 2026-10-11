@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CheckCircle, Clock, FileText, MapPin, MessageSquare, Search, Shield } from 'lucide-react';
 import { Badge, Button, Card, Loading } from '../../components/ui';
 import { useAuth } from '../../context';
-import { getRentalLabel } from '../../lib/utils';
+import { getPropertyCategoryLabel } from '../../lib/utils';
 
 const reviewSteps = [
   { title: 'Submit property details', description: 'Share the property information and supporting documents for review.', Icon: FileText },
@@ -126,15 +126,27 @@ export function DashboardPage() {
               <p className="mt-1 text-sm text-gray-500">Manage conversations with property owners and authorised representatives.</p>
               <Link to="/messages"><Button variant="outline" size="sm" className="mt-4">Open Messages</Button></Link>
             </Card>
-            {profile.rental_preferences && (
-              <Card className="p-6 md:col-span-2">
-                <h2 className="font-semibold text-gray-900">Your rental matching profile</h2>
-                <p className="mt-1 text-sm text-gray-500">Your preferences help tailor property recommendations to your needs.</p>
-                <div className="flex flex-wrap gap-2 mt-4">
-                  {[profile.rental_preferences.accommodation_type, profile.rental_preferences.duration, profile.rental_preferences.purpose, profile.rental_preferences.living_arrangement, profile.rental_preferences.tenancy_arrangement, profile.rental_preferences.payment_method].map((value) => <Badge key={value} variant="secondary">{getRentalLabel(value)}</Badge>)}
-                </div>
-              </Card>
-            )}
+            <Card className="p-6 md:col-span-2">
+              <h2 className="font-semibold text-gray-900">Your marketplace interests</h2>
+              <p className="mt-1 text-sm text-gray-500">Set categories and offer types to find relevant listings faster. Your preferences never limit what you can browse.</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {profile.marketplace_preferences?.property_categories.map((category) => (
+                  <Badge key={category} variant="secondary">{getPropertyCategoryLabel(category)}</Badge>
+                ))}
+                {profile.marketplace_preferences?.listing_intents.map((intent) => (
+                  <Badge key={intent} variant="primary">{intent === 'sale' ? 'Buy' : intent === 'book' ? 'Book a stay' : intent === 'rent' ? 'Rent' : 'Lease'}</Badge>
+                ))}
+                {!profile.marketplace_preferences?.property_categories.length && !profile.marketplace_preferences?.listing_intents.length && (
+                  <span className="text-sm text-gray-400">No preferences selected yet</span>
+                )}
+              </div>
+              <div className="mt-4 flex flex-wrap gap-3">
+                {profile.marketplace_preferences && (profile.marketplace_preferences.property_categories.length > 0 || profile.marketplace_preferences.listing_intents.length > 0) && (
+                  <Link to="/properties?matches=true"><Button variant="primary" size="sm">See matching properties</Button></Link>
+                )}
+                <Link to="/profile"><Button variant="outline" size="sm">Update preferences</Button></Link>
+              </div>
+            </Card>
           </div>
         )}
       </div>

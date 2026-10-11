@@ -16,6 +16,7 @@ export type Profile = {
   seller_brand_type?: 'personal' | 'business';
   seller_brand_bio?: string;
   seller_chat_enabled?: boolean;
+  marketplace_preferences?: MarketplacePreferences;
   rental_preferences?: RentalPreferences;
   address?: string;
   city?: string;
@@ -95,6 +96,11 @@ export type Property = {
 };
 
 export type PropertyCategory = 'land' | 'housing' | 'commercial' | 'storage';
+export type MarketplaceListingIntent = 'sale' | 'rent' | 'lease' | 'book';
+export type MarketplacePreferences = {
+  property_categories: PropertyCategory[];
+  listing_intents: MarketplaceListingIntent[];
+};
 
 export type PropertyImage = {
   id: string;
