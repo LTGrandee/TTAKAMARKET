@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, ArrowLeft, User, Phone, Building, Shield, CheckCircle } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, User, Phone, Building, Shield, CheckCircle, KeyRound } from 'lucide-react';
 import { Button, Card, Input, Select, Textarea } from '../../components/ui';
 import { BrandLogo } from '../../components/BrandLogo';
 import { useAuth } from '../../context';
@@ -50,6 +50,11 @@ export function LoginPage() {
               {error && <div className="p-3 bg-error-50 border border-error-200 rounded-lg text-sm text-error-700">{error}</div>}
               <Input label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} leftIcon={<Mail className="h-5 w-5" />} required />
               <Input label="Password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} leftIcon={<Lock className="h-5 w-5" />} rightIcon={<button type="button" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>} required />
+              <div className="flex justify-end">
+                <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:text-primary-700">
+                  Forgot password?
+                </Link>
+              </div>
               <div className="flex items-center justify-between"><label className="flex items-center gap-2"><input type="checkbox" className="rounded border-gray-300" /><span className="text-sm text-gray-600">Remember me</span></label></div>
               <Button type="submit" variant="primary" className="w-full" loading={loading}>Sign In</Button>
             </form>
@@ -58,21 +63,104 @@ export function LoginPage() {
         </div>
       </div>
       <div className="hidden lg:block relative flex-1 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900">
-        <div className="relative h-full flex flex-col items-center justify-center px-20 text-white">
-          <BrandLogo className="mb-8 h-24 w-72 rounded-2xl" />
-          <h2 className="text-3xl font-bold mb-4 text-center">Uganda's Trusted Property Marketplace (Real-Estate &amp; Accommodation)</h2>
-          <p className="text-lg text-primary-100 text-center max-w-md">TtakaMarket is building a more transparent property market by clarifying ownership, representative authority, offer details and contact routes.</p>
-          <div className="mt-8 grid grid-cols-2 gap-6 text-center">
-            <div className="space-y-1">
-              <div className="text-lg font-bold sm:text-xl">Land · Homes</div>
-              <div className="text-lg font-bold sm:text-xl">And short stays</div>
-            </div>
-            <div className="space-y-1">
-              <div className="text-lg font-bold sm:text-xl">Buy · Rent</div>
-              <div className="text-lg font-bold sm:text-xl">Lease · Book</div>
+        <div className="relative flex h-full items-center justify-center px-8 py-12 text-white xl:px-20">
+          <div className="w-full max-w-lg rounded-3xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-sm xl:p-10">
+            <BrandLogo className="mx-auto mb-8 h-20 w-64 rounded-lg" />
+            <h2 className="text-center text-3xl font-bold leading-tight">
+              Uganda&apos;s Trusted Property Marketplace (Real-Estate &amp; Accommodation)
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-center text-base leading-7 text-primary-100">
+              TtakaMarket is building a more transparent property market by clarifying ownership, representative authority, offer details and contact routes.
+            </p>
+            <div className="mt-8 space-y-5 rounded-2xl border border-white/15 bg-primary-950/20 p-5">
+              <section>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-200">Explore</h3>
+                <ul className="mt-2 space-y-2 text-base font-medium">
+                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Land</li>
+                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Homes</li>
+                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Short stays</li>
+                </ul>
+              </section>
+              <section className="border-t border-white/15 pt-4">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-200">Find your next opportunity</h3>
+                <ul className="mt-2 space-y-2 text-base font-medium">
+                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Buy</li>
+                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Rent</li>
+                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Lease</li>
+                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book a stay</li>
+                </ul>
+              </section>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+export function ForgotPasswordPage() {
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">
+      <div className="w-full max-w-md">
+        <Link to="/login" className="mb-8 inline-flex min-h-11 items-center gap-2 text-sm text-gray-500 hover:text-gray-700">
+          <ArrowLeft className="h-4 w-4" />
+          Back to sign in
+        </Link>
+        <div className="mb-6">
+          <Link to="/" aria-label="TtakaMarket home" className="mb-6 inline-flex rounded-lg bg-white">
+            <BrandLogo className="h-14 w-40 rounded-lg" />
+          </Link>
+          <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary-100 text-primary-700">
+            <KeyRound className="h-6 w-6" />
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900">Forgot your password?</h1>
+          <p className="mt-2 text-sm leading-6 text-gray-600">
+            Enter the email address for your account to see password recovery options.
+          </p>
+        </div>
+        <Card className="p-6">
+          {submitted ? (
+            <div role="status" className="space-y-4">
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-6 text-amber-900">
+                Password recovery is not connected yet, so no reset email has been sent. Please contact our team through the Help Centre for assistance.
+              </div>
+              <Link to="/help#contact" className="inline-flex min-h-11 w-full items-center justify-center rounded-xl bg-primary-700 px-4 text-sm font-semibold text-white hover:bg-primary-800">
+                Contact TtakaMarket support
+              </Link>
+              <button type="button" onClick={() => setSubmitted(false)} className="min-h-11 w-full text-sm font-medium text-primary-700 hover:text-primary-800">
+                Try another email address
+              </button>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <Input
+                id="recovery-email"
+                label="Email address"
+                type="email"
+                autoComplete="email"
+                placeholder="you@example.com"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                leftIcon={<Mail className="h-5 w-5" />}
+                required
+              />
+              <Button type="submit" variant="primary" className="w-full">
+                Continue
+              </Button>
+            </form>
+          )}
+        </Card>
+        <p className="mt-6 text-center text-sm text-gray-500">
+          Remembered your password? <Link to="/login" className="font-medium text-primary-600 hover:text-primary-700">Sign in</Link>
+        </p>
       </div>
     </div>
   );

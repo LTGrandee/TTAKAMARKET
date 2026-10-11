@@ -8,7 +8,7 @@ export function BrandLogo({ className = '' }: BrandLogoProps) {
       <img
         src="/logo_3.jpeg"
         alt="TtakaMarket"
-        className="absolute left-[-4%] top-[-12%] h-auto w-[108%] max-w-none"
+        className="absolute left-[-4%] top-[-12%] h-auto w-[108%] max-w-none rounded-lg"
       />
     </span>
   );
