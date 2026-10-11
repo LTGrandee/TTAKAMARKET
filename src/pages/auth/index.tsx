@@ -32,12 +32,12 @@ export function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="flex min-h-screen flex-col bg-white lg:flex-row">
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-20 py-12">
         <div className="w-full max-w-md">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-8"><ArrowLeft className="h-4 w-4" />Back to Home</Link>
           <div className="mb-8">
-            <Link to="/" aria-label="TtakaMarket home" className="mb-6 inline-flex rounded-lg bg-white"><BrandLogo className="h-14 w-40 rounded-lg" /></Link>
+            <Link to="/" aria-label="TtakaMarket home" className="mb-6 inline-flex rounded-2xl bg-white"><BrandLogo className="h-14 w-40 rounded-2xl" /></Link>
             <h1 className="text-3xl font-bold text-gray-900">Welcome back</h1>
             <p className="mt-2 text-gray-600">Sign in to continue your property search</p>
           </div>
@@ -62,23 +62,32 @@ export function LoginPage() {
           </Card>
         </div>
       </div>
-      <div className="hidden lg:block relative flex-1 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900">
-        <div className="relative flex h-full items-center justify-center px-8 py-12 text-white xl:px-20">
-          <div className="w-full max-w-lg rounded-3xl border border-white/20 bg-white/10 p-8 shadow-2xl backdrop-blur-sm xl:p-10">
-            <BrandLogo className="mx-auto mb-8 h-20 w-64 rounded-lg" />
+      <div className="relative w-full bg-white px-4 pb-10 lg:flex-1 lg:px-0 lg:pb-0">
+        <div className="flex items-center justify-center py-4 text-white lg:h-full lg:px-8 lg:py-12 xl:px-20">
+          <div className="w-full max-w-lg rounded-3xl bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 p-6 shadow-2xl sm:p-8 xl:p-10">
+            <BrandLogo className="mx-auto mb-8 h-20 w-64 rounded-2xl bg-white" />
             <h2 className="text-center text-3xl font-bold leading-tight">
               Uganda&apos;s Trusted Property Marketplace (Real-Estate &amp; Accommodation)
             </h2>
             <p className="mx-auto mt-4 max-w-md text-center text-base leading-7 text-primary-100">
-              TtakaMarket is building a more transparent property market by clarifying ownership, representative authority, offer details and contact routes.
+              Administrator document review and property verification help reduce fraud and support a more transparent property experience.
             </p>
             <div className="mt-8 space-y-5 rounded-2xl border border-white/15 bg-primary-950/20 p-5">
               <section>
                 <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-200">Explore</h3>
                 <ul className="mt-2 space-y-2 text-base font-medium">
-                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Land</li>
-                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Homes</li>
-                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Short stays</li>
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Land for homes, business or agriculture</li>
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Houses, apartments, rooms and shared homes</li>
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Arcade and mall shops, offices and commercial property</li>
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Warehouses, storage and industrial spaces</li>
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Hotels, lodges and short stays</li>
+                </ul>
+              </section>
+              <section className="border-t border-white/15 pt-4">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-200">Managed review</h3>
+                <ul className="mt-2 space-y-2 text-base font-medium">
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Administrator review of submitted documents</li>
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Property and representative details checked before managed publication</li>
                 </ul>
               </section>
               <section className="border-t border-white/15 pt-4">
@@ -213,7 +222,7 @@ export function RegisterPage() {
   const steps = [{ id: 1, title: 'Account Type' }, { id: 2, title: 'Personal Info' }, { id: 3, title: 'Location & Consent' }];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="flex min-h-screen flex-col bg-gray-50 lg:flex-row">
       <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-20 py-12 overflow-y-auto">
         <div className="w-full max-w-md">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-8"><ArrowLeft className="h-4 w-4" />Back to Home</Link>
@@ -313,13 +322,15 @@ export function RegisterPage() {
           </Card>
         </div>
       </div>
-      <div className="hidden lg:block relative flex-1 bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900">
-        <div className="relative h-full flex flex-col justify-center px-20 text-white">
-          <h2 className="text-3xl font-bold mb-6">A managed property marketplace</h2>
-          <div className="space-y-6">
-            <div className="flex items-start gap-4"><div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><Shield className="h-5 w-5" /></div><div><h3 className="font-semibold mb-1">Administrator review</h3><p className="text-sm text-primary-100">Review property details and representative documents</p></div></div>
-            <div className="flex items-start gap-4"><div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><CheckCircle className="h-5 w-5" /></div><div><h3 className="font-semibold mb-1">Managed publication</h3><p className="text-sm text-primary-100">TtakaMarket controls approval and publication of submitted properties</p></div></div>
-            <div className="flex items-start gap-4"><div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center flex-shrink-0"><Lock className="h-5 w-5" /></div><div><h3 className="font-semibold mb-1">Clear contact arrangements</h3><p className="text-sm text-primary-100">Enquiries can be routed to an owner, lawful representative or TtakaMarket</p></div></div>
+      <div className="relative w-full bg-white px-4 pb-10 lg:flex-1 lg:px-0 lg:pb-0">
+        <div className="flex items-center justify-center py-4 text-white lg:h-full lg:px-8 lg:py-12 xl:px-20">
+          <div className="w-full max-w-lg rounded-3xl bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 p-6 shadow-2xl sm:p-8 xl:p-10">
+            <h2 className="mb-6 text-2xl font-bold sm:text-3xl">A managed property marketplace</h2>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><Shield className="h-5 w-5" /></div><div><h3 className="mb-1 font-semibold">Administrator review</h3><p className="text-sm text-primary-100">Review property details and representative documents</p></div></div>
+              <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><CheckCircle className="h-5 w-5" /></div><div><h3 className="mb-1 font-semibold">Managed publication</h3><p className="text-sm text-primary-100">TtakaMarket controls approval and publication of submitted properties</p></div></div>
+              <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><Lock className="h-5 w-5" /></div><div><h3 className="mb-1 font-semibold">Clear contact arrangements</h3><p className="text-sm text-primary-100">Enquiries can be routed to an owner, authorised representative or TtakaMarket</p></div></div>
+            </div>
           </div>
         </div>
       </div>
