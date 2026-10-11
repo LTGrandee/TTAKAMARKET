@@ -113,14 +113,10 @@ img { max-width: 100%; }
 .bg-charcoal { background-color: var(--color-charcoal); }
 .border-charcoal { border-color: var(--color-charcoal); }
 
-/* Keep high-contrast text on accent-colored controls in the light theme. */
-.bg-accent-500 { background-color: #a54200; }
-.bg-accent-600 { background-color: #903c00; }
-.text-accent-400,
-.text-accent-500,
-.text-accent-600 { color: #a54200; }
 .text-gray-300,
 .text-gray-400 { color: #4b5563; }
+html:not(.dark) [class~="bg-accent-500"][class~="text-white"],
+html:not(.dark) [class~="bg-accent-600"][class~="text-white"] { color: #222222; }
 
 html.dark body { color: #f3f4f6; background: #111827; }
 html.dark [class~="bg-white"] { background-color: #1f2937; }
@@ -142,6 +138,7 @@ html.dark [class~="bg-warning-50"],
 html.dark [class~="bg-warning-100"] { background-color: #473816; }
 html.dark [class~="bg-error-50"],
 html.dark [class~="bg-error-100"] { background-color: #4b2026; }
+html.dark [class*="bg-accent-"][class~="text-white"] { color: #222222; }
 html.dark [class~="text-gray-900"] { color: #f9fafb; }
 html.dark [class~="text-gray-800"] { color: #f3f4f6; }
 html.dark [class~="text-gray-700"] { color: #e5e7eb; }

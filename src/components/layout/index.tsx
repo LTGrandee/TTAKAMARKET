@@ -44,74 +44,77 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
   return (
     <>
       {open && (
-        <button aria-label="Close menu" className="fixed inset-0 z-40 cursor-default bg-black/40 backdrop-blur-[2px]" onClick={onClose} />
+        <>
+          <button
+            type="button"
+            aria-label="Close menu"
+            className="fixed inset-0 z-40 cursor-default bg-black/40 backdrop-blur-[2px]"
+            onClick={onClose}
+          />
+          <aside
+            role="dialog"
+            aria-modal="true"
+            aria-label="Account and navigation menu"
+            className="fixed inset-y-0 right-0 z-50 flex w-[min(88vw,22rem)] flex-col bg-white shadow-2xl"
+          >
+            <div className="flex items-center justify-between border-b border-gray-100 bg-primary-700 px-5 py-5">
+              <div className="rounded-lg bg-white">
+                <BrandLogo className="h-12 w-32 rounded-lg sm:w-36" />
+              </div>
+              <button onClick={onClose} aria-label="Close menu" className="rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white">
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            {user && profile && (
+              <div className="flex items-center gap-3 border-b border-gray-100 bg-gray-50 px-5 py-4">
+                <Avatar src={profile.avatar_url} name={profile.full_name} size="md" />
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-gray-900 truncate">{profile.full_name}</p>
+                  <p className="text-xs text-gray-500 truncate">{profile.email}</p>
+                </div>
+                {profile.is_verified && <Shield className="h-4 w-4 flex-shrink-0 text-accent-500" />}
+              </div>
+            )}
+
+            <nav className="flex-1 overflow-y-auto px-3 py-4">
+              <div className="hidden md:block lg:hidden">
+                <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Navigation</p>
+                <div className="space-y-1">{navigationLinks.map(renderLink)}</div>
+              </div>
+              <div className="mb-4">
+                <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Submit a listing</p>
+                <div className="space-y-1">{submissionLinks.map(renderLink)}</div>
+              </div>
+              <div className="mb-4">
+                <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Discover</p>
+                <div className="space-y-1">{usefulLinks.map(renderLink)}</div>
+              </div>
+              <div className="mb-4 border-t border-gray-100 pt-4">
+                <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Preferences</p>
+                <div className="space-y-1 px-3">
+                  <div className="flex min-h-11 items-center gap-3 text-sm text-gray-700" title="Interface language">
+                    <Globe2 className="h-5 w-5 text-gray-400" />
+                    <span className="flex-1">Language</span>
+                    <span className="text-xs font-medium text-gray-500">English</span>
+                  </div>
+                  <div className="flex min-h-11 items-center gap-3 text-sm text-gray-700" title="Prices are shown in each listing's stated currency; no currency conversion is applied">
+                    <Coins className="h-5 w-5 text-gray-400" />
+                    <span className="flex-1">Currency</span>
+                    <span className="text-right text-xs font-medium text-gray-500">As listed</span>
+                  </div>
+                </div>
+                <p className="px-3 pt-1 text-xs leading-5 text-gray-500">Interface language: English. Prices are displayed in the listed currency.</p>
+              </div>
+              {accountLinks.length > 0 && <div className="mt-1 border-t border-gray-100 pt-4 md:mt-4">
+                <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Account</p>
+                <div className="space-y-1">{accountLinks.map(renderLink)}</div>
+              </div>}
+            </nav>
+            <div className="border-t border-gray-100 px-5 py-4 md:hidden"><p className="text-center text-xs text-gray-400">&copy; {new Date().getFullYear()} TtakaMarket · Uganda</p></div>
+          </aside>
+        </>
       )}
-      <div
-        role="dialog"
-        aria-modal="true"
-        aria-label="Account and navigation menu"
-        aria-hidden={!open}
-        className={cn(
-          'fixed inset-y-0 right-0 z-50 flex w-[min(88vw,22rem)] flex-col bg-white shadow-2xl transition-transform duration-300 ease-in-out',
-          open ? 'translate-x-0' : 'pointer-events-none translate-x-full'
-        )}
-      >
-        <div className="flex items-center justify-between border-b border-gray-100 bg-primary-700 px-5 py-5">
-          <div className="rounded-lg bg-white">
-            <BrandLogo className="h-12 w-32 rounded-lg sm:w-36" />
-          </div>
-          <button onClick={onClose} aria-label="Close menu" className="rounded-lg p-2 text-white/80 transition-colors hover:bg-white/10 hover:text-white">
-            <X className="h-5 w-5" />
-          </button>
-        </div>
-
-        {user && profile && (
-          <div className="flex items-center gap-3 border-b border-gray-100 bg-gray-50 px-5 py-4">
-            <Avatar src={profile.avatar_url} name={profile.full_name} size="md" />
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-gray-900 truncate">{profile.full_name}</p>
-              <p className="text-xs text-gray-500 truncate">{profile.email}</p>
-            </div>
-            {profile.is_verified && <Shield className="h-4 w-4 flex-shrink-0 text-accent-500" />}
-          </div>
-        )}
-
-        <nav className="flex-1 overflow-y-auto px-3 py-4">
-          <div className="hidden md:block lg:hidden">
-            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Navigation</p>
-            <div className="space-y-1">{navigationLinks.map(renderLink)}</div>
-          </div>
-          <div className="mb-4">
-            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Submit a listing</p>
-            <div className="space-y-1">{submissionLinks.map(renderLink)}</div>
-          </div>
-          <div className="mb-4">
-            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Discover</p>
-            <div className="space-y-1">{usefulLinks.map(renderLink)}</div>
-          </div>
-          <div className="mb-4 border-t border-gray-100 pt-4">
-            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Preferences</p>
-            <div className="space-y-1 px-3">
-              <div className="flex min-h-11 items-center gap-3 text-sm text-gray-700" title="Interface language">
-                <Globe2 className="h-5 w-5 text-gray-400" />
-                <span className="flex-1">Language</span>
-                <span className="text-xs font-medium text-gray-500">English</span>
-              </div>
-              <div className="flex min-h-11 items-center gap-3 text-sm text-gray-700" title="Prices are shown in each listing's stated currency; no currency conversion is applied">
-                <Coins className="h-5 w-5 text-gray-400" />
-                <span className="flex-1">Currency</span>
-                <span className="text-right text-xs font-medium text-gray-500">As listed</span>
-              </div>
-            </div>
-            <p className="px-3 pt-1 text-xs leading-5 text-gray-500">Interface language: English. Prices are displayed in the listed currency.</p>
-          </div>
-          {accountLinks.length > 0 && <div className="mt-1 border-t border-gray-100 pt-4 md:mt-4">
-            <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Account</p>
-            <div className="space-y-1">{accountLinks.map(renderLink)}</div>
-          </div>}
-        </nav>
-        <div className="border-t border-gray-100 px-5 py-4 md:hidden"><p className="text-center text-xs text-gray-400">&copy; {new Date().getFullYear()} TtakaMarket · Uganda</p></div>
-      </div>
     </>
   );
 }

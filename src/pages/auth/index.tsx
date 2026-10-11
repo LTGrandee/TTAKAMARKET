@@ -32,71 +32,71 @@ export function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-white lg:flex-row">
-      <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-20 py-12">
-        <div className="w-full max-w-md">
-          <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-8"><ArrowLeft className="h-4 w-4" />Back to Home</Link>
-          <div className="mb-8">
-            <Link to="/" aria-label="TtakaMarket home" className="mb-6 inline-flex rounded-2xl bg-white"><BrandLogo className="h-14 w-40 rounded-2xl" /></Link>
-            <h1 className="text-3xl font-bold text-gray-900">Welcome back</h1>
-            <p className="mt-2 text-gray-600">Sign in to continue your property search</p>
-          </div>
-          <Card className="p-6">
-            <div className="flex gap-4 mb-6">
-              <button onClick={() => setUserType('buyer')} className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${userType === 'buyer' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Buyer or renter</button>
-              <button onClick={() => setUserType('owner')} className={`flex-1 py-3 px-4 rounded-lg font-medium transition-all ${userType === 'owner' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Registered Owner/Legal Representative</button>
+    <div className="min-h-screen bg-white md:grid md:grid-cols-2 md:items-stretch md:gap-4 md:p-4 lg:gap-6 lg:p-6">
+      <div className="flex items-center justify-center px-4 py-8 sm:px-6 md:min-w-0 md:p-0">
+        <div className="w-full max-w-lg md:h-full">
+          <Card className="flex flex-col justify-center p-5 sm:p-6 md:h-full md:p-8">
+            <Link to="/" className="mb-3 inline-flex items-center gap-2 text-gray-500 hover:text-gray-700"><ArrowLeft className="h-4 w-4" />Back to Home</Link>
+            <div className="mb-3">
+              <Link to="/" aria-label="TtakaMarket home" className="mb-3 hidden rounded-2xl bg-white lg:inline-flex"><BrandLogo className="h-12 w-36 rounded-2xl" /></Link>
+              <h1 className="text-2xl font-bold text-gray-900 md:text-3xl">Welcome back</h1>
+              <p className="mt-1 text-sm text-gray-600 md:text-base">Sign in to continue your property search</p>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="mb-3 flex gap-3">
+              <button onClick={() => setUserType('buyer')} className={`min-h-12 flex-1 rounded-lg px-2 py-2 text-sm font-medium leading-tight transition-all md:min-h-16 md:px-3 md:text-base ${userType === 'buyer' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Buyer or renter</button>
+              <button onClick={() => setUserType('owner')} className={`min-h-12 flex-1 rounded-lg px-2 py-2 text-sm font-medium leading-tight transition-all md:min-h-16 md:px-3 md:text-base ${userType === 'owner' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Owner or legal representative</button>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-3 md:space-y-5">
               {error && <div className="p-3 bg-error-50 border border-error-200 rounded-lg text-sm text-error-700">{error}</div>}
-              <Input label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} leftIcon={<Mail className="h-5 w-5" />} required />
-              <Input label="Password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} leftIcon={<Lock className="h-5 w-5" />} rightIcon={<button type="button" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>} required />
+              <Input label="Email" type="email" placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} leftIcon={<Mail className="h-5 w-5" />} className="md:py-3 md:text-base" required />
+              <Input label="Password" type={showPassword ? 'text' : 'password'} placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} leftIcon={<Lock className="h-5 w-5" />} rightIcon={<button type="button" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}</button>} className="md:py-3 md:text-base" required />
               <div className="flex justify-end">
-                <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:text-primary-700">
+                <Link to="/forgot-password" className="text-sm font-medium text-primary-600 hover:text-primary-700 md:text-base">
                   Forgot password?
                 </Link>
               </div>
-              <div className="flex items-center justify-between"><label className="flex items-center gap-2"><input type="checkbox" className="rounded border-gray-300" /><span className="text-sm text-gray-600">Remember me</span></label></div>
-              <Button type="submit" variant="primary" className="w-full" loading={loading}>Sign In</Button>
+              <div className="flex items-center justify-between"><label className="flex items-center gap-2"><input type="checkbox" className="rounded border-gray-300" /><span className="text-sm text-gray-600 md:text-base">Remember me</span></label></div>
+              <Button type="submit" variant="primary" className="min-h-12 w-full md:min-h-14 md:text-base" loading={loading}>Sign In</Button>
             </form>
-            <div className="mt-6 text-center text-sm text-gray-500">Don't have an account? <Link to="/register" className="text-primary-600 hover:text-primary-700 font-medium">Create one now</Link></div>
+            <div className="mt-3 text-center text-sm text-gray-500 md:mt-5 md:text-base">Don't have an account? <Link to="/register" className="text-primary-600 hover:text-primary-700 font-medium">Create one now</Link></div>
           </Card>
         </div>
       </div>
-      <div className="relative w-full bg-white px-4 pb-10 lg:flex-1 lg:px-0 lg:pb-0">
-        <div className="flex items-center justify-center py-4 text-white lg:h-full lg:px-8 lg:py-12 xl:px-20">
-          <div className="w-full max-w-lg rounded-3xl bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 p-6 shadow-2xl sm:p-8 xl:p-10">
-            <BrandLogo className="mx-auto mb-8 h-20 w-64 rounded-2xl bg-white" />
-            <h2 className="text-center text-3xl font-bold leading-tight">
-              Uganda&apos;s Trusted Property Marketplace (Real-Estate &amp; Accommodation)
+      <div className="relative flex w-full items-center justify-center bg-white px-4 pb-8 md:min-w-0 md:p-0">
+        <div className="flex w-full items-center justify-center py-2 text-white md:h-full md:py-0">
+          <div className="flex w-full max-w-lg flex-col justify-center rounded-3xl bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 p-5 shadow-2xl sm:p-6 md:h-full md:p-8">
+            <BrandLogo className="mx-auto mb-3 h-12 w-36 rounded-2xl bg-white" />
+            <h2 className="text-center text-2xl font-bold leading-tight md:text-3xl">
+              Uganda&apos;s Trusted Property Marketplace
             </h2>
-            <p className="mx-auto mt-4 max-w-md text-center text-base leading-7 text-primary-100">
-              Administrator document review and property verification help reduce fraud and support a more transparent property experience.
+            <p className="mx-auto mt-3 max-w-md text-center text-sm leading-5 text-primary-100 md:text-base md:leading-6">
+              Real estate and accommodation, with administrator document review and property verification for a more transparent experience.
             </p>
-            <div className="mt-8 space-y-5 rounded-2xl border border-white/15 bg-primary-950/20 p-5">
+            <div className="mt-5 space-y-3 rounded-2xl border border-white/15 bg-primary-950/20 p-4 md:space-y-4 md:p-5">
               <section>
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-200">Explore</h3>
-                <ul className="mt-2 space-y-2 text-base font-medium">
-                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Land for homes, business or agriculture</li>
-                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Houses, apartments, rooms and shared homes</li>
-                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Arcade and mall shops, offices and commercial property</li>
-                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Warehouses, storage and industrial spaces</li>
-                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Hotels, lodges and short stays</li>
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-primary-200">Explore</h3>
+                <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium md:text-base">
+                  <li className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Residential, commercial and agricultural land</li>
+                  <li className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Homes, apartments, rooms and shared living</li>
+                  <li className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Offices, shops, arcades and malls</li>
+                  <li className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Warehouses, storage and industrial spaces</li>
+                  <li className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Hotels, lodges and short stays</li>
                 </ul>
               </section>
-              <section className="border-t border-white/15 pt-4">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-200">Managed review</h3>
-                <ul className="mt-2 space-y-2 text-base font-medium">
-                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Administrator review of submitted documents</li>
-                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Property and representative details checked before managed publication</li>
+              <section className="border-t border-white/15 pt-3">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-primary-200">Managed review</h3>
+                <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium md:text-base">
+                  <li className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Administrator document review</li>
+                  <li className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Property and representative checks before publication</li>
                 </ul>
               </section>
-              <section className="border-t border-white/15 pt-4">
-                <h3 className="text-sm font-semibold uppercase tracking-wider text-primary-200">Find your next opportunity</h3>
-                <ul className="mt-2 space-y-2 text-base font-medium">
-                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Buy</li>
-                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Rent</li>
-                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Lease</li>
-                  <li className="flex items-center gap-3"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book a stay</li>
+              <section className="border-t border-white/15 pt-3">
+                <h3 className="text-xs font-semibold uppercase tracking-wider text-primary-200">Find your next opportunity</h3>
+                <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium md:text-base">
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Buy</li>
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Rent</li>
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Lease</li>
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book a stay</li>
                 </ul>
               </section>
             </div>
@@ -230,7 +230,7 @@ export function RegisterPage() {
         <div className="w-full max-w-md">
           <Link to="/" className="inline-flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-8"><ArrowLeft className="h-4 w-4" />Back to Home</Link>
           <div className="mb-8">
-            <Link to="/" aria-label="TtakaMarket home" className="mb-6 inline-flex rounded-lg bg-white"><BrandLogo className="h-14 w-40 rounded-lg" /></Link>
+            <Link to="/" aria-label="TtakaMarket home" className="mb-6 inline-flex rounded-2xl bg-white"><BrandLogo className="h-12 w-36 rounded-2xl" /></Link>
             <h1 className="text-3xl font-bold text-gray-900">Create Your Account</h1>
             <p className="mt-2 text-gray-600">Create an account to save properties, use messages or track submissions in a dashboard. A one-time property submission does not require an account.</p>
           </div>
@@ -359,6 +359,7 @@ export function RegisterPage() {
       <div className="relative w-full bg-white px-4 pb-10 lg:flex-1 lg:px-0 lg:pb-0">
         <div className="flex items-center justify-center py-4 text-white lg:h-full lg:px-8 lg:py-12 xl:px-20">
           <div className="w-full max-w-lg rounded-3xl bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 p-6 shadow-2xl sm:p-8 xl:p-10">
+            <BrandLogo className="mb-6 h-12 w-36 rounded-2xl bg-white" />
             <h2 className="mb-6 text-2xl font-bold sm:text-3xl">A managed property marketplace</h2>
             <div className="space-y-6">
               <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><Shield className="h-5 w-5" /></div><div><h3 className="mb-1 font-semibold">Administrator review</h3><p className="text-sm text-primary-100">Review property details and representative documents</p></div></div>

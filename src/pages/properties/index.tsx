@@ -42,6 +42,10 @@ export function PropertiesPage() {
         { id: '7', owner_id: 'mock', title: 'Hotel Room for a Short Stay in Entebbe', description: 'Furnished short-stay accommodation with Wi-Fi, close to Entebbe Road.', property_type: 'hotel_lodge', listing_type: 'rent', rental_details: { accommodation_type: 'holiday_short_stay', duration: 'short_term', purpose: 'holiday', living_arrangement: 'individual', tenancy_arrangement: 'lodger', payment_method: 'nightly' }, price: 180000, price_unit: 'UGX', currency: 'UGX', size_unit: 'room', bedrooms: 1, bathrooms: 1, address: 'Entebbe Road', city: 'Entebbe', country: 'Uganda', features: ['Furnished', 'Wi-Fi'], amenities: [], status: 'published', verification_status: 'verified', views_count: 0, saves_count: 0, inquiries_count: 0, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '7', property_id: '7', image_url: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
       ];
 
+      mockProperties.forEach((property, index) => {
+        property.created_at = new Date(Date.now() - index * 24 * 60 * 60 * 1000).toISOString();
+      });
+
       let filtered = mockProperties;
       if (useMatchingPreferences && profile?.marketplace_preferences) {
         const { property_categories: categories, listing_intents: intents } = profile.marketplace_preferences;
@@ -66,7 +70,23 @@ export function PropertiesPage() {
         const search = activeFilters.search.toLowerCase();
         filtered = filtered.filter(p => p.title.toLowerCase().includes(search) || p.city.toLowerCase().includes(search) || p.address.toLowerCase().includes(search));
       }
-      setProperties(filtered);
+      const sorted = [...filtered];
+      switch (activeFilters.sort) {
+        case 'price_low':
+          sorted.sort((a, b) => a.price - b.price);
+          break;
+        case 'price_high':
+          sorted.sort((a, b) => b.price - a.price);
+          break;
+        case 'popular':
+          sorted.sort((a, b) => b.views_count - a.views_count);
+          break;
+        case 'newest':
+        default:
+          sorted.sort((a, b) => Date.parse(b.created_at) - Date.parse(a.created_at));
+          break;
+      }
+      setProperties(sorted);
     } catch (error) { console.error('Error:', error); }
     finally { setLoading(false); }
   }, [profile, searchParams]);
@@ -204,11 +224,11 @@ export function PropertyDetailPage() {
     <div className="min-h-screen bg-gray-50">
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center gap-2 text-sm text-gray-500">
+          <nav className="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-gray-500">
             <Link to="/" className="hover:text-gray-900">Home</Link><span>/</span>
             <Link to="/properties" className="hover:text-gray-900">Properties</Link><span>/</span>
             <Link to={`/properties?type=${property.property_type}`} className="hover:text-gray-900">{getPropertyTypeLabel(property.property_type)}</Link><span>/</span>
-            <span className="text-gray-900">{property.title}</span>
+            <span className="min-w-0 text-gray-900 [overflow-wrap:anywhere]">{property.title}</span>
           </nav>
         </div>
       </div>
