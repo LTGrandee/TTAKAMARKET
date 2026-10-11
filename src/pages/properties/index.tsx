@@ -28,7 +28,7 @@ export function PropertiesPage() {
         { id: '4', owner_id: 'mock', title: 'Luxury Apartment in Nakasero', description: 'Modern apartment with views', property_type: 'apartment', listing_type: 'rent', rental_details: { accommodation_type: 'residential', duration: 'long_term', purpose: 'living', living_arrangement: 'family', tenancy_arrangement: 'sole_tenant', payment_method: 'monthly' }, price: 3500000, price_unit: 'UGX', currency: 'UGX', size_sqm: 120, size_unit: 'sqm', bedrooms: 2, bathrooms: 2, parking_spaces: 1, address: 'Nakasero Road', city: 'Kampala', country: 'Uganda', features: ['Balcony', 'Gym'], amenities: [], status: 'published', verification_status: 'verified', views_count: 312, saves_count: 89, inquiries_count: 34, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '4', property_id: '4', image_url: 'https://images.pexels.com/photos/1918290/pexels-photo-1918290.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
         { id: '5', owner_id: 'mock', title: 'Agricultural Land in Mukono', description: '50 acres of farmland', property_type: 'agricultural_land', listing_type: 'sale', price: 250000000, price_unit: 'UGX', currency: 'UGX', size_sqm: 202343, size_unit: 'sqm', address: 'Mukono District', city: 'Mukono', country: 'Uganda', features: ['Water Source'], amenities: [], status: 'published', verification_status: 'verified', views_count: 98, saves_count: 23, inquiries_count: 5, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '5', property_id: '5', image_url: 'https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
         { id: '6', owner_id: 'mock', title: 'Office Space in Kampala CBD', description: 'Modern office with parking', property_type: 'office_space', listing_type: 'rent', rental_details: { accommodation_type: 'commercial', duration: 'periodic', purpose: 'business', living_arrangement: 'corporate', tenancy_arrangement: 'leaseholder', payment_method: 'monthly' }, price: 8500000, price_unit: 'UGX', currency: 'UGX', size_sqm: 200, size_unit: 'sqm', address: 'Kampala Road', city: 'Kampala', country: 'Uganda', features: ['AC', 'Elevator'], amenities: [], status: 'published', verification_status: 'verified', views_count: 167, saves_count: 41, inquiries_count: 15, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '6', property_id: '6', image_url: 'https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
-        { id: '7', owner_id: 'mock', title: 'Hotel Room for a Short Stay in Entebbe', description: 'Short-stay accommodation. Confirm availability, inclusions and all terms directly before making a decision.', property_type: 'hotel_lodge', listing_type: 'rent', rental_details: { accommodation_type: 'holiday_short_stay', duration: 'short_term', purpose: 'holiday', living_arrangement: 'individual', tenancy_arrangement: 'lodger', payment_method: 'nightly' }, price: 180000, price_unit: 'UGX', currency: 'UGX', size_unit: 'room', bedrooms: 1, bathrooms: 1, address: 'Entebbe Road', city: 'Entebbe', country: 'Uganda', features: ['Furnished', 'Wi-Fi'], amenities: [], status: 'published', verification_status: 'verified', views_count: 0, saves_count: 0, inquiries_count: 0, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '7', property_id: '7', image_url: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
+        { id: '7', owner_id: 'mock', title: 'Hotel Room for a Short Stay in Entebbe', description: 'Furnished short-stay accommodation with Wi-Fi, close to Entebbe Road.', property_type: 'hotel_lodge', listing_type: 'rent', rental_details: { accommodation_type: 'holiday_short_stay', duration: 'short_term', purpose: 'holiday', living_arrangement: 'individual', tenancy_arrangement: 'lodger', payment_method: 'nightly' }, price: 180000, price_unit: 'UGX', currency: 'UGX', size_unit: 'room', bedrooms: 1, bathrooms: 1, address: 'Entebbe Road', city: 'Entebbe', country: 'Uganda', features: ['Furnished', 'Wi-Fi'], amenities: [], status: 'published', verification_status: 'verified', views_count: 0, saves_count: 0, inquiries_count: 0, created_at: new Date().toISOString(), updated_at: new Date().toISOString(), images: [{ id: '7', property_id: '7', image_url: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }] },
       ];
 
       let filtered = mockProperties;
@@ -115,7 +115,7 @@ export function PropertyDetailPage() {
     try {
       const mockProperty: Property = {
         id: id || '1', owner_id: 'mock', title: 'Prime Residential Land in Kololo',
-        description: `Explore this property and review its stated details.\n\nBefore making a decision, independently confirm the property's tenure, boundaries, access, services and supporting documents with the relevant professionals.`,
+        description: `Explore this property and its key details, including tenure, boundaries, access, services and supporting documents.`,
         property_type: 'residential_land', listing_type: 'sale', price: 850000000, price_unit: 'UGX', currency: 'UGX',
         size_sqm: 2500, size_unit: 'sqm', address: 'Kololo Hill Drive', city: 'Kampala', region: 'Central', country: 'Uganda',
         latitude: 0.3284, longitude: 32.5894, features: ['Main Road Access', 'Electricity', 'Water', 'Surveyed', 'Garden'],
@@ -128,7 +128,7 @@ export function PropertyDetailPage() {
         ],
         ...(id === '7' ? {
           title: 'Hotel Room for a Short Stay in Entebbe',
-          description: 'Short-stay accommodation. Confirm availability, inclusions and all terms directly before making a decision.',
+          description: 'Comfortable short-stay accommodation with details about availability, inclusions and nightly rates available from the property contact.',
           property_type: 'hotel_lodge',
           listing_type: 'rent',
           rental_details: { accommodation_type: 'holiday_short_stay', duration: 'short_term', purpose: 'holiday', living_arrangement: 'individual', tenancy_arrangement: 'lodger', payment_method: 'nightly' },
@@ -228,7 +228,7 @@ export function PropertyDetailPage() {
               <div className="mt-6 pt-6 border-t border-gray-100">
                 <div className="flex items-baseline gap-2"><span className="text-3xl font-bold text-gray-900">{formatPrice(property.price, property.price_unit)}</span>{property.listing_type === 'rent' && <span className="text-gray-500">/{getRentalPricePeriod(property.rental_details?.payment_method)}</span>}</div>
                 {property.rental_details?.accommodation_type === 'holiday_short_stay' && (
-                  <p className="mt-2 text-xs leading-5 text-gray-500">For short stays, confirm availability, inclusions, price and payment terms with the property contact.</p>
+                  <p className="mt-2 text-xs leading-5 text-gray-500">Contact the listing representative for current availability, inclusions and rates.</p>
                 )}
               </div>
               <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -284,8 +284,8 @@ export function PropertyDetailPage() {
             </Card>
 
             <Card className="p-6 bg-primary-50 border-primary-200">
-              <div className="flex items-center gap-3 mb-3"><Shield className="h-6 w-6 text-primary-600" /><h4 className="font-semibold text-primary-900">Review before you proceed</h4></div>
-              <p className="text-sm text-primary-700">Independently confirm ownership, representative authority, property details and transaction terms before making a commitment.</p>
+              <div className="flex items-center gap-3 mb-3"><Shield className="h-6 w-6 text-primary-600" /><h4 className="font-semibold text-primary-900">About listing review</h4></div>
+              <p className="text-sm text-primary-700">TtakaMarket reviews submitted listing information and provides a direct enquiry route to the listed property contact.</p>
             </Card>
           </div>
         </div>
@@ -296,13 +296,13 @@ export function PropertyDetailPage() {
       </Modal>
 
       <Modal isOpen={showAppointmentModal} onClose={() => setShowAppointmentModal(false)} title={property.rental_details?.accommodation_type === 'holiday_short_stay' ? 'Ask about stay availability' : 'Request a viewing'} size="md">
-        <div className="space-y-4"><p className="text-sm text-gray-600">Share your preferred date and time for a viewing. Confirm the property contact&apos;s identity and authority before proceeding.</p><Input label="Preferred date" type="date" disabled /><Input label="Preferred time" type="time" disabled /><Textarea label="Your message" placeholder="Add details about your viewing request." rows={3} disabled /><div className="flex justify-end"><Button variant="secondary" onClick={() => setShowAppointmentModal(false)}>Close</Button></div></div>
+        <div className="space-y-4"><p className="text-sm text-gray-600">Share your preferred date and time, and the property contact can follow up about arrangements.</p><Input label="Preferred date" type="date" disabled /><Input label="Preferred time" type="time" disabled /><Textarea label="Your message" placeholder="Add details about your viewing request." rows={3} disabled /><div className="flex justify-end"><Button variant="secondary" onClick={() => setShowAppointmentModal(false)}>Close</Button></div></div>
       </Modal>
 
       <Modal isOpen={showReportModal} onClose={() => setShowReportModal(false)} title="Report This Property" size="md">
         <div className="space-y-4">
-          <p className="text-sm text-gray-500">Flag inaccurate property information, suspected fraud or concerns about an intermediary.</p>
-          <Select label="Reason" options={[{ value: 'fake_listing', label: 'Fake listing' }, { value: 'fraudulent_sale', label: 'Fraudulent or manipulative conduct' }, { value: 'impersonation', label: 'Owner or representative impersonation' }, { value: 'ownership_dispute', label: 'Ownership dispute' }, { value: 'misrepresentation', label: 'Misleading price, terms or property details' }, { value: 'other', label: 'Other' }]} placeholder="Select a reason" />
+          <p className="text-sm text-gray-500">Tell us about listing information that may need an update or further review.</p>
+          <Select label="Reason" options={[{ value: 'fake_listing', label: 'Listing details need review' }, { value: 'fraudulent_sale', label: 'Offer or conduct needs review' }, { value: 'impersonation', label: 'Contact or representation details need review' }, { value: 'ownership_dispute', label: 'Ownership or tenure details need review' }, { value: 'misrepresentation', label: 'Price, terms or property details need review' }, { value: 'other', label: 'Other' }]} placeholder="Select a reason" />
           <Textarea label="Details" placeholder="Please provide any additional details..." rows={4} />
           <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"><Button variant="secondary" onClick={() => setShowReportModal(false)}>Close</Button><Button variant="danger" disabled>Submit report</Button></div>
         </div>

@@ -27,15 +27,15 @@ const policyContent = {
     sections: [
       {
         title: 'Property information',
-        body: 'Property information, availability, prices and transaction terms should be independently confirmed with the owner or an authorised representative before making a decision.',
+        body: 'Listings present property information, availability, prices and contact details to help users explore options and connect with owners or authorised representatives.',
       },
       {
-        title: 'Independent advice',
-        body: 'TtakaMarket provides property marketplace information. For legal, financial, land or transaction advice, consult an appropriately qualified professional.',
+        title: 'Using the marketplace',
+        body: 'TtakaMarket provides property listings and enquiry tools. Users and property contacts can discuss availability, viewing arrangements and transaction terms directly.',
       },
       {
-        title: 'Independent checks',
-        body: 'Before making a property decision, independently confirm the property, tenure, boundaries, authority to sell or let, documents and transaction terms with appropriate professionals and relevant authorities.',
+        title: 'Listing review',
+        body: 'Submitted listings are reviewed by the TtakaMarket team for completeness and supporting information before publication.',
       },
       {
         title: 'Marketplace conduct',
@@ -54,7 +54,7 @@ export function AboutPage() {
           <p className="mt-5 text-sm font-semibold uppercase tracking-wider text-primary-200">About us</p>
           <h1 className="mt-2 text-3xl font-bold sm:text-4xl">About TtakaMarket</h1>
           <p className="mt-3 max-w-2xl text-base leading-7 text-primary-100">
-            TtakaMarket addresses the complex web of untrustworthy (fraudulent and manipulative) intermediaries in the real-estate market by making property offers, stated representation and enquiry routes clearer.
+            TtakaMarket makes it easier to discover property and accommodation across Uganda, compare listing details and connect with owners and authorised representatives.
           </p>
         </div>
       </section>
@@ -62,7 +62,7 @@ export function AboutPage() {
         <article className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
           <h2 className="text-lg font-bold text-gray-900">A managed marketplace</h2>
           <p className="mt-3 text-sm leading-6 text-gray-600">
-            TtakaMarket reduces unclear ownership claims, unauthorised representation, changing prices and unaccountable hand-offs. It brings stated ownership, representative authority, offer details and contact routes into clearer view. Legitimate agents are not inherently a problem; the concern is deceptive or unauthorised conduct. Owners or representatives can submit a property without an account.
+            Owners and authorised representatives can submit properties for review, while buyers, renters and short-stay guests can explore listings and make enquiries. Listings include clear property details, offer information and contact routes to support a straightforward marketplace experience.
           </p>
         </article>
         <article className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -72,9 +72,9 @@ export function AboutPage() {
           </p>
         </article>
         <div className="rounded-2xl border border-primary-100 bg-primary-50 p-6 md:col-span-2">
-          <p className="flex items-center gap-2 font-semibold text-primary-900"><ShieldCheck className="h-5 w-5" /> Make independent checks</p>
+          <p className="flex items-center gap-2 font-semibold text-primary-900"><ShieldCheck className="h-5 w-5" /> Listing review</p>
           <p className="mt-2 text-sm leading-6 text-primary-800">
-            Independently confirm property details and supporting documents with appropriate professionals and relevant authorities.
+            Our team reviews submitted property details and supporting information before listings are published.
           </p>
           <Link to="/help" className="mt-4 inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-primary-700 hover:text-accent-700">
             Visit Help & FAQs <ArrowRight className="h-4 w-4" />

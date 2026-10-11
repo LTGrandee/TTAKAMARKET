@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Shield, CheckCircle, MessageSquare, ArrowRight, Search, SlidersHorizontal, Home, Key, Tag, Building2, BedDouble, Bath, Square, MapPin, Heart, Handshake, Headphones, Users, TreePine, AlertTriangle, TrendingUp } from 'lucide-react';
+import { Shield, CheckCircle, MessageSquare, ArrowRight, Search, SlidersHorizontal, Home, Key, Tag, Building2, BedDouble, Bath, Square, MapPin, Heart, Handshake, Headphones, Users, TreePine, TrendingUp } from 'lucide-react';
 import { useState } from 'react';
 import type { Property } from '../lib/types';
 import { formatPrice, getListingTypeLabel, getRentalPricePeriod } from '../lib/utils';
@@ -256,35 +256,32 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* ── THE PROBLEM ── */}
+      {/* ── MARKETPLACE BENEFITS ── */}
       <section id="property-guidance" className="scroll-mt-20 bg-gray-50 px-4 py-10">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <span className="mb-3 inline-block rounded-full bg-error-100 px-3 py-1 text-xs font-bold text-error-700">The problem</span>
-            <h2 className="mb-2 text-2xl font-bold text-gray-900">The Complex Web of Untrustworthy (Fraudulent and Manipulative) Intermediaries in the Real Estate Market.</h2>
+            <span className="mb-3 inline-block rounded-full bg-primary-100 px-3 py-1 text-xs font-bold text-primary-700">A better way to find property</span>
+            <h2 className="mb-2 text-2xl font-bold text-gray-900">A clearer, more connected property experience</h2>
             <p className="mx-auto max-w-2xl text-sm leading-6 text-gray-600 sm:text-base">
-              In a chain of property hand-offs, buyers and renters can struggle to identify the real owner or confirm whether an intermediary has authority to act. When deceptive, manipulative or unauthorised intermediaries present property without the owner&apos;s knowledge, change prices and details along the way, or exploit trust for personal gain, the result can be fraud, manipulation and wasted time for both property seekers and owners.
+              Discover properties and accommodation in one place, with clear listing details, transparent offers and direct enquiry routes for buyers, renters, guests, owners and representatives.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {[
-              { Icon: AlertTriangle, title: 'Unclear ownership', desc: 'It can be hard to establish who owns a property and who has the right to offer it.' },
-              { Icon: Users, title: 'Unlawful or unauthorised intermediaries', desc: 'A person may claim to represent an owner without their knowledge or permission.' },
-              { Icon: TrendingUp, title: 'Manipulated prices and details', desc: 'Prices, ownership claims or property terms may change as information passes from person to person.' },
-              { Icon: Shield, title: 'No accountable contact path', desc: 'When the real owner and authorised representative are unclear, misleading claims are harder to challenge.' },
+              { Icon: Search, title: 'Find the right place', desc: 'Explore land, homes, commercial spaces and short stays using tailored search and filters.' },
+              { Icon: Users, title: 'Clear listing contacts', desc: 'See the contact role and send enquiries to owners, representatives or the TtakaMarket team.' },
+              { Icon: TrendingUp, title: 'Useful listing details', desc: 'Compare property features, availability, prices and terms as you explore your options.' },
+              { Icon: Shield, title: 'Managed listing review', desc: 'Our team reviews submitted listing information before publication.' },
             ].map(({ Icon, title, desc }) => (
-              <div key={title} className="bg-white rounded-xl p-4 border border-error-100 shadow-sm">
-                <div className="w-10 h-10 bg-error-50 rounded-xl flex items-center justify-center mb-3">
-                  <Icon className="h-5 w-5 text-error-500" />
+              <div key={title} className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
+                <div className="w-10 h-10 bg-primary-50 rounded-xl flex items-center justify-center mb-3">
+                  <Icon className="h-5 w-5 text-primary-600" />
                 </div>
                 <h3 className="font-semibold text-gray-900 text-sm mb-1">{title}</h3>
                 <p className="text-xs text-gray-500">{desc}</p>
               </div>
             ))}
           </div>
-          <p className="mx-auto mt-5 max-w-2xl text-center text-xs leading-5 text-gray-500">
-            TtakaMarket addresses this complex web by bringing ownership, representative authority and contact information into clearer view. Independently verify property documents and a representative&apos;s authority before making a commitment.
-          </p>
         </div>
       </section>
 
@@ -321,7 +318,7 @@ export function HomePage() {
           <div className="text-center mb-8">
             <span className="inline-block bg-success-100 text-success-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Our Solution</span>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">A Transparent Property Marketplace Platform</h2>
-            <p className="text-sm text-gray-500 max-w-2xl mx-auto">TtakaMarket brings property seekers, owners and authorised representatives together through a managed marketplace built around transparent listings and accountable contact. Clear ownership and representation details, consistent prices and terms, and traceable enquiries help reduce the confusion, manipulation and unaccountable hand-offs that put property transactions at risk.</p>
+            <p className="text-sm text-gray-500 max-w-2xl mx-auto">TtakaMarket brings property seekers, owners and authorised representatives together through a managed marketplace built around clear listings, transparent offers and direct enquiry routes.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 mb-6">
             {[
@@ -342,7 +339,7 @@ export function HomePage() {
           </div>
           <div className="bg-primary-600 rounded-2xl p-6 text-center">
             <h3 className="text-lg font-bold text-white mb-2">Designed to make property offers more accountable</h3>
-            <p className="text-sm text-primary-200 mb-4">Check the details. Confirm authority. Ask questions before making a commitment.</p>
+            <p className="text-sm text-primary-200 mb-4">Explore confidently, compare your options and connect with the right property contact.</p>
             <div className="flex flex-wrap items-center justify-center gap-4 text-primary-200">
               {['Land, homes and short stays', 'Buy, rent, lease or book', 'Accountable property offers'].map(t => (
                 <div key={t} className="flex items-center gap-1.5 text-xs"><CheckCircle className="h-4 w-4 text-primary-300" />{t}</div>
