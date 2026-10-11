@@ -361,10 +361,34 @@ export function RegisterPage() {
           <div className="w-full max-w-lg rounded-3xl bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 p-6 shadow-2xl sm:p-8 xl:p-10">
             <BrandLogo className="mb-6 h-12 w-36 rounded-2xl bg-white" />
             <h2 className="mb-6 text-2xl font-bold sm:text-3xl">A managed property marketplace</h2>
-            <div className="space-y-6">
-              <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><Shield className="h-5 w-5" /></div><div><h3 className="mb-1 font-semibold">Administrator review</h3><p className="text-sm text-primary-100">Review property details and representative documents</p></div></div>
-              <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><CheckCircle className="h-5 w-5" /></div><div><h3 className="mb-1 font-semibold">Managed publication</h3><p className="text-sm text-primary-100">TtakaMarket controls approval and publication of submitted properties</p></div></div>
-              <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><Lock className="h-5 w-5" /></div><div><h3 className="mb-1 font-semibold">Clear contact arrangements</h3><p className="text-sm text-primary-100">Enquiries can be routed to an owner, authorised representative or TtakaMarket</p></div></div>
+            <div className="space-y-5">
+              <section>
+                <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-200">Explore</h3>
+                <ul className="space-y-2 text-sm font-medium sm:text-base">
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent-400" />Residential, commercial and agricultural land</li>
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent-400" />Homes, apartments, rooms and shared living</li>
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent-400" />Offices, shops, arcades and malls</li>
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent-400" />Warehouses, storage and industrial spaces</li>
+                  <li className="flex items-start gap-3"><span aria-hidden="true" className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent-400" />Hotels, lodges and short stays</li>
+                </ul>
+              </section>
+              <section className="border-t border-white/15 pt-4">
+                <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-200">Find your next opportunity</h3>
+                <ul className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium sm:text-base">
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Buy</li>
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Rent</li>
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Lease</li>
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book a stay</li>
+                </ul>
+              </section>
+              <section className="border-t border-white/15 pt-4">
+                <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-200">Managed review</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><Shield className="h-5 w-5" /></div><div><h4 className="mb-1 font-semibold">Administrator review</h4><p className="text-sm text-primary-100">Review property details and representative documents</p></div></div>
+                  <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><CheckCircle className="h-5 w-5" /></div><div><h4 className="mb-1 font-semibold">Managed publication</h4><p className="text-sm text-primary-100">TtakaMarket controls approval and publication of submitted properties</p></div></div>
+                  <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><Lock className="h-5 w-5" /></div><div><h4 className="mb-1 font-semibold">Clear contact arrangements</h4><p className="text-sm text-primary-100">Enquiries can be routed to an owner, authorised representative or TtakaMarket</p></div></div>
+                </div>
+              </section>
             </div>
           </div>
         </div>
