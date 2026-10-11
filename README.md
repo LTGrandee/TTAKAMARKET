@@ -1,41 +1,37 @@
-# TtakaMarket | Product Overview
+# TtakaMarket | Uganda's Trusted Property Marketplace (Real-Estate & Accommodation)
 
-> **Homepage positioning:** Uganda’s Trusted Property (Real-Estate & Accommodation) Marketplace.
+> **Product concept:** One Uganda-focused marketplace to discover land, homes, commercial and industrial premises, and accommodation; compare offers to buy, rent, lease, or book; and connect with the owner, authorised representative, or listed contact.
 
 ## 1. Executive summary
 
-TtakaMarket is a Uganda-focused property (real-estate) and accommodation marketplace in active development for land, homes, commercial and industrial premises, and temporary accommodation such as hotel rooms and short stays. People can discover property to **buy, rent, lease, or book**. Owners and people with lawful authority to represent them can submit property information without first creating an account.
+TtakaMarket is a managed real-estate and accommodation marketplace for Uganda. It brings property discovery, listing submissions, owner and representative profiles, and customer enquiries together in one responsive app. Shoppers can browse land, homes, rooms, shops in arcades or malls, offices, commercial premises, storage and industrial space, hotels, lodges, and short stays.
 
-The product's central purpose is to help confront **the complex web of untrustworthy (fraudulent and manipulative) intermediaries** in the real-estate market. It aims to make it easier to understand who owns or controls a property, who is authorised to represent the owner, what the stated price and terms are, and how an enquiry is expected to reach an accountable contact. Legitimate agents and representatives are not inherently a problem; the concern is unauthorised, misleading, or unaccountable intermediation.
+Listings support four customer intents: **Buy**, **Rent**, **Lease**, and **Book**. Search tools help narrow options by category, property type, location, accommodation, duration, and offer. Listing cards and details present the available description, location, price, rate basis, features, and contact route.
 
-The current development work includes the responsive marketplace frontend, property discovery, account journeys and one-time property submission. Verification, secure document handling, booking, payment, messaging and customer-support workflows are being developed. The current frontend uses preloaded property data and browser `localStorage`.
+Owners and people authorised to represent them can submit a property without creating an account. Optional accounts support saved listings, profiles, seller-page requests, submission dashboards, and future messaging. TtakaMarket's intended operating model includes managed review and publication rather than instant self-publishing.
+
+The current repository is a frontend-led product build. It includes responsive discovery and submission journeys, account/profile screens, a support centre, contact links, and an on-site live-support UI preview. Listing data and conversation flows are currently mock/local state. Authentication, persistent data, secure document handling, administrator operations, live messaging, booking, and payments require backend and service integrations.
 
 ## 2. The problem
 
-Property seekers in Uganda may encounter a chain of brokers, introducers, agents, and other intermediaries between themselves and the person who owns or is lawfully responsible for the property. As information changes hands:
+Property information is often spread across social posts, agents, operators, and informal contact networks. Customers may have to search multiple places to compare location, price, offer terms, availability, and the right person to contact. Owners and property professionals need a clear way to present offers and respond to relevant enquiries.
 
-- The actual owner or person with the right to offer the property may be unclear.
-- An intermediary's authority to act may be difficult to establish.
-- Prices, availability, property details, or transaction terms may change or conflict.
-- The owner, seeker, and person making claims may be hard to connect directly.
-- A misleading claim can be difficult to trace, challenge, or hold someone accountable for.
-
-These conditions can expose buyers, renters, short-stay guests, and property owners to fraud, manipulation, wasted time, and avoidable disputes. A marketplace can reduce opportunities for these problems by creating clearer information and accountable contact paths, but it cannot eliminate risk or replace independent legal, land, identity, or payment checks.
+TtakaMarket addresses this discovery and coordination gap with a searchable, category-led marketplace, consistent listing details, a defined submission process, and direct contact routes. Its goal is to make finding and enquiring about property more convenient for customers and more organised for listing providers.
 
 ## 3. Vision, mission, and objectives
 
-**Vision:** A more transparent and accountable way to discover and transact around property in Uganda.
+**Vision:** A trusted, convenient way for people in Uganda to discover property and accommodation and connect with the right contact.
 
-**Mission:** Build a marketplace that brings property information and enquiries closer to owners and properly authorised representatives, while reducing opaque hand-offs that enable manipulation.
+**Mission:** Bring property discovery, clear offers, and relevant enquiries together in one Uganda-focused marketplace.
 
 Product objectives:
 
-1. Make the owner or responsible party and any representative's stated authority visible and understandable.
-2. Keep key details—price, property description, location, availability, and offer type—consistent across a listing and its enquiry path.
-3. Design an administrator-led submission and publication process, with review records and clear decisions.
-4. Let someone submit a property once without requiring a dashboard account; reserve accounts for people who want ongoing tools.
-5. Support discovery across land, residential, commercial, storage/industrial, and temporary-stay needs.
-6. Build safeguards that clearly distinguish planned checks from completed reviews and preloaded listings from reviewed inventory.
+1. Make it easy to discover property by broad category and specific property type.
+2. Support buying, renting, leasing, and short-stay booking discovery with clear price bases.
+3. Present useful location, offer, property, and contact details consistently.
+4. Provide a straightforward, account-free submission path for owners and authorised representatives.
+5. Support managed review and publication, with optional accounts for ongoing seller and customer tools.
+6. Clearly distinguish working frontend flows from capabilities that depend on backend integration.
 
 ## 4. Proposed marketplace model
 
@@ -46,19 +42,19 @@ TtakaMarket is intended to be a **managed marketplace**, not an open classifieds
 - TtakaMarket controls publication and listing changes, and maintains a history of material changes.
 - The listing presents the offer, price basis, location, property details, and contact route clearly.
 - Enquiries are directed through a defined route to the owner, an authorised representative, or a TtakaMarket-managed contact, depending on the approved arrangement.
-- Buyers, renters, and guests are encouraged to make independent checks before paying or committing.
+- Buyers, renters, and guests can contact the listed property contact to ask questions and arrange next steps.
 
-The model is designed to reduce unaccountable hand-offs, not to label every agent or intermediary unlawful. Representatives who have genuine authority should be identifiable and accountable.
+The model supports owners, agents, representatives, accommodation operators, and property seekers with clear listing roles and an organised enquiry path.
 
 ## 5. People served and account model
 
 | User | Need | Proposed experience |
 | --- | --- | --- |
-| Buyer | Find land or built property to purchase and understand who is offering it | Search listings, compare stated details, and use an accountable enquiry route |
-| Long-term renter or lessee | Find a home, room, commercial space, land, or other property for an agreed period | Filter by property and accommodation type, duration, purpose, and stated payment basis |
+| Buyer | Find land or built property to purchase and understand the offer | Search listings, compare stated details, and contact the listing representative |
+| Long-term renter or lessee | Find a home, room, commercial space, arcade/mall shop, land, or other property for an agreed period | Filter by property and accommodation type, duration, location, and stated payment basis |
 | Short-stay guest | Find a hotel room or other temporary accommodation | Discover short stays with daily or nightly price bases where provided; booking requires a future operational flow |
-| Owner | Share an offer and reach genuine property seekers without managing a public seller dashboard | Make a one-time submission without an account and provide a preferred contact arrangement |
-| Lawful representative or agent | Represent an owner transparently and show the basis of that representation | Submit the property and authority information for the proposed administrator review |
+| Owner | Share an offer and reach property seekers without managing a public seller dashboard | Make a one-time submission without an account and provide contact details |
+| Authorised representative or agent | Present a property offer and receive relevant enquiries | Submit property information and state their relationship to the property |
 | Developer or business | Present multiple properties under a consistent, accountable process | Request a managed profile or property posts; public posts remain subject to the proposed approval process |
 | TtakaMarket administrator | Review submissions, document decisions, and manage publication and enquiry routing | Use a future role-controlled operations console and auditable workflow |
 
@@ -72,9 +68,11 @@ The intended inventory spans:
 | --- | --- |
 | Land | Residential, commercial, agricultural, plain or vacant land |
 | Housing | Houses, apartments, rooms, shared homes, and rental units |
-| Commercial | Shops, offices, commercial buildings, hotels, lodges, and business premises |
+| Commercial | Shops in arcades and malls, offices, commercial buildings, hotels, lodges, mixed-use buildings, and investment property |
 | Storage / industrial | Warehouses, workshops, factories, garages, and storage premises |
 | Temporary accommodation | Hotel rooms, lodges, holiday accommodation, and other short stays |
+
+The homepage groups specific property types under compact, responsive category panels. Customers can browse homes and rooms, land, shops and commercial premises, storage and industrial space, or short stays, then jump directly to a specific type such as an arcade/mall shop.
 
 The marketplace distinguishes four seeker intents:
 
@@ -210,6 +208,7 @@ Targets should be set only after operational capacity and a baseline are establi
 
 - Homepage with marketplace positioning, trust principles, preloaded listings, search entry points, and Buy / Rent / Lease / Book options.
 - Browse property cards with images, prices, locations, categories, property types, offer types, and rate basis where available. Listing review controls are in development.
+- Homepage category panels group all supported property types into Homes & rooms, Land, Shops & commercial, Storage & industrial, and Short stays. Each panel provides direct links to its individual listing types.
 - Search and filter by:
   - Buy, rent, lease, or book a short stay
   - Land, housing, commercial, or storage/industrial category
@@ -220,7 +219,7 @@ Targets should be set only after operational capacity and a baseline are establi
   - Rental duration and short-stay type
   - Sort order
 - Property detail pages with descriptions, images, pricing, location, physical attributes, rental suitability, and enquiry actions.
-- Homepage category shortcuts for houses, apartments, land, commercial properties, storage, and short stays.
+- Property-type shortcuts include houses, apartments, rental units and rooms, residential/commercial/agricultural land, arcade/mall shops, offices, commercial buildings, hotels/lodges, mixed-use and investment properties, warehouses, and short stays.
 - Book search narrows results to short-stay accommodation. Availability checks, reservations, and payments are in development.
 
 ### Land coverage
@@ -248,6 +247,7 @@ The property model also supports:
 - Commercial buildings
 - Offices
 - Hotels and lodges
+- Shops in arcades and malls
 - Warehouses
 - Storage and industrial premises
 - Investment property
@@ -258,7 +258,7 @@ The broad category model separates:
 | --- | --- |
 | Land | Residential, commercial, agricultural, and vacant land |
 | Housing | Houses, apartments, rental units, and residential accommodation |
-| Commercial | Shops, offices, commercial buildings, hotels, lodges, and business premises |
+| Commercial | Arcade/mall shops, offices, commercial buildings, hotels, lodges, mixed-use buildings, and investment properties |
 | Storage / Industrial | Warehouses, workshops, factories, garages, and storage premises |
 
 ### Proposed administrator-managed property submissions
@@ -277,6 +277,8 @@ The one-time submission flow does not require an account. The current form captu
 - Property photos and supporting documents
 - Features and preferred enquiry contact
 - Rental or short-stay suitability details, including duration and daily, nightly, weekly, or monthly rate basis where applicable
+
+Arcade and mall shops can be submitted for rent or lease. The flow requests the arcade/mall name, shop or room number, plot and street address, town/city, district, and contact name and phone/WhatsApp so prospective renters can identify the unit and contact its representative.
 
 The proposed administrator workflow would be:
 
@@ -380,8 +382,9 @@ Rental listings can include structured rental details, and renter registration c
 
 ### Communication and customer enquiries
 
-- Property submissions include a contact preference.
-- Messaging and enquiry screens are available; message delivery integrations are in development.
+- Property submissions collect contact details and a preferred enquiry contact.
+- The Help Centre presents the TtakaMarket WhatsApp/call contact and a floating support-chat UI. On-site chat is currently a UI preview; live messaging and delivery integrations are in development.
+- Property conversation and enquiry screens are available; message delivery integrations are in development.
 - The intended service should identify whether the contact is the owner, an authorised representative, or a TtakaMarket-managed contact.
 - Seller pages may eventually support customer engagement where the arrangement is approved and controlled.
 - In a production implementation, administrator-controlled routing should determine the appropriate contact and retain an audit trail. Never label a contact "verified" unless the corresponding checks have actually been completed and their scope is disclosed.
@@ -414,6 +417,10 @@ Rental listings can include structured rental details, and renter registration c
 | `/messages/:conversationId` | View a property conversation |
 | `/saved` | View saved properties |
 | `/profile` | Manage account and profile settings |
+| `/help` | Browse FAQs, support information, contact details, and the support-chat preview |
+| `/about` | Read about TtakaMarket |
+| `/privacy` | Read the privacy policy |
+| `/terms` | Read the terms and conditions |
 
 ## Technical stack
 

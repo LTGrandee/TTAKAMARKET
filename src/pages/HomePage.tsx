@@ -7,14 +7,63 @@ import { cn } from '../lib/utils';
 
 const HERO_IMG = 'https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=1600';
 
-const categories = [
-  { label: 'Houses', href: '/properties?type=house', Icon: Home },
-  { label: 'Apartments', href: '/properties?type=apartment', Icon: Building2 },
-  { label: 'Short stays', href: '/properties?listing_type=rent&rental_accommodation=holiday_short_stay', Icon: BedDouble },
-  { label: 'Land', href: '/properties?category=land', Icon: MapPin },
-  { label: 'Commercial', href: '/properties?category=commercial', Icon: Building2 },
-  { label: 'Storage', href: '/properties?category=storage', Icon: Building2 },
-  { label: 'Rentals', href: '/properties?listing_type=rent', Icon: TreePine },
+const propertyCategories = [
+  {
+    label: 'Homes & rooms',
+    description: 'Places to live, from apartments to shared homes.',
+    href: '/properties?category=housing',
+    Icon: Home,
+    types: [
+      { label: 'Houses', href: '/properties?type=house' },
+      { label: 'Apartments', href: '/properties?type=apartment' },
+      { label: 'Rental units & rooms', href: '/properties?type=rental_unit' },
+    ],
+  },
+  {
+    label: 'Land',
+    description: 'Find land for residential, commercial or agricultural use.',
+    href: '/properties?category=land',
+    Icon: MapPin,
+    types: [
+      { label: 'Residential land', href: '/properties?type=residential_land' },
+      { label: 'Commercial land', href: '/properties?type=commercial_land' },
+      { label: 'Agricultural land', href: '/properties?type=agricultural_land' },
+    ],
+  },
+  {
+    label: 'Shops & commercial',
+    description: 'Business premises, including shops in arcades and malls.',
+    href: '/properties?category=commercial',
+    Icon: Building2,
+    types: [
+      { label: 'Arcade / mall shops', href: '/properties?type=retail_shop' },
+      { label: 'Offices', href: '/properties?type=office_space' },
+      { label: 'Commercial buildings', href: '/properties?type=commercial_building' },
+      { label: 'Hotels & lodges', href: '/properties?type=hotel_lodge' },
+      { label: 'Mixed-use', href: '/properties?type=mixed_use' },
+      { label: 'Investment property', href: '/properties?type=investment_property' },
+    ],
+  },
+  {
+    label: 'Storage & industrial',
+    description: 'Space for storage, workshops and industry.',
+    href: '/properties?category=storage',
+    Icon: TreePine,
+    types: [
+      { label: 'Warehouses', href: '/properties?type=warehouse' },
+      { label: 'Browse all industrial listings', href: '/properties?category=storage' },
+    ],
+  },
+  {
+    label: 'Short stays',
+    description: 'Book a hotel room, lodge or other temporary accommodation.',
+    href: '/properties?listing_type=rent&rental_accommodation=holiday_short_stay&rental_duration=short_term',
+    Icon: BedDouble,
+    types: [
+      { label: 'Browse short stays', href: '/properties?listing_type=rent&rental_accommodation=holiday_short_stay&rental_duration=short_term' },
+      { label: 'Hotels & lodges', href: '/properties?type=hotel_lodge' },
+    ],
+  },
 ];
 
 const trustPoints = [
@@ -40,6 +89,7 @@ const propertyTypeOpts = [
   { value: 'commercial_land', label: 'Commercial Land' },
   { value: 'commercial_building', label: 'Commercial Building' },
   { value: 'office_space', label: 'Office Space' },
+  { value: 'retail_shop', label: 'Shop in Arcade / Mall' },
 ];
 
 function FeaturedCard({ property }: { property: Property }) {
@@ -120,7 +170,7 @@ export function HomePage() {
             <span className="text-xs font-semibold text-white sm:text-sm">Land, homes and more · Across Uganda</span>
           </div>
           <h1 className="mb-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Uganda&apos;s Trusted <span className="text-accent-400">Property (Real-Estate &amp; Accommodation) Marketplace</span>
+            Uganda&apos;s Trusted Property Marketplace <span className="text-accent-400">(Real-Estate &amp; Accommodation)</span>
           </h1>
           <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">Discover property across Uganda with transparent listings, clear pricing and direct access to owners and authorised representatives—all in one marketplace.</p>
           <div className="flex flex-wrap gap-3">
@@ -204,24 +254,32 @@ export function HomePage() {
 
       {/* ── EXPLORE BY CATEGORY ── */}
       <section id="categories" className="mx-auto mb-12 max-w-7xl scroll-mt-20 px-4 sm:px-6 lg:px-8">
-        <div className="mb-4 flex items-end justify-between">
-          <div><p className="text-xs font-bold uppercase tracking-wider text-accent-700">Find your fit</p><h2 className="mt-1 text-xl font-bold text-gray-900 sm:text-2xl">Explore by category</h2></div>
+        <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+          <div><p className="text-xs font-bold uppercase tracking-wider text-accent-700">Find your fit</p><h2 className="mt-1 text-xl font-bold text-gray-900 sm:text-2xl">Explore all categories</h2></div>
           <Link to="/properties" className="inline-flex min-h-10 items-center gap-1 text-sm font-semibold text-primary-700 hover:text-accent-700">
-            See all <ArrowRight className="h-4 w-4" />
+            Browse all listings <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7">
-          {categories.map(({ label, href, Icon }) => (
-            <Link
-              key={label}
-              to={href}
-              className="group flex min-h-28 flex-col items-center justify-center gap-2 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent-300 hover:shadow-md"
-            >
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-50 transition-colors group-hover:bg-accent-50">
-                <Icon className="h-5 w-5 text-primary-700 transition-colors group-hover:text-accent-700" />
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {propertyCategories.map(({ label, description, href, Icon, types }) => (
+            <article key={label} className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md sm:p-5">
+              <Link to={href} className="group flex items-center gap-3 rounded-xl focus-visible:outline-offset-4">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary-50 transition-colors group-hover:bg-accent-50">
+                  <Icon className="h-5 w-5 text-primary-700 transition-colors group-hover:text-accent-700" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block font-semibold text-gray-900 group-hover:text-primary-700">{label}</span>
+                  <span className="mt-0.5 block text-xs leading-5 text-gray-500">{description}</span>
+                </span>
+              </Link>
+              <div className="mt-4 flex flex-wrap gap-2 border-t border-gray-100 pt-3">
+                {types.map((type) => (
+                  <Link key={type.label} to={type.href} className="rounded-full bg-gray-50 px-3 py-1.5 text-xs font-medium text-gray-600 transition-colors hover:bg-primary-50 hover:text-primary-700 focus-visible:outline-offset-2">
+                    {type.label}
+                  </Link>
+                ))}
               </div>
-              <span className="text-sm font-semibold leading-tight text-gray-700 transition-colors group-hover:text-accent-700">{label}</span>
-            </Link>
+            </article>
           ))}
         </div>
       </section>

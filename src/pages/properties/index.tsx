@@ -317,7 +317,7 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState(() => ({
     title: '', description: '', asset_category: isAccommodationSubmission ? 'commercial' : 'housing', property_type: isAccommodationSubmission ? 'hotel_lodge' : '', accommodation_type: '', listing_type: isAccommodationSubmission ? 'rent' : '', listing_intent: isAccommodationSubmission ? 'accommodation' : '', price: '', price_unit: 'UGX',
-    size_sqm: '', size_unit: 'sqm', bedrooms: '', bathrooms: '', parking_spaces: '', year_built: '',
+    size_sqm: '', size_unit: 'sqm', bedrooms: '', bathrooms: '', parking_spaces: '', year_built: '', arcade_mall_name: '',
     address: '', city: '', region: '', country: 'Uganda', features: [] as string[], custom_feature: '',
     submitter_name: '', submitter_phone: '', submitter_email: '', submitter_role: '',
     contact_preference: 'owner',
@@ -337,17 +337,18 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
   const handleSubmit = () => setSubmitted(true);
 
   const isStepValid = () => {
+    const isArcadeShopRental = formData.property_type === 'retail_shop' && ['rent', 'lease'].includes(formData.listing_intent);
     switch (currentStep) {
-      case 1: return formData.title && formData.description && formData.property_type && formData.listing_type && formData.price && (!isAccommodationSubmission || formData.accommodation_type);
-      case 2: return formData.address && formData.city && formData.submitter_name && formData.submitter_phone && formData.submitter_role;
+      case 1: return formData.title && formData.description && formData.property_type && formData.listing_type && formData.price && (!isAccommodationSubmission || formData.accommodation_type) && (!isArcadeShopRental || formData.arcade_mall_name);
+      case 2: return formData.address && formData.city && formData.submitter_name && formData.submitter_phone && formData.submitter_role && (!isArcadeShopRental || (formData.arcade_mall_name && formData.region));
       case 3: return true;
       case 4: return documents.length > 0 && images.length > 0;
       default: return true;
     }
   };
 
-  const propertyTypes = [{ value: 'residential_land', label: 'Residential Land' }, { value: 'commercial_land', label: 'Commercial Land' }, { value: 'agricultural_land', label: 'Agricultural Land' }, { value: 'house', label: 'House' }, { value: 'apartment', label: 'Apartment' }, { value: 'rental_unit', label: 'Rental Unit' }, { value: 'commercial_building', label: 'Commercial Building' }, { value: 'office_space', label: 'Office Space' }, { value: 'warehouse', label: 'Warehouse' }, { value: 'hotel_lodge', label: 'Hotel / Lodge / Guest Room' }, { value: 'mixed_use', label: 'Mixed Use Development' }, { value: 'investment_property', label: 'Investment Property' }];
-  const listingTypes = [{ value: 'sale', label: 'For Sale' }, { value: 'lease', label: 'For Lease' }];
+  const propertyTypes = [{ value: 'residential_land', label: 'Residential Land' }, { value: 'commercial_land', label: 'Commercial Land' }, { value: 'agricultural_land', label: 'Agricultural Land' }, { value: 'house', label: 'House' }, { value: 'apartment', label: 'Apartment' }, { value: 'rental_unit', label: 'Rental Unit' }, { value: 'commercial_building', label: 'Commercial Building' }, { value: 'office_space', label: 'Office Space' }, { value: 'retail_shop', label: 'Shop in Arcade / Mall' }, { value: 'warehouse', label: 'Warehouse' }, { value: 'hotel_lodge', label: 'Hotel / Lodge / Guest Room' }, { value: 'mixed_use', label: 'Mixed Use Development' }, { value: 'investment_property', label: 'Investment Property' }];
+  const listingTypes = [{ value: 'sale', label: 'For Sale' }, { value: 'rent', label: 'For Rent' }, { value: 'lease', label: 'For Lease' }];
   const accommodationTypes = [
     { value: 'conference_hall', label: 'Conference hall' },
     { value: 'event_venue', label: 'Event venue' },
@@ -371,8 +372,8 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
   const handleListingIntentChange = (value: string) => {
     setFormData((prev) => ({ ...prev, listing_type: value, listing_intent: value }));
   };
-  const cities = [{ value: 'Kampala', label: 'Kampala' }, { value: 'Entebbe', label: 'Entebbe' }, { value: 'Jinja', label: 'Jinja' }, { value: 'Mbarara', label: 'Mbarara' }, { value: 'Gulu', label: 'Gulu' }, { value: 'Arua', label: 'Arua' }, { value: 'Mbale', label: 'Mbale' }];
   const commonFeatures = ['Garden', 'Swimming Pool', 'Parking', 'Security', 'Air Conditioning', 'Balcony', 'Gym', 'Electricity', 'Water', 'Main Road Access', 'Corner Plot', 'Boundary Wall', 'Internet', 'Furnished'];
+  const isArcadeShopRental = formData.property_type === 'retail_shop' && ['rent', 'lease'].includes(formData.listing_intent);
   const steps = [{ id: 1, title: 'Property Details' }, { id: 2, title: 'Location & Contact' }, { id: 3, title: 'Features' }, { id: 4, title: 'Photos & Documents' }, { id: 5, title: 'Review' }];
 
   if (submitted) {
@@ -421,8 +422,17 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
                 {!isAccommodationSubmission && <Select label="Asset category" options={[{ value: 'land', label: 'Land' }, { value: 'housing', label: 'Housing' }, { value: 'commercial', label: 'Commercial' }, { value: 'storage', label: 'Storage / Industrial' }]} value={formData.asset_category} onChange={(e) => updateForm('asset_category', e.target.value)} />}
                 {isAccommodationSubmission
                   ? <Select label="Accommodation category" options={accommodationTypes} value={formData.accommodation_type} onChange={(e) => updateForm('accommodation_type', e.target.value)} placeholder="Choose a venue category" />
-                  : <><Select label="Property Type" options={propertyTypes.filter(({ value }) => value !== 'hotel_lodge')} value={formData.property_type} onChange={(e) => updateForm('property_type', e.target.value)} placeholder="Select property type" /><Select label="Offer Type" options={listingTypes} value={formData.listing_intent} onChange={(e) => handleListingIntentChange(e.target.value)} placeholder="Choose how the property is offered" /></>}
+                  : <><Select label="Property Type" options={propertyTypes.filter(({ value }) => value !== 'hotel_lodge')} value={formData.property_type} onChange={(e) => setFormData((prev) => ({ ...prev, property_type: e.target.value, asset_category: e.target.value === 'retail_shop' ? 'commercial' : prev.asset_category }))} placeholder="Select property type" /><Select label="Offer Type" options={listingTypes} value={formData.listing_intent} onChange={(e) => handleListingIntentChange(e.target.value)} placeholder="Choose how the property is offered" /></>}
               </div>
+              {isArcadeShopRental && (
+                <Input
+                  label="Arcade / mall name"
+                  placeholder="e.g., Garden City Mall"
+                  value={formData.arcade_mall_name}
+                  onChange={(e) => updateForm('arcade_mall_name', e.target.value)}
+                  required
+                />
+              )}
               {isAccommodationSubmission && (
                 <div className="rounded-xl border border-primary-100 bg-primary-50 p-4 space-y-4">
                   <div><h3 className="font-semibold text-primary-900">Booking details</h3><p className="text-xs text-primary-700 mt-1">Set the venue&apos;s booking period, capacity and pricing basis.</p></div>
@@ -450,17 +460,21 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
 
           {currentStep === 2 && (
             <div className="space-y-6">
-              <div><h2 className="text-lg font-semibold text-gray-900 mb-4">{isAccommodationSubmission ? 'Accommodation location' : 'Property location'}</h2><Input label="Address or nearby landmark" placeholder={isAccommodationSubmission ? 'e.g., Near Entebbe Airport' : 'e.g., Plot 45, Kololo Hill Drive'} value={formData.address} onChange={(e) => updateForm('address', e.target.value)} leftIcon={<MapPin className="h-5 w-5" />} required /></div>
+              <div>
+                <h2 className="text-lg font-semibold text-gray-900 mb-4">{isAccommodationSubmission ? 'Accommodation location' : 'Property location'}</h2>
+                {isArcadeShopRental && <p className="mb-3 text-sm text-gray-600">Provide the shop or room number and the arcade/mall street address so renters can locate the unit.</p>}
+                <Input label={isArcadeShopRental ? 'Shop / room number, plot number and street' : 'Address or nearby landmark'} placeholder={isArcadeShopRental ? 'e.g., Shop G-12, Plot 14, Kampala Road' : isAccommodationSubmission ? 'e.g., Near Entebbe Airport' : 'e.g., Plot 45, Kololo Hill Drive'} value={formData.address} onChange={(e) => updateForm('address', e.target.value)} leftIcon={<MapPin className="h-5 w-5" />} required />
+              </div>
               <div className="grid sm:grid-cols-2 gap-4">
-                <Select label="City" options={cities} value={formData.city} onChange={(e) => updateForm('city', e.target.value)} placeholder="Select city" required />
-                <Input label="Region/District" placeholder="e.g., Central Region" value={formData.region} onChange={(e) => updateForm('region', e.target.value)} />
+                <Input label="Town / City" placeholder="e.g., Kampala" value={formData.city} onChange={(e) => updateForm('city', e.target.value)} required />
+                <Input label="Region / District" placeholder="e.g., Kampala Central" value={formData.region} onChange={(e) => updateForm('region', e.target.value)} required={isArcadeShopRental} />
               </div>
               <div className="border-t border-gray-100 pt-5">
-                <h2 className="text-lg font-semibold text-gray-900 mb-1">Your contact details</h2>
-                <p className="text-sm text-gray-500 mb-4">No login details are needed. Provide contact details so TtakaMarket can follow up about your submission.</p>
+                <h2 className="text-lg font-semibold text-gray-900 mb-1">{isArcadeShopRental ? 'Rental contact details' : 'Your contact details'}</h2>
+                <p className="text-sm text-gray-500 mb-4">{isArcadeShopRental ? 'Add the contact details prospective renters can use to ask about this shop.' : 'No login details are needed. Provide contact details so TtakaMarket can follow up about your submission.'}</p>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <Input label="Your name" placeholder="Full name" value={formData.submitter_name} onChange={(e) => updateForm('submitter_name', e.target.value)} required />
-                  <Input label="Phone number" type="tel" placeholder="+256 700 123 456" value={formData.submitter_phone} onChange={(e) => updateForm('submitter_phone', e.target.value)} required />
+                  <Input label={isArcadeShopRental ? 'Contact name' : 'Your name'} placeholder="Full name" value={formData.submitter_name} onChange={(e) => updateForm('submitter_name', e.target.value)} required />
+                  <Input label={isArcadeShopRental ? 'Contact phone / WhatsApp' : 'Phone number'} type="tel" placeholder="+256 700 123 456" value={formData.submitter_phone} onChange={(e) => updateForm('submitter_phone', e.target.value)} required />
                   <Input label="Email (optional)" type="email" placeholder="you@example.com" value={formData.submitter_email} onChange={(e) => updateForm('submitter_email', e.target.value)} />
                   <Select label="Your relationship to the property" options={[{ value: 'owner', label: 'I am the owner' }, { value: 'representative', label: 'I am authorised to represent the owner' }, { value: 'other', label: 'I am helping the owner submit' }]} value={formData.submitter_role} onChange={(e) => updateForm('submitter_role', e.target.value)} placeholder="Select your relationship" required />
                 </div>
@@ -525,9 +539,15 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
                     </div>
                   </div>
                 )}
+                {isArcadeShopRental && (
+                  <div className="p-4 bg-gray-50 rounded-lg">
+                    <p className="text-sm text-gray-500 mb-1">Arcade / mall</p>
+                    <p className="font-medium text-gray-900">{formData.arcade_mall_name}</p>
+                  </div>
+                )}
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">{isAccommodationSubmission ? `Price (${accommodationRateBases.find(({ value }) => value === formData.accommodation_rate_basis)?.label.toLowerCase()})` : 'Price'}</p><p className="font-medium text-gray-900">{Number(formData.price).toLocaleString()} {formData.price_unit}</p></div>
-                <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Location</p><p className="font-medium text-gray-900">{formData.address}, {formData.city}, {formData.country}</p></div>
-                <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Submitted by</p><p className="font-medium text-gray-900">{formData.submitter_name} · {formData.submitter_phone}</p><p className="text-sm text-gray-600">{formData.submitter_role === 'owner' ? 'Owner' : formData.submitter_role === 'representative' ? 'Authorised representative' : 'Other submitter'}</p></div>
+                <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Location</p><p className="font-medium text-gray-900">{formData.address}, {formData.city}{formData.region ? `, ${formData.region}` : ''}, {formData.country}</p></div>
+                <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">{isArcadeShopRental ? 'Rental contact' : 'Submitted by'}</p><p className="font-medium text-gray-900">{formData.submitter_name} · {formData.submitter_phone}</p>{formData.submitter_email && <p className="text-sm text-gray-600">{formData.submitter_email}</p>}<p className="text-sm text-gray-600">{formData.submitter_role === 'owner' ? 'Owner' : formData.submitter_role === 'representative' ? 'Authorised representative' : 'Other submitter'}</p></div>
                 <div className="p-4 bg-gray-50 rounded-lg"><p className="text-sm text-gray-500 mb-1">Seller dashboard</p><p className="font-medium text-gray-900">{formData.request_seller_dashboard ? 'Requested' : 'Not requested'}</p></div>
                 <p className="text-sm text-gray-500">{images.length} photo(s) and {documents.length} document(s) selected.</p>
                 <Select label="Buyer chat contact" options={[{ value: 'owner', label: 'Chat directly with me (the owner)' }, { value: 'representative', label: 'Chat with my lawful representative' }, { value: 'ttakamarket', label: 'Let TtakaMarket coordinate all chats' }]} value={formData.contact_preference} onChange={(e) => updateForm('contact_preference', e.target.value)} />

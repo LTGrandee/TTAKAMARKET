@@ -59,6 +59,7 @@ export function getPropertyTypeLabel(type: string): string {
     rental_unit: 'Rental Unit',
     commercial_building: 'Commercial Building',
     office_space: 'Office Space',
+    retail_shop: 'Shop in Arcade / Mall',
     warehouse: 'Warehouse',
     hotel_lodge: 'Hotel / Lodge',
     mixed_use: 'Mixed Use',
@@ -69,7 +70,7 @@ export function getPropertyTypeLabel(type: string): string {
 
 export function getPropertyCategory(type: string): PropertyCategory {
   if (type.includes('land')) return 'land';
-  if (['warehouse', 'office_space', 'commercial_building', 'hotel_lodge'].includes(type)) return type === 'warehouse' ? 'storage' : 'commercial';
+  if (['warehouse', 'office_space', 'retail_shop', 'commercial_building', 'hotel_lodge'].includes(type)) return type === 'warehouse' ? 'storage' : 'commercial';
   return 'housing';
 }
 

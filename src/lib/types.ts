@@ -114,6 +114,7 @@ export type PropertyType =
   | 'rental_unit'
   | 'commercial_building'
   | 'office_space'
+  | 'retail_shop'
   | 'warehouse'
   | 'hotel_lodge'
   | 'mixed_use'
