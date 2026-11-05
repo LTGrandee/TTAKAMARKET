@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { Shield, CheckCircle, MessageSquare, ArrowRight, Search, SlidersHorizontal, Home, Key, Tag, Building2, BedDouble, Bath, Square, MapPin, Heart, Handshake, Headphones, Users, TreePine, TrendingUp } from 'lucide-react';
+import { Shield, CheckCircle, MessageSquare, ArrowRight, Search, SlidersHorizontal, Home, Key, Tag, Building2, BedDouble, Bath, Square, MapPin, Heart, Handshake, Users, TreePine, TrendingUp, FileText, ClipboardCheck } from 'lucide-react';
 import { useState } from 'react';
 import type { Property } from '../lib/types';
 import { formatPrice, getListingTypeLabel, getRentalPricePeriod } from '../lib/utils';
@@ -67,10 +67,10 @@ const propertyCategories = [
 ];
 
 const trustPoints = [
-  { Icon: Shield, title: 'Administrator review', desc: 'Ownership and representative authority at the centre of every offer' },
-  { Icon: Users, title: 'Clear representation', desc: 'Know whether you are dealing with an owner or representative' },
-  { Icon: Handshake, title: 'Accountable enquiries', desc: 'A clearer route to the owner or authorised contact' },
-  { Icon: Headphones, title: 'One marketplace', desc: 'Land, homes, short stays, business and storage' },
+  { Icon: Shield, title: 'Visible review status', desc: 'Understand where a listing is in the review process' },
+  { Icon: FileText, title: 'Documented checks', desc: 'See what information has been reviewed' },
+  { Icon: CheckCircle, title: 'Confirmation date', desc: 'Know when listing information was last confirmed' },
+  { Icon: Handshake, title: 'Independent decisions', desc: 'Paid promotion does not determine review outcomes' },
 ];
 
 const MOCK_FEATURED: Property[] = [
@@ -167,12 +167,12 @@ export function HomePage() {
         <div className="relative mx-auto flex min-h-[24rem] w-full max-w-7xl flex-col justify-center px-5 py-12 sm:min-h-[28rem] sm:px-8 lg:min-h-[34rem] lg:px-10">
           <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 backdrop-blur">
             <Shield className="h-3.5 w-3.5 text-accent-400" />
-            <span className="text-xs font-semibold text-white sm:text-sm">Land, homes and more · Across Uganda</span>
+            <span className="text-xs font-semibold text-white sm:text-sm">Property discovery built on transparency · Uganda</span>
           </div>
           <h1 className="mb-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Uganda&apos;s Trusted Property Marketplace <span className="text-accent-400">(Real-Estate &amp; Accommodation)</span>
+            Find property with clearer information. <span className="text-accent-400">Choose with confidence.</span>
           </h1>
-          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">Discover property across Uganda with transparent listings, clear pricing and direct access to owners and authorised representatives—all in one marketplace.</p>
+          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">TtakaMarket is building a more trusted way to discover land, homes, commercial spaces and short stays—with a review process designed to show what was checked and when information was last confirmed.</p>
           <div className="flex flex-wrap gap-3">
             <Link to="/properties" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-accent-600 px-5 text-sm font-bold text-white shadow-lg transition hover:bg-accent-700 sm:px-6">
                 Browse properties <ArrowRight className="h-4 w-4" />
@@ -319,9 +319,9 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="mb-3 inline-block rounded-full bg-primary-100 px-3 py-1 text-xs font-bold text-primary-700">A better way to find property</span>
-            <h2 className="mb-2 text-2xl font-bold text-gray-900">A clearer, more connected property experience</h2>
+            <h2 className="mb-2 text-2xl font-bold text-gray-900">A property marketplace with review you can understand</h2>
             <p className="mx-auto max-w-2xl text-sm leading-6 text-gray-600 sm:text-base">
-              Discover properties and accommodation in one place, with clear listing details, transparent offers and direct enquiry routes for buyers, renters, guests, owners and representatives.
+              Listings are designed to make the review status, documented checks and last confirmation date visible, helping seekers assess information before arranging a visit or contacting a property representative.
             </p>
           </div>
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -329,7 +329,7 @@ export function HomePage() {
               { Icon: Search, title: 'Find the right place', desc: 'Explore land, homes, commercial spaces and short stays using tailored search and filters.' },
               { Icon: Users, title: 'Clear listing contacts', desc: 'See the contact role and send enquiries to owners, representatives or the TtakaMarket team.' },
               { Icon: TrendingUp, title: 'Useful listing details', desc: 'Compare property features, availability, prices and terms as you explore your options.' },
-              { Icon: Shield, title: 'Managed listing review', desc: 'Our team reviews submitted listing information before publication.' },
+              { Icon: Shield, title: 'A clear review trail', desc: 'See the review outcome, checks recorded and when listing details were last confirmed.' },
             ].map(({ Icon, title, desc }) => (
               <div key={title} className="bg-white rounded-xl p-4 border border-gray-200 shadow-sm">
                 <div className="w-10 h-10 bg-primary-50 rounded-xl flex items-center justify-center mb-3">
@@ -348,14 +348,15 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-primary-600 mb-2">How TtakaMarket Works</h2>
-            <p className="text-sm text-gray-500">A clear process for owners, representatives and property seekers</p>
+            <p className="text-sm text-gray-500">A repeatable process from submission through ongoing listing maintenance</p>
           </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {[
-              { num: '01', title: 'Submit details', desc: 'Owners or lawful representatives share property information and supporting documents.', Icon: Users },
-              { num: '02', title: 'Administrator review', desc: 'Ownership documents, representative authority and property details are reviewed.', Icon: Shield },
-              { num: '03', title: 'Publication decision', desc: 'Listings are published following an administrator decision.', Icon: CheckCircle },
-              { num: '04', title: 'Accountable enquiries', desc: 'Property seekers connect with owners and authorised representatives.', Icon: MessageSquare },
+              { num: '01', title: 'Submit listing', desc: 'Share property information, contact details and supporting documents.', Icon: Users },
+              { num: '02', title: 'Review information', desc: 'Check identity, ownership or tenure, authority and property details.', Icon: Shield },
+              { num: '03', title: 'Record decision', desc: 'Document the outcome and make the review status clear.', Icon: ClipboardCheck },
+              { num: '04', title: 'Publish listing', desc: 'Publish reviewed information with the checks recorded and confirmation date.', Icon: CheckCircle },
+              { num: '05', title: 'Maintain listing', desc: 'Reconfirm availability and key details as information changes.', Icon: MessageSquare },
             ].map(({ num, title, desc, Icon }) => (
               <div key={num} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                 <div className="w-10 h-10 bg-accent-500 rounded-full flex items-center justify-center mb-3">
@@ -375,14 +376,14 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-block bg-success-100 text-success-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Our Solution</span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">A Transparent Property Marketplace Platform</h2>
-            <p className="text-sm text-gray-500 max-w-2xl mx-auto">TtakaMarket brings property seekers, owners and authorised representatives together through a managed marketplace built around clear listings, transparent offers and direct enquiry routes.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Trust signals that help people make informed decisions</h2>
+            <p className="text-sm text-gray-500 max-w-2xl mx-auto">TtakaMarket’s review framework is designed to show who submitted a listing, what information was checked, the review outcome and when the information was last confirmed. Review supports due diligence; it does not guarantee title or a transaction.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 mb-6">
             {[
-              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Ownership and authority review', desc: 'Review submitter identity, ownership or tenure records, and documented authority to represent the owner.' },
-              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: Shield, title: 'Property detail checks', desc: 'Coordinate site checks to establish a clear record of the property’s location, size, access and condition.' },
-              { color: 'bg-accent-50 border-accent-100', iconBg: 'bg-accent-500', Icon: MessageSquare, title: 'Accountable contact', desc: 'Make the contact’s role clear and route enquiries to the owner, authorised representative or designated TtakaMarket contact.' },
+              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Ownership and authority checks', desc: 'Record the identity checks, ownership or tenure information and authority documents considered during review.' },
+              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: Shield, title: 'Status and confirmation date', desc: 'Show the review outcome and last confirmation date so seekers can judge how current the information is.' },
+              { color: 'bg-accent-50 border-accent-100', iconBg: 'bg-accent-500', Icon: MessageSquare, title: 'Ongoing listing maintenance', desc: 'Keep availability and key property details under review, with clear routes to report information that may need updating.' },
             ].map(({ color, iconBg, Icon, title, desc }) => (
               <div key={title} className={`flex gap-4 p-4 rounded-xl border ${color}`}>
                 <div className={`w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>
@@ -396,10 +397,10 @@ export function HomePage() {
             ))}
           </div>
           <div className="bg-primary-600 rounded-2xl p-6 text-center">
-            <h3 className="text-lg font-bold text-white mb-2">Designed to make property offers more accountable</h3>
-            <p className="text-sm text-primary-200 mb-4">Explore confidently, compare your options and connect with the right property contact.</p>
+            <h3 className="text-lg font-bold text-white mb-2">A review process—not just another listings board</h3>
+            <p className="text-sm text-primary-200 mb-4">A visible and repeatable review framework helps seekers understand listing information before making their next move.</p>
             <div className="flex flex-wrap items-center justify-center gap-4 text-primary-200">
-              {['Land, homes and short stays', 'Buy, rent, lease or book', 'Accountable property offers'].map(t => (
+              {['Land, residential and commercial property', 'Short-stay accommodation', 'Review status and documented checks'].map(t => (
                 <div key={t} className="flex items-center gap-1.5 text-xs"><CheckCircle className="h-4 w-4 text-primary-300" />{t}</div>
               ))}
             </div>
