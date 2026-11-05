@@ -167,7 +167,7 @@ export function HomePage() {
         <div className="relative mx-auto flex min-h-[24rem] w-full max-w-7xl flex-col justify-center px-5 py-12 sm:min-h-[28rem] sm:px-8 lg:min-h-[34rem] lg:px-10">
           <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 backdrop-blur">
             <Shield className="h-3.5 w-3.5 text-accent-400" />
-            <span className="text-xs font-semibold text-white sm:text-sm">Property discovery built on transparency · Uganda</span>
+            <span className="text-xs font-semibold text-white sm:text-sm">Uganda&apos;s Trusted Property Marketplace · Real-Estate &amp; Accommodation</span>
           </div>
           <h1 className="mb-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
             Find property with clearer information. <span className="text-accent-400">Choose with confidence.</span>
