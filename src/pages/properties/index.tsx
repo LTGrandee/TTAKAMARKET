@@ -171,12 +171,12 @@ export function PropertyDetailPage() {
         amenities: [], status: 'published', verification_status: 'verified', views_count: 234, saves_count: 45, inquiries_count: 12,
         created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString(),
         environmental_screening: {
-          status: 'no_flag_identified',
-          risks: ['none_identified'],
+          status: 'possible_conflict',
+          risks: ['wetland'],
           screened_at: new Date().toISOString(),
           screened_location: 'Kololo Hill Drive, Kampala',
-          data_source: 'Pilot spatial data review',
-          referral_required: false,
+          data_source: 'Preliminary pilot spatial data review',
+          referral_required: true,
           disclaimer: 'Preliminary environmental screening only. It is not a permit, EIA or title check.',
         },
         images: [
