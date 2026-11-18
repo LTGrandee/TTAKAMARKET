@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context';
 import {
-  Home, Building2, MessageSquare, Heart, User, Menu, X, Plus, Shield, ChevronRight, CircleHelp, ClipboardCheck, Globe2, Coins, Info, Mail, Scale, LockKeyhole, BedDouble,
+  Home, Building2, MessageSquare, Heart, User, Menu, X, Plus, Shield, ChevronRight, CircleHelp, ClipboardCheck, Globe2, Coins, Info, Mail, Scale, LockKeyhole, BedDouble, Sprout,
 } from 'lucide-react';
 import { Avatar } from '../ui';
 import { BrandLogo } from '../BrandLogo';
@@ -14,6 +14,7 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
   const navigationLinks = [
     { label: 'Home', href: '/', Icon: Home },
     { label: 'Properties', href: '/properties', Icon: Building2 },
+    { label: 'Restoration Hub', href: '/restoration', Icon: Sprout },
     { label: 'Saved properties', href: '/saved', Icon: Heart },
     { label: 'Messages', href: '/messages', Icon: MessageSquare },
     { label: 'Profile and settings', href: '/profile', Icon: User },
@@ -151,6 +152,7 @@ export function Header() {
               {[
                 { name: 'Home', href: '/', Icon: Home },
                 { name: 'Properties', href: '/properties', Icon: Building2 },
+                { name: 'Restore', href: '/restoration', Icon: Sprout },
                 { name: 'Saved', href: '/saved', Icon: Heart },
                 { name: 'Messages', href: '/messages', Icon: MessageSquare },
               ].map(({ name, href, Icon }) => (
@@ -264,6 +266,7 @@ export function Layout() {
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600">
             <Link className="hover:text-primary-700" to="/properties">Browse properties</Link>
+            <Link className="hover:text-primary-700" to="/restoration">Restoration Hub</Link>
             <Link className="hover:text-primary-700" to="/properties/new">Submit property</Link>
             <Link className="hover:text-primary-700" to="/register">Create account</Link>
             <Link className="hover:text-primary-700" to="/about">About</Link>

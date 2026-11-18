@@ -79,29 +79,27 @@ export function AboutPage() {
         <section className="rounded-2xl border border-primary-100 bg-primary-50 p-6 sm:p-8">
           <div className="flex items-center gap-3">
             <ShieldCheck className="h-6 w-6 text-primary-700" />
-            <h2 className="text-xl font-bold text-primary-900">A visible, documented review process</h2>
+            <h2 className="text-xl font-bold text-primary-900">One platform, three pillars</h2>
           </div>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-primary-800">
-            TtakaMarket is designed to make review status, the checks recorded and the last confirmation date clear to property seekers. Review supports better-informed decisions; it is not a guarantee of title, legal ownership or a successful transaction.
+            TtakaMarket combines transparent property discovery, preliminary environmental screening and evidence-based land restoration under one responsible land-use platform.
           </p>
-          <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="mt-6 grid gap-3 lg:grid-cols-3">
             {[
-              ['01', 'Submit listing', 'Property and contact details are provided.'],
-              ['02', 'Review information', 'Supporting details and documents are checked.'],
-              ['03', 'Make a decision', 'The review outcome and status are recorded.'],
-              ['04', 'Publish listing', 'Approved information is made discoverable.'],
-              ['05', 'Maintain listing', 'Availability and key details are reconfirmed over time.'],
-            ].map(([number, title, description]) => (
-              <article key={number} className="rounded-xl border border-primary-100 bg-white p-4">
-                <span className="text-xs font-bold text-accent-700">{number}</span>
-                <h3 className="mt-2 text-sm font-bold text-gray-900">{title}</h3>
-                <p className="mt-1 text-xs leading-5 text-gray-600">{description}</p>
+              ['Pillar 1', 'Discover', 'Listings show visible review status, recorded checks and when key details were last confirmed.'],
+              ['Pillar 2', 'Screen', 'Possible wetland, road-reserve, forest, riverbank or protected-area conflicts are flagged early.'],
+              ['Pillar 3', 'Restore', 'Screened projects are matched with consented partners and monitored using independently verified evidence.'],
+            ].map(([pillar, title, description]) => (
+              <article key={title} className="rounded-xl border border-primary-100 bg-white p-4">
+                <span className="text-xs font-bold text-accent-700">{pillar}</span>
+                <h3 className="mt-2 text-base font-bold text-gray-900">{title}</h3>
+                <p className="mt-1 text-sm leading-6 text-gray-600">{description}</p>
               </article>
             ))}
           </div>
           <p className="mt-5 flex items-start gap-2 text-xs leading-5 text-primary-800">
             <ClipboardCheck className="mt-0.5 h-4 w-4 shrink-0" />
-            Checks may cover identity, ownership or tenure information, authority to represent the owner and key property details. A review does not replace independent legal advice or due diligence.
+            Property review does not guarantee title, legal ownership or a successful transaction. Environmental screening is preliminary and does not replace permits, EIAs or independent legal and expert advice. Restoration outcomes require documented and independently verified evidence.
           </p>
         </section>
 

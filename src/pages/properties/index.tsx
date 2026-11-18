@@ -138,7 +138,7 @@ export function PropertiesPage() {
 }
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { MapPin, Bed, Bath, Square, Calendar, Heart, Share2, Flag, Shield, CheckCircle, MessageSquare, ChevronLeft, ChevronRight, Building2, Clock, User } from 'lucide-react';
+import { MapPin, Bed, Bath, Square, Calendar, Heart, Share2, Flag, Shield, CheckCircle, MessageSquare, ChevronLeft, ChevronRight, Building2, Clock, User, AlertTriangle, TreePine } from 'lucide-react';
 import { Badge, Card, Avatar, Modal, Input, Textarea, Loading } from '../../components/ui';
 import type { Profile } from '../../lib/types';
 import { formatPrice, getListingTypeLabel, getPropertyCategory, getPropertyCategoryLabel, getPropertyTypeLabel, getRentalLabel, getRentalPricePeriod, formatDate } from '../../lib/utils';
@@ -170,6 +170,15 @@ export function PropertyDetailPage() {
         latitude: 0.3284, longitude: 32.5894, features: ['Main Road Access', 'Electricity', 'Water', 'Surveyed', 'Garden'],
         amenities: [], status: 'published', verification_status: 'verified', views_count: 234, saves_count: 45, inquiries_count: 12,
         created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString(),
+        environmental_screening: {
+          status: 'no_flag_identified',
+          risks: ['none_identified'],
+          screened_at: new Date().toISOString(),
+          screened_location: 'Kololo Hill Drive, Kampala',
+          data_source: 'Pilot spatial data review',
+          referral_required: false,
+          disclaimer: 'Preliminary environmental screening only. It is not a permit, EIA or title check.',
+        },
         images: [
           { id: '1', property_id: '1', image_url: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1200', is_primary: true, display_order: 0, created_at: new Date().toISOString() },
           { id: '2', property_id: '1', image_url: 'https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1200', is_primary: false, display_order: 1, created_at: new Date().toISOString() },
@@ -293,6 +302,43 @@ export function PropertyDetailPage() {
               <div className="prose prose-sm max-w-none text-gray-600 whitespace-pre-line">{property.description}</div>
             </div>
 
+            {property.environmental_screening && (
+              <div className="rounded-xl border border-success-200 bg-success-50 p-5 shadow-sm">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-success-600 text-white">
+                    <TreePine className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <h2 className="text-lg font-semibold text-success-900">Environmental screening</h2>
+                      <Badge variant={property.environmental_screening.status === 'possible_conflict' ? 'warning' : 'success'} size="sm">
+                        {property.environmental_screening.status === 'no_flag_identified' ? 'No preliminary flag identified' : property.environmental_screening.status === 'expert_review' ? 'Expert review recommended' : property.environmental_screening.status === 'possible_conflict' ? 'Possible conflict flagged' : 'Screening in progress'}
+                      </Badge>
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-success-800">
+                      Location: {property.environmental_screening.screened_location || `${property.address}, ${property.city}`}
+                    </p>
+                    {property.environmental_screening.risks.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-2">
+                        {property.environmental_screening.risks.map((risk) => (
+                          <span key={risk} className="rounded-full border border-success-200 bg-white px-2.5 py-1 text-xs font-medium text-success-800">
+                            {risk === 'none_identified' ? 'No common risk identified' : risk.replace('_', ' ')}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    {property.environmental_screening.referral_required && (
+                      <p className="mt-3 flex items-start gap-2 text-sm font-medium text-warning-800">
+                        <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0" />
+                        Expert environmental or legal referral recommended.
+                      </p>
+                    )}
+                    <p className="mt-3 text-xs leading-5 text-success-800">{property.environmental_screening.disclaimer}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {property.features && property.features.length > 0 && (
               <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
                 <h2 className="text-lg font-semibold text-gray-900 mb-4">Features</h2>
@@ -374,6 +420,10 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
     accommodation_availability: 'hourly',
     accommodation_rate_basis: 'per_hour',
     accommodation_capacity: '',
+    environmental_screen_status: 'not_started',
+    environmental_risk: 'none_identified',
+    environmental_notes: '',
+    environmental_referral: false,
   }));
   const [images, setImages] = useState<File[]>([]);
   const [documents, setDocuments] = useState<File[]>([]);
@@ -546,6 +596,23 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
           {currentStep === 3 && (
             <div className="space-y-6">
               <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Features & Amenities</h2><p className="text-sm text-gray-500 mb-4">Select all features that apply</p><div className="flex flex-wrap gap-2 mb-4">{commonFeatures.map((feature) => (<button key={feature} type="button" onClick={() => toggleFeature(feature)} className={cn('px-3 py-1.5 rounded-full text-sm font-medium transition-colors', formData.features.includes(feature) ? 'bg-primary-100 text-primary-700 border border-primary-300' : 'bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-300')}>{feature}</button>))}</div></div>
+              {!isAccommodationSubmission && (
+                <div className="rounded-xl border border-success-200 bg-success-50 p-4">
+                  <h3 className="font-semibold text-success-900">Environmental screening information</h3>
+                  <p className="mt-1 text-sm leading-6 text-success-800">Share the location and known environmental concerns. Screening is preliminary and is not a permit, EIA or title check.</p>
+                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                    <Select label="Screening status" options={[{ value: 'not_started', label: 'Not started' }, { value: 'screening', label: 'Screening in progress' }, { value: 'no_flag_identified', label: 'No preliminary flag identified' }, { value: 'possible_conflict', label: 'Possible conflict identified' }, { value: 'expert_review', label: 'Expert review recommended' }]} value={formData.environmental_screen_status} onChange={(e) => updateForm('environmental_screen_status', e.target.value)} />
+                    <Select label="Known risk category" options={[{ value: 'none_identified', label: 'No common risk identified' }, { value: 'wetland', label: 'Wetland' }, { value: 'road_reserve', label: 'Road reserve' }, { value: 'forest', label: 'Forest' }, { value: 'riverbank', label: 'Riverbank' }, { value: 'protected_area', label: 'Protected area' }]} value={formData.environmental_risk} onChange={(e) => updateForm('environmental_risk', e.target.value)} />
+                  </div>
+                  <div className="mt-4">
+                    <Textarea label="Environmental notes (optional)" placeholder="Describe the evidence, source or expert referral relevant to the location" value={formData.environmental_notes} onChange={(e) => updateForm('environmental_notes', e.target.value)} rows={3} />
+                  </div>
+                  <label className="mt-4 flex items-start gap-3 text-sm text-success-900">
+                    <input type="checkbox" checked={formData.environmental_referral} onChange={(e) => setFormData((prev) => ({ ...prev, environmental_referral: e.target.checked }))} className="mt-1 h-4 w-4 rounded border-gray-300 text-success-600" />
+                    <span>Recommend environmental or legal expert referral before a transaction or development decision.</span>
+                  </label>
+                </div>
+              )}
             </div>
           )}
 

@@ -12,6 +12,7 @@ import { SellerProfilePage } from './pages/seller';
 import { HelpPage } from './pages/HelpPage';
 import { AboutPage, PolicyPage } from './pages/InfoPage';
 import { WHATSAPP_URL } from './lib/contact';
+import { RestorationPage } from './pages/RestorationPage';
 
 function FloatingWhatsAppButton() {
   const { pathname } = useLocation();
@@ -48,6 +49,7 @@ function App() {
             <Route path="/properties/new" element={<NewPropertyPage />} />
             <Route path="/accommodation/new" element={<NewPropertyPage submissionType="accommodation" />} />
             <Route path="/properties/:id" element={<PropertyDetailPage />} />
+            <Route path="/restoration" element={<RestorationPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/messages/:conversationId?" element={<MessagesPage />} />

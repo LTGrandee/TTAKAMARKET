@@ -70,6 +70,7 @@ const trustPoints = [
   { Icon: Shield, title: 'Visible review status', desc: 'Understand where a listing is in the review process' },
   { Icon: FileText, title: 'Documented checks', desc: 'See what information has been reviewed' },
   { Icon: CheckCircle, title: 'Confirmation date', desc: 'Know when listing information was last confirmed' },
+  { Icon: TreePine, title: 'Environmental screening', desc: 'View preliminary wetland, reserve, forest and riverbank flags' },
   { Icon: Handshake, title: 'Independent decisions', desc: 'Paid promotion does not determine review outcomes' },
 ];
 
@@ -371,39 +372,85 @@ export function HomePage() {
         </div>
       </section>
 
+      {/* ── HOOK & PROBLEM ── */}
+      <section className="px-4 py-10 bg-primary-900 text-white">
+        <div className="mx-auto max-w-4xl">
+          <div className="rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-7">
+            <p className="text-xs font-bold uppercase tracking-wider text-accent-300">Imagine this</p>
+            <h2 className="mt-2 max-w-3xl text-2xl font-bold leading-tight sm:text-3xl">
+              Imagine paying for a site visit to a listing that is already taken, discovering that the seller has no authority, or learning too late that the land is in a wetland or road reserve.
+            </h2>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-primary-100 sm:text-base">
+              <strong className="text-white">Property information is hard to trust.</strong> Seekers rely on brokers and informal groups while listings are often outdated, authority is unclear and environmental risks can go unflagged.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
       {/* ── OUR SOLUTION ── */}
       <section className="px-4 py-10 bg-gray-50">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-block bg-success-100 text-success-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Our Solution</span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Trust signals that help people make informed decisions</h2>
-            <p className="text-sm text-gray-500 max-w-2xl mx-auto">TtakaMarket’s review framework is designed to show who submitted a listing, what information was checked, the review outcome and when the information was last confirmed. Review supports due diligence; it does not guarantee title or a transaction.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">One platform, three pillars</h2>
+            <p className="text-sm text-gray-500 max-w-2xl mx-auto">TtakaMarket helps people discover property with clarity, understand preliminary environmental risks and connect degraded land with restoration partners.</p>
           </div>
-          <div className="grid grid-cols-1 gap-4 mb-6">
+          <div className="grid grid-cols-1 gap-4 mb-6 sm:grid-cols-3">
             {[
-              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: CheckCircle, title: 'Ownership and authority checks', desc: 'Record the identity checks, ownership or tenure information and authority documents considered during review.' },
-              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: Shield, title: 'Status and confirmation date', desc: 'Show the review outcome and last confirmation date so seekers can judge how current the information is.' },
-              { color: 'bg-accent-50 border-accent-100', iconBg: 'bg-accent-500', Icon: MessageSquare, title: 'Ongoing listing maintenance', desc: 'Keep availability and key property details under review, with clear routes to report information that may need updating.' },
-            ].map(({ color, iconBg, Icon, title, desc }) => (
-              <div key={title} className={`flex gap-4 p-4 rounded-xl border ${color}`}>
-                <div className={`w-12 h-12 ${iconBg} rounded-xl flex items-center justify-center flex-shrink-0`}>
+              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: Search, eyebrow: 'Pillar 1', title: 'Discover', desc: 'Browse land, homes, commercial property and short stays with visible review status, recorded checks and confirmation dates.' },
+              { color: 'bg-warning-50 border-warning-100', iconBg: 'bg-warning-600', Icon: Shield, eyebrow: 'Pillar 2', title: 'Screen', desc: 'Receive early flags for possible wetland, road-reserve, forest, riverbank or protected-area conflicts.' },
+              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: TreePine, eyebrow: 'Pillar 3', title: 'Restore', desc: 'Connect consented, screened projects with restoration partners and track progress using independent evidence.' },
+            ].map(({ color, iconBg, Icon, eyebrow, title, desc }) => (
+              <div key={title} className={`flex flex-col p-5 rounded-xl border ${color}`}>
+                <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${iconBg}`}>
                   <Icon className="h-6 w-6 text-white" />
                 </div>
-                <div>
-                  <h3 className="font-bold text-gray-900 mb-1">{title}</h3>
-                  <p className="text-sm text-gray-600 leading-snug">{desc}</p>
-                </div>
+                <p className="mt-4 text-xs font-bold uppercase tracking-wider text-gray-500">{eyebrow}</p>
+                <h3 className="mt-1 text-lg font-bold text-gray-900">{title}</h3>
+                <p className="mt-2 text-sm leading-6 text-gray-600">{desc}</p>
               </div>
             ))}
           </div>
           <div className="bg-primary-600 rounded-2xl p-6 text-center">
-            <h3 className="text-lg font-bold text-white mb-2">A review process—not just another listings board</h3>
-            <p className="text-sm text-primary-200 mb-4">A visible and repeatable review framework helps seekers understand listing information before making their next move.</p>
+            <h3 className="text-lg font-bold text-white mb-2">Discover. Understand. Restore.</h3>
+            <p className="text-sm text-primary-200 mb-4">Transparency supports informed decisions; environmental screening does not replace permits, EIAs or title checks.</p>
             <div className="flex flex-wrap items-center justify-center gap-4 text-primary-200">
-              {['Land, residential and commercial property', 'Short-stay accommodation', 'Review status and documented checks'].map(t => (
+              {['Visible property review', 'Preliminary environmental flags', 'Evidence-based restoration'].map(t => (
                 <div key={t} className="flex items-center gap-1.5 text-xs"><CheckCircle className="h-4 w-4 text-primary-300" />{t}</div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ENVIRONMENT & RESTORATION ── */}
+      <section className="px-4 py-10 bg-success-50">
+        <div className="mx-auto max-w-4xl">
+          <div className="text-center">
+            <span className="inline-block rounded-full bg-success-100 px-3 py-1 text-xs font-bold text-success-700">Screen & Restore</span>
+            <h2 className="mt-3 text-2xl font-bold text-gray-900">Responsible land use, with clear limits</h2>
+            <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-gray-600">
+              TtakaMarket will add preliminary environmental flags to property discovery and connect consented, degraded-land projects with restoration partners.
+            </p>
+          </div>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {[
+              { Icon: MapPin, title: 'Locate', desc: 'Record the plot location and screening data source.' },
+              { Icon: Shield, title: 'Screen', desc: 'Flag possible wetland, reserve, forest or riverbank conflicts.' },
+              { Icon: TreePine, title: 'Restore', desc: 'Match assessed projects and document progress with evidence.' },
+            ].map(({ Icon, title, desc }) => (
+              <div key={title} className="rounded-xl border border-success-100 bg-white p-5 shadow-sm">
+                <Icon className="h-6 w-6 text-success-700" />
+                <h3 className="mt-3 font-bold text-gray-900">{title}</h3>
+                <p className="mt-1 text-sm leading-6 text-gray-600">{desc}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 text-center">
+            <Link to="/restoration" className="inline-flex items-center gap-2 rounded-xl bg-success-700 px-4 py-3 text-sm font-semibold text-white hover:bg-success-800">
+              Explore the Restoration Hub <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       </section>

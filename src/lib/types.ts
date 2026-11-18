@@ -93,6 +93,50 @@ export type Property = {
   published_at?: string;
   images?: PropertyImage[];
   owner?: Profile;
+  environmental_screening?: EnvironmentalScreening;
+};
+
+export type EnvironmentalRisk =
+  | 'wetland'
+  | 'road_reserve'
+  | 'forest'
+  | 'riverbank'
+  | 'protected_area'
+  | 'none_identified';
+
+export type EnvironmentalScreeningStatus = 'not_started' | 'screening' | 'possible_conflict' | 'no_flag_identified' | 'expert_review';
+
+export type EnvironmentalScreening = {
+  status: EnvironmentalScreeningStatus;
+  risks: EnvironmentalRisk[];
+  screened_at?: string;
+  screened_location?: string;
+  data_source?: string;
+  referral_required: boolean;
+  disclaimer: string;
+};
+
+export type RestorationProjectStatus =
+  | 'identified'
+  | 'assessed'
+  | 'partner_matched'
+  | 'implementing'
+  | 'monitoring'
+  | 'completed';
+
+export type RestorationProject = {
+  id: string;
+  title: string;
+  location: string;
+  district: string;
+  area_hectares: number;
+  status: RestorationProjectStatus;
+  risk_categories: EnvironmentalRisk[];
+  consent_confirmed: boolean;
+  evidence_status: 'pending' | 'documented' | 'independently_verified';
+  partner_name: string;
+  description: string;
+  last_updated: string;
 };
 
 export type PropertyCategory = 'land' | 'housing' | 'commercial' | 'storage';
