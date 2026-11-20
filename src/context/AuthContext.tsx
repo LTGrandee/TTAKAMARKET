@@ -8,6 +8,7 @@ interface AuthContextType {
   loading: boolean;
   signUp: (email: string, password: string, fullName: string, userType?: Profile['user_type'], sellerDetails?: Partial<Profile>) => Promise<{ error: Error | null }>;
   signIn: (email: string, password: string, userType?: Profile['user_type']) => Promise<{ error: Error | null }>;
+  signInWithProvider: (provider: 'google' | 'apple' | 'facebook', userType?: Profile['user_type']) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
   updateProfile: (updates: Partial<Profile>) => Promise<{ error: Error | null }>;
 }
@@ -88,6 +89,38 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
+
+      const newUser = { id, email };
+      setUser(newUser);
+      setProfile(newProfile);
+      setStoredAuth({ user: newUser, profile: newProfile });
+      return { error: null };
+    } catch (error) {
+      return { error: error as Error };
+    }
+  };
+
+  const signInWithProvider = async (provider: 'google' | 'apple' | 'facebook', userType: Profile['user_type'] = 'buyer') => {
+    try {
+      const email = `${provider}.demo@ttakamarket.local`;
+      const stored = getStoredAuth();
+      if (stored && stored.user.email === email) {
+        setUser(stored.user);
+        setProfile(stored.profile);
+        return { error: null };
+      }
+      const id = generateId();
+      const newProfile: Profile = {
+        id,
+        email,
+        full_name: `${provider[0].toUpperCase()}${provider.slice(1)} user`,
+        is_verified: false,
+        verification_status: 'pending',
+        user_type: userType,
+        country: 'Uganda',
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
       const newUser = { id, email };
       setUser(newUser);
       setProfile(newProfile);
@@ -117,7 +150,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, signUp, signIn, signOut, updateProfile }}>
+    <AuthContext.Provider value={{ user, profile, loading, signUp, signIn, signInWithProvider, signOut, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );
