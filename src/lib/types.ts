@@ -157,6 +157,7 @@ export type RestorationReport = {
 
 export type RestorationPartnerApplication = {
   id: string;
+  application_type: 'partner_registration' | 'project_proposal' | 'both';
   organisation_name: string;
   contact_name: string;
   contact: string;
@@ -164,6 +165,11 @@ export type RestorationPartnerApplication = {
   capabilities: string[];
   coverage: string;
   experience: string;
+  project_title?: string;
+  project_location?: string;
+  project_area_hectares?: number;
+  project_approach?: string;
+  project_timeline?: string;
   status: 'submitted' | 'under_review' | 'approved' | 'declined';
   created_at: string;
 };
