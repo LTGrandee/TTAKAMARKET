@@ -81,7 +81,7 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
             )}
 
             <nav className="flex-1 overflow-y-auto px-3 py-4">
-              <div className="hidden md:block lg:hidden">
+              <div className="mb-4 lg:hidden">
                 <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Navigation</p>
                 <div className="space-y-1">{navigationLinks.map(renderLink)}</div>
               </div>
