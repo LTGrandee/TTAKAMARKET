@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context';
 import {
-  Home, Building2, MessageSquare, Heart, User, Menu, X, Plus, Shield, ChevronRight, CircleHelp, ClipboardCheck, Globe2, Coins, Info, Mail, Scale, LockKeyhole, BedDouble, Sprout,
+  Home, Building2, MessageSquare, Heart, User, Menu, X, Plus, Shield, ChevronRight, CircleHelp, ClipboardCheck, Globe2, Coins, Info, Mail, Scale, LockKeyhole, BedDouble, Sprout, Bell,
 } from 'lucide-react';
 import { Avatar } from '../ui';
 import { BrandLogo } from '../BrandLogo';
@@ -156,7 +156,6 @@ export function Header() {
                 { name: 'Properties', href: '/properties', Icon: Building2 },
                 { name: 'Restore', href: '/restoration', Icon: Sprout },
                 { name: 'Saved', href: '/saved', Icon: Heart },
-                { name: 'Messages', href: '/messages', Icon: MessageSquare },
               ].map(({ name, href, Icon }) => (
                 <Link
                   key={name}
@@ -192,6 +191,16 @@ export function Header() {
                 </>
               )}
 
+              <Link
+                to="/messages"
+                aria-label="Open messages"
+                title="Messages"
+                className="relative flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100 hover:text-primary-600"
+              >
+                <Bell className="h-5 w-5" />
+                <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-accent-500 ring-2 ring-white" aria-label="Unread messages" />
+              </Link>
+
               <button
                 onClick={() => setDrawerOpen(true)}
                 className="flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100"
@@ -215,7 +224,7 @@ const bottomNavItems = [
   { label: 'Home', href: '/', Icon: Home },
   { label: 'Properties', href: '/properties', Icon: Building2 },
   { label: 'Restore', href: '/restoration', Icon: Sprout },
-  { label: 'Messages', href: '/messages', Icon: MessageSquare },
+  { label: 'Saved', href: '/saved', Icon: Heart },
   { label: 'Profile', href: '/profile', Icon: User },
 ];
 
