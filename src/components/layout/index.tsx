@@ -214,7 +214,7 @@ export function Header() {
 const bottomNavItems = [
   { label: 'Home', href: '/', Icon: Home },
   { label: 'Properties', href: '/properties', Icon: Building2 },
-  { label: 'Saved', href: '/saved', Icon: Heart },
+  { label: 'Restore', href: '/restoration', Icon: Sprout },
   { label: 'Messages', href: '/messages', Icon: MessageSquare },
   { label: 'Profile', href: '/profile', Icon: User },
 ];
