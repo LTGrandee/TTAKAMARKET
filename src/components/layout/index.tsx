@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation, Outlet } from 'react-router-dom';
 import { useAuth } from '../../context';
 import {
-  Home, Building2, MessageSquare, Heart, User, Menu, X, Plus, Shield, ChevronRight, CircleHelp, ClipboardCheck, Globe2, Coins, Info, Mail, Scale, LockKeyhole, BedDouble, Sprout, Bell,
+  Home, Building2, MessageSquare, Heart, User, Menu, X, Plus, Shield, ChevronRight, CircleHelp, ClipboardCheck, Globe2, Coins, Info, Mail, Scale, LockKeyhole, BedDouble, Sprout, Bell, AlertTriangle,
 } from 'lucide-react';
 import { Avatar } from '../ui';
 import { BrandLogo } from '../BrandLogo';
@@ -127,6 +127,7 @@ export function Header() {
   const { user, profile } = useAuth();
   const location = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [alertsOpen, setAlertsOpen] = useState(false);
 
   useEffect(() => {
     const targetId = location.hash.slice(1);
@@ -191,13 +192,39 @@ export function Header() {
                 </>
               )}
 
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setAlertsOpen((open) => !open)}
+                  aria-label="Open notifications and alerts"
+                  aria-expanded={alertsOpen}
+                  title="Notifications and alerts"
+                  className="relative flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100 hover:text-primary-600"
+                >
+                  <Bell className="h-5 w-5" />
+                  <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-warning-500 ring-2 ring-white" aria-label="Unread notifications" />
+                </button>
+                {alertsOpen && (
+                  <div className="absolute right-0 top-12 z-50 w-80 rounded-xl border border-gray-200 bg-white p-3 shadow-xl">
+                    <div className="flex items-center justify-between border-b border-gray-100 px-2 pb-3">
+                      <p className="text-sm font-bold text-gray-900">Updates and alerts</p>
+                      <AlertTriangle className="h-4 w-4 text-warning-600" />
+                    </div>
+                    <div className="mt-2 flex gap-3 rounded-lg bg-warning-50 p-3">
+                      <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-warning-700" />
+                      <div><p className="text-sm font-semibold text-warning-900">Stay informed</p><p className="mt-1 text-xs leading-5 text-warning-800">Important account, property review and environmental updates will appear here.</p></div>
+                    </div>
+                    <p className="px-2 pt-3 text-xs text-gray-500">No new alerts right now.</p>
+                  </div>
+                )}
+              </div>
               <Link
                 to="/messages"
                 aria-label="Open messages"
                 title="Messages"
                 className="relative flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100 hover:text-primary-600"
               >
-                <Bell className="h-5 w-5" />
+                <MessageSquare className="h-5 w-5" />
                 <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-accent-500 ring-2 ring-white" aria-label="Unread messages" />
               </Link>
 
