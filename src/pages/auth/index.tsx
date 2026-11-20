@@ -6,17 +6,11 @@ import { BrandLogo } from '../../components/BrandLogo';
 import { useAuth } from '../../context';
 import type { MarketplaceListingIntent, PropertyCategory } from '../../lib/types';
 
-function SocialAuthButtons({ onSelect, disabled }: { onSelect: (provider: 'google' | 'apple' | 'facebook') => void; disabled?: boolean }) {
+function GoogleAuthButton({ onSelect, disabled }: { onSelect: () => void; disabled?: boolean }) {
   return (
     <div className="mt-5">
       <div className="relative flex items-center"><div className="h-px flex-1 bg-gray-200" /><span className="px-3 text-xs text-gray-500">Or continue with</span><div className="h-px flex-1 bg-gray-200" /></div>
-      <div className="mt-4 grid grid-cols-3 gap-2">
-        {([['google', 'Google'], ['apple', 'Apple'], ['facebook', 'Facebook']] as const).map(([provider, label]) => (
-          <button key={provider} type="button" disabled={disabled} onClick={() => onSelect(provider)} className="inline-flex min-h-11 items-center justify-center rounded-lg border border-gray-300 bg-white px-2 text-xs font-semibold text-gray-700 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50 sm:text-sm">
-            <span className="mr-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-[10px] font-bold text-gray-700">{label[0]}</span>{label}
-          </button>
-        ))}
-      </div>
+      <button type="button" disabled={disabled} onClick={onSelect} className="mt-4 inline-flex min-h-11 w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-2 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"><span className="mr-2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-100 text-[10px] font-bold text-gray-700">G</span>Continue with Google</button>
       <p className="mt-2 text-center text-[11px] text-gray-500">Social sign-in uses your provider account and follows its verification rules.</p>
     </div>
   );
@@ -25,7 +19,7 @@ function SocialAuthButtons({ onSelect, disabled }: { onSelect: (provider: 'googl
 export function LoginPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { signIn, signInWithProvider } = useAuth();
+  const { signIn, signInWithGoogle } = useAuth();
   const [userType, setUserType] = useState<'buyer' | 'owner'>((searchParams.get('type') as 'buyer' | 'owner') || 'buyer');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,11 +40,11 @@ export function LoginPage() {
       console.error('Sign in error:', err);
     } finally { setLoading(false); }
   };
-  const handleProviderSignIn = async (provider: 'google' | 'apple' | 'facebook') => {
+  const handleGoogleSignIn = async () => {
     setError('');
     setLoading(true);
     try {
-      const { error } = await signInWithProvider(provider, userType);
+      const { error } = await signInWithGoogle(userType);
       if (error) throw error;
       navigate('/dashboard');
     } catch (err) { setError('Social sign-in is unavailable. Please try again.'); console.error('Social sign-in error:', err); }
@@ -84,7 +78,7 @@ export function LoginPage() {
               <div className="flex items-center justify-between"><label className="flex items-center gap-2"><input type="checkbox" className="rounded border-gray-300" /><span className="text-sm text-gray-600 md:text-base">Remember me</span></label></div>
               <Button type="submit" variant="primary" className="min-h-12 w-full md:min-h-14 md:text-base" loading={loading}>Sign In</Button>
             </form>
-            <SocialAuthButtons onSelect={handleProviderSignIn} disabled={loading} />
+            <GoogleAuthButton onSelect={handleGoogleSignIn} disabled={loading} />
             <div className="mt-3 text-center text-sm text-gray-500 md:mt-5 md:text-base">Don't have an account? <Link to="/register" className="text-primary-600 hover:text-primary-700 font-medium">Create one now</Link></div>
           </Card>
         </div>
@@ -204,7 +198,7 @@ export function ForgotPasswordPage() {
 
 export function RegisterPage() {
   const navigate = useNavigate();
-  const { signUp, signInWithProvider } = useAuth();
+  const { signUp, signInWithGoogle } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [userType, setUserType] = useState<'buyer' | 'owner'>('buyer');
   const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', password: '', confirmPassword: '', companyName: '', address: '', city: '', brandName: '', brandType: 'personal' as 'personal' | 'business', brandBio: '', allowChat: false, requestSellerPage: false, propertyCategories: [] as PropertyCategory[], listingIntents: [] as MarketplaceListingIntent[] });
@@ -247,11 +241,11 @@ export function RegisterPage() {
     } catch (err) { setError('Registration failed. Please try again.'); console.error('Registration error:', err); }
     finally { setLoading(false); }
   };
-  const handleProviderSignIn = async (provider: 'google' | 'apple' | 'facebook') => {
+  const handleGoogleSignIn = async () => {
     setError('');
     setLoading(true);
     try {
-      const { error } = await signInWithProvider(provider, userType);
+      const { error } = await signInWithGoogle(userType);
       if (error) throw error;
       navigate('/dashboard?welcome=true');
     } catch (err) { setError('Social sign-in is unavailable. Please try again.'); console.error('Social sign-in error:', err); }
@@ -283,7 +277,7 @@ export function RegisterPage() {
             ))}
           </div>
           <Card className="p-6">
-            <SocialAuthButtons onSelect={handleProviderSignIn} disabled={loading} />
+            <GoogleAuthButton onSelect={handleGoogleSignIn} disabled={loading} />
             <form onSubmit={handleSubmit}>
               {error && <div className="mb-4 p-3 bg-error-50 border border-error-200 rounded-lg text-sm text-error-700">{error}</div>}
               {currentStep === 1 && (

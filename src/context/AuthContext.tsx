@@ -8,7 +8,7 @@ interface AuthContextType {
   loading: boolean;
   signUp: (email: string, password: string, fullName: string, userType?: Profile['user_type'], sellerDetails?: Partial<Profile>) => Promise<{ error: Error | null }>;
   signIn: (email: string, password: string, userType?: Profile['user_type']) => Promise<{ error: Error | null }>;
-  signInWithProvider: (provider: 'google' | 'apple' | 'facebook', userType?: Profile['user_type']) => Promise<{ error: Error | null }>;
+  signInWithGoogle: (userType?: Profile['user_type']) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
   updateProfile: (updates: Partial<Profile>) => Promise<{ error: Error | null }>;
 }
@@ -100,9 +100,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const signInWithProvider = async (provider: 'google' | 'apple' | 'facebook', userType: Profile['user_type'] = 'buyer') => {
+  const signInWithGoogle = async (userType: Profile['user_type'] = 'buyer') => {
     try {
-      const email = `${provider}.demo@ttakamarket.local`;
+      const email = 'google.demo@ttakamarket.local';
       const stored = getStoredAuth();
       if (stored && stored.user.email === email) {
         setUser(stored.user);
@@ -113,7 +113,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const newProfile: Profile = {
         id,
         email,
-        full_name: `${provider[0].toUpperCase()}${provider.slice(1)} user`,
+        full_name: 'Google user',
         is_verified: false,
         verification_status: 'pending',
         user_type: userType,
@@ -150,7 +150,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, signUp, signIn, signInWithProvider, signOut, updateProfile }}>
+    <AuthContext.Provider value={{ user, profile, loading, signUp, signIn, signInWithGoogle, signOut, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );
