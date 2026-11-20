@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import { AuthProvider } from './context';
 import { Layout } from './components/layout';
 import { HomePage } from './pages/HomePage';
-import { ForgotPasswordPage, LoginPage, RegisterPage } from './pages/auth';
+import { ForgotPasswordPage, GoogleOnboardingPage, LoginPage, RegisterPage } from './pages/auth';
 import { PropertiesPage, PropertyDetailPage, NewPropertyPage } from './pages/properties';
 import { DashboardPage } from './pages/dashboard';
 import { MessagesPage } from './pages/messages';
@@ -45,6 +45,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/google-onboarding" element={<GoogleOnboardingPage />} />
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/properties" element={<PropertiesPage />} />

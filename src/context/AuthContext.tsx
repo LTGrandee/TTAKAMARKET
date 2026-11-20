@@ -8,7 +8,8 @@ interface AuthContextType {
   loading: boolean;
   signUp: (email: string, password: string, fullName: string, userType?: Profile['user_type'], sellerDetails?: Partial<Profile>) => Promise<{ error: Error | null }>;
   signIn: (email: string, password: string, userType?: Profile['user_type']) => Promise<{ error: Error | null }>;
-  signInWithGoogle: (userType?: Profile['user_type']) => Promise<{ error: Error | null }>;
+  signInWithGoogle: (userType?: Profile['user_type']) => Promise<{ error: Error | null; needsProfile?: boolean }>;
+  completeGoogleProfile: (details: { fullName: string; phone: string; userType: Profile['user_type']; city: string }) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
   updateProfile: (updates: Partial<Profile>) => Promise<{ error: Error | null }>;
 }
@@ -16,6 +17,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'ttakamarket_auth';
+const GOOGLE_PENDING_KEY = 'ttakamarket_pending_google';
 
 function getStoredAuth() {
   try {
@@ -109,22 +111,36 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setProfile(stored.profile);
         return { error: null };
       }
+      sessionStorage.setItem(GOOGLE_PENDING_KEY, JSON.stringify({ email, userType }));
+      return { error: null, needsProfile: true };
+    } catch (error) {
+      return { error: error as Error };
+    }
+  };
+
+  const completeGoogleProfile = async (details: { fullName: string; phone: string; userType: Profile['user_type']; city: string }) => {
+    try {
+      const pending = JSON.parse(sessionStorage.getItem(GOOGLE_PENDING_KEY) || 'null') as { email: string; userType: Profile['user_type'] } | null;
+      if (!pending) throw new Error('Google signup session expired');
       const id = generateId();
       const newProfile: Profile = {
         id,
-        email,
-        full_name: 'Google user',
+        email: pending.email,
+        full_name: details.fullName,
+        phone: details.phone,
         is_verified: false,
         verification_status: 'pending',
-        user_type: userType,
+        user_type: details.userType,
+        city: details.city,
         country: 'Uganda',
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       };
-      const newUser = { id, email };
+      const newUser = { id, email: pending.email };
       setUser(newUser);
       setProfile(newProfile);
       setStoredAuth({ user: newUser, profile: newProfile });
+      sessionStorage.removeItem(GOOGLE_PENDING_KEY);
       return { error: null };
     } catch (error) {
       return { error: error as Error };
@@ -150,7 +166,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, profile, loading, signUp, signIn, signInWithGoogle, signOut, updateProfile }}>
+    <AuthContext.Provider value={{ user, profile, loading, signUp, signIn, signInWithGoogle, completeGoogleProfile, signOut, updateProfile }}>
       {children}
     </AuthContext.Provider>
   );

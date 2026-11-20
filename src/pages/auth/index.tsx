@@ -44,8 +44,13 @@ export function LoginPage() {
     setError('');
     setLoading(true);
     try {
-      const { error } = await signInWithGoogle(userType);
+      const result = await signInWithGoogle(userType);
+      const { error } = result;
       if (error) throw error;
+      if (result.needsProfile) {
+        navigate('/google-onboarding');
+        return;
+      }
       navigate('/dashboard');
     } catch (err) { setError('Social sign-in is unavailable. Please try again.'); console.error('Social sign-in error:', err); }
     finally { setLoading(false); }
@@ -245,8 +250,14 @@ export function RegisterPage() {
     setError('');
     setLoading(true);
     try {
-      const { error } = await signInWithGoogle(userType);
+      const result = await signInWithGoogle(userType);
+      const { error } = result;
       if (error) throw error;
+      if (result.needsProfile) {
+        navigate('/google-onboarding');
+        return;
+      }
+
       navigate('/dashboard?welcome=true');
     } catch (err) { setError('Social sign-in is unavailable. Please try again.'); console.error('Social sign-in error:', err); }
     finally { setLoading(false); }
@@ -428,3 +439,5 @@ export function RegisterPage() {
     </div>
   );
 }
+
+export { GoogleOnboardingPage } from './GoogleOnboardingPage';
