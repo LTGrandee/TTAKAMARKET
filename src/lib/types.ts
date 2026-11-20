@@ -139,6 +139,35 @@ export type RestorationProject = {
   last_updated: string;
 };
 
+export type RestorationReport = {
+  id: string;
+  location: string;
+  district: string;
+  degradation_type: string;
+  area_hectares?: number;
+  consent_status: 'owner' | 'seeking_consent' | 'not_sure' | 'not_applicable';
+  urgent_risk: boolean;
+  submitter_name: string;
+  submitter_contact: string;
+  description: string;
+  evidence_files: Array<{ name: string; type: 'image' | 'video' }>;
+  status: 'submitted' | 'screening' | 'assessed';
+  created_at: string;
+};
+
+export type RestorationPartnerApplication = {
+  id: string;
+  organisation_name: string;
+  contact_name: string;
+  contact: string;
+  partner_type: string;
+  capabilities: string[];
+  coverage: string;
+  experience: string;
+  status: 'submitted' | 'under_review' | 'approved' | 'declined';
+  created_at: string;
+};
+
 export type PropertyCategory = 'land' | 'housing' | 'commercial' | 'storage';
 export type MarketplaceListingIntent = 'sale' | 'rent' | 'lease' | 'book';
 export type MarketplacePreferences = {

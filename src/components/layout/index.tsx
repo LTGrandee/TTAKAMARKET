@@ -22,6 +22,8 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
   const submissionLinks = [
     { label: 'Submit a property', href: '/properties/new', Icon: Plus },
     { label: 'Submit accommodation', href: '/accommodation/new', Icon: BedDouble },
+    { label: 'Report land needing restoration', href: '/restoration/report', Icon: Sprout },
+    { label: 'Register as restoration partner', href: '/restoration/partners/register', Icon: Sprout },
   ];
   const accountLinks = user ? [{ label: 'Dashboard', href: '/dashboard', Icon: Building2 }] : [];
   const usefulLinks = [

@@ -1,131 +1,35 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AlertTriangle, BadgeCheck, ClipboardCheck, Leaf, MapPin, Sprout, Users } from 'lucide-react';
-import { Badge, Card } from '../components/ui';
+import { AlertTriangle, ArrowRight, BadgeCheck, ClipboardCheck, Eye, Filter, Leaf, MapPin, ShieldCheck, Sprout, Trees, Users } from 'lucide-react';
+import { Badge, Button, Card, Select } from '../components/ui';
 import type { RestorationProject } from '../lib/types';
 
 const projects: RestorationProject[] = [
-  {
-    id: 'rest-1',
-    title: 'Wetland-edge buffer restoration',
-    location: 'Nakivubo catchment',
-    district: 'Kampala',
-    area_hectares: 2.5,
-    status: 'assessed',
-    risk_categories: ['wetland'],
-    consent_confirmed: true,
-    evidence_status: 'documented',
-    partner_name: 'Community restoration partner',
-    description: 'A consented pilot project for stabilising degraded wetland-edge land and monitoring native vegetation.',
-    last_updated: '2026-11-10',
-  },
-  {
-    id: 'rest-2',
-    title: 'Degraded riverbank recovery',
-    location: 'Busega corridor',
-    district: 'Wakiso',
-    area_hectares: 1.2,
-    status: 'implementing',
-    risk_categories: ['riverbank'],
-    consent_confirmed: true,
-    evidence_status: 'pending',
-    partner_name: 'District environmental partner',
-    description: 'A planned implementation project requiring geotagged progress evidence and independent verification.',
-    last_updated: '2026-11-08',
-  },
+  { id: 'rest-1', title: 'Wetland-edge buffer restoration', location: 'Nakivubo catchment', district: 'Kampala', area_hectares: 2.5, status: 'assessed', risk_categories: ['wetland'], consent_confirmed: true, evidence_status: 'documented', partner_name: 'Community restoration partner', description: 'A consented pilot project for stabilising degraded wetland-edge land and monitoring native vegetation.', last_updated: '2026-11-10' },
+  { id: 'rest-2', title: 'Degraded riverbank recovery', location: 'Busega corridor', district: 'Wakiso', area_hectares: 1.2, status: 'implementing', risk_categories: ['riverbank'], consent_confirmed: true, evidence_status: 'pending', partner_name: 'District environmental partner', description: 'A planned implementation project requiring geotagged progress evidence and independent verification.', last_updated: '2026-11-08' },
 ];
-
-const statusLabels: Record<RestorationProject['status'], string> = {
-  identified: 'Identified',
-  assessed: 'Assessed',
-  partner_matched: 'Partner matched',
-  implementing: 'Implementing',
-  monitoring: 'Monitoring',
-  completed: 'Completed',
-};
+const statusLabels: Record<RestorationProject['status'], string> = { identified: 'Identified', assessed: 'Assessed', partner_matched: 'Partner matched', implementing: 'Implementing', monitoring: 'Monitoring', completed: 'Completed' };
+const riskLabels: Record<string, string> = { wetland: 'Wetland', riverbank: 'Riverbank', forest: 'Forest', soil: 'Soil erosion' };
 
 export function RestorationPage() {
+  const [district, setDistrict] = useState('');
+  const [risk, setRisk] = useState('');
+  const [view, setView] = useState<'map' | 'list'>('map');
+  const filteredProjects = projects.filter((project) => (!district || project.district === district) && (!risk || project.risk_categories.includes(risk as RestorationProject['risk_categories'][number])));
   return (
     <div className="min-h-screen bg-gray-50">
-      <section className="bg-success-800 px-4 py-10 text-white sm:py-14">
-        <div className="mx-auto max-w-5xl">
-          <div className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10">
-              <Sprout className="h-6 w-6" />
-            </div>
-            <p className="text-xs font-bold uppercase tracking-wider text-success-100">Land Restoration Hub</p>
-          </div>
-          <h1 className="mt-4 max-w-3xl text-3xl font-bold sm:text-4xl">Restore degraded land with consent, evidence and follow-through</h1>
-          <p className="mt-3 max-w-3xl text-sm leading-7 text-success-100 sm:text-base">
-            Explore screened projects and restoration partners. Hectares and progress are reported only when supporting evidence is documented and independently verified.
-          </p>
-        </div>
-      </section>
-
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-        <div className="grid gap-4 md:grid-cols-3">
-          {[
-            { Icon: ClipboardCheck, title: 'Identify & assess', text: 'Confirm the location, degradation risk and project scope.' },
-            { Icon: Users, title: 'Match partners', text: 'Connect consenting landholders with qualified implementation partners.' },
-            { Icon: BadgeCheck, title: 'Evidence & monitor', text: 'Record progress and verify hectares before reporting outcomes.' },
-          ].map(({ Icon, title, text }) => (
-            <Card key={title} className="p-5">
-              <Icon className="h-6 w-6 text-success-700" />
-              <h2 className="mt-3 font-semibold text-gray-900">{title}</h2>
-              <p className="mt-1 text-sm leading-6 text-gray-600">{text}</p>
-            </Card>
-          ))}
-        </div>
-
-        <div className="mt-8 flex items-end justify-between gap-4">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wider text-success-700">Pilot projects</p>
-            <h2 className="mt-1 text-xl font-bold text-gray-900">Restoration opportunities</h2>
-          </div>
-          <Badge variant="neutral">Proof of work required</Badge>
-        </div>
-
-        <div className="mt-4 grid gap-5 md:grid-cols-2">
-          {projects.map((project) => (
-            <article key={project.id} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <Badge variant="success" size="sm">{statusLabels[project.status]}</Badge>
-                  <h3 className="mt-3 text-lg font-bold text-gray-900">{project.title}</h3>
-                </div>
-                <Leaf className="h-6 w-6 flex-shrink-0 text-success-600" />
-              </div>
-              <p className="mt-2 flex items-center gap-1.5 text-sm text-gray-500"><MapPin className="h-4 w-4" />{project.location}, {project.district}</p>
-              <p className="mt-3 text-sm leading-6 text-gray-600">{project.description}</p>
-              <div className="mt-4 grid grid-cols-2 gap-3">
-                <div className="rounded-lg bg-gray-50 p-3">
-                  <p className="text-xs text-gray-500">Area assessed</p>
-                  <p className="mt-1 font-bold text-gray-900">{project.area_hectares} ha</p>
-                </div>
-                <div className="rounded-lg bg-gray-50 p-3">
-                  <p className="text-xs text-gray-500">Evidence</p>
-                  <p className="mt-1 text-sm font-semibold text-gray-900">{project.evidence_status === 'independently_verified' ? 'Independently verified' : project.evidence_status === 'documented' ? 'Documented' : 'Pending evidence'}</p>
-                </div>
-              </div>
-              <div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-4">
-                <span className="text-xs text-gray-500">Partner: {project.partner_name}</span>
-                <Link to="/help" className="text-sm font-semibold text-success-700 hover:text-success-800">Enquire about a project</Link>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        <Card className="mt-8 border-warning-200 bg-warning-50 p-5">
-          <div className="flex gap-3">
-            <AlertTriangle className="mt-0.5 h-5 w-5 flex-shrink-0 text-warning-700" />
-            <div>
-              <h2 className="font-semibold text-warning-900">Project evidence and environmental limits</h2>
-              <p className="mt-1 text-sm leading-6 text-warning-800">
-                Screening does not replace permits, EIAs or title checks. Restoration listings require landholder consent and documented implementation evidence; hectares are not counted until independently verified.
-              </p>
-            </div>
-          </div>
-        </Card>
-      </div>
+      <section className="bg-success-800 px-4 py-10 text-white sm:py-14"><div className="mx-auto max-w-6xl"><div className="grid items-center gap-8 lg:grid-cols-[1fr_auto]"><div><div className="flex items-center gap-3"><div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10"><Sprout className="h-6 w-6" /></div><p className="text-xs font-bold uppercase tracking-wider text-success-100">Land Restoration Hub</p></div><h1 className="mt-4 max-w-3xl text-3xl font-bold sm:text-5xl">Turn degraded land into a healthier future.</h1><p className="mt-4 max-w-2xl text-sm leading-7 text-success-100 sm:text-base">Discover screened restoration projects, report land that needs attention, and follow progress backed by consent, evidence and independent verification.</p><div className="mt-6 flex flex-col gap-3 sm:flex-row"><Link to="/restoration/report"><Button variant="accent" size="lg">Report land needing restoration <ArrowRight className="ml-1 h-4 w-4" /></Button></Link><a href="#projects" className="inline-flex min-h-12 items-center justify-center rounded-lg border border-white/30 px-6 text-base font-medium text-white hover:bg-white/10">Explore projects</a></div><p className="mt-4 text-xs text-success-100">Anyone can submit a report. A report is an initial lead, not proof of ownership or permission to enter land.</p></div><div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur"><p className="text-xs font-bold uppercase tracking-wider text-success-100">Hub promise</p><p className="mt-3 text-lg font-semibold">No hectares counted without evidence.</p><div className="mt-4 flex items-center gap-2 text-sm text-success-100"><ShieldCheck className="h-5 w-5" /> Consent-first, evidence-led reporting</div></div></div></div></section>
+      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+        <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">{[{ value: '3.7 ha', label: 'Projects in the hub', icon: Trees }, { value: '2', label: 'Active projects', icon: Sprout }, { value: '100%', label: 'Consent confirmed', icon: ShieldCheck }, { value: '6 steps', label: 'From report to monitoring', icon: BadgeCheck }].map(({ value, label, icon: Icon }) => <Card key={label} className="p-4 sm:p-5"><Icon className="h-5 w-5 text-success-700" /><p className="mt-3 text-xl font-bold text-gray-900 sm:text-2xl">{value}</p><p className="mt-1 text-xs leading-5 text-gray-500 sm:text-sm">{label}</p></Card>)}</section>
+        <section className="mt-10"><div className="text-center"><p className="text-xs font-bold uppercase tracking-wider text-success-700">How it works</p><h2 className="mt-1 text-2xl font-bold text-gray-900">A visible path from concern to recovery</h2></div><div className="mt-6 grid gap-4 sm:grid-cols-3">{[{ Icon: ClipboardCheck, title: 'Report & screen', text: 'Share the location, condition and visual evidence. We check the initial facts and consent context.' }, { Icon: Users, title: 'Assess & match', text: 'Qualified partners help assess the site and shape a practical restoration plan.' }, { Icon: Eye, title: 'Restore & verify', text: 'Progress is documented, monitored and independently verified before outcomes are reported.' }].map(({ Icon, title, text }) => <Card key={title} className="p-5"><Icon className="h-6 w-6 text-success-700" /><h3 className="mt-3 font-semibold text-gray-900">{title}</h3><p className="mt-1 text-sm leading-6 text-gray-600">{text}</p></Card>)}</div></section>
+        <section id="projects" className="mt-10 scroll-mt-20"><div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-xs font-bold uppercase tracking-wider text-success-700">Screened opportunities</p><h2 className="mt-1 text-2xl font-bold text-gray-900">Restoration projects</h2><p className="mt-1 text-sm text-gray-500">Explore projects by location and environmental risk.</p></div><div className="flex rounded-lg border border-gray-200 bg-white p-1"><button type="button" onClick={() => setView('map')} className={`rounded-md px-3 py-2 text-sm font-medium ${view === 'map' ? 'bg-success-700 text-white' : 'text-gray-600'}`}>Map view</button><button type="button" onClick={() => setView('list')} className={`rounded-md px-3 py-2 text-sm font-medium ${view === 'list' ? 'bg-success-700 text-white' : 'text-gray-600'}`}>List view</button></div></div><div className="mt-4 grid gap-3 rounded-xl border border-gray-200 bg-white p-4 sm:grid-cols-[1fr_1fr_auto]"><Select aria-label="Filter by district" value={district} onChange={(event) => setDistrict(event.target.value)} options={[{ value: 'Kampala', label: 'Kampala' }, { value: 'Wakiso', label: 'Wakiso' }]} placeholder="All districts" /><Select aria-label="Filter by risk" value={risk} onChange={(event) => setRisk(event.target.value)} options={[{ value: 'wetland', label: 'Wetland' }, { value: 'riverbank', label: 'Riverbank' }]} placeholder="All risk types" /><div className="flex items-center gap-2 text-sm text-gray-500"><Filter className="h-4 w-4" />{filteredProjects.length} shown</div></div>{view === 'map' && <div className="relative mt-4 h-64 overflow-hidden rounded-2xl border border-success-200 bg-[radial-gradient(circle_at_20%_20%,#d1fae5,transparent_35%),linear-gradient(135deg,#ecfdf5,#dbeafe)]"><div className="absolute inset-0 opacity-30 [background-image:linear-gradient(90deg,white_1px,transparent_1px),linear-gradient(white_1px,transparent_1px)] [background-size:42px_42px]" /><div className="absolute left-[27%] top-[35%] flex flex-col items-center"><MapPin className="h-9 w-9 fill-success-700 text-success-700 drop-shadow" /><span className="rounded-full bg-white px-2 py-1 text-xs font-semibold shadow">Nakivubo</span></div><div className="absolute left-[67%] top-[58%] flex flex-col items-center"><MapPin className="h-9 w-9 fill-success-700 text-success-700 drop-shadow" /><span className="rounded-full bg-white px-2 py-1 text-xs font-semibold shadow">Busega</span></div><div className="absolute bottom-4 left-4 rounded-lg bg-white/90 px-3 py-2 text-xs text-gray-600 shadow"><MapPin className="mr-1 inline h-3 w-3 text-success-700" />Illustrative project locations · exact coordinates shared after consent</div></div>}<div className="mt-4 grid gap-5 md:grid-cols-2">{filteredProjects.map((project) => <ProjectCard key={project.id} project={project} />)}</div>{filteredProjects.length === 0 && <Card className="mt-4 p-8 text-center"><Leaf className="mx-auto h-8 w-8 text-gray-400" /><p className="mt-3 text-sm text-gray-600">No projects match these filters yet.</p></Card>}</section>
+        <section className="mt-10 grid gap-5 lg:grid-cols-2"><Card className="border-success-100 bg-success-50 p-6"><Users className="h-6 w-6 text-success-700" /><h2 className="mt-3 text-xl font-bold text-success-900">For restoration partners</h2><p className="mt-2 text-sm leading-6 text-success-800">Bring practical restoration skills, local knowledge or monitoring capacity. Partners can express interest in assessed projects and provide geotagged progress evidence.</p><Link to="/restoration/partners/register" className="mt-4 inline-block text-sm font-semibold text-success-800">Register as a restoration partner <ArrowRight className="ml-1 inline h-4 w-4" /></Link></Card><Card className="border-warning-200 bg-warning-50 p-6"><AlertTriangle className="h-6 w-6 text-warning-700" /><h2 className="mt-3 text-xl font-bold text-warning-900">Urgent or regulated concerns</h2><p className="mt-2 text-sm leading-6 text-warning-800">Active dumping, fire, flooding or illegal clearing should also be reported to the relevant local authority. This hub does not replace permits, EIAs, title checks or emergency response.</p><Link to="/help#contact" className="mt-4 inline-block text-sm font-semibold text-warning-900">Get guidance <ArrowRight className="ml-1 inline h-4 w-4" /></Link></Card></section>
+        <section className="mt-10 rounded-2xl bg-gray-900 p-6 text-white sm:p-8"><div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="text-2xl font-bold">Know land that needs attention?</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-gray-300">A location, a short description and a few images can help start a responsible screening conversation.</p></div><Link to="/restoration/report"><Button variant="accent" size="lg">Start a report <ArrowRight className="ml-1 h-4 w-4" /></Button></Link></div></section>
+      </main>
     </div>
   );
+}
+
+function ProjectCard({ project }: { project: RestorationProject }) {
+  return <article className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"><div className="flex items-start justify-between gap-3"><div><Badge variant="success" size="sm">{statusLabels[project.status]}</Badge><h3 className="mt-3 text-lg font-bold text-gray-900">{project.title}</h3></div><Leaf className="h-6 w-6 flex-shrink-0 text-success-600" /></div><p className="mt-2 flex items-center gap-1.5 text-sm text-gray-500"><MapPin className="h-4 w-4" />{project.location}, {project.district}</p><div className="mt-3 flex flex-wrap gap-2">{project.risk_categories.map((risk) => <Badge key={risk} variant="neutral" size="sm">{riskLabels[risk] || risk}</Badge>)}{project.consent_confirmed && <Badge variant="success" size="sm"><ShieldCheck className="h-3 w-3" /> Consent confirmed</Badge>}</div><p className="mt-3 text-sm leading-6 text-gray-600">{project.description}</p><div className="mt-4 grid grid-cols-2 gap-3"><div className="rounded-lg bg-gray-50 p-3"><p className="text-xs text-gray-500">Area assessed</p><p className="mt-1 font-bold text-gray-900">{project.area_hectares} ha</p></div><div className="rounded-lg bg-gray-50 p-3"><p className="text-xs text-gray-500">Evidence</p><p className="mt-1 text-sm font-semibold text-gray-900">{project.evidence_status === 'independently_verified' ? 'Independently verified' : project.evidence_status === 'documented' ? 'Documented' : 'Pending evidence'}</p></div></div><div className="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-gray-100 pt-4"><span className="text-xs text-gray-500">Updated {project.last_updated} · {project.partner_name}</span><Link to="/help#contact" className="text-sm font-semibold text-success-700">Enquire <ArrowRight className="ml-1 inline h-4 w-4" /></Link></div></article>;
 }
