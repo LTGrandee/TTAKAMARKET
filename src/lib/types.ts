@@ -6,7 +6,7 @@ export type Profile = {
   avatar_url?: string;
   is_verified: boolean;
   verification_status: 'pending' | 'under_review' | 'verified' | 'rejected';
-  user_type: 'buyer' | 'owner' | 'agent' | 'developer';
+  user_type: 'buyer' | 'owner' | 'agent' | 'developer' | 'restoration_partner' | 'reporter';
   bio?: string;
   company_name?: string;
   company_registration_number?: string;

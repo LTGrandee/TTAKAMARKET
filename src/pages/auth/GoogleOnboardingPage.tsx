@@ -8,7 +8,7 @@ import { useAuth } from '../../context';
 export function GoogleOnboardingPage() {
   const navigate = useNavigate();
   const { completeGoogleProfile } = useAuth();
-  const [form, setForm] = useState({ fullName: '', phone: '', userType: 'buyer' as 'buyer' | 'owner' | 'agent' | 'developer', city: '' });
+  const [form, setForm] = useState({ fullName: '', phone: '', userType: 'buyer' as 'buyer' | 'owner' | 'agent' | 'developer' | 'restoration_partner' | 'reporter', city: '' });
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState('');
   const update = (field: string, value: string) => setForm((current) => ({ ...current, [field]: value }));
@@ -37,7 +37,7 @@ export function GoogleOnboardingPage() {
           <form onSubmit={handleSubmit} className="mt-6 space-y-4">
             <Input label="Full name" required value={form.fullName} onChange={(event) => update('fullName', event.target.value)} />
             <Input label="Phone number" type="tel" required value={form.phone} onChange={(event) => update('phone', event.target.value)} placeholder="+256 ..." />
-            <Select label="Account type" required value={form.userType} onChange={(event) => update('userType', event.target.value)} options={[{ value: 'buyer', label: 'Buyer or renter' }, { value: 'owner', label: 'Owner or land representative' }, { value: 'agent', label: 'Agent' }, { value: 'developer', label: 'Developer' }]} />
+            <Select label="Account type" required value={form.userType} onChange={(event) => update('userType', event.target.value)} options={[{ value: 'buyer', label: 'Buyer or renter' }, { value: 'owner', label: 'Owner or land representative' }, { value: 'agent', label: 'Agent' }, { value: 'developer', label: 'Developer' }, { value: 'restoration_partner', label: 'Restoration partner' }, { value: 'reporter', label: 'Land reporter' }]} />
             <Input label="City or district" required value={form.city} onChange={(event) => update('city', event.target.value)} placeholder="e.g. Kampala" />
             <div className="flex items-start gap-3 rounded-lg border border-gray-200 p-3"><input id="google-consent" type="checkbox" checked={consent} onChange={(event) => setConsent(event.target.checked)} className="mt-1 h-4 w-4 accent-primary-700" /><label htmlFor="google-consent" className="text-sm leading-5 text-gray-600">I agree to the TtakaMarket <Link to="/terms" className="font-semibold text-primary-700">terms</Link> and <Link to="/privacy" className="font-semibold text-primary-700">privacy policy</Link>.</label></div>
             {error && <p className="rounded-lg border border-error-200 bg-error-50 p-3 text-sm text-error-700">{error}</p>}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { Mail, Lock, Eye, EyeOff, ArrowLeft, User, Phone, Building, Shield, CheckCircle, KeyRound } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, User, Phone, Building, Shield, CheckCircle, KeyRound, Sprout, ClipboardCheck } from 'lucide-react';
 import { Button, Card, Input, Select, Textarea } from '../../components/ui';
 import { BrandLogo } from '../../components/BrandLogo';
 import { useAuth } from '../../context';
@@ -205,7 +205,7 @@ export function RegisterPage() {
   const navigate = useNavigate();
   const { signUp, signInWithGoogle } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
-  const [userType, setUserType] = useState<'buyer' | 'owner'>('buyer');
+  const [userType, setUserType] = useState<'buyer' | 'owner' | 'restoration_partner' | 'reporter'>('buyer');
   const [formData, setFormData] = useState({ fullName: '', email: '', phone: '', password: '', confirmPassword: '', companyName: '', address: '', city: '', brandName: '', brandType: 'personal' as 'personal' | 'business', brandBio: '', allowChat: false, requestSellerPage: false, propertyCategories: [] as PropertyCategory[], listingIntents: [] as MarketplaceListingIntent[] });
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
@@ -263,7 +263,12 @@ export function RegisterPage() {
     finally { setLoading(false); }
   };
 
-  const userTypes = [{ type: 'buyer', label: 'Buyer or renter', description: 'I want to find property to buy, rent or lease', icon: User }, { type: 'owner', label: 'Owner or representative account', description: 'I want a dashboard to track submissions or use seller tools', icon: Building }];
+  const userTypes = [
+    { type: 'buyer', label: 'Buyer or renter', description: 'I want to find property to buy, rent or lease', icon: User },
+    { type: 'owner', label: 'Owner or representative account', description: 'I want a dashboard to track submissions or use seller tools', icon: Building },
+    { type: 'restoration_partner', label: 'Restoration partner', description: 'I want to deliver or propose land restoration work', icon: Sprout },
+    { type: 'reporter', label: 'Land reporter', description: 'I want to report land and track restoration updates', icon: ClipboardCheck },
+  ];
   const steps = [{ id: 1, title: 'Account Type' }, { id: 2, title: 'Personal Info' }, { id: 3, title: 'Location & Consent' }];
 
   return (
@@ -296,7 +301,7 @@ export function RegisterPage() {
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">What best describes you?</h3>
                   <div className="grid grid-cols-2 gap-3">
                     {userTypes.map((type) => (
-                      <button key={type.type} type="button" onClick={() => setUserType(type.type as 'buyer' | 'owner')} className={`p-4 rounded-lg border-2 text-left transition-all ${userType === type.type ? 'border-primary-500 bg-primary-50' : 'border-gray-200 hover:border-gray-300'}`}>
+                      <button key={type.type} type="button" onClick={() => setUserType(type.type as typeof userType)} className={`p-4 rounded-lg border-2 text-left transition-all ${userType === type.type ? 'border-primary-500 bg-primary-50' : 'border-gray-200 hover:border-gray-300'}`}>
                         <type.icon className={`h-6 w-6 mb-2 ${userType === type.type ? 'text-primary-600' : 'text-gray-400'}`} />
                         <p className="font-medium text-gray-900">{type.label}</p>
                         <p className="text-xs text-gray-500 mt-1">{type.description}</p>

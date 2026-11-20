@@ -22,7 +22,7 @@ export function DashboardPage() {
 
   if (loading || !profile) return <Loading fullScreen />;
 
-  const isSubmitter = profile.user_type === 'owner' || profile.user_type === 'agent' || profile.user_type === 'developer';
+  const isSubmitter = profile.user_type === 'owner' || profile.user_type === 'agent' || profile.user_type === 'developer' || profile.user_type === 'restoration_partner' || profile.user_type === 'reporter';
 
   return (
     <div className="min-h-screen bg-gray-50">
