@@ -13,7 +13,7 @@ const policyContent = {
       },
       {
         title: 'Accounts, messages and preferences',
-        body: 'Account, profile, saved-property and messaging information supports your marketplace experience and communications.',
+        body: 'Account, profile, saved-property and messaging information supports your discovery and restoration experience.',
       },
       {
         title: 'External services',
@@ -23,15 +23,15 @@ const policyContent = {
   },
   terms: {
     title: 'Terms & conditions',
-    intro: 'These terms support a transparent, accountable experience for property seekers, owners and representatives.',
+    intro: 'These terms support a clear and accountable way to discover places, understand land and take part in responsible restoration.',
     sections: [
       {
         title: 'Property information',
         body: 'Listings present property information, availability, prices and contact details to help users explore options and connect with owners or authorised representatives.',
       },
       {
-        title: 'Using the marketplace',
-        body: 'TtakaMarket provides property listings and enquiry tools. Users and property contacts can discuss availability, viewing arrangements and transaction terms directly.',
+        title: 'Using the platform',
+        body: 'TtakaMarket provides discovery, screening and enquiry tools. Users and property contacts can discuss availability, viewing arrangements and transaction terms directly.',
       },
       {
         title: 'Listing review',
@@ -39,7 +39,7 @@ const policyContent = {
       },
       {
         title: 'Marketplace conduct',
-        body: 'Users should provide accurate property and representation details, communicate respectfully, and use marketplace tools for legitimate property enquiries.',
+        body: 'Users should provide accurate property and representation details, communicate respectfully, respect consent and use the platform for legitimate property and restoration enquiries.',
       },
     ],
   },
@@ -51,10 +51,12 @@ export function AboutPage() {
       <section className="bg-primary-800 px-4 py-12 text-white sm:py-16">
         <div className="mx-auto max-w-4xl">
           <BrandLogo className="h-16 w-48 rounded-xl" />
-          <p className="mt-5 text-sm font-semibold uppercase tracking-wider text-primary-200">Our concept</p>
-          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Property discovery built on transparency</h1>
+          <p className="mt-5 text-sm font-semibold uppercase tracking-wider text-primary-200">The TtakaMarket story</p>
+          <h1 className="mt-2 text-3xl font-bold sm:text-4xl">Uganda&apos;s <span className="text-accent-400">Trusted Property &amp; Accommodation</span> Marketplace</h1>
           <p className="mt-3 max-w-2xl text-base leading-7 text-primary-100">
-            TtakaMarket is building a trusted property discovery platform for Uganda. Listings are guided by a documented review process that helps seekers understand who posted a property, what information was checked and when it was last confirmed.
+            Integrating <span className="font-semibold text-accent-700">Verified Property &amp; Accommodation</span> transactions with{' '}
+            <span className="font-semibold text-accent-700">Environmental Screening</span>, while building a network for{' '}
+            <span className="font-semibold text-accent-700">land restoration</span>.
           </p>
         </div>
       </section>
@@ -71,7 +73,7 @@ export function AboutPage() {
             <p className="text-xs font-bold uppercase tracking-wider text-warning-800">Why trust matters</p>
             <p className="mt-2 text-3xl font-extrabold text-warning-900">33,496</p>
             <p className="mt-1 text-sm leading-6 text-warning-900">
-              pending land cases, valued at about UGX 1.7 trillion, were reported in Uganda’s courts as of January 2025, as cited in the concept note.
+              pending land cases, valued at about UGX 1.7 trillion, were reported in Uganda’s courts as of January 2025.
             </p>
           </aside>
         </section>
@@ -82,13 +84,13 @@ export function AboutPage() {
             <h2 className="text-xl font-bold text-primary-900">One platform, three pillars</h2>
           </div>
           <p className="mt-3 max-w-3xl text-sm leading-6 text-primary-800">
-            TtakaMarket combines transparent property discovery, preliminary environmental screening and evidence-based land restoration under one responsible land-use platform.
+            TtakaMarket combines a transparent property marketplace, preliminary land intelligence and evidence-based restoration within one responsible land-use platform.
           </p>
           <div className="mt-6 grid gap-3 lg:grid-cols-3">
             {[
-              ['Pillar 1', 'Discover', 'Listings show visible review status, recorded checks and when key details were last confirmed.'],
-              ['Pillar 2', 'Screen', 'Possible wetland, road-reserve, forest, riverbank or protected-area conflicts are flagged early.'],
-              ['Pillar 3', 'Restore', 'Screened projects are matched with consented partners and monitored using independently verified evidence.'],
+              ['Marketplace', 'Discover', 'Listings show visible review status, recorded checks and when key details were last confirmed.'],
+              ['Land intelligence', 'Understand', 'Possible wetland, reserve, forest, riverbank, weather-exposure and infestation risks are flagged early.'],
+              ['Restoration network', 'Restore', 'Assessed projects are matched with consented partners and monitored using independently verified evidence.'],
             ].map(([pillar, title, description]) => (
               <article key={title} className="rounded-xl border border-primary-100 bg-white p-4">
                 <span className="text-xs font-bold text-accent-700">{pillar}</span>

@@ -15,9 +15,13 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
     { label: 'Home', href: '/', Icon: Home },
     { label: 'Properties', href: '/properties', Icon: Building2 },
     { label: 'Restoration Hub', href: '/restoration', Icon: Sprout },
-    { label: 'Saved properties', href: '/saved', Icon: Heart },
-    { label: 'Messages', href: '/messages', Icon: MessageSquare },
-    { label: 'Profile and settings', href: '/profile', Icon: User },
+    ...(user
+      ? [
+          { label: 'Saved properties', href: '/saved', Icon: Heart },
+          { label: 'Messages', href: '/messages', Icon: MessageSquare },
+          { label: 'Profile and settings', href: '/profile', Icon: User },
+        ]
+      : []),
   ];
   const submissionLinks = [
     { label: 'Submit a property', href: '/properties/new', Icon: Plus },
@@ -25,7 +29,12 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
     { label: 'Report land needing restoration', href: '/restoration/report', Icon: Sprout },
     { label: 'Register as restoration partner', href: '/restoration/partners/register', Icon: Sprout },
   ];
-  const accountLinks = user ? [{ label: 'Dashboard', href: '/dashboard', Icon: Building2 }] : [];
+  const accountLinks = user
+    ? [{ label: 'Dashboard', href: '/dashboard', Icon: Building2 }]
+    : [
+        { label: 'Sign in', href: '/login', Icon: User },
+        { label: 'Create account', href: '/register', Icon: Plus },
+      ];
   const usefulLinks = [
     { label: 'FAQs', href: '/help#faqs', Icon: CircleHelp },
     { label: 'Help & support', href: '/help#support', Icon: MessageSquare },
@@ -109,10 +118,10 @@ function SidebarDrawer({ open, onClose }: { open: boolean; onClose: () => void }
                 </div>
                 <p className="px-3 pt-1 text-xs leading-5 text-gray-500">Interface language: English. Prices are displayed in the listed currency.</p>
               </div>
-              {accountLinks.length > 0 && <div className="mt-1 border-t border-gray-100 pt-4 md:mt-4">
+              <div className="mt-1 border-t border-gray-100 pt-4 md:mt-4">
                 <p className="px-3 pb-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Account</p>
                 <div className="space-y-1">{accountLinks.map(renderLink)}</div>
-              </div>}
+              </div>
             </nav>
             <div className="border-t border-gray-100 px-5 py-4 md:hidden"><p className="text-center text-xs text-gray-400">&copy; {new Date().getFullYear()} TtakaMarket · Uganda</p></div>
           </aside>
@@ -183,50 +192,54 @@ export function Header() {
                 </Link>
               ) : (
                 <>
-                  <Link to="/login" className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-xl px-1.5 text-[11px] font-semibold text-charcoal transition-colors hover:bg-gray-50 hover:text-primary-600 min-[400px]:px-2.5 min-[400px]:text-xs sm:h-10 sm:px-3 sm:text-sm">
+                  <Link to="/login" className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-lg px-1.5 text-[10px] font-semibold text-charcoal transition-colors hover:bg-gray-50 hover:text-primary-600 min-[400px]:h-10 min-[400px]:px-2.5 min-[400px]:text-xs sm:px-3 sm:text-sm">
                     Sign In
                   </Link>
-                  <Link to="/register" className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-xl bg-primary-700 px-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-primary-800 min-[400px]:px-2.5 min-[400px]:text-xs sm:h-10 sm:px-3 sm:text-sm">
+                  <Link to="/register" className="inline-flex h-9 items-center justify-center whitespace-nowrap rounded-lg bg-primary-700 px-1.5 text-[10px] font-semibold text-white transition-colors hover:bg-primary-800 min-[400px]:h-10 min-[400px]:px-2.5 min-[400px]:text-xs sm:px-3 sm:text-sm">
                     Create Account
                   </Link>
                 </>
               )}
 
-              <div className="relative">
-                <button
-                  type="button"
-                  onClick={() => setAlertsOpen((open) => !open)}
-                  aria-label="Open notifications and alerts"
-                  aria-expanded={alertsOpen}
-                  title="Notifications and alerts"
-                  className="relative flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100 hover:text-primary-600"
-                >
-                  <Bell className="h-5 w-5" />
-                  <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-warning-500 ring-2 ring-white" aria-label="Unread notifications" />
-                </button>
-                {alertsOpen && (
-                  <div className="absolute right-0 top-12 z-50 w-80 rounded-xl border border-gray-200 bg-white p-3 shadow-xl">
-                    <div className="flex items-center justify-between border-b border-gray-100 px-2 pb-3">
-                      <p className="text-sm font-bold text-gray-900">Updates and alerts</p>
-                      <AlertTriangle className="h-4 w-4 text-warning-600" />
-                    </div>
-                    <div className="mt-2 flex gap-3 rounded-lg bg-warning-50 p-3">
-                      <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-warning-700" />
-                      <div><p className="text-sm font-semibold text-warning-900">Stay informed</p><p className="mt-1 text-xs leading-5 text-warning-800">Important account, property review and environmental updates will appear here.</p></div>
-                    </div>
-                    <p className="px-2 pt-3 text-xs text-gray-500">No new alerts right now.</p>
+              {user && (
+                <>
+                  <div className="relative">
+                    <button
+                      type="button"
+                      onClick={() => setAlertsOpen((open) => !open)}
+                      aria-label="Open notifications and alerts"
+                      aria-expanded={alertsOpen}
+                      title="Notifications and alerts"
+                      className="relative flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100 hover:text-primary-600"
+                    >
+                      <Bell className="h-5 w-5" />
+                      <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-warning-500 ring-2 ring-white" aria-label="Unread notifications" />
+                    </button>
+                    {alertsOpen && (
+                      <div className="absolute right-0 top-12 z-50 w-[min(20rem,calc(100vw-1.5rem))] rounded-xl border border-gray-200 bg-white p-3 shadow-xl">
+                        <div className="flex items-center justify-between border-b border-gray-100 px-2 pb-3">
+                          <p className="text-sm font-bold text-gray-900">Updates and alerts</p>
+                          <AlertTriangle className="h-4 w-4 text-warning-600" />
+                        </div>
+                        <div className="mt-2 flex gap-3 rounded-lg bg-warning-50 p-3">
+                          <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-warning-700" />
+                          <div><p className="text-sm font-semibold text-warning-900">Stay informed</p><p className="mt-1 text-xs leading-5 text-warning-800">Important account, property review and environmental updates will appear here.</p></div>
+                        </div>
+                        <p className="px-2 pt-3 text-xs text-gray-500">No new alerts right now.</p>
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-              <Link
-                to="/messages"
-                aria-label="Open messages"
-                title="Messages"
-                className="relative flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100 hover:text-primary-600"
-              >
-                <MessageSquare className="h-5 w-5" />
-                <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-accent-500 ring-2 ring-white" aria-label="Unread messages" />
-              </Link>
+                  <Link
+                    to="/messages"
+                    aria-label="Open messages"
+                    title="Messages"
+                    className="relative flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 transition-colors hover:bg-gray-100 hover:text-primary-600"
+                  >
+                    <MessageSquare className="h-5 w-5" />
+                    <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-accent-500 ring-2 ring-white" aria-label="Unread messages" />
+                  </Link>
+                </>
+              )}
 
               <button
                 onClick={() => setDrawerOpen(true)}
@@ -259,11 +272,12 @@ export function BottomNav() {
   const location = useLocation();
   const isActive = (href: string) =>
     href === '/' ? location.pathname === '/' : location.pathname.startsWith(href);
+  const visibleBottomNavItems = bottomNavItems;
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-gray-200 bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_rgba(15,23,42,0.06)] backdrop-blur md:hidden">
-      <div className="mx-auto flex h-16 max-w-lg items-stretch">
-        {bottomNavItems.map(({ label, href, Icon }) => {
+    <nav className="fixed bottom-0 left-0 z-40 w-screen border-t border-gray-200 bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_24px_rgba(15,23,42,0.06)] backdrop-blur md:hidden">
+      <div className="grid h-16 w-screen grid-cols-5 items-stretch">
+        {visibleBottomNavItems.map(({ label, href, Icon }) => {
           const active = isActive(href);
           return (
             <Link
@@ -300,7 +314,7 @@ export function Layout() {
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-8 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <div>
             <BrandLogo className="h-12 w-36" />
-            <p className="mt-1 text-sm text-gray-500">Property discovery and submissions across Uganda.</p>
+            <p className="mt-1 text-sm text-gray-500">Trusted land, homes, commercial property, accommodation and restoration across Uganda.</p>
           </div>
           <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-gray-600">
             <Link className="hover:text-primary-700" to="/properties">Browse properties</Link>

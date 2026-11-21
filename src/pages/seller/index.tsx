@@ -21,7 +21,7 @@ export function SellerProfilePage() {
                 <CheckCircle className="h-5 w-5 text-success-300" />
               </div>
               <p className="mt-1 text-primary-100">{profile?.seller_brand_type === 'business' ? 'Business profile' : 'Personal profile'}</p>
-              <Badge variant="neutral" size="sm" className="mt-3">Managed seller page</Badge>
+              <Badge variant="neutral" size="sm" className="mt-3">Managed property profile</Badge>
             </div>
           </div>
         </div>
@@ -31,26 +31,26 @@ export function SellerProfilePage() {
         <div className="lg:col-span-2 space-y-6">
           <Card className="p-6">
             <h2 className="text-lg font-semibold text-gray-900">About {brandName}</h2>
-            <p className="mt-3 text-gray-600">{profile?.seller_brand_bio || 'This profile is managed by TtakaMarket. Property details and supporting documents are reviewed by an administrator before publication.'}</p>
+            <p className="mt-3 text-gray-600">{profile?.seller_brand_bio || 'This profile is managed by TtakaMarket. Property details and supporting documents are reviewed before publication.'}</p>
           </Card>
           <Card className="p-6">
             <div className="flex items-center gap-3 mb-4">
               <Building2 className="h-5 w-5 text-primary-600" />
               <h2 className="text-lg font-semibold text-gray-900">Properties managed by TtakaMarket</h2>
             </div>
-            <p className="text-sm text-gray-500">Approved property submissions will appear here when seller pages are connected to live marketplace data.</p>
+            <p className="text-sm text-gray-500">Approved property submissions will appear here after the profile is linked to the live marketplace.</p>
             <Link to="/properties"><Button variant="outline" size="sm" className="mt-4">Browse properties</Button></Link>
           </Card>
         </div>
 
         <Card className="p-6 h-fit">
           <Shield className="h-6 w-6 text-primary-600 mb-3" />
-          <h2 className="font-semibold text-gray-900">Managed seller profile</h2>
-          <p className="mt-2 text-sm text-gray-500">TtakaMarket manages seller-page approvals, property documents and published listings.</p>
+          <h2 className="font-semibold text-gray-900">Managed property profile</h2>
+          <p className="mt-2 text-sm text-gray-500">TtakaMarket manages property-profile approvals, property documents and published listings.</p>
           {isOwnerProfile && profile?.seller_chat_enabled && (
-            <Link to="/messages"><Button variant="primary" className="w-full mt-5" leftIcon={<MessageSquare className="h-4 w-4" />}>Chat with seller</Button></Link>
+            <Link to="/messages"><Button variant="primary" className="w-full mt-5" leftIcon={<MessageSquare className="h-4 w-4" />}>Chat about property</Button></Link>
           )}
-          {!isOwnerProfile && <p className="mt-5 text-xs text-gray-400">Seller contact options are shown only when enabled and approved by TtakaMarket.</p>}
+          {!isOwnerProfile && <p className="mt-5 text-xs text-gray-400">Property contact options are shown only when enabled and approved by TtakaMarket.</p>}
         </Card>
       </div>
     </div>

@@ -70,7 +70,7 @@ const trustPoints = [
   { Icon: Shield, title: 'Visible review status', desc: 'Understand where a listing is in the review process' },
   { Icon: FileText, title: 'Documented checks', desc: 'See what information has been reviewed' },
   { Icon: CheckCircle, title: 'Confirmation date', desc: 'Know when listing information was last confirmed' },
-  { Icon: TreePine, title: 'Environmental screening', desc: 'View preliminary wetland, reserve, forest and riverbank flags' },
+  { Icon: TreePine, title: 'Environmental screening', desc: 'View preliminary wetland, reserve, forest, riverbank, weather-exposure and infestation flags' },
   { Icon: Handshake, title: 'Independent decisions', desc: 'Paid promotion does not determine review outcomes' },
 ];
 
@@ -168,12 +168,22 @@ export function HomePage() {
         <div className="relative mx-auto flex min-h-[24rem] w-full max-w-7xl flex-col justify-center px-5 py-12 sm:min-h-[28rem] sm:px-8 lg:min-h-[34rem] lg:px-10">
           <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 backdrop-blur">
             <Shield className="h-3.5 w-3.5 text-accent-400" />
-            <span className="text-xs font-semibold text-white sm:text-sm">Uganda&apos;s Trusted Property Marketplace · Real-Estate &amp; Accommodation</span>
+            <span className="text-xs font-semibold text-white sm:text-sm">
+              <span className="text-accent-400">Verified</span>
+              {' '}Property &amp; Accommodation · Environmental{' '}
+              <span className="text-accent-400">Screening</span>
+              {' · Land '}
+              <span className="text-accent-400">restoration</span>
+            </span>
           </div>
           <h1 className="mb-4 max-w-3xl text-4xl font-extrabold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
-            Find property with clearer information. <span className="text-accent-400">Choose with confidence.</span>
+            <span className="text-white">Uganda’s <span className="text-accent-400">Trusted Property &amp; Accommodation</span> Marketplace</span>
           </h1>
-          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">TtakaMarket is building a more trusted way to discover land, homes, commercial spaces and short stays—with a review process designed to show what was checked and when information was last confirmed.</p>
+          <p className="mb-7 max-w-2xl text-sm leading-6 text-white/85 sm:text-base sm:leading-7">
+            Integrating <span className="font-semibold text-accent-400">Verified Property &amp; Accommodation</span> transactions with{' '}
+            <span className="font-semibold text-accent-400">Environmental Screening</span>, while building a network for{' '}
+            <span className="font-semibold text-accent-400">land restoration</span>.
+          </p>
           <div className="flex flex-wrap gap-3">
             <Link to="/properties" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-accent-600 px-5 text-sm font-bold text-white shadow-lg transition hover:bg-accent-700 sm:px-6">
                 Browse properties <ArrowRight className="h-4 w-4" />
@@ -207,7 +217,7 @@ export function HomePage() {
                 {tab === 'rent' && <Key className="h-4 w-4 shrink-0" />}
                 {tab === 'lease' && <Tag className="h-4 w-4 shrink-0" />}
                 {tab === 'book' && <BedDouble className="h-4 w-4 shrink-0" />}
-                {tab === 'book' ? 'Book' : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {tab === 'book' ? 'Short stays' : tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
             ))}
           </div>
@@ -320,7 +330,7 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="mb-3 inline-block rounded-full bg-primary-100 px-3 py-1 text-xs font-bold text-primary-700">A better way to find property</span>
-            <h2 className="mb-2 text-2xl font-bold text-gray-900">A property marketplace with review you can understand</h2>
+            <h2 className="mb-2 text-2xl font-bold text-gray-900">Property choices, made with the whole picture</h2>
             <p className="mx-auto max-w-2xl text-sm leading-6 text-gray-600 sm:text-base">
               Listings are designed to make the review status, documented checks and last confirmation date visible, helping seekers assess information before arranging a visit or contacting a property representative.
             </p>
@@ -378,7 +388,7 @@ export function HomePage() {
           <div className="rounded-2xl border border-white/10 bg-white/5 p-5 sm:p-7">
             <p className="text-xs font-bold uppercase tracking-wider text-accent-300">Imagine this</p>
             <h2 className="mt-2 max-w-3xl text-2xl font-bold leading-tight sm:text-3xl">
-              Imagine paying for a site visit to a listing that is already taken, discovering that the seller has no authority, or learning too late that the land is in a wetland or road reserve.
+              Imagine paying for a site visit to a listing that is already taken, discovering that the representative has no authority, or learning too late that the land is in a wetland or road reserve.
             </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-primary-100 sm:text-base">
               <strong className="text-white">Property information is hard to trust.</strong> Seekers rely on brokers and informal groups while listings are often outdated, authority is unclear and environmental risks can go unflagged.
@@ -393,14 +403,14 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-block bg-success-100 text-success-700 text-xs font-bold px-3 py-1 rounded-full mb-3">Our Solution</span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">One platform, three pillars</h2>
-            <p className="text-sm text-gray-500 max-w-2xl mx-auto">TtakaMarket helps people discover property with clarity, understand preliminary environmental risks and connect degraded land with restoration partners.</p>
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">A marketplace with more intelligence—and a purpose beyond the transaction.</h2>
+            <p className="text-sm text-gray-500 max-w-2xl mx-auto">TtakaMarket connects people to property while revealing land context and creating practical routes for restoration.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 mb-6 sm:grid-cols-3">
             {[
-              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: Search, eyebrow: 'Pillar 1', title: 'Discover', desc: 'Browse land, homes, commercial property and short stays with visible review status, recorded checks and confirmation dates.' },
-              { color: 'bg-warning-50 border-warning-100', iconBg: 'bg-warning-600', Icon: Shield, eyebrow: 'Pillar 2', title: 'Screen', desc: 'Receive early flags for possible wetland, road-reserve, forest, riverbank or protected-area conflicts.' },
-              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: TreePine, eyebrow: 'Pillar 3', title: 'Restore', desc: 'Connect consented, screened projects with restoration partners and track progress using independent evidence.' },
+              { color: 'bg-primary-50 border-primary-100', iconBg: 'bg-primary-600', Icon: Search, eyebrow: 'Marketplace', title: 'Discover', desc: 'Explore land, homes, commercial property and short stays with visible review status, recorded checks and confirmation dates.' },
+              { color: 'bg-warning-50 border-warning-100', iconBg: 'bg-warning-600', Icon: Shield, eyebrow: 'Land intelligence', title: 'Understand', desc: 'Surface possible wetland, reserve, riverbank, weather-exposure and infestation risks before decisions advance.' },
+              { color: 'bg-success-50 border-success-100', iconBg: 'bg-success-600', Icon: TreePine, eyebrow: 'Restoration network', title: 'Restore', desc: 'Connect consented, assessed projects with capable partners and document progress through verified evidence.' },
             ].map(({ color, iconBg, Icon, eyebrow, title, desc }) => (
               <div key={title} className={`flex flex-col p-5 rounded-xl border ${color}`}>
                 <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${iconBg}`}>
@@ -416,7 +426,7 @@ export function HomePage() {
             <h3 className="text-lg font-bold text-white mb-2">Discover. Understand. Restore.</h3>
             <p className="text-sm text-primary-200 mb-4">Transparency supports informed decisions; environmental screening does not replace permits, EIAs or title checks.</p>
             <div className="flex flex-wrap items-center justify-center gap-4 text-primary-200">
-              {['Visible property review', 'Preliminary environmental flags', 'Evidence-based restoration'].map(t => (
+              {['Visible property review', 'Weather and environmental flags', 'Infestation and restoration context'].map(t => (
                 <div key={t} className="flex items-center gap-1.5 text-xs"><CheckCircle className="h-4 w-4 text-primary-300" />{t}</div>
               ))}
             </div>
@@ -431,7 +441,7 @@ export function HomePage() {
             <span className="inline-block rounded-full bg-success-100 px-3 py-1 text-xs font-bold text-success-700">Screen & Restore</span>
             <h2 className="mt-3 text-2xl font-bold text-gray-900">Responsible land use, with clear limits</h2>
             <p className="mx-auto mt-2 max-w-2xl text-sm leading-6 text-gray-600">
-              TtakaMarket will add preliminary environmental flags to property discovery and connect consented, degraded-land projects with restoration partners.
+              TtakaMarket adds preliminary environmental context to property discovery—including weather exposure and infestation concerns—and connects consented, degraded-land projects with restoration partners.
             </p>
           </div>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
@@ -460,13 +470,13 @@ export function HomePage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold text-primary-600 mb-2">Property options for different needs</h2>
-            <p className="text-sm text-gray-500">Explore, rent, buy, lease or submit property through one managed marketplace.</p>
+            <p className="text-sm text-gray-500">Find a place, understand its context, or open a new chapter for neglected land.</p>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { name: 'Buyers', city: 'Find a property', initials: 'BY', review: 'Browse land, housing, commercial premises and storage or industrial spaces offered for sale, rent or lease.' },
               { name: 'Renters & short-stay guests', city: 'Find a place to stay', initials: 'RT', review: 'Explore long- or short-term stays, including hotel rooms, with daily or nightly rates where provided.' },
-              { name: 'Owners & representatives', city: 'Submit for review', initials: 'OR', review: 'Share property details for administrator review. One-time submission does not require an account.' },
+              { name: 'Owners & representatives', city: 'Submit for review', initials: 'OR', review: 'Share property details for TtakaMarket review. A single submission does not require an account.' },
             ].map((t) => (
               <div key={t.name} className="rounded-2xl border border-gray-100 bg-gray-50 p-5">
                 <div className="flex items-center gap-0.5 text-accent-500 mb-3">

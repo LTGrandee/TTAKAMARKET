@@ -99,12 +99,12 @@ export function HelpPage() {
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-50 text-accent-700"><LifeBuoy className="h-5 w-5" /></div>
             <h2 className="mt-4 text-lg font-bold text-gray-900">Help & support</h2>
             <p className="mt-2 text-sm leading-6 text-gray-600">
-              Find property guidance, submission information and answers to common marketplace questions here.
+              Find practical guidance on property discovery, submissions, restoration reports and responsible land enquiries here.
             </p>
             <div className="mt-5 rounded-xl bg-primary-50 p-4">
               <p className="flex items-center gap-2 text-sm font-semibold text-primary-900"><FileText className="h-4 w-4 shrink-0" /> Marketplace services</p>
               <p className="mt-2 text-sm leading-5 text-primary-800">
-                Explore property listings, find short-stay accommodation, submit a property for review and send enquiries to the relevant listing contact.
+                Explore property listings, find short-stay accommodation, submit a property or land concern, and send enquiries to the right contact.
               </p>
             </div>
             <div className="mt-5 space-y-2">
@@ -141,7 +141,7 @@ export function HelpPage() {
               <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10"><LifeBuoy className="h-5 w-5" /></div>
               <div>
                 <h2 id="support-chat-title" className="font-semibold">TtakaMarket Support</h2>
-                <p className="flex items-center gap-1.5 text-xs text-primary-100"><span className="h-2 w-2 rounded-full bg-amber-400" /> Live chat coming soon</p>
+                <p className="flex items-center gap-1.5 text-xs text-primary-100"><span className="h-2 w-2 rounded-full bg-amber-400" /> WhatsApp support available</p>
               </div>
             </div>
             <button type="button" onClick={() => setChatOpen(false)} aria-label="Close support chat" className="rounded-lg p-2 text-white/80 transition hover:bg-white/10 hover:text-white"><X className="h-5 w-5" /></button>

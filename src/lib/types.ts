@@ -57,6 +57,21 @@ export type SellerPostRequest = {
   updated_at: string;
 };
 
+export type LandContext = {
+  average_temperature_c?: number;
+  weather_exposure?: string[];
+  infestation_types?: string[];
+  infestation_notes?: string;
+};
+
+export type AccommodationContext = {
+  common_room_temperature_c?: number;
+  weather_exposure?: string[];
+  infestation_types?: string[];
+  pest_control_measures?: string[];
+  comfort_notes?: string;
+};
+
 export type Property = {
   id: string;
   owner_id: string;
@@ -94,6 +109,8 @@ export type Property = {
   images?: PropertyImage[];
   owner?: Profile;
   environmental_screening?: EnvironmentalScreening;
+  land_context?: LandContext;
+  accommodation_context?: AccommodationContext;
 };
 
 export type EnvironmentalRisk =
@@ -102,6 +119,8 @@ export type EnvironmentalRisk =
   | 'forest'
   | 'riverbank'
   | 'protected_area'
+  | 'weather_exposure'
+  | 'infestation'
   | 'none_identified';
 
 export type EnvironmentalScreeningStatus = 'not_started' | 'screening' | 'possible_conflict' | 'no_flag_identified' | 'expert_review';

@@ -68,8 +68,8 @@ export function LoginPage() {
               <p className="mt-1 text-sm text-gray-600 md:text-base">Sign in to continue your property search</p>
             </div>
             <div className="mb-3 flex gap-3">
-              <button onClick={() => setUserType('buyer')} className={`min-h-12 flex-1 rounded-lg px-2 py-2 text-sm font-medium leading-tight transition-all md:min-h-16 md:px-3 md:text-base ${userType === 'buyer' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Buyer or renter</button>
-              <button onClick={() => setUserType('owner')} className={`min-h-12 flex-1 rounded-lg px-2 py-2 text-sm font-medium leading-tight transition-all md:min-h-16 md:px-3 md:text-base ${userType === 'owner' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Owner or legal representative</button>
+              <button onClick={() => setUserType('buyer')} className={`min-h-12 flex-1 rounded-lg px-2 py-2 text-sm font-medium leading-tight transition-all md:min-h-16 md:px-3 md:text-base ${userType === 'buyer' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Property seeker</button>
+              <button onClick={() => setUserType('owner')} className={`min-h-12 flex-1 rounded-lg px-2 py-2 text-sm font-medium leading-tight transition-all md:min-h-16 md:px-3 md:text-base ${userType === 'owner' ? 'bg-primary-50 text-primary-700 border-2 border-primary-500' : 'bg-gray-50 text-gray-600 border-2 border-transparent hover:bg-gray-100'}`}>Property owner or representative</button>
             </div>
             <form onSubmit={handleSubmit} className="space-y-3 md:space-y-5">
               {error && <div className="p-3 bg-error-50 border border-error-200 rounded-lg text-sm text-error-700">{error}</div>}
@@ -93,10 +93,12 @@ export function LoginPage() {
           <div className="flex w-full max-w-lg flex-col justify-center rounded-3xl bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 p-5 shadow-2xl sm:p-6 md:h-full md:p-8">
             <BrandLogo className="mx-auto mb-3 h-12 w-36 rounded-2xl bg-white" />
             <h2 className="text-center text-2xl font-bold leading-tight md:text-3xl">
-              Uganda&apos;s Trusted Property Marketplace
+              Uganda&apos;s <span className="text-accent-400">Trusted Property &amp; Accommodation</span> Marketplace
             </h2>
             <p className="mx-auto mt-3 max-w-md text-center text-sm leading-5 text-primary-100 md:text-base md:leading-6">
-              Real estate and accommodation, with administrator document review and property verification for a more transparent experience.
+              Integrating <span className="font-semibold text-accent-400">Verified Property &amp; Accommodation</span> transactions with{' '}
+              <span className="font-semibold text-accent-400">Environmental Screening</span>, while building a network for{' '}
+              <span className="font-semibold text-accent-400">land restoration</span>.
             </p>
             <div className="mt-5 space-y-3 rounded-2xl border border-white/15 bg-primary-950/20 p-4 md:space-y-4 md:p-5">
               <section>
@@ -112,7 +114,7 @@ export function LoginPage() {
               <section className="border-t border-white/15 pt-3">
                 <h3 className="text-xs font-semibold uppercase tracking-wider text-primary-200">Managed review</h3>
                 <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium md:text-base">
-                  <li className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Administrator document review</li>
+                  <li className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />TtakaMarket document review</li>
                   <li className="flex items-start gap-2"><span aria-hidden="true" className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-400" />Property and representative checks before publication</li>
                 </ul>
               </section>
@@ -122,7 +124,7 @@ export function LoginPage() {
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Buy</li>
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Rent</li>
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Lease</li>
-                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book a stay</li>
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book</li>
                 </ul>
               </section>
             </div>
@@ -264,8 +266,8 @@ export function RegisterPage() {
   };
 
   const userTypes = [
-    { type: 'buyer', label: 'Buyer or renter', description: 'I want to find property to buy, rent or lease', icon: User },
-    { type: 'owner', label: 'Owner or representative account', description: 'I want a dashboard to track submissions or use seller tools', icon: Building },
+    { type: 'buyer', label: 'Property seeker', description: 'I want to find property to buy, rent or lease', icon: User },
+    { type: 'owner', label: 'Property owner or representative', description: 'I want a dashboard to track submissions or manage property profiles', icon: Building },
     { type: 'restoration_partner', label: 'Restoration partner', description: 'I want to deliver or propose land restoration work', icon: Sprout },
     { type: 'reporter', label: 'Land reporter', description: 'I want to report land and track restoration updates', icon: ClipboardCheck },
   ];
@@ -279,7 +281,7 @@ export function RegisterPage() {
           <div className="mb-8">
             <Link to="/" aria-label="TtakaMarket home" className="mb-6 inline-flex rounded-2xl bg-white"><BrandLogo className="h-12 w-36 rounded-2xl" /></Link>
             <h1 className="text-3xl font-bold text-gray-900">Create Your Account</h1>
-            <p className="mt-2 text-gray-600">Create an account to save properties, use messages or track submissions in a dashboard. A one-time property submission does not require an account.</p>
+            <p className="mt-2 text-gray-600">Create an account to save properties, use messages or track submissions in a dashboard. A single property submission does not require an account.</p>
           </div>
           <div className="flex items-center gap-4 mb-8">
             {steps.map((step, index) => (
@@ -313,7 +315,7 @@ export function RegisterPage() {
                   </div>
                   {userType === 'owner' && (
                     <div className="mt-4 p-3 bg-primary-50 rounded-lg border border-primary-200">
-                      <div className="flex items-start gap-2"><Shield className="h-5 w-5 text-primary-600 flex-shrink-0 mt-0.5" /><div><p className="text-sm font-medium text-primary-900">TtakaMarket manages publication</p><p className="text-xs text-primary-700 mt-1">Share property details and supporting documents for administrator review, site survey and publication decision.</p></div></div>
+                      <div className="flex items-start gap-2"><Shield className="h-5 w-5 text-primary-600 flex-shrink-0 mt-0.5" /><div><p className="text-sm font-medium text-primary-900">TtakaMarket manages publication</p><p className="text-xs text-primary-700 mt-1">Share property details and supporting documents for TtakaMarket review, site survey and publication decision.</p></div></div>
                     </div>
                   )}
                   {userType === 'buyer' && (
@@ -347,7 +349,7 @@ export function RegisterPage() {
                             ['sale', 'Buy'],
                             ['rent', 'Rent'],
                             ['lease', 'Lease'],
-                            ['book', 'Book a stay'],
+                            ['book', 'Book'],
                           ] as const).map(([value, label]) => {
                             const selected = formData.listingIntents.includes(value);
                             return (
@@ -373,10 +375,10 @@ export function RegisterPage() {
                   </div>
                   {userType === 'owner' && (
                     <>
-                      <label className="flex items-start gap-3 text-sm text-gray-600"><input type="checkbox" checked={formData.requestSellerPage} onChange={(e) => updateForm('requestSellerPage', e.target.checked)} className="mt-1 rounded border-gray-300" /><span><strong className="text-gray-900">Create a managed seller page</strong><br />Present your properties under a consistent personal or business profile.</span></label>
+                      <label className="flex items-start gap-3 text-sm text-gray-600"><input type="checkbox" checked={formData.requestSellerPage} onChange={(e) => updateForm('requestSellerPage', e.target.checked)} className="mt-1 rounded border-gray-300" /><span><strong className="text-gray-900">Create a managed property profile</strong><br />Present your properties under a consistent personal or business profile.</span></label>
                       {formData.requestSellerPage && <div className="p-3 bg-primary-50 rounded-lg border border-primary-200">
-                        <p className="text-sm font-medium text-primary-900">Optional managed seller page</p>
-                        <p className="text-xs text-primary-700 mt-1">TtakaMarket can create a personal or business-branded public page for you. Our administrators approve posts, uploads, and verification.</p>
+                        <p className="text-sm font-medium text-primary-900">Optional managed property profile</p>
+                        <p className="text-xs text-primary-700 mt-1">TtakaMarket can create a personal or business-branded public profile. Our review team approves listing requests, uploads and verification.</p>
                       </div>}
                       {formData.requestSellerPage && <>
                       <Input label="Public brand name" placeholder="e.g., Grace Mutesi Properties" value={formData.brandName} onChange={(e) => updateForm('brandName', e.target.value)} leftIcon={<Building className="h-5 w-5" />} />
@@ -408,7 +410,7 @@ export function RegisterPage() {
         <div className="flex items-center justify-center py-4 text-white lg:h-full lg:px-8 lg:py-12 xl:px-20">
           <div className="w-full max-w-lg rounded-3xl bg-gradient-to-br from-primary-700 via-primary-800 to-primary-900 p-6 shadow-2xl sm:p-8 xl:p-10">
             <BrandLogo className="mb-6 h-12 w-36 rounded-2xl bg-white" />
-            <h2 className="mb-6 text-2xl font-bold sm:text-3xl">A managed property marketplace</h2>
+            <h2 className="mb-6 text-2xl font-bold sm:text-3xl">A place-first property platform</h2>
             <div className="space-y-5">
               <section>
                 <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-200">Explore</h3>
@@ -426,13 +428,13 @@ export function RegisterPage() {
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Buy</li>
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Rent</li>
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Lease</li>
-                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book a stay</li>
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book</li>
                 </ul>
               </section>
               <section className="border-t border-white/15 pt-4">
                 <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary-200">Managed review</h3>
                 <div className="space-y-4">
-                  <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><Shield className="h-5 w-5" /></div><div><h4 className="mb-1 font-semibold">Administrator review</h4><p className="text-sm text-primary-100">Review property details and representative documents</p></div></div>
+                  <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><Shield className="h-5 w-5" /></div><div><h4 className="mb-1 font-semibold">TtakaMarket review</h4><p className="text-sm text-primary-100">Review property details and representative documents</p></div></div>
                   <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><CheckCircle className="h-5 w-5" /></div><div><h4 className="mb-1 font-semibold">Managed publication</h4><p className="text-sm text-primary-100">TtakaMarket controls approval and publication of submitted properties</p></div></div>
                   <div className="flex items-start gap-4"><div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-white/10"><Lock className="h-5 w-5" /></div><div><h4 className="mb-1 font-semibold">Clear contact arrangements</h4><p className="text-sm text-primary-100">Enquiries can be routed to an owner, authorised representative or TtakaMarket</p></div></div>
                 </div>

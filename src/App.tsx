@@ -1,20 +1,36 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context';
 import { Layout } from './components/layout';
-import { HomePage } from './pages/HomePage';
-import { ForgotPasswordPage, GoogleOnboardingPage, LoginPage, RegisterPage } from './pages/auth';
-import { PropertiesPage, PropertyDetailPage, NewPropertyPage } from './pages/properties';
-import { DashboardPage } from './pages/dashboard';
-import { MessagesPage } from './pages/messages';
-import { SavedPropertiesPage } from './pages/saved';
-import { ProfilePage } from './pages/profile';
-import { SellerProfilePage } from './pages/seller';
-import { HelpPage } from './pages/HelpPage';
-import { AboutPage, PolicyPage } from './pages/InfoPage';
 import { WHATSAPP_URL } from './lib/contact';
-import { RestorationPage } from './pages/RestorationPage';
-import { RestorationSubmissionPage } from './pages/RestorationSubmissionPage';
-import { RestorationPartnerPage } from './pages/RestorationPartnerPage';
+
+const HomePage = lazy(() => import('./pages/HomePage').then((module) => ({ default: module.HomePage })));
+const LoginPage = lazy(() => import('./pages/auth').then((module) => ({ default: module.LoginPage })));
+const RegisterPage = lazy(() => import('./pages/auth').then((module) => ({ default: module.RegisterPage })));
+const ForgotPasswordPage = lazy(() => import('./pages/auth').then((module) => ({ default: module.ForgotPasswordPage })));
+const GoogleOnboardingPage = lazy(() => import('./pages/auth').then((module) => ({ default: module.GoogleOnboardingPage })));
+const PropertiesPage = lazy(() => import('./pages/properties').then((module) => ({ default: module.PropertiesPage })));
+const PropertyDetailPage = lazy(() => import('./pages/properties').then((module) => ({ default: module.PropertyDetailPage })));
+const NewPropertyPage = lazy(() => import('./pages/properties').then((module) => ({ default: module.NewPropertyPage })));
+const DashboardPage = lazy(() => import('./pages/dashboard').then((module) => ({ default: module.DashboardPage })));
+const MessagesPage = lazy(() => import('./pages/messages').then((module) => ({ default: module.MessagesPage })));
+const SavedPropertiesPage = lazy(() => import('./pages/saved').then((module) => ({ default: module.SavedPropertiesPage })));
+const ProfilePage = lazy(() => import('./pages/profile').then((module) => ({ default: module.ProfilePage })));
+const SellerProfilePage = lazy(() => import('./pages/seller').then((module) => ({ default: module.SellerProfilePage })));
+const HelpPage = lazy(() => import('./pages/HelpPage').then((module) => ({ default: module.HelpPage })));
+const AboutPage = lazy(() => import('./pages/InfoPage').then((module) => ({ default: module.AboutPage })));
+const PolicyPage = lazy(() => import('./pages/InfoPage').then((module) => ({ default: module.PolicyPage })));
+const RestorationPage = lazy(() => import('./pages/RestorationPage').then((module) => ({ default: module.RestorationPage })));
+const RestorationSubmissionPage = lazy(() => import('./pages/RestorationSubmissionPage').then((module) => ({ default: module.RestorationSubmissionPage })));
+const RestorationPartnerPage = lazy(() => import('./pages/RestorationPartnerPage').then((module) => ({ default: module.RestorationPartnerPage })));
+
+function RouteLoading() {
+  return (
+    <div className="flex min-h-[50vh] items-center justify-center" role="status" aria-label="Loading page">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-primary-700" />
+    </div>
+  );
+}
 
 function FloatingWhatsAppButton() {
   const { pathname } = useLocation();
@@ -41,7 +57,8 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <Routes>
+        <Suspense fallback={<RouteLoading />}>
+          <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordPage />} />
@@ -66,7 +83,8 @@ function App() {
             <Route path="/privacy" element={<PolicyPage kind="privacy" />} />
             <Route path="/terms" element={<PolicyPage kind="terms" />} />
           </Route>
-        </Routes>
+          </Routes>
+        </Suspense>
 
         <FloatingWhatsAppButton />
       </Router>

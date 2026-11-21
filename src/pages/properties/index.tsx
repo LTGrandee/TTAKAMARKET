@@ -172,12 +172,18 @@ export function PropertyDetailPage() {
         created_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), updated_at: new Date().toISOString(),
         environmental_screening: {
           status: 'possible_conflict',
-          risks: ['wetland'],
+          risks: ['wetland', 'weather_exposure', 'infestation'],
           screened_at: new Date().toISOString(),
           screened_location: 'Kololo Hill Drive, Kampala',
           data_source: 'Preliminary pilot spatial data review',
           referral_required: true,
           disclaimer: 'Preliminary environmental screening only. It is not a permit, EIA or title check.',
+        },
+        land_context: {
+          average_temperature_c: 24,
+          weather_exposure: ['Heavy rain or flooding', 'Seasonal drainage'],
+          infestation_types: ['Mosquitoes'],
+          infestation_notes: 'Periodic mosquito activity may occur during wet seasons.',
         },
         images: [
           { id: '1', property_id: '1', image_url: 'https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=1200', is_primary: true, display_order: 0, created_at: new Date().toISOString() },
@@ -198,6 +204,13 @@ export function PropertyDetailPage() {
           city: 'Entebbe',
           region: 'Central',
           features: ['Furnished', 'Wi-Fi'],
+          accommodation_context: {
+            common_room_temperature_c: 25,
+            weather_exposure: ['High heat', 'Heavy rain or flooding'],
+            infestation_types: ['Mosquitoes', 'Ants'],
+            pest_control_measures: ['Mosquito nets', 'Indoor pest treatment', 'Regular cleaning'],
+            comfort_notes: 'Airflow and cooling options should be confirmed for the stay dates.',
+          },
           images: [{ id: '7', property_id: '7', image_url: 'https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=800', is_primary: true, display_order: 0, created_at: new Date().toISOString() }],
         } : {}),
       };
@@ -302,6 +315,47 @@ export function PropertyDetailPage() {
               <div className="prose prose-sm max-w-none text-gray-600 whitespace-pre-line">{property.description}</div>
             </div>
 
+            {(property.land_context || property.accommodation_context) && (
+              <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+                <h2 className="text-lg font-semibold text-gray-900">
+                  {property.accommodation_context ? 'Stay comfort & environmental context' : 'Land & weather context'}
+                </h2>
+                {property.accommodation_context ? (
+                  <dl className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {property.accommodation_context.common_room_temperature_c !== undefined && (
+                      <div className="rounded-lg bg-gray-50 p-3"><dt className="text-xs text-gray-500">Common room temperature</dt><dd className="mt-1 font-semibold text-gray-900">{property.accommodation_context.common_room_temperature_c}°C</dd></div>
+                    )}
+                    {(property.accommodation_context.weather_exposure?.length ?? 0) > 0 && (
+                      <div className="rounded-lg bg-gray-50 p-3"><dt className="text-xs text-gray-500">Weather exposure</dt><dd className="mt-1 text-sm text-gray-900">{property.accommodation_context.weather_exposure?.join(', ')}</dd></div>
+                    )}
+                    {(property.accommodation_context.infestation_types?.length ?? 0) > 0 && (
+                      <div className="rounded-lg bg-gray-50 p-3"><dt className="text-xs text-gray-500">Infestation concerns</dt><dd className="mt-1 text-sm text-gray-900">{property.accommodation_context.infestation_types?.join(', ')}</dd></div>
+                    )}
+                    {(property.accommodation_context.pest_control_measures?.length ?? 0) > 0 && (
+                      <div className="rounded-lg bg-gray-50 p-3"><dt className="text-xs text-gray-500">Pest-control measures</dt><dd className="mt-1 text-sm text-gray-900">{property.accommodation_context.pest_control_measures?.join(', ')}</dd></div>
+                    )}
+                  </dl>
+                ) : property.land_context && (
+                  <dl className="mt-4 grid gap-3 sm:grid-cols-2">
+                    {property.land_context.average_temperature_c !== undefined && (
+                      <div className="rounded-lg bg-gray-50 p-3"><dt className="text-xs text-gray-500">Average temperature</dt><dd className="mt-1 font-semibold text-gray-900">{property.land_context.average_temperature_c}°C</dd></div>
+                    )}
+                    {(property.land_context.weather_exposure?.length ?? 0) > 0 && (
+                      <div className="rounded-lg bg-gray-50 p-3"><dt className="text-xs text-gray-500">Weather exposure</dt><dd className="mt-1 text-sm text-gray-900">{property.land_context.weather_exposure?.join(', ')}</dd></div>
+                    )}
+                    {(property.land_context.infestation_types?.length ?? 0) > 0 && (
+                      <div className="rounded-lg bg-gray-50 p-3"><dt className="text-xs text-gray-500">Infestation concerns</dt><dd className="mt-1 text-sm text-gray-900">{property.land_context.infestation_types?.join(', ')}</dd></div>
+                    )}
+                  </dl>
+                )}
+                {(property.accommodation_context?.comfort_notes || property.land_context?.infestation_notes) && (
+                  <p className="mt-3 text-sm leading-6 text-gray-600">
+                    {property.accommodation_context?.comfort_notes || property.land_context?.infestation_notes}
+                  </p>
+                )}
+              </div>
+            )}
+
             {property.environmental_screening && (
               <div className="rounded-xl border border-success-200 bg-success-50 p-5 shadow-sm">
                 <div className="flex items-start gap-3">
@@ -321,8 +375,14 @@ export function PropertyDetailPage() {
                     {property.environmental_screening.risks.length > 0 && (
                       <div className="mt-3 flex flex-wrap gap-2">
                         {property.environmental_screening.risks.map((risk) => (
-                          <span key={risk} className="rounded-full border border-success-200 bg-white px-2.5 py-1 text-xs font-medium text-success-800">
-                            {risk === 'none_identified' ? 'No common risk identified' : risk.replace('_', ' ')}
+                          <span key={risk} className="rounded-full border border-success-200 bg-white px-2.5 py-1 text-xs font-medium capitalize text-success-800">
+                            {risk === 'none_identified'
+                              ? 'No common risk identified'
+                              : risk === 'weather_exposure'
+                                ? 'Weather exposure'
+                                : risk === 'road_reserve'
+                                  ? 'Road reserve'
+                                  : risk.replace('_', ' ')}
                           </span>
                         ))}
                       </div>
@@ -424,6 +484,13 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
     environmental_risk: 'none_identified',
     environmental_notes: '',
     environmental_referral: false,
+    average_temperature_c: '',
+    weather_exposure: [] as string[],
+    infestation_types: [] as string[],
+    infestation_notes: '',
+    common_room_temperature_c: '',
+    pest_control_measures: [] as string[],
+    comfort_notes: '',
   }));
   const [images, setImages] = useState<File[]>([]);
   const [documents, setDocuments] = useState<File[]>([]);
@@ -431,6 +498,12 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
   const updateForm = (field: string, value: string | string[]) => setFormData((prev) => ({ ...prev, [field]: value }));
   const toggleFeature = (feature: string) => {
     setFormData((prev) => ({ ...prev, features: prev.features.includes(feature) ? prev.features.filter((f) => f !== feature) : [...prev.features, feature] }));
+  };
+  const toggleListValue = (field: 'weather_exposure' | 'infestation_types' | 'pest_control_measures', value: string) => {
+    setFormData((prev) => {
+      const current = prev[field] as string[];
+      return { ...prev, [field]: current.includes(value) ? current.filter((item) => item !== value) : [...current, value] };
+    });
   };
 
   const handleSubmit = () => setSubmitted(true);
@@ -481,7 +554,7 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
         <Card className="w-full max-w-xl p-8 text-center">
           <CheckCircle className="h-12 w-12 text-primary-600 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-gray-900">{isAccommodationSubmission ? 'Accommodation details ready' : 'Property details ready'}</h1>
-          <p className="mt-3 text-gray-600">Your {isAccommodationSubmission ? 'accommodation' : 'property'} details are ready for administrator review.{formData.request_seller_dashboard ? ' Your seller dashboard request has also been noted.' : ''}</p>
+          <p className="mt-3 text-gray-600">Your {isAccommodationSubmission ? 'accommodation' : 'property'} details are ready for TtakaMarket review.{formData.request_seller_dashboard ? ' Your property-profile request has also been noted.' : ''}</p>
           <div className="mt-6 flex flex-col sm:flex-row justify-center gap-3">
             <Link to="/properties"><Button variant="outline">Browse Properties</Button></Link>
             <Link to="/register"><Button variant="primary">Create an optional dashboard account</Button></Link>
@@ -496,7 +569,7 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
       <div className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{isAccommodationSubmission ? 'Submit Accommodation' : 'Submit a Property'}</h1>
-          <p className="mt-1 text-gray-500">{isAccommodationSubmission ? 'List a place to stay, meet, dine, celebrate or enjoy the outdoors, with clear availability and rates.' : 'Submit property details, photos and supporting documents for review. No account is needed for a one-time submission.'}</p>
+          <p className="mt-1 text-gray-500">{isAccommodationSubmission ? 'List a place to stay, meet, dine, celebrate or enjoy the outdoors, with clear availability and rates.' : 'Submit property details, photos and supporting documents for review. No account is needed for a single submission.'}</p>
           <div className="mt-8 flex w-full items-center">
             {steps.map((step, index) => (
               <div key={step.id} className={cn('flex min-w-0 items-center', index < steps.length - 1 && 'flex-1')}>
@@ -585,7 +658,7 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
                     className="mt-1 h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                   />
                   <span>
-                    <strong className="text-gray-900">Request a seller dashboard</strong>
+                    <strong className="text-gray-900">Request a property profile</strong>
                     <span className="mt-1 block text-gray-500">Request a dashboard to manage this submission and your future property or accommodation listings.</span>
                   </span>
                 </label>
@@ -596,23 +669,76 @@ export function NewPropertyPage({ submissionType = 'property' }: { submissionTyp
           {currentStep === 3 && (
             <div className="space-y-6">
               <div><h2 className="text-lg font-semibold text-gray-900 mb-4">Features & Amenities</h2><p className="text-sm text-gray-500 mb-4">Select all features that apply</p><div className="flex flex-wrap gap-2 mb-4">{commonFeatures.map((feature) => (<button key={feature} type="button" onClick={() => toggleFeature(feature)} className={cn('px-3 py-1.5 rounded-full text-sm font-medium transition-colors', formData.features.includes(feature) ? 'bg-primary-100 text-primary-700 border border-primary-300' : 'bg-gray-100 text-gray-600 border border-gray-200 hover:border-gray-300')}>{feature}</button>))}</div></div>
-              {!isAccommodationSubmission && (
                 <div className="rounded-xl border border-success-200 bg-success-50 p-4">
-                  <h3 className="font-semibold text-success-900">Environmental screening information</h3>
-                  <p className="mt-1 text-sm leading-6 text-success-800">Share the location and known environmental concerns. Screening is preliminary and is not a permit, EIA or title check.</p>
+                  <h3 className="font-semibold text-success-900">Land, weather &amp; infestation information</h3>
+                  <p className="mt-1 text-sm leading-6 text-success-800">Share known conditions and observations. Screening is preliminary and is not a permit, EIA or title check.</p>
                   <div className="mt-4 grid gap-4 sm:grid-cols-2">
                     <Select label="Screening status" options={[{ value: 'not_started', label: 'Not started' }, { value: 'screening', label: 'Screening in progress' }, { value: 'no_flag_identified', label: 'No preliminary flag identified' }, { value: 'possible_conflict', label: 'Possible conflict identified' }, { value: 'expert_review', label: 'Expert review recommended' }]} value={formData.environmental_screen_status} onChange={(e) => updateForm('environmental_screen_status', e.target.value)} />
-                    <Select label="Known risk category" options={[{ value: 'none_identified', label: 'No common risk identified' }, { value: 'wetland', label: 'Wetland' }, { value: 'road_reserve', label: 'Road reserve' }, { value: 'forest', label: 'Forest' }, { value: 'riverbank', label: 'Riverbank' }, { value: 'protected_area', label: 'Protected area' }]} value={formData.environmental_risk} onChange={(e) => updateForm('environmental_risk', e.target.value)} />
+                    <Select label="Known risk category" options={[{ value: 'none_identified', label: 'No common risk identified' }, { value: 'wetland', label: 'Wetland' }, { value: 'road_reserve', label: 'Road reserve' }, { value: 'forest', label: 'Forest' }, { value: 'riverbank', label: 'Riverbank' }, { value: 'protected_area', label: 'Protected area' }, { value: 'weather_exposure', label: 'Weather exposure' }, { value: 'infestation', label: 'Infestation' }]} value={formData.environmental_risk} onChange={(e) => updateForm('environmental_risk', e.target.value)} />
                   </div>
+                  <div className="mt-4 grid gap-4 sm:grid-cols-2">
+                    <Input
+                      label={isAccommodationSubmission ? 'Common room temperature (°C)' : 'Average temperature (°C)'}
+                      type="number"
+                      placeholder={isAccommodationSubmission ? 'e.g., 24' : 'e.g., 26'}
+                      value={isAccommodationSubmission ? formData.common_room_temperature_c : formData.average_temperature_c}
+                      onChange={(e) => updateForm(isAccommodationSubmission ? 'common_room_temperature_c' : 'average_temperature_c', e.target.value)}
+                    />
+                  </div>
+                  <fieldset className="mt-4">
+                    <legend className="mb-2 text-sm font-medium text-gray-700">Weather exposure to note</legend>
+                    <div className="flex flex-wrap gap-2">
+                      {['Heavy rain or flooding', 'High heat', 'Strong winds', 'Prolonged dry conditions', 'Seasonal drainage'].map((item) => (
+                        <label key={item} className={cn('flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium', formData.weather_exposure.includes(item) ? 'border-success-500 bg-success-100 text-success-900' : 'border-gray-200 bg-white text-gray-600')}>
+                          <input type="checkbox" checked={formData.weather_exposure.includes(item)} onChange={() => toggleListValue('weather_exposure', item)} className="h-3.5 w-3.5 accent-success-700" />
+                          {item}
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                  <fieldset className="mt-4">
+                    <legend className="mb-2 text-sm font-medium text-gray-700">{isAccommodationSubmission ? 'Common infestation concerns' : 'Known infestation concerns'}</legend>
+                    <div className="flex flex-wrap gap-2">
+                      {['Mosquitoes', 'Termites', 'Rodents', 'Ants', 'Cockroaches', 'Bed bugs', 'Ticks', 'No known infestation'].map((item) => (
+                        <label key={item} className={cn('flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium', formData.infestation_types.includes(item) ? 'border-success-500 bg-success-100 text-success-900' : 'border-gray-200 bg-white text-gray-600')}>
+                          <input type="checkbox" checked={formData.infestation_types.includes(item)} onChange={() => toggleListValue('infestation_types', item)} className="h-3.5 w-3.5 accent-success-700" />
+                          {item}
+                        </label>
+                      ))}
+                    </div>
+                  </fieldset>
+                  {isAccommodationSubmission && (
+                    <fieldset className="mt-4">
+                      <legend className="mb-2 text-sm font-medium text-gray-700">Pest-control measures</legend>
+                      <div className="flex flex-wrap gap-2">
+                        {['Mosquito nets', 'Indoor pest treatment', 'Termite control', 'Rodent-proofing', 'Regular cleaning', 'Sealed doors and windows'].map((item) => (
+                          <label key={item} className={cn('flex cursor-pointer items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium', formData.pest_control_measures.includes(item) ? 'border-success-500 bg-success-100 text-success-900' : 'border-gray-200 bg-white text-gray-600')}>
+                            <input type="checkbox" checked={formData.pest_control_measures.includes(item)} onChange={() => toggleListValue('pest_control_measures', item)} className="h-3.5 w-3.5 accent-success-700" />
+                            {item}
+                          </label>
+                        ))}
+                      </div>
+                    </fieldset>
+                  )}
                   <div className="mt-4">
-                    <Textarea label="Environmental notes (optional)" placeholder="Describe the evidence, source or expert referral relevant to the location" value={formData.environmental_notes} onChange={(e) => updateForm('environmental_notes', e.target.value)} rows={3} />
+                    <Textarea
+                      label={isAccommodationSubmission ? 'Comfort, pest and weather notes (optional)' : 'Environmental notes (optional)'}
+                      placeholder={isAccommodationSubmission ? 'Describe room ventilation, seasonal heat, pest observations or control measures' : 'Describe the evidence, source or expert referral relevant to the location'}
+                      value={isAccommodationSubmission ? formData.comfort_notes : formData.environmental_notes}
+                      onChange={(e) => updateForm(isAccommodationSubmission ? 'comfort_notes' : 'environmental_notes', e.target.value)}
+                      rows={3}
+                    />
+                    {isAccommodationSubmission && (
+                      <div className="mt-3">
+                        <Textarea label="Infestation details (optional)" placeholder="Describe where pests appear, frequency and control history" value={formData.infestation_notes} onChange={(e) => updateForm('infestation_notes', e.target.value)} rows={3} />
+                      </div>
+                    )}
                   </div>
                   <label className="mt-4 flex items-start gap-3 text-sm text-success-900">
                     <input type="checkbox" checked={formData.environmental_referral} onChange={(e) => setFormData((prev) => ({ ...prev, environmental_referral: e.target.checked }))} className="mt-1 h-4 w-4 rounded border-gray-300 text-success-600" />
                     <span>Recommend environmental or legal expert referral before a transaction or development decision.</span>
                   </label>
                 </div>
-              )}
             </div>
           )}
 

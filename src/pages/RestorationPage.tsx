@@ -16,6 +16,7 @@ export function RestorationPage() {
   const [district, setDistrict] = useState('');
   const [risk, setRisk] = useState('');
   const [view, setView] = useState<'map' | 'list'>('map');
+  const [selectedProjectId, setSelectedProjectId] = useState(restorationProjects[0].id);
   const [savedProjectIds, setSavedProjectIds] = useState<string[]>(() => JSON.parse(localStorage.getItem(RESTORATION_SAVED_KEY) || '[]') as string[]);
   const filteredProjects = restorationProjects.filter((project) => (!district || project.district === district) && (!risk || project.risk_categories.includes(risk as RestorationProject['risk_categories'][number])));
   const toggleSavedProject = (projectId: string) => {
@@ -31,7 +32,75 @@ export function RestorationPage() {
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         <section className="grid grid-cols-2 gap-3 sm:grid-cols-4">{[{ value: '3.7 ha', label: 'Projects in the hub', icon: Trees }, { value: '2', label: 'Active projects', icon: Sprout }, { value: '100%', label: 'Consent confirmed', icon: ShieldCheck }, { value: '6 steps', label: 'From report to monitoring', icon: BadgeCheck }].map(({ value, label, icon: Icon }) => <Card key={label} className="p-4 sm:p-5"><Icon className="h-5 w-5 text-success-700" /><p className="mt-3 text-xl font-bold text-gray-900 sm:text-2xl">{value}</p><p className="mt-1 text-xs leading-5 text-gray-500 sm:text-sm">{label}</p></Card>)}</section>
         <section className="mt-10"><div className="text-center"><p className="text-xs font-bold uppercase tracking-wider text-success-700">How it works</p><h2 className="mt-1 text-2xl font-bold text-gray-900">A visible path from concern to recovery</h2></div><div className="mt-6 grid gap-4 sm:grid-cols-3">{[{ Icon: ClipboardCheck, title: 'Report & screen', text: 'Share the location, condition and visual evidence. We check the initial facts and consent context.' }, { Icon: Users, title: 'Assess & match', text: 'Qualified partners help assess the site and shape a practical restoration plan.' }, { Icon: Eye, title: 'Restore & verify', text: 'Progress is documented, monitored and independently verified before outcomes are reported.' }].map(({ Icon, title, text }) => <Card key={title} className="p-5"><Icon className="h-6 w-6 text-success-700" /><h3 className="mt-3 font-semibold text-gray-900">{title}</h3><p className="mt-1 text-sm leading-6 text-gray-600">{text}</p></Card>)}</div></section>
-        <section id="projects" className="mt-10 scroll-mt-20"><div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-xs font-bold uppercase tracking-wider text-success-700">Screened opportunities</p><h2 className="mt-1 text-2xl font-bold text-gray-900">Restoration projects</h2><p className="mt-1 text-sm text-gray-500">Explore projects by location and environmental risk.</p></div><div className="flex rounded-lg border border-gray-200 bg-white p-1"><button type="button" onClick={() => setView('map')} className={`rounded-md px-3 py-2 text-sm font-medium ${view === 'map' ? 'bg-success-700 text-white' : 'text-gray-600'}`}>Map view</button><button type="button" onClick={() => setView('list')} className={`rounded-md px-3 py-2 text-sm font-medium ${view === 'list' ? 'bg-success-700 text-white' : 'text-gray-600'}`}>List view</button></div></div><div className="mt-4 grid gap-3 rounded-xl border border-gray-200 bg-white p-4 sm:grid-cols-[1fr_1fr_auto]"><Select aria-label="Filter by district" value={district} onChange={(event) => setDistrict(event.target.value)} options={[{ value: 'Kampala', label: 'Kampala' }, { value: 'Wakiso', label: 'Wakiso' }]} placeholder="All districts" /><Select aria-label="Filter by risk" value={risk} onChange={(event) => setRisk(event.target.value)} options={[{ value: 'wetland', label: 'Wetland' }, { value: 'riverbank', label: 'Riverbank' }]} placeholder="All risk types" /><div className="flex items-center gap-2 text-sm text-gray-500"><Filter className="h-4 w-4" />{filteredProjects.length} shown</div></div>{view === 'map' && <div className="relative mt-4 h-64 overflow-hidden rounded-2xl border border-success-200 bg-[radial-gradient(circle_at_20%_20%,#d1fae5,transparent_35%),linear-gradient(135deg,#ecfdf5,#dbeafe)]"><div className="absolute inset-0 opacity-30 [background-image:linear-gradient(90deg,white_1px,transparent_1px),linear-gradient(white_1px,transparent_1px)] [background-size:42px_42px]" /><div className="absolute left-[27%] top-[35%] flex flex-col items-center"><MapPin className="h-9 w-9 fill-success-700 text-success-700 drop-shadow" /><span className="rounded-full bg-white px-2 py-1 text-xs font-semibold shadow">Nakivubo</span></div><div className="absolute left-[67%] top-[58%] flex flex-col items-center"><MapPin className="h-9 w-9 fill-success-700 text-success-700 drop-shadow" /><span className="rounded-full bg-white px-2 py-1 text-xs font-semibold shadow">Busega</span></div><div className="absolute bottom-4 left-4 rounded-lg bg-white/90 px-3 py-2 text-xs text-gray-600 shadow"><MapPin className="mr-1 inline h-3 w-3 text-success-700" />Illustrative project locations · exact coordinates shared after consent</div></div>}        <div className="mt-4 grid gap-5 md:grid-cols-2">{filteredProjects.map((project) => <ProjectCard key={project.id} project={project} isSaved={savedProjectIds.includes(project.id)} onToggleSaved={() => toggleSavedProject(project.id)} />)}</div>{filteredProjects.length === 0 && <Card className="mt-4 p-8 text-center"><Leaf className="mx-auto h-8 w-8 text-gray-400" /><p className="mt-3 text-sm text-gray-600">No projects match these filters yet.</p></Card>}</section>
+        <section id="projects" className="mt-10 scroll-mt-20">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-success-700">Screened opportunities</p>
+              <h2 className="mt-1 text-2xl font-bold text-gray-900">Restoration projects</h2>
+              <p className="mt-1 text-sm text-gray-500">Explore projects by location and environmental risk.</p>
+            </div>
+            <div className="grid grid-cols-2 rounded-lg border border-gray-200 bg-white p-1" aria-label="Project view">
+              <button type="button" onClick={() => setView('map')} aria-pressed={view === 'map'} className={`rounded-md px-3 py-2 text-sm font-medium ${view === 'map' ? 'bg-success-700 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>Map view</button>
+              <button type="button" onClick={() => setView('list')} aria-pressed={view === 'list'} className={`rounded-md px-3 py-2 text-sm font-medium ${view === 'list' ? 'bg-success-700 text-white' : 'text-gray-600 hover:bg-gray-50'}`}>List view</button>
+            </div>
+          </div>
+          <div className="mt-4 grid gap-3 rounded-xl border border-gray-200 bg-white p-4 sm:grid-cols-[1fr_1fr_auto]">
+            <Select aria-label="Filter by district" value={district} onChange={(event) => setDistrict(event.target.value)} options={[{ value: 'Kampala', label: 'Kampala' }, { value: 'Wakiso', label: 'Wakiso' }]} placeholder="All districts" />
+            <Select aria-label="Filter by risk" value={risk} onChange={(event) => setRisk(event.target.value)} options={[{ value: 'wetland', label: 'Wetland' }, { value: 'riverbank', label: 'Riverbank' }]} placeholder="All risk types" />
+            <button type="button" onClick={() => { setDistrict(''); setRisk(''); }} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-gray-200 px-3 text-sm font-semibold text-gray-600 hover:border-success-300 hover:text-success-700">
+              <Filter className="h-4 w-4" />{district || risk ? 'Clear filters' : `${filteredProjects.length} shown`}
+            </button>
+          </div>
+          {view === 'map' && (
+            <div className="relative mt-4 h-72 overflow-hidden rounded-2xl border border-success-200 bg-[linear-gradient(145deg,#eefcf5,#e5f0ff)] sm:h-80">
+              <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(90deg,rgba(255,255,255,.9)_1px,transparent_1px),linear-gradient(rgba(255,255,255,.9)_1px,transparent_1px)] [background-size:36px_36px]" />
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_38%,rgba(16,185,129,.18),transparent_16%),radial-gradient(circle_at_68%_62%,rgba(59,130,246,.12),transparent_18%)]" />
+              {filteredProjects.map((project) => (
+                <button
+                  key={project.id}
+                  type="button"
+                  onClick={() => setSelectedProjectId(project.id)}
+                  aria-label={`View ${project.title}`}
+                  className={`absolute flex flex-col items-center transition-transform hover:scale-105 ${project.id === 'rest-1' ? 'left-[27%] top-[33%]' : 'left-[66%] top-[57%]'}`}
+                >
+                  <span className={`flex h-11 w-11 items-center justify-center rounded-full border-4 border-white shadow-lg ${selectedProjectId === project.id ? 'bg-success-800 text-white' : 'bg-success-600 text-white'}`}>
+                    <MapPin className="h-5 w-5" />
+                  </span>
+                  <span className="mt-1 max-w-28 rounded-full bg-white px-2.5 py-1 text-[11px] font-semibold text-gray-700 shadow">{project.location}</span>
+                </button>
+              ))}
+              {filteredProjects.length > 0 && (
+                <div className="absolute bottom-3 left-3 right-3 rounded-xl border border-white/70 bg-white/95 p-3 shadow-lg backdrop-blur sm:left-auto sm:w-[19rem]">
+                  {(() => {
+                    const project = filteredProjects.find((item) => item.id === selectedProjectId) || filteredProjects[0];
+                    return <>
+                      <Badge variant="success" size="sm">{statusLabels[project.status]}</Badge>
+                      <p className="mt-2 text-sm font-bold text-gray-900">{project.title}</p>
+                      <p className="mt-1 text-xs text-gray-500">{project.location}, {project.district} · {project.area_hectares} ha</p>
+                    </>;
+                  })()}
+                </div>
+              )}
+              {filteredProjects.length === 0 && (
+                <div className="absolute inset-0 flex items-center justify-center px-6">
+                  <Card className="p-5 text-center"><Leaf className="mx-auto h-7 w-7 text-gray-400" /><p className="mt-2 text-sm text-gray-600">No project locations match these filters.</p></Card>
+                </div>
+              )}
+              <div className="absolute right-3 top-3 hidden rounded-lg bg-white/90 px-3 py-2 text-xs text-gray-500 shadow sm:block">Illustrative location · exact coordinates after consent</div>
+            </div>
+          )}
+          {view === 'list' && (
+            <div className="mt-4 grid gap-5 md:grid-cols-2">
+              {filteredProjects.map((project) => <ProjectCard key={project.id} project={project} isSaved={savedProjectIds.includes(project.id)} onToggleSaved={() => toggleSavedProject(project.id)} />)}
+            </div>
+          )}
+          {view === 'map' && (
+            <div className="mt-4 grid gap-5 md:grid-cols-2">
+              {filteredProjects.map((project) => <ProjectCard key={project.id} project={project} isSaved={savedProjectIds.includes(project.id)} onToggleSaved={() => toggleSavedProject(project.id)} />)}
+            </div>
+          )}
+          {filteredProjects.length === 0 && <Card className="mt-4 p-8 text-center"><Leaf className="mx-auto h-8 w-8 text-gray-400" /><p className="mt-3 text-sm text-gray-600">No projects match these filters yet.</p></Card>}
+        </section>
         <section className="mt-10 grid gap-5 lg:grid-cols-2"><Card className="border-success-100 bg-success-50 p-6"><Users className="h-6 w-6 text-success-700" /><h2 className="mt-3 text-xl font-bold text-success-900">Partner with us</h2><p className="mt-2 text-sm leading-6 text-success-800">Register your organisation, submit a restoration project proposal, or do both through one guided application.</p><Link to="/restoration/partners/register" className="mt-4 inline-flex items-center rounded-lg bg-success-700 px-4 py-2.5 text-sm font-semibold text-white hover:bg-success-800">Partner with us <ArrowRight className="ml-1 inline h-4 w-4" /></Link></Card><Card className="border-warning-200 bg-warning-50 p-6"><AlertTriangle className="h-6 w-6 text-warning-700" /><h2 className="mt-3 text-xl font-bold text-warning-900">Urgent or regulated concerns</h2><p className="mt-2 text-sm leading-6 text-warning-800">Active dumping, fire, flooding or illegal clearing should also be reported to the relevant local authority. This hub does not replace permits, EIAs, title checks or emergency response.</p><Link to="/help#contact" className="mt-4 inline-block text-sm font-semibold text-warning-900">Get guidance <ArrowRight className="ml-1 inline h-4 w-4" /></Link></Card></section>
         <section className="mt-10 rounded-2xl bg-gray-900 p-6 text-white sm:p-8"><div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"><div><h2 className="text-2xl font-bold">Know land that needs attention?</h2><p className="mt-2 max-w-2xl text-sm leading-6 text-gray-300">A location, a short description and a few images can help start a responsible screening conversation.</p></div><Link to="/restoration/report"><Button variant="accent" size="lg">Start a report <ArrowRight className="ml-1 h-4 w-4" /></Button></Link></div></section>
       </main>
