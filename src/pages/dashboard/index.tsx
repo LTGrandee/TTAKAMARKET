@@ -134,7 +134,7 @@ export function DashboardPage() {
                   <Badge key={category} variant="secondary">{getPropertyCategoryLabel(category)}</Badge>
                 ))}
                 {profile.marketplace_preferences?.listing_intents.map((intent) => (
-                  <Badge key={intent} variant="primary">{intent === 'sale' ? 'Buy' : intent === 'book' ? 'Book' : intent === 'rent' ? 'Rent' : 'Lease'}</Badge>
+                  <Badge key={intent} variant="primary">{intent === 'sale' ? 'Buy' : intent === 'book' ? 'Book a stay' : intent === 'rent' ? 'Rent' : 'Lease'}</Badge>
                 ))}
                 {!profile.marketplace_preferences?.property_categories.length && !profile.marketplace_preferences?.listing_intents.length && (
                   <span className="text-sm text-gray-400">No preferences selected yet</span>

@@ -254,7 +254,7 @@ function MarketplacePreferencesModal({ profile, onClose, onSave }: {
     ['sale', 'Buy'],
     ['rent', 'Rent'],
     ['lease', 'Lease'],
-    ['book', 'Book'],
+    ['book', 'Book a stay'],
   ];
 
   return (
@@ -492,7 +492,7 @@ export function ProfilePage() {
           desc={profile.marketplace_preferences
             ? [
                 ...profile.marketplace_preferences.property_categories.map(getPropertyCategoryLabel),
-                ...profile.marketplace_preferences.listing_intents.map((intent) => intent === 'sale' ? 'Buy' : intent === 'book' ? 'Book' : intent === 'rent' ? 'Rent' : 'Lease'),
+                ...profile.marketplace_preferences.listing_intents.map((intent) => intent === 'sale' ? 'Buy' : intent === 'book' ? 'Book a stay' : intent === 'rent' ? 'Rent' : 'Lease'),
               ].join(' · ') || 'Choose categories and offer types to find matches faster'
             : 'Choose categories and offer types to find matches faster'}
           onClick={() => setModal('marketplace-preferences')}

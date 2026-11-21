@@ -124,7 +124,7 @@ export function LoginPage() {
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Buy</li>
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Rent</li>
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Lease</li>
-                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book</li>
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book a stay</li>
                 </ul>
               </section>
             </div>
@@ -349,7 +349,7 @@ export function RegisterPage() {
                             ['sale', 'Buy'],
                             ['rent', 'Rent'],
                             ['lease', 'Lease'],
-                            ['book', 'Book'],
+                            ['book', 'Book a stay'],
                           ] as const).map(([value, label]) => {
                             const selected = formData.listingIntents.includes(value);
                             return (
@@ -428,7 +428,7 @@ export function RegisterPage() {
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Buy</li>
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Rent</li>
                   <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Lease</li>
-                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book</li>
+                  <li className="flex items-center gap-2"><span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent-400" />Book a stay</li>
                 </ul>
               </section>
               <section className="border-t border-white/15 pt-4">

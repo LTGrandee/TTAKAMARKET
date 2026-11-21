@@ -202,14 +202,14 @@ export function HomePage() {
       <div className="relative z-10 mx-auto -mt-8 mb-8 max-w-6xl px-4 sm:-mt-10 sm:px-6">
         <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-xl shadow-primary-900/10 sm:p-6">
           {/* Tabs */}
-          <div className="mb-4 flex w-full border-b border-gray-100 sm:gap-5">
+          <div className="mb-4 grid w-full grid-cols-4 border-b border-gray-100">
             {(['buy', 'rent', 'lease', 'book'] as const).map(tab => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 aria-pressed={activeTab === tab}
                 className={cn(
-                  'mb-[-1px] flex min-h-11 min-w-0 flex-1 items-center justify-center gap-1 border-b-2 px-1 text-xs font-semibold capitalize transition-colors sm:flex-none sm:gap-2 sm:px-4 sm:text-sm',
+                  'mb-[-1px] flex min-h-11 min-w-0 items-center justify-center gap-1 border-b-2 px-1 text-xs font-semibold transition-colors sm:gap-2 sm:px-3 sm:text-sm',
                   activeTab === tab ? 'border-accent-600 text-accent-700' : 'border-transparent text-gray-500 hover:text-gray-900'
                 )}
               >
@@ -217,7 +217,7 @@ export function HomePage() {
                 {tab === 'rent' && <Key className="h-4 w-4 shrink-0" />}
                 {tab === 'lease' && <Tag className="h-4 w-4 shrink-0" />}
                 {tab === 'book' && <BedDouble className="h-4 w-4 shrink-0" />}
-                {tab === 'book' ? 'Short stays' : tab.charAt(0).toUpperCase() + tab.slice(1)}
+                {tab === 'book' ? 'Book' : tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
             ))}
           </div>
